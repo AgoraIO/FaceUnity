@@ -1,0 +1,37 @@
+/* 
+  Localizable.strings
+  AgoraWithFaceunity
+
+  Created by ZhangJi on 2018/7/23.
+  Copyright © 2018 ZhangJi. All rights reserved.
+*/
+
+"美颜"  =  "美颜" ;
+"Animoji"  =  "Animoji" ;
+"道具贴纸"  =  "道具贴纸" ;
+"AR面具"  =  "AR面具" ;
+"换脸"  =  "换脸" ;
+"表情识别"  =  "表情识别" ;
+"音乐滤镜"  =  "音乐滤镜" ;
+"背景分割"  =  "背景分割" ;
+"手势识别"  =  "手势识别" ;
+"哈哈镜"  =  "哈哈镜" ;
+"人像驱动"  =  "人像驱动" ;
+
+"High-precision version of AR marsk"  =  "AR面具高精度版";
+
+"Open Your Mouth" = "张嘴试试";
+"Puff Your Cheeks" = "鼓腮帮子";
+"Frown" = "皱眉触发";
+"Blink" = "眨一眨眼";
+"Give me a kiss" = "嘟嘴试试";
+"Have a Smile" = "微笑触发";
+"Whistle" = "吹气触发";
+"Swivel" = "转头触发";
+"Heart_a" = "单手手指比心";
+"Fist" = "双手抱拳";
+"Namaste" = "双手合十";
+"Heart_b" = "双手比心";
+"Thumb_up" = "竖个拇指";
+"Shaka sign" = "比个六";
+"Be cute" = "双拳靠近脸颊卖萌";

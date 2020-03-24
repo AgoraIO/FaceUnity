@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="AgoraObject">
+      <UniqueIdentifier>{0118e6c3-2c2d-45ed-a54d-7b95381312e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Uitl">
+      <UniqueIdentifier>{94db7d38-20fd-4277-9ef9-11971b3d8e4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{a0cee6fa-9ec7-43cb-b7f2-33f74333b696}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectShow">
+      <UniqueIdentifier>{49b9d97f-4b32-442c-bb91-60b234e358dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buffer">
+      <UniqueIdentifier>{7606e1ba-3566-4746-a17d-5399ad5b265f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FaceUnityObject">
+      <UniqueIdentifier>{be512612-75bf-4cbc-8bc0-9f8fd00406d5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AgoraFaceUnityTutorial.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AgoraFaceUnityTutorialDlg.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="AGEngineEventHandler.h">
+      <Filter>AgoraObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AGEventDef.h">
+      <Filter>AgoraObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AgoraAudInputManager.h">
+      <Filter>AgoraObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AgoraCameraManager.h">
+      <Filter>AgoraObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AgoraObject.h">
+      <Filter>AgoraObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AGResourceVisitor.h">
+      <Filter>AgoraObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AGButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="AGComboBox.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="AGEdit.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="AGSliderCtrl.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="commonfun.h">
+      <Filter>Uitl</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicKey5.h">
+      <Filter>Uitl</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIO.h">
+      <Filter>Uitl</Filter>
+    </ClInclude>
+    <ClInclude Include="Packer.h">
+      <Filter>Uitl</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Uitl</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraDS.h">
+      <Filter>DirectShow</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendAudioFrameObserver.h">
+      <Filter>AgoraObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendVideoFrameObserver.h">
+      <Filter>AgoraObject</Filter>
+    </ClInclude>
+    <ClInclude Include="YUVTrans.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Nama.h">
+      <Filter>FaceUnityObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalValue.h">
+      <Filter>FaceUnityObject</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameFrequencyCtrl.h">
+      <Filter>Uitl</Filter>
+    </ClInclude>
+    <ClInclude Include="AgoraOpenGL.h">
+      <Filter>FaceUnityObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferQueue.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="VideoPackageQueue.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AgoraFaceUnityTutorial.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AgoraFaceUnityTutorialDlg.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="AGEngineEventHandler.cpp">
+      <Filter>AgoraObject</Filter>
+    </ClCompile>
+    <ClCompile Include="AgoraAudInputManager.cpp">
+      <Filter>AgoraObject</Filter>
+    </ClCompile>
+    <ClCompile Include="AgoraCameraManager.cpp">
+      <Filter>AgoraObject</Filter>
+    </ClCompile>
+    <ClCompile Include="AgoraObject.cpp">
+      <Filter>AgoraObject</Filter>
+    </ClCompile>
+    <ClCompile Include="AGResourceVisitor.cpp">
+      <Filter>AgoraObject</Filter>
+    </ClCompile>
+    <ClCompile Include="AGButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="AGComboBox.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="AGEdit.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="AGSliderCtrl.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="commonfun.cpp">
+      <Filter>Uitl</Filter>
+    </ClCompile>
+    <ClCompile Include="FileIO.cpp">
+      <Filter>Uitl</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraDS.cpp">
+      <Filter>DirectShow</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtendAudioFrameObserver.cpp">
+      <Filter>AgoraObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtendVideoFrameObserver.cpp">
+      <Filter>AgoraObject</Filter>
+    </ClCompile>
+    <ClCompile Include="YUVTrans.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Nama.cpp">
+      <Filter>FaceUnityObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalValue.cpp">
+      <Filter>FaceUnityObject</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameFrequencyCtrl.cpp">
+      <Filter>Uitl</Filter>
+    </ClCompile>
+    <ClCompile Include="AgoraOpenGL.cpp">
+      <Filter>FaceUnityObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BufferQueue.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="VideoPackageQueue.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AgoraFaceUnityTutorial.rc">
+      <Filter>Resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\AgoraFaceUnityTutorial.rc2">
+      <Filter>Resource</Filter>
+    </None>
+    <None Include="..\Debug\AgoraFaceUnity.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\AgoraFaceUnityTutorial.ico">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\item0204.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\bgseg.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\fu_zh_duzui.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\yazui.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\matianyu.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\houzi.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\mood.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\gradient.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\yuguan.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\nature.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\delta.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\electric.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\slowlived.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\tokyo.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\warm.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
