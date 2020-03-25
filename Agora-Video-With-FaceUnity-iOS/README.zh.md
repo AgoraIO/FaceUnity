@@ -27,8 +27,8 @@ Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/Intera
 由于在使用美颜的时候需要使用第三方采集，请特别参考[自定义设备API](https://docs.agora.io/cn/Interactive%20Broadcast/raw_data_video_android?platform=Android)  或者 [自采集API](https://docs.agora.io/cn/Interactive%20Broadcast/raw_data_video_android?platform=Android)
 
 ## 下载FaceUnity SDK/资源文件
-1. 下载 [FaceUnity SDK](https://github.com/AgoraIO/FaceUnity/releases/download/6.6.0/FaceUnity-6.6.0-SDK-iOS.zip)
-2. 下载 [FaceUnity items](https://github.com/AgoraIO/FaceUnity/releases/download/6.6.0/FaceUnity-6.6.0-items-iOS.zip)
+1. 下载 [FaceUnity SDK](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-SDK-iOS.zip)
+2. 下载 [FaceUnity items](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-items-iOS.zip)
 3. 将下载得到的两个zip包放到 AgoraWithFaceunity/Faceunity 下后解压即可
 
 ## 如何使用 Agora 模块化 SDK的采集功能
