@@ -28,8 +28,8 @@ Agora function implementation please refer to [Agora Document](https://docs.agor
 Due to the need to use third-party capture when using beauty function, please refer to [Customized Media Source API](https://docs.agora.io/en/Interactive%20Broadcast/raw_data_video_android?platform=Android)  or [Configuring the External Data API](https://docs.agora.io/en/Interactive%20Broadcast/raw_data_video_android?platform=Android)
 
 ## Prepare FaceUnity SDK/Resources
-1. Download [FaceUnity SDK](https://github.com/AgoraIO/FaceUnity/releases/download/6.6.0/FaceUnity-6.6.0-SDK-iOS.zip)
-2. Download [FaceUnity items](https://github.com/AgoraIO/FaceUnity/releases/download/6.6.0/FaceUnity-6.6.0-items-iOS.zip)
+1. Download [FaceUnity SDK](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-SDK-iOS.zip)
+2. Download [FaceUnity items](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-items-iOS.zip)
 3. Place two zip files under AgoraWithFaceunity/Faceunity, and unzip them
 
 ## How to use the Agora Module capturer function.
