@@ -28,7 +28,7 @@ In order to build and run the sample application you must obtain an App ID:
 4. Contact sales@agora.io and get authpack.java for Faceunity SDK, then replace **faceunity/src/main/java/com/faceunity/authpack.java** with your authpack.java
 
 ### Prepare FaceUnity SDK
-1. Download [FaceUnity SDK 6.6.0](https://github.com/AgoraIO/FaceUnity/releases/download/6.6.0/FaceUnity-6.6.0-SDK-Android.zip)
+1. Download [FaceUnity SDK 6.6.0](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-SDK-Android.zip)
 2. Unpack the zip file, put libs, assets, jniLibs folder following below rules
 ```
 faceunity
@@ -49,7 +49,7 @@ faceunity
             |__ x86
             |__ x86_64
 ```
-3. Download [FaceUnity Bundles](https://github.com/AgoraIO/FaceUnity/releases/download/6.6.0/FaceUnity-6.6.0-bundle-Android.zip)
+3. Download [FaceUnity Bundles](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-bundle-Android.zip)
 4. Unpack the zip file, put bundle folder under app/src/main/effects
 
 
