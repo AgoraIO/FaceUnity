@@ -21,11 +21,11 @@ Agora-FaceUnity-Tutorial-Windows 还支持 Android / IOS 平台，你可以查�
 
 ##下载FaceUnity SDK/资源文件
 
-1. 下载 [FaceUnity SDK](https://github.com/AgoraIO/FaceUnity/releases/download/6.6.0/FaceUnitySDK-Windows.zip)
+1. 下载 [FaceUnity SDK](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnitySDK-Windows.zip)
 2. 加压文件，改名为FaceUnitySDK，放到Agora-Video-With-FaceUnity-Windows下面。
 
 ##下载其他依赖库
-1. 下载[windows依赖库](https://github.com/AgoraIO/FaceUnity/releases/download/6.6.0/windows-depencies.zip)
+1. 下载[windows依赖库](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/windows-depencies.zip)
 2. 解压文件，把windows-depencies下面的openssl和Thirdparty拷贝到Agora-Video-With-FaceUnity-Windows下面
 
 ## 开发环境
