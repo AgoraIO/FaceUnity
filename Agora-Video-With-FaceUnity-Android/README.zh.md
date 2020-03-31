@@ -34,7 +34,7 @@ Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/2.1.2/
 2. 请联系 sales@agora.io 获取证书文件替换本项目中的 **faceunity/src/main/java/com/faceunity/authpack.java**。
 
 ### 下载FaceUnity SDK与资源文件
-1. 下载 [FaceUnity SDK 6.6.0](https://github.com/AgoraIO/FaceUnity/releases/download/6.6.0/FaceUnity-6.6.0-SDK-Android.zip)
+1. 下载 [FaceUnity SDK 6.6.0](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-SDK-Android.zip)
 2. 解压压缩包, 将 libs, assets, jniLibs 目录按下列规则置入项目
 ```
 faceunity
@@ -55,7 +55,7 @@ faceunity
             |__ x86
             |__ x86_64
 ```
-3. 下载 [FaceUnity Bundle](https://github.com/AgoraIO/FaceUnity/releases/download/6.6.0/FaceUnity-6.6.0-bundle-Android.zip)
+3. 下载 [FaceUnity Bundle](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-bundle-Android.zip)
 4. 解压压缩包, 将 bundle 目录放到app/src/main/effects 目录下
 
 
