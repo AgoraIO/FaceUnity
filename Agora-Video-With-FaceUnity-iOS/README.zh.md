@@ -34,26 +34,26 @@ Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/Intera
 ## 如何使用 Agora 模块化 SDK的采集功能
 
 ## 支持的功能
-- [x] 	Capturer
-	- [x] Camera Capturer
-		- [x] Support for front and rear camera switching
-		- [x] Support for dynamic resolution switching
-		- [x] Support I420, NV12, BGRA pixel format output
-		- [x] Support Exposure, ISO
-		- [ ] Support ZoomScale
-		- [ ] Support Torch
-		- [ ] Support watermark
-	- [x] Audio Capturer
-		- [x] Support single and double channel
-		- [x] Support Mute
-	- [x]  Video Frame Adapter (For processing the video frame direction required by different modules)
-		- [x] Support VideoOutputOrientationModeAdaptative for RTC function
-		- [x] Support ...FixedLandscape and ...FixedLandscape for CDN live streaming
+- [x]     Capturer
+    - [x] Camera Capturer
+        - [x] Support for front and rear camera switching
+        - [x] Support for dynamic resolution switching
+        - [x] Support I420, NV12, BGRA pixel format output
+        - [x] Support Exposure, ISO
+        - [ ] Support ZoomScale
+        - [ ] Support Torch
+        - [ ] Support watermark
+    - [x] Audio Capturer
+        - [x] Support single and double channel
+        - [x] Support Mute
+    - [x]  Video Adapter Filter (For processing the video frame direction required by different modules)
+        - [x] Support VideoOutputOrientationModeAdaptative for RTC function
+        - [x] Support ...FixedLandscape and ...FixedLandscape for CDN live streaming
 - [x] Renderer
-	- [x] gles
-		- [x] Support glContext Shared
-		- [x] Support mirror
-		- [x] Support fit、hidden zoom mode
+    - [x] gles
+        - [x] Support glContext Shared
+        - [x] Support mirror
+        - [x] Support fit、hidden zoom mode
 
 
   
@@ -73,9 +73,8 @@ Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/Intera
      * libstdc++.framework
 
 #### SDK 下载
-[AgoraModule_Base_iOS-1.1.1](https://download.agora.io/components/release/AgoraModule_Base_iOS-1.1.1.zip)
-[AgoraModule_Capturer_iOS-1.1.1](https://download.agora.io/components/release/AgoraModule_Capturer_iOS-1.1.1.zip)
-[AgoraModule_Renderer_iOS-1.1.1](https://download.agora.io/components/release/AgoraModule_Renderer_iOS-1.1.1.zip)
+[AgoraModule_Base_iOS-1.2.0](https://download.agora.io/components/release/AgoraModule_Base_iOS-1.2.0.zip)
+[AgoraModule_Capturer_iOS-1.2.0](https://download.agora.io/components/release/AgoraModule_Capturer_iOS-1.2.0.zip)
                                
                            
 #### 添加权限
@@ -101,30 +100,24 @@ self.cameraCapturer = [[AGMCameraCapturer alloc] initWithConfig:videoConfig];
 [self.cameraCapturer start];
 ```
 
-##### 如何使用内置滤镜，暂时没有内置滤镜功能
+##### 方向适配器
+
 ```objc
-self.filter = [[AGMFilter alloc] init];
+self.videoAdapterFilter = [[AGMVideoAdapterFilter alloc] init];
+self.videoAdapterFilter.ignoreAspectRatio = YES;
+self.videoAdapterFilter.isMirror = YES;
+#define DEGREES_TO_RADIANS(x) (x * M_PI/180.0)
+CGAffineTransform rotation = CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(90));
+self.videoAdapterFilter.affineTransform = rotation;
 ```
 
-##### 如何使用渲染器
-```objc
-self.preview = [[UIView alloc] initWithFrame:self.view.bounds];
-[self.view insertSubview:self.preview atIndex:0];
-    
-AGMRendererConfig *rendererConfig = [AGMRendererConfig defaultConfig];
-self.videoRenderer = [[AGMVideoRenderer alloc] initWithConfig:rendererConfig];
-self.videoRenderer.preView = self.preview;
-[self.videoRenderer start];    
-
-
-```
 
 ##### 模块之间连接
 
 ```objc
 
-[self.cameraCapturer addVideoSink:self.filter];
-[self.filter addVideoSink:self.videoRenderer];
+[self.cameraCapturer addVideoSink:self.videoAdapterFilter];
+[self.videoAdapterFilter addVideoSink:senceTimeFilter];
 
 ```
 
@@ -144,7 +137,7 @@ interface AGMSenceTimeFilter : AGMVideoSource <AGMVideoSink>
 
 @implementation AGMSenceTimeFilter
 
-- (void)onFrame:(AGMVideoFrame *)videoFrame
+- (void)onTextureFrame:(AGMImageFramebuffer *)textureFrame frameTime:(CMTime)time {
 {
 #pragma mark Write the filter processing.
     
@@ -152,7 +145,7 @@ interface AGMSenceTimeFilter : AGMVideoSource <AGMVideoSink>
 #pragma mark When you're done, pass it to the next sink.
     if (self.allSinks.count) {
         for (id<AGMVideoSink> sink in self.allSinks) {
-            [sink onFrame:videoFrame];
+            [sink onTextureFrame:textureFrame frameTime:time];
         }
     }
 }
