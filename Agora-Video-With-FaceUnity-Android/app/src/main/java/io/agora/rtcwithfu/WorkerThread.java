@@ -190,7 +190,7 @@ public class WorkerThread extends Thread {
 
             // set channel profile mode as CHANNEL_PROFILE_LIVE_BROADCASTING or CHANNEL_PROFILE_COMMUNICATION
             mRtcEngine.setChannelProfile(io.agora.rtc.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
-            // mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_COMMUNICATION);
+//            mRtcEngine.setChannelProfile(io.agora.rtc.Constants.CHANNEL_PROFILE_COMMUNICATION);
             mRtcEngine.enableVideo();
             mRtcEngine.setLogFile(Environment.getExternalStorageDirectory()
                     + File.separator + mContext.getPackageName() + "/log/agora-rtc.log");

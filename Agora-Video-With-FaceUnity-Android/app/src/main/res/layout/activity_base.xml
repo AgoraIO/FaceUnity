@@ -13,15 +13,23 @@
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray" />
 
-        <io.agora.rtc.mediaio.AgoraTextureView
-            android:id="@+id/remote_video_view"
+        <FrameLayout
+            android:id="@+id/remote_video_view_container"
             android:layout_width="150dp"
             android:layout_height="200dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginTop="70dp"
-            android:layout_marginRight="@dimen/activity_horizontal_margin" />
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@android:color/darker_gray">
+
+            <io.agora.rtc.mediaio.AgoraTextureView
+                android:id="@+id/remote_video_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -71,8 +79,7 @@
             android:layout_centerInParent="true"
             android:text="@string/fu_base_is_tracking_text"
             android:textColor="@color/colorWhite"
-            android:textSize="17sp"
-            />
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/tv_system_error"

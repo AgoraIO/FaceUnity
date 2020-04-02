@@ -11,6 +11,7 @@ public class VideoCaptureFrame {
     public int mTextureId;
     public float[] mTexMatrix;
     public int mCameraRotation;
+    public int mDisplayOrientation;
     public int mSurfaceRotation;
     public long mTimeStamp;
     public byte[] mImage;
