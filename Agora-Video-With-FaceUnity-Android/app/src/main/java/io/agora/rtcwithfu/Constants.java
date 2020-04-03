@@ -6,6 +6,7 @@ package io.agora.rtcwithfu;
 
 public class Constants {
     public static final String ACTION_KEY_ROOM_NAME = "ecHANEL";
+    public static final String ACTION_KEY_ENABLE_LOCAL_RECORD = "ecLOCAL_RECORD";
     public static final int UID = 0;
 
     public static int[] VIDEO_PROFILES = new int[]{

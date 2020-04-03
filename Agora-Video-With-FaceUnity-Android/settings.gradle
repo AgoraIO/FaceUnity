@@ -1,1 +1,3 @@
-include ':app', ':faceunity', ':video_capturer_and_renderer'
+include ':app', ':faceunity'
+//include ':videoaudioprocessor'
+include ':videoaudioprocessor-release'

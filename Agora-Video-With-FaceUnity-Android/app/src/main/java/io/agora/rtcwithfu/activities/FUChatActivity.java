@@ -1,13 +1,11 @@
 package io.agora.rtcwithfu.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.net.Uri;
-import android.opengl.EGL14;
+import android.media.AudioFormat;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -19,23 +17,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.faceunity.FURenderer;
-import com.faceunity.encoder.MediaAudioEncoder;
-import com.faceunity.encoder.MediaEncoder;
-import com.faceunity.encoder.MediaMuxerWrapper;
-import com.faceunity.encoder.MediaVideoEncoder;
 import com.faceunity.fulivedemo.ui.adapter.EffectRecyclerAdapter;
 import com.faceunity.fulivedemo.utils.CameraUtils;
 import com.faceunity.fulivedemo.utils.ToastUtil;
-import com.faceunity.gles.core.GlUtil;
-import com.faceunity.utils.Constant;
-import com.faceunity.utils.MiscUtil;
 
-import java.io.File;
-import java.io.IOException;
 
-import io.agora.kit.media.VideoManager;
-import io.agora.kit.media.capture.VideoCaptureFrame;
-import io.agora.kit.media.connector.SinkConnector;
+import io.agora.processor.common.connector.SinkConnector;
+import io.agora.processor.common.utils.LogUtil;
+import io.agora.processor.media.data.AudioCaptureConfigInfo;
+import io.agora.processor.media.data.AudioEncoderConfigInfo;
+import io.agora.processor.media.data.CapturedFrame;
+import io.agora.processor.media.data.VideoCaptureConfigInfo;
+import io.agora.processor.media.data.VideoEncoderConfigInfo;
+import io.agora.processor.media.manager.AudioManager;
+import io.agora.processor.media.manager.AVRecordingManager;
+import io.agora.processor.media.manager.VideoManager;
+import io.agora.sources.AgoraAudioSource;
+import io.agora.sources.AgoraVideoSource;
+
 import io.agora.rtc.mediaio.AgoraTextureView;
 import io.agora.rtc.mediaio.MediaIO;
 import io.agora.rtc.video.VideoEncoderConfiguration;
@@ -43,6 +42,10 @@ import io.agora.rtcwithfu.Constants;
 import io.agora.rtcwithfu.R;
 import io.agora.rtcwithfu.RtcEngineEventHandler;
 import io.agora.rtcwithfu.view.EffectPanel;
+import io.agora.sources.EffectHandler;
+
+import static io.agora.processor.common.constant.Constant.CAMERA_FACING_FRONT;
+
 
 /**
  * This activity demonstrates how to make FU and Agora RTC SDK work together
@@ -72,37 +75,24 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     private int showNum = 0;
 
     // Video recording related
-    private long mVideoRecordingStartTime = 0;
     private String mVideoFileName;
-    private MediaMuxerWrapper mMuxer;
-    private MediaVideoEncoder mVideoEncoder;
 
     private int mSmallHeight;
     private int mSmallWidth;
-
+    private AgoraVideoSource mVideoSource;
+    private AgoraAudioSource mAudioSource;
     private VideoManager mVideoManager;
-
+    private AudioManager mAudioManager;
+    private AVRecordingManager mAVRecordingManager;
+    private VideoCaptureConfigInfo mVideoCaptureConfigInfo;
+    private AudioCaptureConfigInfo mAudioCaptureConfigInfo;
     private volatile boolean mFUInit;
-
-    private int mImageWidth;
-    private int mImageHeight;
+    private boolean enableLocalRecording = false;
 
     private SensorManager mSensorManager;
     private Sensor mSensor;
 
-    private SinkConnector<VideoCaptureFrame> mEffectHandler = new SinkConnector<VideoCaptureFrame>() {
-        @Override
-        public int onDataAvailable(VideoCaptureFrame data) {
-            mImageHeight = data.mFormat.getHeight();
-            mImageWidth = data.mFormat.getWidth();
-
-            int fuTextureId = mFURenderer.onDrawFrame(data.mImage, data.mTextureId,
-                    data.mFormat.getWidth(), data.mFormat.getHeight());
-
-            sendRecordingData(fuTextureId, data.mTexMatrix, data.mTimeStamp / Constant.NANO_IN_ONE_MILLI_SECOND);
-            return fuTextureId;
-        }
-    };
+    private SinkConnector<CapturedFrame> mEffectHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,15 +108,14 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
-        Log.d(TAG, "width: " + width + ", height: " + height);
+        Log.d(TAG, "TJY width: " + width + ", height: " + height);
         mSmallHeight = height / 3;
         mSmallWidth = width / 3;
         x_position = width - mSmallWidth - convert(16);
         y_position = convert(70);
-
         mDescriptionText = findViewById(R.id.effect_desc_text);
         mTrackingText = findViewById(R.id.iv_face_detect);
-
+        enableLocalRecording = getIntent().getBooleanExtra(Constants.ACTION_KEY_ENABLE_LOCAL_RECORD, false);
         // The settings of FURender may be slightly different,
         // determined when initializing the effect panel
         mFURenderer = new FURenderer
@@ -164,12 +153,42 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT);
 
-        mVideoManager = VideoManager.createInstance(this);
-
-        mVideoManager.allocate(width, height, 30, io.agora.kit.media.constant.Constant.CAMERA_FACING_FRONT);
+        if (mVideoManager == null) {
+            mVideoManager = VideoManager.createInstance(this);
+        }
+        if (mVideoCaptureConfigInfo == null) {
+            mVideoCaptureConfigInfo = new VideoCaptureConfigInfo();
+        }
+        if (mEffectHandler == null) {
+            mEffectHandler = new EffectHandler(mFURenderer);
+        }
+        // set capture width
+        this.mVideoCaptureConfigInfo.setVideoCaptureWidth(width);
+        // set capture height
+        this.mVideoCaptureConfigInfo.setVideoCaptureHeight(height);
+        // set capture fps
+        this.mVideoCaptureConfigInfo.setVideoCaptureFps(30);
+        // set capture camera
+        this.mVideoCaptureConfigInfo.setCameraFace(CAMERA_FACING_FRONT);
+        // set agora consumer format
+        this.mVideoCaptureConfigInfo.setVideoCaptureFormat(VideoCaptureConfigInfo.CaptureFormat.TEXTURE_2D);
+        // set agora consumer type
+        this.mVideoCaptureConfigInfo.setVideoCaptureType(VideoCaptureConfigInfo.CaptureType.TEXTURE);
+        mVideoManager.allocate(mVideoCaptureConfigInfo);
+        // init render view in videomanager could be surfaceview/glsurfaceview/textureview
         mVideoManager.setRenderView(mGLSurfaceViewLocal);
+        // enable beauty effect
         mVideoManager.connectEffectHandler(mEffectHandler);
-        mVideoManager.attachToRTCEngine(getWorker().getRtcEngine());
+        if (mVideoSource == null) {
+            // init agora source ,video data can use the source pass to agora channel
+            mVideoSource = new AgoraVideoSource(this.mVideoCaptureConfigInfo);
+        }
+        mVideoSource.enablePushDataForAgora(true);
+        // set source to agora engine
+        this.getWorker().getRtcEngine().setVideoSource(mVideoSource);
+        // attach agora source to render in videomanager,which means rendered frame can pass to agora source
+        this.mVideoManager.attachConnectorToRender(mVideoSource);
+        // start capture
         mVideoManager.startCapture();
 
         mRemoteView = findViewById(R.id.remote_video_view);
@@ -200,6 +219,26 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
                 VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_24, 800,
                 VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT));
 
+        if (enableLocalRecording) {
+            // just for audio recorder ,not necessary
+            if (mAudioCaptureConfigInfo == null) {
+                mAudioCaptureConfigInfo = new AudioCaptureConfigInfo();
+                mAudioCaptureConfigInfo.setAudioSampleRate(44100);
+                mAudioCaptureConfigInfo.setAudioChannelFormat(AudioFormat.CHANNEL_IN_STEREO);
+            }
+
+            if (mAudioManager == null) {
+                mAudioManager = AudioManager.createInstance(this);
+                mAudioManager.allocate(mAudioCaptureConfigInfo);
+            }
+            if (mAudioSource == null) {
+                mAudioSource = new AgoraAudioSource(getWorker().getRtcEngine());
+            }
+            mAudioSource.enablePushDataForAgora(true);
+            getWorker().getRtcEngine().setExternalAudioSource(true, this.mAudioCaptureConfigInfo.getAudioSampleRate(), this.mAudioCaptureConfigInfo.getAudioChannelCount());
+            mAudioManager.attachConnectorAudioCapture(mAudioSource);
+            mAudioManager.start();
+        }
         String roomName = getIntent().getStringExtra(Constants.ACTION_KEY_ROOM_NAME);
         getWorker().joinChannel(roomName, getConfig().mUid);
     }
@@ -283,21 +322,35 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         super.onDestroy();
         // TODO: 2020-02-17 maybe ANR @Agora team
         mVideoManager.stopCapture();
-        mVideoManager.deallocate();
-
-        mGLSurfaceViewLocal.queueEvent(new Runnable() {
+        mVideoManager.runInRenderThread(new Runnable() {
             @Override
             public void run() {
                 mFURenderer.onSurfaceDestroyed();
                 mFUInit = false;
             }
         });
+        mVideoManager.deallocate();
+
     }
 
     @Override
     protected void deInitUIAndEvent() {
         getEventHandler().removeEventHandler(this);
         getWorker().leaveChannel(getConfig().mChannel);
+        if (mVideoSource != null) {
+            mVideoSource.enablePushDataForAgora(false);
+        }
+        if (mAudioSource != null) {
+            mAudioSource.enablePushDataForAgora(false);
+        }
+        if (enableLocalRecording) {
+            if (mAudioManager != null) {
+                mAudioManager.stop();
+            }
+            if (mAVRecordingManager != null) {
+                mAVRecordingManager.stop();
+            }
+        }
     }
 
     @Override
@@ -387,10 +440,9 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
 
             bindSurfaceViewEvent();
 
-            mVideoManager.allocate(width, height, 30, io.agora.kit.media.constant.Constant.CAMERA_FACING_FRONT);
+            mVideoManager.allocate(this.mVideoCaptureConfigInfo);
             mVideoManager.setRenderView(mGLSurfaceViewLocal);
             mVideoManager.connectEffectHandler(mEffectHandler);
-            mVideoManager.attachToRTCEngine(getWorker().getRtcEngine());
             mVideoManager.startCapture();
 
             mLocalViewContainer.addView(mGLSurfaceViewLocal,
@@ -401,19 +453,19 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         } else {
             mVideoManager.stopCapture();
 
-            mLocalViewContainer.removeAllViews();
 
-            getRtcEngine().setClientRole(io.agora.rtc.Constants.CLIENT_ROLE_AUDIENCE);
-
-            mVideoManager.deallocate();
-
-            mGLSurfaceViewLocal.queueEvent(new Runnable() {
+            mVideoManager.runInRenderThread(new Runnable() {
                 @Override
                 public void run() {
                     mFURenderer.onSurfaceDestroyed();
                     mFUInit = false;
                 }
             });
+            mLocalViewContainer.removeAllViews();
+
+            getRtcEngine().setClientRole(io.agora.rtc.Constants.CLIENT_ROLE_AUDIENCE);
+            mVideoManager.deallocate();
+
 
             System.gc();
         }
@@ -424,7 +476,8 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         mGLSurfaceViewLocal.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
             public void onViewAttachedToWindow(View v) {
-                mGLSurfaceViewLocal.queueEvent(new Runnable() {
+                // init fu surface in render which managed by videomanager
+                mVideoManager.runInRenderThread(new Runnable() {
                     @Override
                     public void run() {
                         if (!mFUInit) {
@@ -445,80 +498,55 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     protected void onCameraChangeRequested() {
         // TODO Reset options when camera changed
         mVideoManager.switchCamera();
-        mFURenderer.onCameraChange(mVideoManager.getCameraFacing(), mVideoManager.getCameraOrientation());
+        mFURenderer.onCameraChange(mVideoCaptureConfigInfo.getCameraFace(), mVideoManager.getCameraOrientation());
     }
 
     @Override
     protected void onStartRecordingRequested() {
-        startRecording();
+        if (enableLocalRecording) {
+            startRecording();
+        } else {
+            ToastUtil.showToast(this, "should enable this function before join channel");
+        }
+
     }
 
     @Override
     protected void onStopRecordingRequested() {
-        stopRecording();
+        if (enableLocalRecording) {
+            stopRecording();
+        } else {
+            ToastUtil.showToast(this, "should enable this function before join channel");
+        }
     }
-
-    private final MediaEncoder.MediaEncoderListener mMediaEncoderListener = new MediaEncoder.MediaEncoderListener() {
-        @Override
-        public void onPrepared(final MediaEncoder encoder) {
-            if (encoder instanceof MediaVideoEncoder) {
-                final MediaVideoEncoder videoEncoder = (MediaVideoEncoder) encoder;
-                mGLSurfaceViewLocal.queueEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        videoEncoder.setEglContext(EGL14.eglGetCurrentContext());
-                        mVideoEncoder = videoEncoder;
-                    }
-                });
-            }
-        }
-
-        @Override
-        public void onStopped(final MediaEncoder encoder) {
-            mVideoEncoder = null;
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    ToastUtil.showToast(FUChatActivity.this, R.string.save_video_success);
-                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
-                            Uri.fromFile(new File(mVideoFileName))));
-                }
-            });
-        }
-    };
 
     private void startRecording() {
-        try {
-            String videoFileName = Constant.APP_NAME + "_" + MiscUtil.getCurrentDate() + ".mp4";
-            mVideoFileName = new File(Constant.cameraFilePath, videoFileName).getAbsolutePath();
-            mMuxer = new MediaMuxerWrapper(mVideoFileName);
-
-            // for video capturing
-            new MediaVideoEncoder(mMuxer, mMediaEncoderListener,
-                    mImageHeight, mImageWidth);
-            new MediaAudioEncoder(mMuxer, mMediaEncoderListener);
-
-            mMuxer.prepare();
-            mMuxer.startRecording();
-        } catch (final IOException e) {
-            Log.e(TAG, "startCapture:", e);
-        }
-    }
-
-    protected void sendRecordingData(int texId, final float[] tex_matrix, final long timeStamp) {
-        if (mVideoEncoder != null) {
-            mVideoEncoder.frameAvailableSoon(texId, tex_matrix, GlUtil.IDENTITY_MATRIX);
-            if (mVideoRecordingStartTime == 0) {
-                mVideoRecordingStartTime = timeStamp;
-            }
+        // used to get data from video & audio manager and muxer to a file
+        mAVRecordingManager = AVRecordingManager.createInstance(this,
+                mVideoManager, mAudioManager);
+        String testPath = "/sdcard/test.mp4";
+        mAVRecordingManager.allocate(mVideoCaptureConfigInfo,
+                new VideoEncoderConfigInfo(),
+                mAudioCaptureConfigInfo,
+                new AudioEncoderConfigInfo(),
+                testPath);
+        mAVRecordingManager.start();
+        if (!(mAVRecordingManager.isMuxerStarted())) {
+            LogUtil.e(" android Muxer not start");
+            mAVRecordingManager.stop();
+            mAVRecordingManager.deallocate();
+            ToastUtil.showToast(this, "android Muxer not start and recording not start");
+        } else {
+            ToastUtil.showToast(this, "android Muxer start and save file to " + testPath);
         }
     }
 
     private void stopRecording() {
-        if (mMuxer != null) {
-            mMuxer.stopRecording();
+        if (mAVRecordingManager != null) {
+            mAVRecordingManager.stop();
+            mAVRecordingManager.deallocate();
+            ToastUtil.showToast(this, "recording stopped");
         }
-        System.gc();
     }
 
     private Runnable mCalibratingRunnable = new Runnable() {
@@ -548,8 +576,14 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
             if (Math.abs(x) > 3 || Math.abs(y) > 3) {
                 if (Math.abs(x) > Math.abs(y)) {
                     mFURenderer.setTrackOrientation(x > 0 ? 0 : 180);
+                    if (mVideoSource != null) {
+                        mVideoSource.changeOrientation(x > 0 ? 1 : 2);
+                    }
                 } else {
                     mFURenderer.setTrackOrientation(y > 0 ? 90 : 270);
+                    if (mVideoSource != null) {
+                        mVideoSource.changeOrientation(0);
+                    }
                 }
             }
         }
