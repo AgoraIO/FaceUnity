@@ -18,7 +18,6 @@
 
 #import <AGMBase/AGMBase.h>
 #import <AGMCapturer/AGMCapturer.h>
-#import "AGMFaceUnityFilter.h"
 #import "FUCamera.h"
 
 @interface RoomViewController ()<FUAPIDemoBarDelegate, FUItemsViewDelegate, AgoraRtcEngineDelegate, AgoraVideoSourceProtocol, UITableViewDataSource, UITableViewDelegate,FUCameraDelegate> {
@@ -71,8 +70,8 @@
 
 #pragma Capturer
 @property (nonatomic, strong) AGMCameraCapturer *cameraCapturer;
-@property (nonatomic, strong) AGMFaceUnityFilter *faceUnityFilter;
 @property (nonatomic, strong) AGMCapturerVideoConfig *videoConfig;
+@property (nonatomic, strong) AGMVideoAdapterFilter *videoAdapterFilter;
 
 @property (nonatomic, strong) UIView *preview;
 
@@ -107,81 +106,33 @@
 
 - (void)initCapturer {
 #pragma mark Capturer
-{
     self.videoConfig = [AGMCapturerVideoConfig defaultConfig];
     self.videoConfig.videoSize = CGSizeMake(480, 640);
     self.videoConfig.sessionPreset = AGMCaptureSessionPreset480x640;
-    self.videoConfig.outputPixelFormat = AGMVideoPixelFormatNV12;
     self.videoConfig.fps = 15;
     self.cameraCapturer = [[AGMCameraCapturer alloc] initWithConfig:self.videoConfig];
     
-//    AGMVideoFrameAdapter *videoFrameAdapter = [[AGMVideoFrameAdapter alloc] init];
-//    videoFrameAdapter.orientationMode = AGMVideoOutputOrientationModeFixedPortrait;
-//    videoFrameAdapter.isMirror = YES;
-////    videoFrameAdapter.sinkDelegate = self;
-//    [self.cameraCapturer addVideoSink:videoFrameAdapter];
-    
-    
 #pragma mark Filter
-    self.faceUnityFilter = [[AGMFaceUnityFilter alloc] init];
-
-#pragma mark Connect
-    [self.cameraCapturer addVideoSink:self.faceUnityFilter];
-//    [videoFrameAdapter addVideoSink:self.faceUnityFilter];
+    self.videoAdapterFilter = [[AGMVideoAdapterFilter alloc] init];
+    self.videoAdapterFilter.ignoreAspectRatio = YES;
+    self.videoAdapterFilter.isMirror = YES;
 #pragma mark push pixelBuffer
     __weak typeof(self) weakSelf = self;
-    self.faceUnityFilter.didCompletion = ^(CVPixelBufferRef  _Nonnull pixelBuffer, CMTime timeStamp, AGMVideoRotation rotation) {
-        
-        
-        CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
-
-        CFAbsoluteTime startRenderTime = CFAbsoluteTimeGetCurrent();
-
+    [self.cameraCapturer addVideoSink:self.videoAdapterFilter];
+        #define DEGREES_TO_RADIANS(x) (x * M_PI/180.0)
+    CGAffineTransform rotation = CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(90));
+    self.videoAdapterFilter.affineTransform = rotation;
+    [self.videoAdapterFilter setFrameProcessingCompletionBlock:^(AGMVideoSource * _Nonnull videoSource, CMTime time) {
+        CVPixelBufferRef pixelBuffer = videoSource.framebufferForOutput.pixelBuffer;
         [[FUManager shareManager] renderItemsToPixelBuffer:pixelBuffer];
-        
-        CFAbsoluteTime renderTime = (CFAbsoluteTimeGetCurrent() - startRenderTime);
-
         if (weakSelf.model.type == FULiveModelTypeMusicFilter) {
             [[FUManager shareManager] musicFilterSetMusicTime];
         }
-
-        CFAbsoluteTime frameTime = (CFAbsoluteTimeGetCurrent() - startTime);
-
-        int frameWidth = (int)CVPixelBufferGetWidth(pixelBuffer);
-        int frameHeight = (int)CVPixelBufferGetHeight(pixelBuffer);
-
-        CGSize frameSize;
-        if (CVPixelBufferGetPixelFormatType(pixelBuffer) == kCVPixelFormatType_32BGRA) {
-            frameSize = CGSizeMake(CVPixelBufferGetBytesPerRow(pixelBuffer) / 4, CVPixelBufferGetHeight(pixelBuffer));
-        }else{
-            frameSize = CGSizeMake(CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer));
-        }
-
-        NSString *ratioStr = [NSString stringWithFormat:@"%dX%d", frameWidth, frameHeight];
-        dispatch_async(dispatch_get_main_queue(), ^{
-
-            //加载了人脸检测道具才会，检测人脸
-            if ([[FUManager shareManager] isHaveTrackFaceItemsRendering]) {
-                weakSelf.noTrackLabel.hidden = [[FUManager shareManager] isTracking];
-            }else{
-                weakSelf.noTrackLabel.hidden = YES;
-            }
-            
-
-            CGFloat fps = 1.0 / frameTime ;
-//            if (fps > 30) {
-//                fps = 30 ;
-//            }
-            weakSelf.buglyLabel.text = [NSString stringWithFormat:@"resolution:\n %@\nfps: %.0f \nrender time:\n %.0fms", ratioStr, fps, renderTime * 1000.0];
-
-        });
-
-        // push pixelBuffer to agora server
-        [weakSelf.consumer consumePixelBuffer:pixelBuffer withTimestamp:timeStamp rotation:AgoraVideoRotation90];
-        
-    };
+        [weakSelf.consumer consumePixelBuffer:pixelBuffer withTimestamp:time rotation:AgoraVideoRotationNone];
+    }];
+    
 }
-}
+
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
@@ -331,7 +282,7 @@
     // set render view
     [self.agoraKit setupLocalVideo:self.localCanvas];
     self.localRenderView = self.preview;
-    [self.agoraKit setLocalVideoMirrorMode:AgoraVideoMirrorModeEnabled];
+    [self.agoraKit setLocalVideoMirrorMode:AgoraVideoMirrorModeDisabled];
     
 }
 
@@ -341,10 +292,12 @@
 }
 
 - (void)shouldStart {
+    NSLog(@"shouldStart");
     [self.cameraCapturer start];
 }
 
 - (void)shouldStop {
+    NSLog(@"shouldStop");
     [self.cameraCapturer stop];
 }
 
@@ -359,6 +312,10 @@
 #pragma mark - Agora Engine Delegate
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine didJoinChannel:(NSString*)channel withUid:(NSUInteger)uid elapsed:(NSInteger) elapsed {
     NSLog(@"Join Channel Success");
+}
+
+- (void)rtcEngine:(AgoraRtcEngineKit *)engine didOccurError:(AgoraErrorCode)errorCode {
+    NSLog(@"didOccurError : %ld", (long)errorCode);
 }
 
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine didJoinedOfUid:(NSUInteger)uid elapsed:(NSInteger)elapsed {
