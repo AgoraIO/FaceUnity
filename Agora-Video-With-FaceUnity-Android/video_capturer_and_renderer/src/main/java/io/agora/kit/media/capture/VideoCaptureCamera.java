@@ -11,6 +11,7 @@ import android.hardware.Camera;
 import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
 import android.util.Log;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -117,6 +118,7 @@ public class VideoCaptureCamera
                 (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT);
         Log.d(TAG, "allocate: Rotation dev=" + getDeviceRotation() + " cam=" + mCameraNativeOrientation
                 + " facing front? " + mInvertDeviceOrientationReadings);
+        mDisplayOrientation = getDeviceRotation();
         mCamera.setDisplayOrientation(getDisplayRotation());
         android.hardware.Camera.Parameters parameters = getCameraParameters(mCamera);
         if (parameters == null) {
@@ -140,7 +142,7 @@ public class VideoCaptureCamera
         int frameRateScaled = frameRate * 1000;
         final FramerateRange chosenFramerateRange =
                 getClosestFramerateRange(framerateRanges, frameRateScaled);
-        final int[] chosenFpsRange = new int[] {chosenFramerateRange.min, chosenFramerateRange.max};
+        final int[] chosenFpsRange = new int[]{chosenFramerateRange.min, chosenFramerateRange.max};
         Log.d(TAG, "allocate: fps set to [" + chosenFpsRange[0] + "-" + chosenFpsRange[1] + "]");
 
         // Calculate size.
@@ -160,7 +162,7 @@ public class VideoCaptureCamera
             Log.e(TAG, "Couldn't find resolution close to (" + width + "x" + height + ")");
             return false;
         }
-        Log.d(TAG, "allocate: matched (" + matchedWidth +  " x " + matchedHeight + ")");
+        Log.d(TAG, "allocate: matched (" + matchedWidth + " x " + matchedHeight + ")");
 
         mPreviewWidth = matchedWidth;
         mPreviewHeight = matchedHeight;
@@ -265,7 +267,7 @@ public class VideoCaptureCamera
         }
 
         try {
-        mCamera.stopPreview();
+            mCamera.stopPreview();
         } catch (RuntimeException ex) {
             Log.e(TAG, "setPreviewTexture: " + ex);
         }

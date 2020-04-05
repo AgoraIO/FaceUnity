@@ -11,6 +11,12 @@ import android.view.WindowManager;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import javax.microedition.khronos.egl.EGL10;
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.egl.EGLContext;
+import javax.microedition.khronos.egl.EGLDisplay;
+import javax.microedition.khronos.opengles.GL10;
+
 import io.agora.kit.media.capture.VideoCaptureFrame;
 import io.agora.kit.media.connector.SinkConnector;
 import io.agora.kit.media.connector.SrcConnector;
@@ -19,9 +25,6 @@ import io.agora.kit.media.gles.ProgramTextureOES;
 import io.agora.kit.media.gles.core.GlUtil;
 import io.agora.kit.media.util.FPSUtil;
 import io.agora.kit.media.util.RotationUtil;
-
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
 
 public class VideoRender implements SinkConnector<VideoCaptureFrame> {
     public final static String TAG = VideoRender.class.getSimpleName();
@@ -63,15 +66,23 @@ public class VideoRender implements SinkConnector<VideoCaptureFrame> {
     private int mCounterDisplayRotation;
 
     private GLSurfaceView.Renderer mGLRenderer = new GLSurfaceView.Renderer() {
+        @Override
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-            mFullFrameRectTexture2D = new ProgramTexture2d();
-            mTextureOES = new ProgramTextureOES();
-            mCameraTextureId = GlUtil.createTextureObject(GLES11Ext.GL_TEXTURE_EXTERNAL_OES);
+            // —— just init once ——
+            if (mFullFrameRectTexture2D == null)
+                mFullFrameRectTexture2D = new ProgramTexture2d();
+            if (mTextureOES == null)
+                mTextureOES = new ProgramTextureOES();
+            if (mCameraTextureId == 0)
+                mCameraTextureId = GlUtil.createTextureObject(GLES11Ext.GL_TEXTURE_EXTERNAL_OES);
+            // —— just init once ——
+
             mTexConnector.onDataAvailable(new Integer(mCameraTextureId));
 
             Log.e(TAG, "onSurfaceCreated gl " + gl + " " + config + " " + mGLSurfaceView + " " + mGLRenderer);
         }
 
+        @Override
         public void onSurfaceChanged(GL10 gl, int width, int height) {
             GLES20.glViewport(0, 0, width, height);
             mViewWidth = width;
@@ -90,8 +101,15 @@ public class VideoRender implements SinkConnector<VideoCaptureFrame> {
             return RotationUtil.getRotation(manager.getDefaultDisplay().getRotation());
         }
 
+        @Override
         public void onDrawFrame(GL10 gl) {
             if (mNeedsDraw) {
+                if (mDisplayRotation != getDisplayRotation()) {
+                    mDisplayRotation = getDisplayRotation();
+                    mCounterDisplayRotation = (360 - mDisplayRotation) % 360;
+                    mMVPInit = false;
+                }
+
                 VideoCaptureFrame frame = mVideoCaptureFrame;
                 try {
                     frame.mSurfaceTexture.updateTexImage();
@@ -120,7 +138,7 @@ public class VideoRender implements SinkConnector<VideoCaptureFrame> {
                     mMVP = GlUtil.getVertexMatrix(mViewWidth, mViewHeight,
                             frame.mFormat.getWidth(), frame.mFormat.getHeight(),
                             shouldSwapWH(frame.mCameraRotation, mDisplayRotation),
-                            rotateDegree(frame.mCameraRotation));
+                            rotateDegree(frame.mCameraRotation, frame.mDisplayOrientation));
                     mMVPInit = true;
                 }
 
@@ -165,9 +183,9 @@ public class VideoRender implements SinkConnector<VideoCaptureFrame> {
             return surfaceRotation == 0 || surfaceRotation == 180;
         }
 
-        private int rotateDegree(int texRotation) {
+        private int rotateDegree(int texRotation, int displayOrientation) {
             if (texRotation == 90 || texRotation == 270) {
-                return mDisplayRotation;
+                return mDisplayRotation - displayOrientation;
             } else {
                 return 0;
             }
@@ -188,6 +206,27 @@ public class VideoRender implements SinkConnector<VideoCaptureFrame> {
     public void setRenderView(GLSurfaceView glSurfaceView) {
         mGLSurfaceView = glSurfaceView;
         mGLSurfaceView.setEGLContextClientVersion(2);
+        mGLSurfaceView.setEGLContextFactory(new GLSurfaceView.EGLContextFactory() {
+            private static final int EGL_CONTEXT_CLIENT_VERSION = 0x3098;
+
+            private EGLContext mContext;
+
+            @Override
+            public EGLContext createContext(EGL10 egl, EGLDisplay display, EGLConfig eglConfig) {
+                // keep the eglContext
+                if (mContext != null) return mContext;
+
+                int[] attrib_list = {EGL_CONTEXT_CLIENT_VERSION, 2, EGL10.EGL_NONE};
+                mContext = egl.eglCreateContext(display, eglConfig, EGL10.EGL_NO_CONTEXT, attrib_list);
+                return mContext;
+            }
+
+            @Override
+            public void destroyContext(EGL10 egl, EGLDisplay display, EGLContext context) {
+                // keep the eglContext
+                // egl.eglDestroyContext(display, context);
+            }
+        });
         mGLSurfaceView.setPreserveEGLContextOnPause(true);
         mGLSurfaceView.setRenderer(mGLRenderer);
         mGLSurfaceView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);

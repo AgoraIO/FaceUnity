@@ -25,7 +25,6 @@ import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
-import io.agora.kit.media.support.IntDef;
 import android.util.Log;
 import android.util.Range;
 import android.util.Size;
@@ -40,6 +39,7 @@ import java.util.List;
 
 import io.agora.kit.media.constant.Constant;
 import io.agora.kit.media.gles.core.GlUtil;
+import io.agora.kit.media.support.IntDef;
 
 /**
  * This class implements Video Capture using Camera2 API, introduced in Android
@@ -96,11 +96,12 @@ public class VideoCaptureCamera2 extends VideoCapture {
 
             mWaitForDeviceClosedConditionVariable.open();
         }
-    };
+    }
 
     // Inner class to extend a Capture Session state change listener.
     private class CameraPreviewSessionListener extends CameraCaptureSession.StateCallback {
         private final CaptureRequest mPreviewRequest;
+
         CameraPreviewSessionListener(CaptureRequest previewRequest) {
             mPreviewRequest = previewRequest;
         }
@@ -137,7 +138,7 @@ public class VideoCaptureCamera2 extends VideoCapture {
 
             changeCameraStateAndNotify(CameraState.STOPPED);
             mPreviewSession = null;
-            Log.e(TAG,"Camera session configuration error");
+            Log.e(TAG, "Camera session configuration error");
         }
 
         @Override
@@ -150,7 +151,7 @@ public class VideoCaptureCamera2 extends VideoCapture {
             // started after that.
             mPreviewSession = null;
         }
-    };
+    }
 
     // Internal class implementing an ImageReader listener for Preview frames. Gets pinged when a
     // new frame is been captured and downloads it to memory-backed buffers.
@@ -165,16 +166,16 @@ public class VideoCaptureCamera2 extends VideoCapture {
                 }
 
                 if (image.getFormat() != ImageFormat.YUV_420_888 || image.getPlanes().length != 3) {
-                    Log.e(TAG,"Unexpected image format: " + image.getFormat()
-                                    + " or #planes: " + image.getPlanes().length);
+                    Log.e(TAG, "Unexpected image format: " + image.getFormat()
+                            + " or #planes: " + image.getPlanes().length);
                     throw new IllegalStateException();
                 }
 
                 if (reader.getWidth() != image.getWidth()
                         || reader.getHeight() != image.getHeight()) {
-                    Log.e(TAG,"ImageReader size (" + reader.getWidth() + "x" + reader.getHeight()
-                                    + ") did not match Image size (" + image.getWidth() + "x"
-                                    + image.getHeight() + ")");
+                    Log.e(TAG, "ImageReader size (" + reader.getWidth() + "x" + reader.getHeight()
+                            + ") did not match Image size (" + image.getWidth() + "x"
+                            + image.getHeight() + ")");
                     throw new IllegalStateException();
                 }
 
@@ -184,7 +185,7 @@ public class VideoCaptureCamera2 extends VideoCapture {
                 Log.e(TAG, "acquireLatestImage():", ex);
             }
         }
-    };
+    }
 
     private class StopCaptureTask implements Runnable {
         @Override
@@ -207,6 +208,7 @@ public class VideoCaptureCamera2 extends VideoCapture {
     }
 
     private static final String TAG = VideoCaptureCamera2.class.getSimpleName();
+
     @IntDef({CameraState.OPENING, CameraState.CONFIGURING, CameraState.STARTED,
             CameraState.STOPPED})
     @Retention(RetentionPolicy.SOURCE)
@@ -234,7 +236,8 @@ public class VideoCaptureCamera2 extends VideoCapture {
     private ConditionVariable mWaitForDeviceClosedConditionVariable = new ConditionVariable();
 
     private Range<Integer> mAeFpsRange;
-    private @CameraState int mCameraState = CameraState.STOPPED;
+    private @CameraState
+    int mCameraState = CameraState.STOPPED;
     private Surface mSurface;
 
 
@@ -419,7 +422,7 @@ public class VideoCaptureCamera2 extends VideoCapture {
             Log.e(TAG, "No supported resolutions.");
             return false;
         }
-        Log.d(TAG, "allocate: matched (" + closestSupportedSize.getWidth() +  " x "
+        Log.d(TAG, "allocate: matched (" + closestSupportedSize.getWidth() + " x "
                 + closestSupportedSize.getHeight() + ")");
         mPreviewWidth = closestSupportedSize.getWidth();
         mPreviewHeight = closestSupportedSize.getHeight();
@@ -453,9 +456,10 @@ public class VideoCaptureCamera2 extends VideoCapture {
                 closestSupportedSize.getHeight(), aeFramerateRange.max / fpsUnitFactor, ImageFormat.YUV_420_888);
         mCameraNativeOrientation =
                 cameraCharacteristics.get(CameraCharacteristics.SENSOR_ORIENTATION);
+        mDisplayOrientation = getDeviceRotation();
         mInvertDeviceOrientationReadings =
                 cameraCharacteristics.get(CameraCharacteristics.LENS_FACING)
-                == CameraCharacteristics.LENS_FACING_FRONT;
+                        == CameraCharacteristics.LENS_FACING_FRONT;
         return true;
     }
 
