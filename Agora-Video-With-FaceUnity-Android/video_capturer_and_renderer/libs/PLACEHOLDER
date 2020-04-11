@@ -1,4 +1,0 @@
-agora-rtc-sdk.jar
-
-# just for compile purpose
-# you can also using `compileOnly 'io.agora.rtc:full-sdk:2.8.0'`
