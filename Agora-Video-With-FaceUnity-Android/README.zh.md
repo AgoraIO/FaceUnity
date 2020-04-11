@@ -18,11 +18,11 @@ Faceunity
 
 本项目采用了 Faceunity 提供的视频采集，美颜，本地渲染等视频前处理功能，使用了 Agora 提供的声音采集，编码，传输，解码和远端渲染功能。
 
-Faceunity 美颜功能实现请参考 [Faceunity 官方文档](http://www.faceunity.com/technical/)
+Faceunity 美颜功能实现请参考 [Faceunity 官方文档](http://www.faceunity.com/docs_develop)
 
-Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/2.1.2/product/Interactive%20Broadcast/API%20Reference/live_video_android?platform=Android)
+Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/Interactive%20Broadcast/API%20Reference/java/index.html)
 
-由于在使用美颜的时候需要使用第三方采集，请特别参考[自定义设备 API](https://docs.agora.io/cn/2.1.2/product/Interactive%20Broadcast/API%20Reference/custom_live_android?platform=Android)  或者 [自采集 API](https://docs.agora.io/cn/2.1.2/product/Interactive%20Broadcast/API%20Reference/custom_live_android?platform=Android)
+由于在使用美颜的时候需要使用第三方采集，请特别参考[自定义视频采集和渲染 API](https://docs.agora.io/cn/Interactive%20Broadcast/custom_video_android?platform=Android)
 
 ## 运行示例程序
 ### 获取开发者账号与证书
