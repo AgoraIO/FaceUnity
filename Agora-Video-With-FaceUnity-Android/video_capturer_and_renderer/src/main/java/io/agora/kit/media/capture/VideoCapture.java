@@ -44,8 +44,6 @@ public abstract class VideoCapture implements SinkConnector<Integer> {
     // The angle (0, 90, 180, 270) that the image needs to be rotated to show in
     // the display's native orientation.
     protected int mCameraNativeOrientation;
-    // the screen orientation when init
-    protected int mDisplayOrientation;
     // In some occasions we need to invert the device rotation readings, see the
     // individual implementations.
     protected boolean mInvertDeviceOrientationReadings;
@@ -144,7 +142,7 @@ public abstract class VideoCapture implements SinkConnector<Integer> {
      * Finds the framerate range matching |targetFramerate|. Tries to find a range with as low of a
      * minimum value as possible to allow the camera adjust based on the lighting conditions.
      * Assumes that all framerate values are multiplied by 1000.
-     * <p>
+     *
      * This code is mostly copied from WebRTC:
      * CameraEnumerationAndroid.getClosestSupportedFramerateRange
      * in webrtc/api/android/java/src/org/webrtc/CameraEnumerationAndroid.java
@@ -193,10 +191,7 @@ public abstract class VideoCapture implements SinkConnector<Integer> {
     public SrcConnector getSrcConnector() {
         return mSrcConnector;
     }
-
-    public SrcConnector getTransmitConnector() {
-        return mTransmitConnector;
-    }
+    public SrcConnector getTransmitConnector() {return mTransmitConnector;}
 
     protected void onFrameAvailable() {
         long timeMillis = System.currentTimeMillis();
@@ -205,7 +200,6 @@ public abstract class VideoCapture implements SinkConnector<Integer> {
 
         VideoCaptureFrame frame = new VideoCaptureFrame(mCaptureFormat, mSurfaceTexture,
                 mTexId, mImage, texMatrix, timeMillis, mCameraNativeOrientation, mMirror);
-        frame.mDisplayOrientation = mDisplayOrientation;
 
         int effectId = mSrcConnector.onDataAvailable(frame);
 

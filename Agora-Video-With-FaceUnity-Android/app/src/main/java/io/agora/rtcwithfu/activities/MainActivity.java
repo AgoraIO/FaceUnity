@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-        mChannelName = findViewById(R.id.edt_channel);
+        mChannelName = (EditText) findViewById(R.id.edt_channel);
         checkCameraPermission(this, mListener);
     }
 

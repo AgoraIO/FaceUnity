@@ -37,7 +37,6 @@ import io.agora.kit.media.VideoManager;
 import io.agora.kit.media.capture.VideoCaptureFrame;
 import io.agora.kit.media.connector.SinkConnector;
 import io.agora.rtc.mediaio.AgoraTextureView;
-import io.agora.rtc.mediaio.IVideoFrameConsumer;
 import io.agora.rtc.mediaio.MediaIO;
 import io.agora.rtc.video.VideoEncoderConfiguration;
 import io.agora.rtcwithfu.Constants;
@@ -60,9 +59,12 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     private FURenderer mFURenderer;
     private GLSurfaceView mGLSurfaceViewLocal;
 
-    private FrameLayout mLocalViewContainer, mRemoteViewContainer;
+    private FrameLayout mLocalViewContainer;
     private AgoraTextureView mRemoteView;
     private boolean mLocalViewIsBig = true;
+    private int mRemoteUid = -1;
+    private float x_position;
+    private float y_position;
 
     private TextView mDescriptionText;
     private TextView mTrackingText;
@@ -74,6 +76,9 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     private String mVideoFileName;
     private MediaMuxerWrapper mMuxer;
     private MediaVideoEncoder mVideoEncoder;
+
+    private int mSmallHeight;
+    private int mSmallWidth;
 
     private VideoManager mVideoManager;
 
@@ -91,22 +96,8 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
             mImageHeight = data.mFormat.getHeight();
             mImageWidth = data.mFormat.getWidth();
 
-            /**
-             * use it when you need to send TEXTURE frame
-             *
-             * @see io.agora.kit.media.transmit.VideoTransmitter#sendTextureWith2D(IVideoFrameConsumer, VideoCaptureFrame)
-             */
             int fuTextureId = mFURenderer.onDrawFrame(data.mImage, data.mTextureId,
                     data.mFormat.getWidth(), data.mFormat.getHeight());
-
-            /**
-             * use it when you need to send YUV frame
-             *
-             * @see io.agora.kit.media.transmit.VideoTransmitter#sendByteArrayWithNV21(IVideoFrameConsumer, VideoCaptureFrame)
-             */
-//            int fuTextureId = mFURenderer.onDrawFrame(data.mImage, data.mTextureId,
-//                    data.mFormat.getWidth(), data.mFormat.getHeight(),
-//                    data.mImage, data.mFormat.getWidth(), data.mFormat.getHeight());
 
             sendRecordingData(fuTextureId, data.mTexMatrix, data.mTimeStamp / Constant.NANO_IN_ONE_MILLI_SECOND);
             return fuTextureId;
@@ -127,6 +118,11 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
+        Log.d(TAG, "width: " + width + ", height: " + height);
+        mSmallHeight = height / 3;
+        mSmallWidth = width / 3;
+        x_position = width - mSmallWidth - convert(16);
+        y_position = convert(70);
 
         mDescriptionText = findViewById(R.id.effect_desc_text);
         mTrackingText = findViewById(R.id.iv_face_detect);
@@ -176,9 +172,16 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         mVideoManager.attachToRTCEngine(getWorker().getRtcEngine());
         mVideoManager.startCapture();
 
-        mRemoteViewContainer = findViewById(R.id.remote_video_view_container);
-        mRemoteViewContainer.setOnTouchListener(this);
         mRemoteView = findViewById(R.id.remote_video_view);
+        RelativeLayout.LayoutParams remoteParams = (RelativeLayout.LayoutParams) mRemoteView.getLayoutParams();
+        remoteParams.height = mSmallHeight;
+        remoteParams.width = mSmallWidth;
+        remoteParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        remoteParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        remoteParams.rightMargin = convert(16);
+        remoteParams.topMargin = convert(70);
+        mRemoteView.setLayoutParams(remoteParams);
+        mRemoteView.setOnTouchListener(this);
 
         mEffectPanel = new EffectPanel(findViewById(R.id.effect_container), mFURenderer, new EffectRecyclerAdapter.OnDescriptionChangeListener() {
             @Override
@@ -202,39 +205,6 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     }
 
     private void swapLocalRemoteDisplay() {
-        switchVideoByChangeFrame();
-        mLocalViewIsBig = !mLocalViewIsBig;
-    }
-
-    private void switchVideoByRemoveAndAdd() {
-        mLocalViewContainer.removeAllViews();
-        mRemoteViewContainer.removeAllViews();
-
-        if (mLocalViewIsBig) {
-            mLocalViewContainer.addView(mRemoteView,
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.MATCH_PARENT);
-            mRemoteViewContainer.addView(mGLSurfaceViewLocal,
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.MATCH_PARENT);
-        } else {
-            mLocalViewContainer.addView(mGLSurfaceViewLocal,
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.MATCH_PARENT);
-            mRemoteViewContainer.addView(mRemoteView,
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.MATCH_PARENT);
-        }
-    }
-
-    private void switchVideoByChangeFrame() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
-        int mSmallHeight = height / 3;
-        int mSmallWidth = width / 3;
-
         if (mLocalViewIsBig) {
             RelativeLayout.LayoutParams localParams = (RelativeLayout.LayoutParams) mLocalViewContainer.getLayoutParams();
             localParams.height = mSmallHeight;
@@ -247,43 +217,53 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
             mLocalViewContainer.bringToFront();
             mLocalViewContainer.setOnTouchListener(this);
 
-            RelativeLayout.LayoutParams remoteParams = (RelativeLayout.LayoutParams) mRemoteViewContainer.getLayoutParams();
+            RelativeLayout.LayoutParams remoteParams = (RelativeLayout.LayoutParams) mRemoteView.getLayoutParams();
             remoteParams.removeRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             remoteParams.removeRule(RelativeLayout.ALIGN_PARENT_TOP);
             remoteParams.height = RelativeLayout.LayoutParams.MATCH_PARENT;
             remoteParams.width = RelativeLayout.LayoutParams.MATCH_PARENT;
             remoteParams.rightMargin = 0;
             remoteParams.topMargin = 0;
-            mRemoteViewContainer.setLayoutParams(remoteParams);
-            mRemoteViewContainer.getParent().requestLayout();
-            mRemoteViewContainer.setOnTouchListener(null);
+            mRemoteView.setLayoutParams(remoteParams);
+            mRemoteView.setX(x_position);
+            mRemoteView.setY(y_position);
+            mRemoteView.getParent().requestLayout();
+            mRemoteView.setOnTouchListener(null);
         } else {
             RelativeLayout.LayoutParams localParams = (RelativeLayout.LayoutParams) mLocalViewContainer.getLayoutParams();
-            localParams.removeRule(RelativeLayout.ALIGN_PARENT_END);
+            localParams.removeRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             localParams.removeRule(RelativeLayout.ALIGN_PARENT_TOP);
             localParams.height = RelativeLayout.LayoutParams.MATCH_PARENT;
             localParams.width = RelativeLayout.LayoutParams.MATCH_PARENT;
             localParams.rightMargin = 0;
             localParams.topMargin = 0;
             mLocalViewContainer.setLayoutParams(localParams);
+            mLocalViewContainer.setX(x_position);
+            mLocalViewContainer.setY(y_position);
             mLocalViewContainer.getParent().requestLayout();
             mLocalViewContainer.setOnTouchListener(null);
 
-            RelativeLayout.LayoutParams remoteParams = (RelativeLayout.LayoutParams) mRemoteViewContainer.getLayoutParams();
+            RelativeLayout.LayoutParams remoteParams = (RelativeLayout.LayoutParams) mRemoteView.getLayoutParams();
             remoteParams.height = mSmallHeight;
             remoteParams.width = mSmallWidth;
             remoteParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             remoteParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             remoteParams.rightMargin = convert(16);
             remoteParams.topMargin = convert(70);
-            mRemoteViewContainer.setLayoutParams(remoteParams);
-            mRemoteViewContainer.bringToFront();
-            mRemoteViewContainer.setOnTouchListener(this);
+            mRemoteView.setLayoutParams(remoteParams);
+            mRemoteView.bringToFront();
+            mRemoteView.setOnTouchListener(this);
         }
+        mLocalViewIsBig = !mLocalViewIsBig;
     }
 
     private int convert(int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
+    }
+
+    private void addViewMatchParent(FrameLayout parent, View child) {
+        int matchParent = FrameLayout.LayoutParams.MATCH_PARENT;
+        parent.addView(child, matchParent, matchParent);
     }
 
     @Override
@@ -326,13 +306,17 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     }
 
     @Override
-    public void onUserOffline(final int uid, int reason) {
+    public void onUserOffline(int uid, int reason) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                getRtcEngine().setRemoteVideoRenderer(uid, mRemoteView);
+                onRemoteUserLeft();
             }
         });
+    }
+
+    private void onRemoteUserLeft() {
+        mRemoteUid = -1;
     }
 
     @Override
@@ -345,11 +329,16 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mRemoteView.setBufferType(MediaIO.BufferType.BYTE_ARRAY);
-                mRemoteView.setPixelFormat(MediaIO.PixelFormat.I420);
-                getRtcEngine().setRemoteVideoRenderer(uid, mRemoteView);
+                setupRemoteVideo(uid);
             }
         });
+    }
+
+    private void setupRemoteVideo(int uid) {
+        mRemoteUid = uid;
+        mRemoteView.setBufferType(MediaIO.BufferType.BYTE_ARRAY);
+        mRemoteView.setPixelFormat(MediaIO.PixelFormat.I420);
+        getRtcEngine().setRemoteVideoRenderer(uid, mRemoteView);
     }
 
     protected void showDescription(int str, int time) {
@@ -428,6 +417,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
 
             System.gc();
         }
+
     }
 
     private void bindSurfaceViewEvent() {

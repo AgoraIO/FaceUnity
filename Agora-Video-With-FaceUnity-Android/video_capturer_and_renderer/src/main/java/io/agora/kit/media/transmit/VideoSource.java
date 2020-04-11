@@ -17,7 +17,6 @@ public class VideoSource implements IVideoSource {
     @Override
     public int getBufferType() {
         return MediaIO.BufferType.TEXTURE.intValue();
-//        return MediaIO.BufferType.BYTE_ARRAY.intValue();
     }
 
     @Override
