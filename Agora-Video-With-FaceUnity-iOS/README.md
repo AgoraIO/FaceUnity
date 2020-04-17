@@ -77,7 +77,7 @@ Due to the need to use third-party capture when using beauty function, please re
 
 #### SDK Downloads
 [AgoraModule_Base_iOS-1.2.1](https://download.agora.io/components/release/AgoraModule_Base_iOS-1.2.1.zip)
-[AgoraModule_Capturer_iOS-1.2.1](hhttps://download.agora.io/components/release/AgoraModule_Capturer_iOS-1.2.1.zip)
+[AgoraModule_Capturer_iOS-1.2.1](https://download.agora.io/components/release/AgoraModule_Capturer_iOS-1.2.1.zip)
                                
                            
 #### Add project permissions
