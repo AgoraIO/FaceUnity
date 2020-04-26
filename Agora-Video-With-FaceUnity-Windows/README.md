@@ -11,7 +11,7 @@ The Agora FaceUnity Tutorial sample app supports the following platforms:
 This readme describes the steps and considerations for demonstrating the Agora FaceUnity Tutorial Windows sample app.
 
 ## Prepare Agora SDK
-1. [Downlaod Agora SDK](https://download.agora.io/sdk/release/Agora_Native_SDK_for_Windows(x86)_v3_0_0_FULL.zip)
+1. [Download Agora SDK](https://download.agora.io/sdk/release/Agora_Native_SDK_for_Windows(x86)_v3_0_0_FULL.zip)
 
 2. unzip file, place the folder sdk Agora-Video-With-FaceUnity-Windows, then change Name to AgoraSDK.
 
