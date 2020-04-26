@@ -125,7 +125,7 @@ self.cameraCapturer = [[AGMCameraCapturer alloc] initWithConfig:videoConfig];
 
 ##### Custom Filter
 
-Create a class that inherits form AGMVideoSource and implements the AGMVideoSink protocol, Implement the onFrame: method to handle the videoframe .
+Create a class that inherits from AGMVideoSource and implements the AGMVideoSink protocol, Implement the onFrame: method to handle the videoframe .
 
 ```objc
 
