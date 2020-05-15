@@ -60,7 +60,7 @@
 
 @property (nonatomic, strong) AgoraRtcVideoCanvas *localCanvas;
 
-@property (nonatomic, weak)   UIView *localRenderView;
+@property (nonatomic, strong) UIView *localRenderView;
 
 @property (nonatomic, assign) NSInteger count;
 
@@ -72,8 +72,6 @@
 @property (nonatomic, strong) AGMCameraCapturer *cameraCapturer;
 @property (nonatomic, strong) AGMCapturerVideoConfig *videoConfig;
 @property (nonatomic, strong) AGMVideoAdapterFilter *videoAdapterFilter;
-
-@property (nonatomic, strong) UIView *preview;
 
 @end
 
@@ -91,7 +89,7 @@
     [super viewDidLoad];
     
     [self addObserver];
-        
+    
     CGRect frame = self.itemsView.frame ;
     frame.origin = CGPointMake(0, self.view.frame.size.height) ;
     frame.size = CGSizeMake(self.view.frame.size.width, frame.size.height) ;
@@ -115,13 +113,17 @@
 #pragma mark Filter
     self.videoAdapterFilter = [[AGMVideoAdapterFilter alloc] init];
     self.videoAdapterFilter.ignoreAspectRatio = YES;
-    self.videoAdapterFilter.isMirror = YES;
 #pragma mark push pixelBuffer
     __weak typeof(self) weakSelf = self;
     [self.cameraCapturer addVideoSink:self.videoAdapterFilter];
-        #define DEGREES_TO_RADIANS(x) (x * M_PI/180.0)
-    CGAffineTransform rotation = CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(90));
-    self.videoAdapterFilter.affineTransform = rotation;
+    //        #define DEGREES_TO_RADIANS(x) (x * M_PI/180.0)
+    // Device Orientation Portrait
+    //    CGAffineTransform rotation = CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(90));
+    // Device Orientation LandscapeLeft
+    //    CGAffineTransform rotation = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180));
+    // Device Orientation LandscapeRight
+    //    CGAffineTransform rotation = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(0));
+    //    self.videoAdapterFilter.affineTransform = rotation;
     [self.videoAdapterFilter setFrameProcessingCompletionBlock:^(AGMVideoSource * _Nonnull videoSource, CMTime time) {
         CVPixelBufferRef pixelBuffer = videoSource.framebufferForOutput.pixelBuffer;
         [[FUManager shareManager] renderItemsToPixelBuffer:pixelBuffer];
@@ -137,20 +139,26 @@
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-
+#define DEGREES_TO_RADIANS(x) (x * M_PI/180.0)
+    CGAffineTransform rotation = CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(90));
     switch (orientation) {
         case UIInterfaceOrientationPortrait:
+            rotation = CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(90));
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
             break;
         case UIInterfaceOrientationLandscapeLeft:
+            rotation = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180));
             break;
         case UIInterfaceOrientationLandscapeRight:
+            rotation = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(0));
             break;
-
+            
         default:
             break;
     }
+    self.videoAdapterFilter.affineTransform = rotation;
+    
 }
 
 - (void)viewDidLayoutSubviews {
@@ -162,6 +170,7 @@
         self.tipLabel.frame = tipFrame ;
         self.tipLabel.textColor = [UIColor whiteColor];
     }
+    self.localRenderView.frame = self.containView.bounds;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -260,6 +269,7 @@
     [self.agoraKit enableWebSdkInteroperability:YES];
     
     [self setupLocalView];
+//    [self.agoraKit setParameters:@"{\"che.video.keepLastFrame\":true}"];
     [self.agoraKit startPreview];
     
     self.count = 0;
@@ -270,18 +280,16 @@
 
 - (void)setupLocalView {
     [self.containView layoutIfNeeded];
-    self.preview = [[UIView alloc] initWithFrame:self.containView.bounds];
-//    self.videoRnderer.preView = self.preview;
-
-    [self.containView insertSubview:self.preview atIndex:0];
+    self.localRenderView = [[UIView alloc] initWithFrame:self.containView.bounds];
+    
+    [self.containView insertSubview:self.localRenderView atIndex:0];
     if (self.localCanvas == nil) {
         self.localCanvas = [[AgoraRtcVideoCanvas alloc] init];
     }
-    self.localCanvas.view = self.preview;
+    self.localCanvas.view = self.localRenderView;
     self.localCanvas.renderMode = AgoraVideoRenderModeHidden;
     // set render view
     [self.agoraKit setupLocalVideo:self.localCanvas];
-    self.localRenderView = self.preview;
     [self.agoraKit setLocalVideoMirrorMode:AgoraVideoMirrorModeDisabled];
     
 }
@@ -302,7 +310,7 @@
 }
 
 - (void)shouldDispose {
-
+    NSLog(@"shouldDispose");
 }
 
 - (AgoraVideoBufferType)bufferType {
@@ -464,7 +472,6 @@
 
 - (IBAction)leaveBtnClick:(UIButton *)sender {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-//    [self.captureManager stopCapture];
     [self.cameraCapturer stop];
     [[FUManager shareManager] destoryItems];
     [self.agoraKit leaveChannel:nil];
@@ -672,10 +679,10 @@
     if (self.model.type == FULiveModelTypeMusicFilter) {
         [[FUMusicPlayer sharePlayer] pause] ;
     }
-        if (self.navigationController.visibleViewController == self) {
-             [self.mCamera stopCapture];
-     //        self.mCamera = nil;
-         }
+    if (self.navigationController.visibleViewController == self) {
+        [self.mCamera stopCapture];
+        //        self.mCamera = nil;
+    }
 }
 
 - (void)willEnterForeground {
@@ -689,9 +696,9 @@
         [[FUMusicPlayer sharePlayer] playMusic:@"douyin.mp3"] ;
     }
     
-       if (self.navigationController.visibleViewController == self) {
-         [self.mCamera startCapture];
-     }
+    if (self.navigationController.visibleViewController == self) {
+        [self.mCamera startCapture];
+    }
 }
 
 @end
