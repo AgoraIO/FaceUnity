@@ -2,7 +2,8 @@ xcuserdata
 .DS_Store
 *.xcscmblueprint
 libs
-*.framework
+#*.framework
+#!/FaceunityUtils/FUAPIDemoBar.framework
 
 # Xcode
 #
