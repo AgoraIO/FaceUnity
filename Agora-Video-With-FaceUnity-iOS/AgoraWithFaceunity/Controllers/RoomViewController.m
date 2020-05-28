@@ -14,7 +14,7 @@
 #import "FUMusicPlayer.h"
 #import "KeyCenter.h"
 #import <FUAPIDemoBar/FUAPIDemoBar.h>
-#import <AgoraRtcEngineKit/AgoraRtcEngineKit.h>
+#import <AgoraRtcKit/AgoraRtcEngineKit.h>
 
 #import <AGMBase/AGMBase.h>
 #import <AGMCapturer/AGMCapturer.h>
