@@ -3,6 +3,7 @@ package io.agora.rtcwithfu.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import io.agora.capture.video.camera.CameraVideoManager;
 import io.agora.rtcwithfu.MyApplication;
 import io.agora.rtcwithfu.EngineConfig;
 import io.agora.rtcwithfu.MyRtcEngineEventHandler;
@@ -30,19 +31,27 @@ public abstract class RTCBaseActivity extends AppCompatActivity {
 
     protected abstract void deInitUIAndEvent();
 
-    protected RtcEngine getRtcEngine() {
-        return ((MyApplication) getApplication()).getWorkerThread().getRtcEngine();
+    protected MyApplication application() {
+        return (MyApplication) getApplication();
     }
 
-    protected final WorkerThread getWorker() {
-        return ((MyApplication) getApplication()).getWorkerThread();
+    protected final WorkerThread worker() {
+        return application().getWorkerThread();
     }
 
-    protected final EngineConfig getConfig() {
-        return ((MyApplication) getApplication()).getWorkerThread().getEngineConfig();
+    protected RtcEngine rtcEngine() {
+        return worker().getRtcEngine();
     }
 
-    protected final MyRtcEngineEventHandler getEventHandler() {
-        return ((MyApplication) getApplication()).getWorkerThread().eventHandler();
+    protected final EngineConfig config() {
+        return worker().getEngineConfig();
+    }
+
+    protected final MyRtcEngineEventHandler eventHandler() {
+        return worker().eventHandler();
+    }
+
+    protected final CameraVideoManager videoManager() {
+        return application().videoManager();
     }
 }

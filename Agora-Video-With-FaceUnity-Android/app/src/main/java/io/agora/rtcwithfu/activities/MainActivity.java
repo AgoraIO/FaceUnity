@@ -32,8 +32,6 @@ public class MainActivity extends Activity {
     private static final int REQUEST_CODE_ALL_PERMISSIONS = 999;
 
     private EditText mChannelName;
-    private boolean enalbeLocalRecording;
-    private boolean enalbeHorizontal;
     private OnCameraAndAudioPermissionListener mListener = new OnCameraAndAudioPermissionListener() {
         @Override
         public void onGrantResult(boolean granted) {
@@ -49,12 +47,6 @@ public class MainActivity extends Activity {
         checkCameraPermission(this, mListener);
     }
 
-    public void onCheckLocalRecordBoxCLick(View view) {
-        CheckBox checkBox = (CheckBox)view;
-        enalbeLocalRecording = checkBox.isChecked();
-    }
-
-
     public void onStartBroadcastClick(View view) {
         String name = mChannelName.getText().toString();
         if (name.isEmpty()) {
@@ -62,7 +54,6 @@ public class MainActivity extends Activity {
         } else {
             Intent intent = new Intent(this, FUChatActivity.class);
             intent.putExtra(Constants.ACTION_KEY_ROOM_NAME, name);
-            intent.putExtra(Constants.ACTION_KEY_ENABLE_LOCAL_RECORD, enalbeLocalRecording);
             startActivity(intent);
         }
     }

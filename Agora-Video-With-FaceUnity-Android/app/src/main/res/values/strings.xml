@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Agora with FU</string>
-    <string name="agora_app_id"><#YOUR APP ID#>6</string>
+    <string name="agora_app_id"><#YOUR APP ID#></string>
 
     <string name="home_function_name_beauty">Beautification</string>
     <string name="home_function_name_animoji">Animoji</string>
@@ -258,7 +258,7 @@
 
     <string name="btn_switch_video_view">Switch View</string>
 
-    <string name="btn_switch_mirror_video_preview">Switch FlipX</string>
+    <string name="btn_switch_mirror_video_preview">Switch Mirror</string>
 
     <string name="msg_permission_granted">Permission granted, tap and try again</string>
     <string name="msg_permission_rejected">Permission rejected, must grant permission first</string>

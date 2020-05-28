@@ -1,3 +1,1 @@
 include ':app', ':faceunity'
-//include ':videoaudioprocessor'
-include ':videoaudioprocessor-release'

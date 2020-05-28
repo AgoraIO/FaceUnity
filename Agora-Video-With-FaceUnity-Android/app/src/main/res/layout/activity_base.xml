@@ -6,36 +6,27 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <FrameLayout
             android:id="@+id/local_video_view_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray" />
-
+            android:background="@android:color/darker_gray"/>
         <io.agora.rtc.mediaio.AgoraTextureView
             android:id="@+id/remote_video_view"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="70dp"
-            android:layout_marginRight="@dimen/activity_horizontal_margin" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/afl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:id="@+id/effect_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
-
             <LinearLayout
                 android:id="@+id/effect_panel_container"
                 android:layout_width="match_parent"
@@ -43,7 +34,6 @@
                 android:background="@color/percent50translucentBlack"
                 android:orientation="vertical"
                 android:visibility="gone" />
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/effect_type_list"
                 android:layout_width="match_parent"
@@ -62,8 +52,7 @@
             android:text="@string/home_function_name_expression"
             android:textColor="@color/colorWhite"
             android:textSize="17sp"
-            android:visibility="gone" />
-
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/iv_face_detect"
             android:layout_width="wrap_content"
@@ -71,9 +60,7 @@
             android:layout_centerInParent="true"
             android:text="@string/fu_base_is_tracking_text"
             android:textColor="@color/colorWhite"
-            android:textSize="17sp"
-            />
-
+            android:textSize="17sp"/>
         <TextView
             android:id="@+id/tv_system_error"
             android:layout_width="wrap_content"
@@ -82,8 +69,7 @@
             android:text=""
             android:textColor="@color/brickRedColor"
             android:textSize="20sp"
-            android:textStyle="bold" />
-
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/effect_desc_text"
             android:layout_width="wrap_content"
@@ -91,116 +77,66 @@
             android:layout_centerInParent="true"
             android:textColor="@color/colorWhite"
             android:textSize="17sp"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="@dimen/max_space"
-            android:layout_marginTop="@dimen/max_space"
-            android:layout_marginRight="@dimen/max_space"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/max_space">
+            <Button
+                android:id="@+id/btn_switch_view"
+                android:layout_width="wrap_content"
                 android:layout_height="38dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_recording"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-
-                    android:background="@color/faceUnityYellow"
-                    android:gravity="center"
-                    android:onClick="onClick"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:text="@string/btn_start_recording"
-                    android:textColor="@color/colorWhite" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10" />
-
-                <Button
-                    android:id="@+id/btn_switch_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-
-                    android:background="@color/faceUnityYellow"
-                    android:gravity="center"
-                    android:onClick="onClick"
-                    android:text="@string/btn_switch_video_view"
-                    android:textColor="@color/colorWhite" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10" />
-
-                <Button
-                    android:id="@+id/btn_mirror_video_preview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-
-                    android:background="@color/faceUnityYellow"
-                    android:gravity="center"
-                    android:onClick="onClick"
-                    android:text="@string/btn_switch_mirror_video_preview"
-                    android:textColor="@color/colorWhite" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10" />
-
-                <ImageButton
-                    android:id="@+id/btn_choose_camera"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-
-                    android:background="@mipmap/camera_front"
-                    android:gravity="center"
-                    android:onClick="onClick"
-                    android:scaleType="centerInside" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="10" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:background="@color/faceUnityYellow"
+                android:textAlignment="gravity"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:gravity="center"
+                android:layout_alignParentStart="true"
+                android:onClick="onClick"
+                android:text="@string/btn_switch_video_view"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"/>
+            <Button
+                android:id="@+id/btn_mirror_video_preview"
+                android:layout_width="wrap_content"
                 android:layout_height="38dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_switch_client_role"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-
-                    android:background="@color/faceUnityYellow"
-                    android:gravity="center"
-                    android:onClick="onClick"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:text="@string/btn_switch_client_role_audience"
-                    android:textColor="@color/colorWhite" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10" />
-            </LinearLayout>
-
-        </LinearLayout>
-
+                android:background="@color/faceUnityYellow"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_toEndOf="@id/btn_switch_view"
+                android:layout_marginStart="10dp"
+                android:onClick="onClick"
+                android:text="@string/btn_switch_mirror_video_preview"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"/>
+            <Button
+                android:id="@+id/btn_switch_client_role"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:background="@color/faceUnityYellow"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/btn_switch_view"
+                android:layout_marginTop="10dp"
+                android:onClick="onClick"
+                android:text="@string/btn_switch_client_role_audience"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite" />
+            <ImageButton
+                android:id="@+id/btn_choose_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:background="@mipmap/camera_front"
+                android:gravity="center"
+                android:layout_alignParentEnd="true"
+                android:onClick="onClick"
+                android:scaleType="centerInside" />
+        </RelativeLayout>
     </RelativeLayout>
-
 </RelativeLayout>
