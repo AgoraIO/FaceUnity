@@ -46,8 +46,6 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
 
     private boolean mLocalViewIsBig = true;
     private int mRemoteUid = -1;
-    private float x_position;
-    private float y_position;
 
     private TextView mDescriptionText;
     private TextView mTrackingText;
@@ -74,8 +72,6 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         int width = displayMetrics.widthPixels;
         mSmallHeight = height / 3;
         mSmallWidth = width / 3;
-        x_position = width - mSmallWidth - convert(16);
-        y_position = convert(70);
     }
 
     @Override
@@ -188,12 +184,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
 
     @Override
     public void onUserOffline(int uid, int reason) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                onRemoteUserLeft();
-            }
-        });
+        runOnUiThread(this::onRemoteUserLeft);
     }
 
     private void onRemoteUserLeft() {
@@ -207,11 +198,9 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
 
     @Override
     public void onFirstRemoteVideoDecoded(final int uid, int width, int height, int elapsed) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                setupRemoteVideo(uid);
-            }
+        runOnUiThread(() -> {
+            if (mRemoteUid != -1) return;
+            setupRemoteVideo(uid);
         });
     }
 
@@ -268,7 +257,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
 
     @Override
     protected void onMirrorPreviewRequested(boolean mirror) {
-        // mVideoManager.setMirrorMode(mirror);
+        mVideoManager.setLocalPreviewMirror(mirror);
     }
 
     @Override
@@ -282,11 +271,13 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
                     FrameLayout.LayoutParams.MATCH_PARENT);
             mVideoManager.setLocalPreview(mLocalSurfaceView);
             mVideoManager.startCapture();
+            mMuted = false;
         } else {
             rtcEngine().setClientRole(io.agora.rtc.Constants.CLIENT_ROLE_AUDIENCE);
             mLocalViewContainer.removeAllViews();
             mLocalSurfaceView = null;
             mVideoManager.stopCapture();
+            mMuted = true;
         }
     }
 

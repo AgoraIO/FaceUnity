@@ -63,6 +63,11 @@ public class RtcVideoConsumer implements IVideoConsumer, IVideoSource {
     }
 
     @Override
+    public void setMirror(boolean mirror) {
+
+    }
+
+    @Override
     public Object onGetDrawingTarget() {
         // Rtc engine does not draw the frames
         // on any target window surface
