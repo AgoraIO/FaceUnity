@@ -20,7 +20,7 @@ public abstract class FUBaseActivity extends RTCBaseActivity
     private final String TAG = "FUBaseUIActivity";
 
     protected boolean broadcastingStatus = true;
-    private int mMirrorVideoPreviewStatus = 0;
+    protected boolean mirrorVideoPreviewStatus = true;
     protected EffectPanel mEffectPanel;
 
     @Override
@@ -78,8 +78,8 @@ public abstract class FUBaseActivity extends RTCBaseActivity
                 onViewSwitchRequested();
                 break;
             case R.id.btn_mirror_video_preview:
-                mMirrorVideoPreviewStatus ^= 1;
-                onMirrorPreviewRequested(mMirrorVideoPreviewStatus > 0);
+                mirrorVideoPreviewStatus = !mirrorVideoPreviewStatus;
+                onMirrorPreviewRequested(mirrorVideoPreviewStatus);
                 break;
             case R.id.btn_switch_client_role:
                 broadcastingStatus = !broadcastingStatus;

@@ -72,6 +72,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
             mMirrored = savedInstanceState.getBoolean(KEY_MIRRORED);
             mLocalViewIsBig = savedInstanceState.getBoolean(KEY_LOCAL_BIG);
         }
+        mirrorVideoPreviewStatus = mMirrored;
 
         calculateSmallViewSize();
         initUIAndEvent();
