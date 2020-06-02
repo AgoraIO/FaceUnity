@@ -5,7 +5,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.HashMap;
 
@@ -20,7 +19,7 @@ public abstract class FUBaseActivity extends RTCBaseActivity
         implements View.OnClickListener, View.OnTouchListener {
     private final String TAG = "FUBaseUIActivity";
 
-    private int mBroadcastingStatus = 1;
+    protected boolean broadcastingStatus = true;
     private int mMirrorVideoPreviewStatus = 0;
     protected EffectPanel mEffectPanel;
 
@@ -83,14 +82,19 @@ public abstract class FUBaseActivity extends RTCBaseActivity
                 onMirrorPreviewRequested(mMirrorVideoPreviewStatus > 0);
                 break;
             case R.id.btn_switch_client_role:
-                mBroadcastingStatus ^= 1;
-                onChangedToBroadcaster(mBroadcastingStatus > 0);
-                if (mBroadcastingStatus > 0) {
-                    ((Button) v).setText(R.string.btn_switch_client_role_audience);
-                } else {
-                    ((Button) v).setText(R.string.btn_switch_client_role_broadcaster);
-                }
+                broadcastingStatus = !broadcastingStatus;
+                onChangedToBroadcaster(broadcastingStatus);
+                setRoleButtonText();
                 break;
+        }
+    }
+
+    protected void setRoleButtonText() {
+        Button button = findViewById(R.id.btn_switch_client_role);
+        if (broadcastingStatus) {
+            button.setText(R.string.btn_switch_client_role_audience);
+        } else {
+            button.setText(R.string.btn_switch_client_role_broadcaster);
         }
     }
 

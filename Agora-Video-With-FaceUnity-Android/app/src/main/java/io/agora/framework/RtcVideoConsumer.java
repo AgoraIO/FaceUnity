@@ -63,7 +63,7 @@ public class RtcVideoConsumer implements IVideoConsumer, IVideoSource {
     }
 
     @Override
-    public void setMirror(boolean mirror) {
+    public void setMirrorMode(int mode) {
 
     }
 

@@ -35,7 +35,7 @@
 
         <activity
             android:name=".activities.FUChatActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="sensor"/>
     </application>
 
 </manifest>

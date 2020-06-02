@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.faceunity.FURenderer;
-import com.faceunity.fulivedemo.ui.adapter.EffectRecyclerAdapter;
 
 import io.agora.capture.video.camera.CameraVideoManager;
 import io.agora.capture.video.camera.Constant;
@@ -33,6 +32,10 @@ import io.agora.rtcwithfu.view.EffectPanel;
 @SuppressWarnings("deprecation")
 public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHandler {
     private final static String TAG = FUChatActivity.class.getSimpleName();
+    private final static String KEY_MUTED = "muted";
+    private final static String KEY_MIRRORED = "mirrored";
+    private final static String KEY_LOCAL_BIG = "local-big";
+
     private static final int CAPTURE_WIDTH = 1280;
     private static final int CAPTURE_HEIGHT = 720;
     private static final int CAPTURE_FRAME_RATE = 24;
@@ -53,6 +56,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     private int mSmallHeight;
     private int mSmallWidth;
     private CameraVideoManager mVideoManager;
+    private boolean mMirrored = true;
     private boolean mMuted;
 
     private boolean mFinished;
@@ -61,6 +65,14 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mVideoManager = videoManager();
+
+        if (savedInstanceState != null) {
+            mMuted = savedInstanceState.getBoolean(KEY_MUTED);
+            broadcastingStatus = !mMuted;
+            mMirrored = savedInstanceState.getBoolean(KEY_MIRRORED);
+            mLocalViewIsBig = savedInstanceState.getBoolean(KEY_LOCAL_BIG);
+        }
+
         calculateSmallViewSize();
         initUIAndEvent();
     }
@@ -80,9 +92,15 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         mLocalViewContainer.removeAllViews();
         mLocalSurfaceView = new SurfaceView(this);
         mLocalViewContainer.addView(mLocalSurfaceView);
-
         mRemoteView = findViewById(R.id.remote_video_view);
-        setSmallWindow(mRemoteView);
+
+        if (mLocalViewIsBig) {
+            setBigWindow(mLocalViewContainer);
+            setSmallWindow(mRemoteView);
+        } else {
+            setBigWindow(mRemoteView);
+            setSmallWindow(mLocalViewContainer);
+        }
 
         mDescriptionText = findViewById(R.id.effect_desc_text);
         mTrackingText = findViewById(R.id.iv_face_detect);
@@ -103,6 +121,10 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         mVideoManager.setFrameRate(CAPTURE_FRAME_RATE);
         mVideoManager.setFacing(Constant.CAMERA_FACING_FRONT);
         mVideoManager.setLocalPreview(mLocalSurfaceView);
+        mVideoManager.setLocalPreviewMirror(mirrorToMode(mMirrored));
+
+        onChangedToBroadcaster(!mMuted);
+        setRoleButtonText();
 
         rtcEngine().setVideoSource(new RtcVideoConsumer());
         eventHandler().addEventHandler(this);
@@ -125,8 +147,14 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         }
     };
 
+    private int mirrorToMode(boolean mirrored) {
+        return mirrored ? Constant.MIRROR_MODE_ENABLED : Constant.MIRROR_MODE_DISABLED;
+    }
+
     private void joinChannel() {
-        worker().configEngine(io.agora.rtc.Constants.CLIENT_ROLE_BROADCASTER,
+        int role = mMuted ? io.agora.rtc.Constants.CLIENT_ROLE_AUDIENCE :
+                io.agora.rtc.Constants.CLIENT_ROLE_BROADCASTER;
+        worker().configEngine(role,
                 new VideoEncoderConfiguration(
                     VideoEncoderConfiguration.VD_640x360,
                     VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_24,
@@ -155,6 +183,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     public void finish() {
         mFinished = true;
         mVideoManager.stopCapture();
+        mFURenderer.resetTrackingStatus();
         super.finish();
     }
 
@@ -163,6 +192,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         super.onStop();
         if (!mFinished) {
             mVideoManager.stopCapture();
+            mFURenderer.resetTrackingStatus();
         }
     }
 
@@ -257,7 +287,8 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
 
     @Override
     protected void onMirrorPreviewRequested(boolean mirror) {
-        mVideoManager.setLocalPreviewMirror(mirror);
+        mMirrored = mirror;
+        mVideoManager.setLocalPreviewMirror(mirrorToMode(mMirrored));
     }
 
     @Override
@@ -284,5 +315,13 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     @Override
     protected void onCameraChangeRequested() {
         mVideoManager.switchCamera();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(KEY_MUTED, mMuted);
+        outState.putBoolean(KEY_MIRRORED, mMirrored);
+        outState.putBoolean(KEY_LOCAL_BIG, mLocalViewIsBig);
+        super.onSaveInstanceState(outState);
     }
 }

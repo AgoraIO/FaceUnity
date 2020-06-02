@@ -998,6 +998,10 @@ public class FURenderer implements OnFUControlListener {
 
     private int mTrackingStatus = 0;
 
+    public void resetTrackingStatus() {
+        mTrackingStatus = 0;
+    }
+
     public interface OnTrackingStatusChangedListener {
         void onTrackingStatusChanged(int status);
     }
