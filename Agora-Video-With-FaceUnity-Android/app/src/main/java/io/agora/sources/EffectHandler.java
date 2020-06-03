@@ -13,6 +13,11 @@ import io.agora.processor.media.data.VideoCapturedFrame;
  */
 
 public class EffectHandler implements SinkConnector<CapturedFrame> {
+
+    private static final String TAG = "EffectHandler";
+
+    private static final boolean DEBUG = false;
+
     private FURenderer mFURenderer;
 
     public EffectHandler(FURenderer mFURenderer) {
@@ -21,11 +26,12 @@ public class EffectHandler implements SinkConnector<CapturedFrame> {
 
     @Override
     public void onDataAvailable(CapturedFrame data) {
-        VideoCapturedFrame videoCapturedFrame = (VideoCapturedFrame)data;
-        Log.i("TJY","beauty onDataAvailable");
+        VideoCapturedFrame videoCapturedFrame = (VideoCapturedFrame) data;
         int fuTextureId = mFURenderer.onDrawFrame(data.rawData, videoCapturedFrame.mTextureId,
                 videoCapturedFrame.videoWidth, videoCapturedFrame.videoHeight);
-        Log.i("TJY","beauty onDataAvailable over");
+        if (DEBUG) {
+            Log.d(TAG, "FU onDataAvailable done " + fuTextureId);
+        }
         videoCapturedFrame.mEffectTextureId = fuTextureId;
     }
 }

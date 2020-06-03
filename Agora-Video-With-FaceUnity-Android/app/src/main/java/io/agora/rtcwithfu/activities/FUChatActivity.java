@@ -21,7 +21,6 @@ import com.faceunity.fulivedemo.ui.adapter.EffectRecyclerAdapter;
 import com.faceunity.fulivedemo.utils.CameraUtils;
 import com.faceunity.fulivedemo.utils.ToastUtil;
 
-
 import io.agora.processor.common.connector.SinkConnector;
 import io.agora.processor.common.utils.LogUtil;
 import io.agora.processor.media.data.AudioCaptureConfigInfo;
@@ -87,7 +86,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     private VideoCaptureConfigInfo mVideoCaptureConfigInfo;
     private AudioCaptureConfigInfo mAudioCaptureConfigInfo;
     private volatile boolean mFUInit;
-    private boolean enableLocalRecording = false;
+    private boolean enableCustomizedAudioRecording = false;
 
     private SensorManager mSensorManager;
     private Sensor mSensor;
@@ -115,7 +114,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         y_position = convert(70);
         mDescriptionText = findViewById(R.id.effect_desc_text);
         mTrackingText = findViewById(R.id.iv_face_detect);
-        enableLocalRecording = getIntent().getBooleanExtra(Constants.ACTION_KEY_ENABLE_LOCAL_RECORD, false);
+        enableCustomizedAudioRecording = getIntent().getBooleanExtra(Constants.ACTION_KEY_ENABLE_CUSTOMIZED_AUDIO_RECORD, false);
         // The settings of FURender may be slightly different,
         // determined when initializing the effect panel
         mFURenderer = new FURenderer
@@ -175,19 +174,19 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         // set agora consumer type
         this.mVideoCaptureConfigInfo.setVideoCaptureType(VideoCaptureConfigInfo.CaptureType.TEXTURE);
         mVideoManager.allocate(mVideoCaptureConfigInfo);
-        // init render view in videomanager could be surfaceview/glsurfaceview/textureview
+        // init render view in VideoManager could be surfaceview/glsurfaceview/textureview
         mVideoManager.setRenderView(mGLSurfaceViewLocal);
         // enable beauty effect
         mVideoManager.connectEffectHandler(mEffectHandler);
         if (mVideoSource == null) {
-            // init agora source ,video data can use the source pass to agora channel
+            // init agora source, video data can use the source pass to agora channel
             mVideoSource = new AgoraVideoSource(this.mVideoCaptureConfigInfo);
         }
         mVideoSource.enablePushDataForAgora(true);
         // set source to agora engine
-        this.getWorker().getRtcEngine().setVideoSource(mVideoSource);
-        // attach agora source to render in videomanager,which means rendered frame can pass to agora source
-        this.mVideoManager.attachConnectorToRender(mVideoSource);
+        getWorker().setVideoSource(mVideoSource);
+        // attach agora source to render in videomanager, which means rendered frame can pass to agora source
+        mVideoManager.attachConnectorToRender(mVideoSource);
         // start capture
         mVideoManager.startCapture();
 
@@ -219,8 +218,8 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
                 VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_24, 800,
                 VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT));
 
-        if (enableLocalRecording) {
-            // just for audio recorder ,not necessary
+        if (enableCustomizedAudioRecording) {
+            // just for audio recorder, not necessary
             if (mAudioCaptureConfigInfo == null) {
                 mAudioCaptureConfigInfo = new AudioCaptureConfigInfo();
                 mAudioCaptureConfigInfo.setAudioSampleRate(44100);
@@ -343,7 +342,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         if (mAudioSource != null) {
             mAudioSource.enablePushDataForAgora(false);
         }
-        if (enableLocalRecording) {
+        if (enableCustomizedAudioRecording) {
             if (mAudioManager != null) {
                 mAudioManager.stop();
             }
@@ -443,7 +442,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
             mVideoManager.allocate(this.mVideoCaptureConfigInfo);
             mVideoManager.setRenderView(mGLSurfaceViewLocal);
             mVideoManager.connectEffectHandler(mEffectHandler);
-            mVideoManager.startCapture();
+            mVideoManager.attachConnectorToRender(mVideoSource);
 
             mLocalViewContainer.addView(mGLSurfaceViewLocal,
                     FrameLayout.LayoutParams.MATCH_PARENT,
@@ -452,7 +451,6 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
             mVideoManager.startCapture();
         } else {
             mVideoManager.stopCapture();
-
 
             mVideoManager.runInRenderThread(new Runnable() {
                 @Override
@@ -466,7 +464,6 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
             getRtcEngine().setClientRole(io.agora.rtc.Constants.CLIENT_ROLE_AUDIENCE);
             mVideoManager.deallocate();
 
-
             System.gc();
         }
 
@@ -476,7 +473,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         mGLSurfaceViewLocal.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
             public void onViewAttachedToWindow(View v) {
-                // init fu surface in render which managed by videomanager
+                // init fu surface in render which managed by VideoManager
                 mVideoManager.runInRenderThread(new Runnable() {
                     @Override
                     public void run() {
@@ -503,7 +500,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
 
     @Override
     protected void onStartRecordingRequested() {
-        if (enableLocalRecording) {
+        if (enableCustomizedAudioRecording) {
             startRecording();
         } else {
             ToastUtil.showToast(this, "should enable this function before join channel");
@@ -513,7 +510,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
 
     @Override
     protected void onStopRecordingRequested() {
-        if (enableLocalRecording) {
+        if (enableCustomizedAudioRecording) {
             stopRecording();
         } else {
             ToastUtil.showToast(this, "should enable this function before join channel");

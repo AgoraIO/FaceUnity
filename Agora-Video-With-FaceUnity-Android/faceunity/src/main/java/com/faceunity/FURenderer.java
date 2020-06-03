@@ -767,7 +767,7 @@ public class FURenderer implements OnFUControlListener {
             mIsNeedUpdateFaceBeauty = false;
         }
 
-        //queueEvent的Runnable在此处被调用
+        // queueEvent 的 Runnable 在此处被调用
         while (!mEventQueue.isEmpty()) {
             mEventQueue.remove(0).run();
         }
