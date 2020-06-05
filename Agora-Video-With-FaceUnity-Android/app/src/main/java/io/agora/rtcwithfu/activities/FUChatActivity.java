@@ -369,6 +369,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
 
     private void onRemoteUserLeft() {
         mRemoteUid = -1;
+        mRemoteView.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -387,6 +388,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     }
 
     private void setupRemoteVideo(int uid) {
+        mRemoteView.setVisibility(View.VISIBLE);
         mRemoteUid = uid;
         mRemoteView.setBufferType(MediaIO.BufferType.BYTE_ARRAY);
         mRemoteView.setPixelFormat(MediaIO.PixelFormat.I420);
@@ -438,7 +440,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
             mGLSurfaceViewLocal = new GLSurfaceView(this);
 
             bindSurfaceViewEvent();
-
+            getWorker().setVideoSource(mVideoSource);
             mVideoManager.allocate(this.mVideoCaptureConfigInfo);
             mVideoManager.setRenderView(mGLSurfaceViewLocal);
             mVideoManager.connectEffectHandler(mEffectHandler);
