@@ -68,9 +68,7 @@ public class RtcVideoConsumer implements IVideoConsumer, IVideoSource {
     }
 
     @Override
-    public Object onGetDrawingTarget() {
-        // Rtc engine does not draw the frames
-        // on any target window surface
+    public Object getDrawingTarget() {
         return null;
     }
 
@@ -82,6 +80,16 @@ public class RtcVideoConsumer implements IVideoConsumer, IVideoSource {
     @Override
     public int onMeasuredHeight() {
         return 0;
+    }
+
+    @Override
+    public void recycle() {
+
+    }
+
+    @Override
+    public String getId() {
+        return null;
     }
 
     @Override

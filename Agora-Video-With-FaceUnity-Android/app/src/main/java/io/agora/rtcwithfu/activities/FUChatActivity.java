@@ -6,8 +6,12 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.faceunity.FURenderer;
@@ -122,10 +126,27 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         mVideoManager.setFrameRate(CAPTURE_FRAME_RATE);
         mVideoManager.setFacing(Constant.CAMERA_FACING_FRONT);
         mVideoManager.setLocalPreview(mLocalSurfaceView);
-        mVideoManager.setLocalPreviewMirror(mirrorToMode(mMirrored));
+        mVideoManager.setLocalPreviewMirror(Constant.MIRROR_MODE_AUTO);
 
         onChangedToBroadcaster(!mMuted);
         setRoleButtonText();
+
+        Spinner spinner = findViewById(R.id.mirror_mode_spinner);
+        spinner.setSelection(0);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (mVideoManager != null) {
+                    mVideoManager.setLocalPreviewMirror(
+                            indexToMirrorMode(position));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         rtcEngine().setVideoSource(new RtcVideoConsumer());
         eventHandler().addEventHandler(this);
@@ -148,8 +169,8 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         }
     };
 
-    private int mirrorToMode(boolean mirrored) {
-        return mirrored ? Constant.MIRROR_MODE_ENABLED : Constant.MIRROR_MODE_DISABLED;
+    private int indexToMirrorMode(int position) {
+         return position;
     }
 
     private void joinChannel() {
@@ -284,12 +305,6 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         view.setLayoutParams(params);
         view.getParent().requestLayout();
         view.setOnTouchListener(null);
-    }
-
-    @Override
-    protected void onMirrorPreviewRequested(boolean mirror) {
-        mMirrored = mirror;
-        mVideoManager.setLocalPreviewMirror(mirrorToMode(mMirrored));
     }
 
     @Override

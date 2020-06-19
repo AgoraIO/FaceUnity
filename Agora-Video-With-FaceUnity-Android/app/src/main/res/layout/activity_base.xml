@@ -87,47 +87,48 @@
                 android:id="@+id/btn_switch_view"
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
-                android:background="@color/faceUnityYellow"
                 android:textAlignment="gravity"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
                 android:gravity="center"
                 android:layout_alignParentStart="true"
                 android:onClick="onClick"
                 android:text="@string/btn_switch_video_view"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"/>
-            <Button
-                android:id="@+id/btn_mirror_video_preview"
-                android:layout_width="wrap_content"
-                android:layout_height="38dp"
-                android:background="@color/faceUnityYellow"
-                android:gravity="center"
-                android:textAlignment="gravity"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:layout_toEndOf="@id/btn_switch_view"
-                android:layout_marginStart="10dp"
-                android:onClick="onClick"
-                android:text="@string/btn_switch_mirror_video_preview"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"/>
+                android:textAllCaps="false"/>
             <Button
                 android:id="@+id/btn_switch_client_role"
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
-                android:background="@color/faceUnityYellow"
                 android:gravity="center"
                 android:textAlignment="gravity"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:layout_alignParentStart="true"
-                android:layout_below="@id/btn_switch_view"
-                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/btn_switch_view"
+                android:layout_marginStart="10dp"
                 android:onClick="onClick"
                 android:text="@string/btn_switch_client_role_audience"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite" />
+                android:textAllCaps="false"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_below="@id/btn_switch_view"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/btn_local_preview_mirror_mode_title"
+                    android:textColor="@android:color/white"
+                    android:textAlignment="gravity"
+                    android:padding="10dp"
+                    android:gravity="center"/>
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/mirror_mode_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:spinnerMode="dialog"
+                    android:entries="@array/mirror_mode_values"
+                    android:layout_marginStart="10dp"
+                    android:textAlignment="gravity"
+                    android:gravity="center"/>
+            </LinearLayout>
+
             <ImageButton
                 android:id="@+id/btn_choose_camera"
                 android:layout_width="wrap_content"

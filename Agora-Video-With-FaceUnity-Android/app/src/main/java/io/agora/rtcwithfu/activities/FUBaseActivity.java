@@ -77,10 +77,6 @@ public abstract class FUBaseActivity extends RTCBaseActivity
             case R.id.btn_switch_view:
                 onViewSwitchRequested();
                 break;
-            case R.id.btn_mirror_video_preview:
-                mirrorVideoPreviewStatus = !mirrorVideoPreviewStatus;
-                onMirrorPreviewRequested(mirrorVideoPreviewStatus);
-                break;
             case R.id.btn_switch_client_role:
                 broadcastingStatus = !broadcastingStatus;
                 onChangedToBroadcaster(broadcastingStatus);
@@ -101,8 +97,6 @@ public abstract class FUBaseActivity extends RTCBaseActivity
     abstract protected void onCameraChangeRequested();
 
     abstract protected void onViewSwitchRequested();
-
-    abstract protected void onMirrorPreviewRequested(boolean mirror);
 
     abstract protected void onChangedToBroadcaster(boolean broadcaster);
 }

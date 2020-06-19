@@ -111,7 +111,12 @@
 
     <string name="btn_switch_video_view">切换视图</string>
 
-    <string name="btn_switch_mirror_video_preview">切换镜像</string>
+    <string name="btn_local_preview_mirror_mode_title">镜像模式</string>
+    <string-array name="mirror_mode_values">
+        <item>自动</item>
+        <item>开启</item>
+        <item>关闭</item>
+    </string-array>
 
     <string name="msg_permission_granted">已拥有权限，请再次点击</string>
     <string name="msg_permission_rejected">一定要有权限才可以继续哦</string>
