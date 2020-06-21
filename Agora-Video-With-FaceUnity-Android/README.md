@@ -1,26 +1,31 @@
 # Agora Video With Faceunity
 
-This tutorial enables you to quickly get started in your development efforts to create an Android app with real-time video calls, voice calls, and interactive broadcasting. With this sample app you can:
+This doc helps you quickly get started with a real-time video call application with FaceUnity beautification/effects available. And you can:
 
-* Join and leave a channel.
-* Choose between the front or rear camera.
-* Real time Sticky/Effect/Filter for video(provided by Faceunity SDK)
+* Join a video call using Agora video SDK;
+* Change roles, switch between front/back cameras, change UI layout;
+* Real-time Sticky/Effect/Filter/Beauty for video (provided by Faceunity).
 
 
 ## Prerequisites
 
-* Android Studio 3.1 or above.
-* Android device (e.g. Nexus 5X). A real device is recommended because some simulators have missing functionality or lack the performance necessary to run the sample.
+* Android Studio 3.1 or above;
+* Real Android device (e.g. Nexus 5X). Android Studio simulators may lack functionality;
+* Agora video SDK;
+* FaceUnity SDK (updated to v6.6).
 
 ## Quick Start
-This section shows you how to prepare, build, and run the sample application.
+This section shows you how to configure and run the project.
 
-### Create an Account and Obtain an App ID
-In order to build and run the sample application you must obtain an App ID:
+### Create an Agora Account and Obtain an App ID
+You must obtain an Agora app ID. When creating an Agora rtc engine, the engine needs the app id to identify your application.
 
-1. Create a developer account at [agora.io](https://dashboard.agora.io/signin/). Once you finish the signup process, you will be redirected to the Dashboard.
-2. Navigate in the Dashboard tree on the left to **Projects** > **Project List**.
-3. Locate the file **app/src/main/res/values/strings.xml** and replace <#YOUR APP ID#> with the App ID in the dashboard.
+1. If you don't have an Agora developer account, create a one at [agora.io](https://dashboard.agora.io/signin/).
+2. Once you sign in, you will be redirected to the Dashboard;
+3. Navigate **Project Manager** in the left Dashboard tree, you will see the **Create** button. For testing purpose, you can create an app id without a certificate or a token;
+4. You will find an app id string, then copy this string to the project setting.
+
+Locate the project file **app/src/main/res/values/strings.xml** and replace <#YOUR APP ID#> with the app id.
 
 ```xml
 <string name="agora_app_id"><#YOUR APP ID#></string>
@@ -28,12 +33,10 @@ In order to build and run the sample application you must obtain an App ID:
 4. Contact sales@agora.io and get authpack.java for Faceunity SDK, then replace **faceunity/src/main/java/com/faceunity/authpack.java** with your authpack.java
 
 ### Prepare FaceUnity SDK
-1. Download [FaceUnity SDK 6.6.0](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-SDK-Android.zip)
-2. Unpack the zip file, put libs, assets, jniLibs folder following below rules
+1. Download FaceUnity SDK from [Agora FaceUnity release SDK v6.6.0](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-SDK-Android.zip) or [FaceUnity official release SDK v6.6.0](https://github.com/Faceunity/FULiveDemoDroid/releases/download/v6.6/Faceunity-Android-v6.6.zip)
+2. Unpack the zip file, copy jar file, assets, .so files to **faceunity** module. The folder structure is like:
 ```
 faceunity
-  |__ build.gradle
-  |__ proguard-rules.pro
   |__ libs
       |__ nama.jar
   |__ src
@@ -49,7 +52,9 @@ faceunity
             |__ x86
             |__ x86_64
 ```
-3. Download [FaceUnity Bundles](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-bundle-Android.zip)
+
+3. Download [FaceUnity Bundles](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-bundle-Android.zip) or copy from the official SDK zip file downloaded above.
+
 4. Unpack the zip file, put bundle folder under app/src/main/effects
 
 
@@ -60,22 +65,21 @@ faceunity
 ````
 jniLibs
   |__arm64-v8a
-     |__ libagora-crypto.so
      |__ libagora-rtc-sdk-jni.so
 
   |__ armeabi-v7a
-     |__ libagora-crypto.so
      |__ libagora-rtc-sdk-jni.so
 
   |__x86
-     |__ libagora-crypto.so
      |__ libagora-rtc-sdk-jni.so
 
-````
-3. If you need to implement raw data interfaces, please copy the header files under "include" folder in the zip file into the CPP source folder.
-4. Besides, copy agora-rtc-sdk.jar into "app/libs" folder.
+  |__x86_64
+       |__ libagora-rtc-sdk-jni.so
 
-## Contract Us
+````
+4. Copy agora-rtc-sdk.jar into "app/libs" folder.
+
+## Contact Us
 
 - For potential issues, take a look at our [FAQ](https://docs.agora.io/cn/faq) first
 - Dive into [Agora SDK Samples](https://github.com/AgoraIO) to see more tutorials
