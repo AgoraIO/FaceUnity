@@ -7,17 +7,16 @@ import android.util.TypedValue;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.faceunity.FURenderer;
 
 import io.agora.capture.video.camera.CameraVideoManager;
 import io.agora.capture.video.camera.Constant;
+import io.agora.capture.video.camera.VideoCapture;
 import io.agora.framework.PreprocessorFaceUnity;
 import io.agora.framework.RtcVideoConsumer;
 import io.agora.rtc.mediaio.AgoraTextureView;
@@ -69,6 +68,22 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mVideoManager = videoManager();
+        mVideoManager.setCameraStateListener(new VideoCapture.VideoCaptureStateListener() {
+            @Override
+            public void onFirstCapturedFrame(int width, int height) {
+                Log.i(TAG, "onFirstCapturedFrame: " + width + "x" + height);
+            }
+
+            @Override
+            public void onCameraCaptureError(int error, String msg) {
+                Log.i(TAG, "onCameraCaptureError: error:" + error + " " + msg);
+                if (mVideoManager != null) {
+                    // When there is a camera error, the capture should
+                    // be stopped to reset the internal states.
+                    mVideoManager.stopCapture();
+                }
+            }
+        });
 
         if (savedInstanceState != null) {
             mMuted = savedInstanceState.getBoolean(KEY_MUTED);
