@@ -56,6 +56,8 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     private TextView mDescriptionText;
     private TextView mTrackingText;
 
+    private int mScreenWidth;
+    private int mScreenHeight;
     private int mSmallHeight;
     private int mSmallWidth;
     private CameraVideoManager mVideoManager;
@@ -100,10 +102,10 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     private void calculateSmallViewSize() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
-        mSmallHeight = height / 3;
-        mSmallWidth = width / 3;
+        mScreenHeight = displayMetrics.heightPixels;
+        mScreenWidth = displayMetrics.widthPixels;
+        mSmallHeight = mScreenHeight / 3;
+        mSmallWidth = mScreenWidth / 3;
     }
 
     @Override
@@ -299,8 +301,8 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
                 (RelativeLayout.LayoutParams) view.getLayoutParams();
         params.height = mSmallHeight;
         params.width = mSmallWidth;
-        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
         params.rightMargin = convert(16);
         params.topMargin = convert(70);
         view.setLayoutParams(params);
@@ -309,16 +311,16 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     }
 
     private void setBigWindow(View view) {
+        view.setTranslationX(0);
+        view.setTranslationY(0);
+
         RelativeLayout.LayoutParams params =
                 (RelativeLayout.LayoutParams) view.getLayoutParams();
-        params.removeRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        params.removeRule(RelativeLayout.ALIGN_PARENT_TOP);
-        params.height = RelativeLayout.LayoutParams.MATCH_PARENT;
+        params.height = RelativeLayout.LayoutParams.MATCH_PARENT;;
         params.width = RelativeLayout.LayoutParams.MATCH_PARENT;
         params.rightMargin = 0;
         params.topMargin = 0;
         view.setLayoutParams(params);
-        view.getParent().requestLayout();
         view.setOnTouchListener(null);
     }
 
