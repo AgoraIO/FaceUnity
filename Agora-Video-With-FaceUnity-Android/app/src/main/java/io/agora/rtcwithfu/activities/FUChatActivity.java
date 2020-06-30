@@ -87,6 +87,17 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
             }
         });
 
+        mTrackingText = findViewById(R.id.iv_face_detect);
+        mFURenderer = ((PreprocessorFaceUnity) mVideoManager.
+                getPreprocessor()).getFURenderer();
+        mFURenderer.resetTrackingStatus();
+        mFURenderer.setOnTrackingStatusChangedListener(status ->
+                runOnUiThread(() -> {
+                    int visibility = status == 0 ? View.VISIBLE : View.GONE;
+                    Log.i(TAG, "tracking visibility:" + (visibility == View.VISIBLE));
+                    mTrackingText.setVisibility(visibility);
+                }));
+
         if (savedInstanceState != null) {
             mMuted = savedInstanceState.getBoolean(KEY_MUTED);
             broadcastingStatus = !mMuted;
@@ -127,16 +138,6 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         }
 
         mDescriptionText = findViewById(R.id.effect_desc_text);
-        mTrackingText = findViewById(R.id.iv_face_detect);
-
-        mFURenderer = ((PreprocessorFaceUnity) mVideoManager.
-                getPreprocessor()).getFURenderer();
-
-        mFURenderer.setOnTrackingStatusChangedListener(status ->
-            runOnUiThread(() -> {
-                int visibility = status == 0 ? View.VISIBLE : View.GONE;
-                mTrackingText.setVisibility(visibility);
-            }));
 
         mEffectPanel = new EffectPanel(findViewById(R.id.effect_container),
                 mFURenderer, description -> showDescription(description, DESC_SHOW_LENGTH));
@@ -224,7 +225,6 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     public void finish() {
         mFinished = true;
         mVideoManager.stopCapture();
-        mFURenderer.resetTrackingStatus();
         super.finish();
     }
 
@@ -233,7 +233,6 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         super.onStop();
         if (!mFinished) {
             mVideoManager.stopCapture();
-            mFURenderer.resetTrackingStatus();
         }
     }
 
