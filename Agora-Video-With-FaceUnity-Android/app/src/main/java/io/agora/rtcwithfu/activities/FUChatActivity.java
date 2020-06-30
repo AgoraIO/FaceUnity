@@ -119,8 +119,10 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         if (mLocalViewIsBig) {
             setBigWindow(mLocalViewContainer);
             setSmallWindow(mRemoteView);
+            setRemoteVisibility();
         } else {
             setBigWindow(mRemoteView);
+            setRemoteVisibility();
             setSmallWindow(mLocalViewContainer);
         }
 
@@ -289,8 +291,10 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         if (mLocalViewIsBig) {
             setSmallWindow(mLocalViewContainer);
             setBigWindow(mRemoteView);
+            setRemoteVisibility();
         } else {
             setSmallWindow(mRemoteView);
+            setRemoteVisibility();
             setBigWindow(mLocalViewContainer);
         }
         mLocalViewIsBig = !mLocalViewIsBig;
@@ -322,6 +326,10 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         params.topMargin = 0;
         view.setLayoutParams(params);
         view.setOnTouchListener(null);
+    }
+
+    private void setRemoteVisibility() {
+        mRemoteView.setVisibility(mRemoteUid != -1 ? View.VISIBLE : View.GONE);
     }
 
     @Override
