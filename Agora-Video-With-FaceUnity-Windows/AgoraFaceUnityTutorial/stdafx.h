@@ -1,57 +1,78 @@
 
-// stdafx.h : 标准系统包含文件的包含文件，
-// 或是经常使用但不常更改的
-// 特定于项目的包含文件
+// stdafx.h : include file for standard system include files,
+// or project specific include files that are used frequently,
+// but are changed infrequently
 
 #pragma once
 
 #ifndef VC_EXTRALEAN
-#define VC_EXTRALEAN            // 从 Windows 头中排除极少使用的资料
+#define VC_EXTRALEAN            // Exclude rarely-used stuff from Windows headers
 #endif
 
-#define _CRT_SECURE_NO_WARNINGS
 #include "targetver.h"
 
-#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS      // 某些 CString 构造函数将是显式的
+#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS      // some CString constructors will be explicit
 
-// 关闭 MFC 对某些常见但经常可放心忽略的警告消息的隐藏
+// turns off MFC's hiding of some common and often safely ignored warning messages
 #define _AFX_ALL_WARNINGS
 
-#include <afxwin.h>         // MFC 核心组件和标准组件
-#include <afxext.h>         // MFC 扩展
+#include <afxwin.h>         // MFC core and standard components
+#include <afxext.h>         // MFC extensions
 
 
-#include <afxdisp.h>        // MFC 自动化类
+#include <afxdisp.h>        // MFC Automation classes
 
 
 
 #ifndef _AFX_NO_OLE_SUPPORT
-#include <afxdtctl.h>           // MFC 对 Internet Explorer 4 公共控件的支持
+#include <afxdtctl.h>           // MFC support for Internet Explorer 4 Common Controls
 #endif
 #ifndef _AFX_NO_AFXCMN_SUPPORT
-#include <afxcmn.h>             // MFC 对 Windows 公共控件的支持
+#include <afxcmn.h>             // MFC support for Windows Common Controls
 #endif // _AFX_NO_AFXCMN_SUPPORT
 
-#include <afxcontrolbars.h>     // 功能区和控件条的 MFC 支持
+#include <afxcontrolbars.h>     // MFC support for ribbons and control bars
 
-#define MAXPATHLEN 1024
-#include <iostream>
 
-#include "AgoraObject.h"
 
-#include "AGEventDef.h"
-#include <afxdisp.h>
 
-#include <IAgoraRtcEngine.h>
-#pragma comment(lib, "agora_rtc_sdk.lib")
-#pragma comment(lib,"libcrypto.lib")
+#include <string>
+#include <mutex>
+#include "Language.h"
 
-#include "FileIO.h"
-extern CFileIO gFileApp;
-extern CConfigAgoraFaceUntiy gAgoraFaceUnityConfig;
+#include "IAgoraRtcEngine.h"
+#include "IAgoraMediaEngine.h"
+#include <afxcontrolbars.h>
+#include <afxcontrolbars.h>
+#include <afxcontrolbars.h>
+#include <afxcontrolbars.h>
+#include <afxcontrolbars.h>
 
-#define PATH_LEN 128
+#include <vector>
+#include <unordered_map>
+#include "Agora/AgoraObject.h"
 
+
+using namespace agora::media;
+using namespace agora;
+using namespace agora::rtc;
+#pragma comment(lib, "agora_rtc_sdk")
+#pragma comment(lib, "nama")
+#ifdef _DEBUG
+#pragma comment(lib,"opencv_world400d.lib")
+#else
+#pragma comment(lib,"opencv_world400.lib")
+#endif // DEBUG
+#pragma  comment(lib,"opengl32.lib")
+#pragma  comment(lib,"glfw3.lib")
+
+#define MAX_BEAUTYFACEPARAMTER 5 
+#define MAX_FACESHAPEPARAMTER 9
+
+extern std::string g_fuDataDir;
+std::string cs2utf8(CString str);
+CString utf82cs(std::string utf8);
+std::string getExePath();
 #ifdef _UNICODE
 #if defined _M_IX86
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")

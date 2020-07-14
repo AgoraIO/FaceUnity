@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -9,24 +9,49 @@
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5BE12996-7F35-4EAC-8026-283EE9976194}</ProjectGuid>
-    <RootNamespace>AgoraFaceUnityTutorial</RootNamespace>
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{4317B212-04CF-4E67-92AB-A4A084DDC5CD}</ProjectGuid>
     <Keyword>MFCProj</Keyword>
+    <RootNamespace>AgoraFaceUnityTutorial</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
@@ -34,36 +59,47 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\AgoraSDK\include;..\ThridParty\DirectShow\Include;..\ThridParty\GL1;..\openssl\include;..\FaceUnitySDK\include;libYUV</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);..\AgoraSDK\lib;..\ThridParty\DirectShow\Lib\X86;..\ThridParty\GL1;..\openssl\lib;..\FaceUnitySDK\Win32;libYUV\Debug</LibraryPath>
-    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\AgoraSDK\include;..\ThridParty\DirectShow\Include;..\ThridParty\GL1;..\openssl\include;..\FaceUnitySDK\include;libYUV</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);..\AgoraSDK\lib;..\ThridParty\DirectShow\Lib\X86;..\ThridParty\GL1;..\openssl\lib;..\FaceUnitySDK\Win32;libYUV\Release</LibraryPath>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG; _CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdk\include;$(SolutionDir)AgoraFaceUnityTutorial;$(SolutionDir)ThridParty\GL;$(SolutionDir)ThridParty;$(SolutionDir)FaceUnitySDK\include;$(SolutionDir)ThridParty\opencv400\opencv\build\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>yuv.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)sdk\lib;$(SolutionDir)FaceUnitySDK\Win32;$(SolutionDir)ThridParty\GL\x86;$(SolutionDir)ThridParty\opencv400\opencv\build\x86\vc14\lib;$(SolutionDir)ThridParty\GL</AdditionalLibraryDirectories>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -71,32 +107,59 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </Midl>
     <ResourceCompile>
-      <Culture>0x0804</Culture>
+      <Culture>0x0409</Culture>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>if exist ..\AgoraSDK (copy ..\AgoraSDK\dll\*.dll ..\$(Configuration)\)
-copy ..\openssl\dll\*.dll ..\$(Configuration)\
-copy ..\FaceUnitySDK\Win32\*.dll ..\$(Configuration)\</Command>
+      <Command>if exist $(SolutionDir)\sdk (copy $(SolutionDir)\sdk\dll\*.dll $(OutDir))
+if exist $(SolutionDir)\FaceUnitySDK (copy $(SolutionDir)\FaceUnitySDK\Win32\*.dll $(OutDir) ) 
+copy $(SolutionDir)\AgoraFaceUnityTutorial\*.ini $(OutDir) 
+
+</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>$(SolutionDir)\prebuild.bat $(PlatformTarget) $(SolutionDir)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG; _CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdk\include;$(SolutionDir)AgoraFaceUnityTutorial</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>yuv.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)sdk\lib;$(SolutionDir)FaceUnitySDK\Win32</AdditionalLibraryDirectories>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -104,120 +167,175 @@ copy ..\FaceUnitySDK\Win32\*.dll ..\$(Configuration)\</Command>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </Midl>
     <ResourceCompile>
-      <Culture>0x0804</Culture>
+      <Culture>0x0409</Culture>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>if exist ..\AgoraSDK (copy ..\AgoraSDK\dll\*.dll ..\$(Configuration)\)
-copy ..\openssl\dll\*.dll ..\$(Configuration)\
-copy ..\FaceUnitySDK\Win32\*.dll ..\$(Configuration)\</Command>
+      <Command>if exist $(SolutionDir)\sdk (copy $(SolutionDir)\sdk\dll\*.dll $(OutDir))
+if exist $(SolutionDir)\FaceUnitySDK (copy $(SolutionDir)\FaceUnitySDK\Win32\*.dll $(OutDir) )
+copy $(SolutionDir)AgoraFaceUnityTutorial\*.ini $(OutDir) </Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>$(SolutionDir)\prebuild.bat $(PlatformTarget) $(SolutionDir)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AGButton.h" />
-    <ClInclude Include="AGComboBox.h" />
-    <ClInclude Include="AGEdit.h" />
-    <ClInclude Include="AGEngineEventHandler.h" />
-    <ClInclude Include="AGEventDef.h" />
-    <ClInclude Include="AgoraAudInputManager.h" />
-    <ClInclude Include="AgoraCameraManager.h" />
     <ClInclude Include="AgoraFaceUnityTutorial.h" />
-    <ClInclude Include="AgoraFaceUnityTutorialDlg.h" />
-    <ClInclude Include="AgoraObject.h" />
-    <ClInclude Include="AgoraOpenGL.h" />
-    <ClInclude Include="AGResourceVisitor.h" />
-    <ClInclude Include="AGSliderCtrl.h" />
-    <ClInclude Include="BufferQueue.h" />
-    <ClInclude Include="CameraDS.h" />
-    <ClInclude Include="commonfun.h" />
-    <ClInclude Include="DynamicKey5.h" />
-    <ClInclude Include="ExtendAudioFrameObserver.h" />
-    <ClInclude Include="ExtendVideoFrameObserver.h" />
-    <ClInclude Include="FileIO.h" />
-    <ClInclude Include="FrameFrequencyCtrl.h" />
-    <ClInclude Include="GlobalValue.h" />
-    <ClInclude Include="Nama.h" />
-    <ClInclude Include="Packer.h" />
+    <ClInclude Include="Agora\AGEngineEventHandler.h" />
+    <ClInclude Include="Agora\AGEventDef.h" />
+    <ClInclude Include="Agora\AgoraObject.h" />
+    <ClInclude Include="FaceUnity\Nama.h" />
+    <ClInclude Include="FaceUnity\Sound\MP3.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="utils.h" />
-    <ClInclude Include="VideoPackageQueue.h" />
-    <ClInclude Include="YUVTrans.h" />
+    <ClInclude Include="UI\AgoraFaceUnityTutorialDlg.h" />
+    <ClInclude Include="UI\CDlgBeautyAR.h" />
+    <ClInclude Include="UI\CDlgBeautyFaceShape.h" />
+    <ClInclude Include="UI\CDlgBeautyFilter.h" />
+    <ClInclude Include="UI\CDlgBeautyMakeup.h" />
+    <ClInclude Include="UI\CDlgBeautySkin.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AGButton.cpp" />
-    <ClCompile Include="AGComboBox.cpp" />
-    <ClCompile Include="AGEdit.cpp" />
-    <ClCompile Include="AGEngineEventHandler.cpp" />
-    <ClCompile Include="AgoraAudInputManager.cpp" />
-    <ClCompile Include="AgoraCameraManager.cpp" />
     <ClCompile Include="AgoraFaceUnityTutorial.cpp" />
-    <ClCompile Include="AgoraFaceUnityTutorialDlg.cpp" />
-    <ClCompile Include="AgoraObject.cpp" />
-    <ClCompile Include="AgoraOpenGL.cpp" />
-    <ClCompile Include="AGResourceVisitor.cpp" />
-    <ClCompile Include="AGSliderCtrl.cpp" />
-    <ClCompile Include="BufferQueue.cpp" />
-    <ClCompile Include="CameraDS.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="commonfun.cpp" />
-    <ClCompile Include="ExtendAudioFrameObserver.cpp" />
-    <ClCompile Include="ExtendVideoFrameObserver.cpp" />
-    <ClCompile Include="FileIO.cpp" />
-    <ClCompile Include="FrameFrequencyCtrl.cpp" />
-    <ClCompile Include="GlobalValue.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Nama.cpp">
+    <ClCompile Include="Agora\AGEngineEventHandler.cpp" />
+    <ClCompile Include="Agora\AgoraObject.cpp" />
+    <ClCompile Include="CConfig.cpp" />
+    <ClCompile Include="FaceUnity\Nama.cpp" />
+    <ClCompile Include="FaceUnity\Sound\MP3.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="VideoPackageQueue.cpp" />
-    <ClCompile Include="YUVTrans.cpp" />
+    <ClCompile Include="UI\AgoraFaceUnityTutorialDlg.cpp" />
+    <ClCompile Include="UI\CDlgBeautyAR.cpp" />
+    <ClCompile Include="UI\CDlgBeautyFaceShape.cpp" />
+    <ClCompile Include="UI\CDlgBeautyFilter.cpp" />
+    <ClCompile Include="UI\CDlgBeautyMakeup.cpp" />
+    <ClCompile Include="UI\CDlgBeautySkin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AgoraFaceUnityTutorial.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Debug\AgoraFaceUnity.ini" />
     <None Include="res\AgoraFaceUnityTutorial.rc2" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\AgoraFaceUnityTutorial.ico" />
-    <Image Include="res\bgseg.bmp" />
-    <Image Include="res\delta.bmp" />
-    <Image Include="res\electric.bmp" />
-    <Image Include="res\fu_zh_duzui.bmp" />
-    <Image Include="res\gradient.bmp" />
-    <Image Include="res\houzi.bmp" />
-    <Image Include="res\item0204.bmp" />
-    <Image Include="res\matianyu.bmp" />
-    <Image Include="res\mood.bmp" />
-    <Image Include="res\nature.bmp" />
-    <Image Include="res\slowlived.bmp" />
-    <Image Include="res\tokyo.bmp" />
-    <Image Include="res\warm.bmp" />
-    <Image Include="res\yazui.bmp" />
-    <Image Include="res\yuguan.bmp" />
+    <Image Include="res\AR\Animoji\baimao_Animoji.bmp" />
+    <Image Include="res\AR\Animoji\chaiquan_Animoji.bmp" />
+    <Image Include="res\AR\Animoji\douniuquan_Animoji.bmp" />
+    <Image Include="res\AR\Animoji\frog_Animoji.bmp" />
+    <Image Include="res\AR\Animoji\hashiqi_Animoji.bmp" />
+    <Image Include="res\AR\Animoji\hetun_Animoji.bmp" />
+    <Image Include="res\AR\Animoji\huangya_Animoji.bmp" />
+    <Image Include="res\AR\Animoji\kuloutou_Animoji.bmp" />
+    <Image Include="res\AR\Animoji\maotouying_Animoji.bmp" />
+    <Image Include="res\AR\Animoji\qgirl.bmp" />
+    <Image Include="res\AR\AR\afd.bmp" />
+    <Image Include="res\AR\AR\armesh.bmp" />
+    <Image Include="res\AR\AR\baozi.bmp" />
+    <Image Include="res\ar\ar\bitmap16.bmp" />
+    <Image Include="res\AR\AR\bluebird.bmp" />
+    <Image Include="res\AR\AR\fenhudie.bmp" />
+    <Image Include="res\AR\AR\lanhudie.bmp" />
+    <Image Include="res\AR\AR\tiger.bmp" />
+    <Image Include="res\AR\AR\tiger_bai.bmp" />
+    <Image Include="res\AR\AR\tiger_huang_180718.bmp" />
+    <Image Include="res\AR\AR\xiongmao.bmp" />
+    <Image Include="res\AR\background\gufeng_zh_fu.bmp" />
+    <Image Include="res\AR\background\hez_ztt_fu.bmp" />
+    <Image Include="res\AR\background\ice_lm_fu.bmp" />
+    <Image Include="res\AR\background\sea_lm_fu.bmp" />
+    <Image Include="res\AR\background\xiandai_ztt_fu.bmp" />
+    <Image Include="res\AR\Expression\future_warrior.bmp" />
+    <Image Include="res\AR\Expression\jet_mask.bmp" />
+    <Image Include="res\AR\Expression\jet_mask.png" />
+    <Image Include="res\AR\Expression\qingqing_ztt_fu.bmp" />
+    <Image Include="res\AR\Expression\sdx2.bmp" />
+    <Image Include="res\AR\Expression\xiaobianzi_zh_fu.bmp" />
+    <Image Include="res\AR\Expression\xiaoxueshen_ztt_fu.bmp" />
+    <Image Include="res\AR\gesture\ssd_thread_cute.bmp" />
+    <Image Include="res\AR\gesture\ssd_thread_korheart.bmp" />
+    <Image Include="res\AR\gesture\ssd_thread_six.bmp" />
+    <Image Include="res\AR\gesture\ssd_thread_thumb.bmp" />
+    <Image Include="res\AR\Haha\facewarp2.bmp" />
+    <Image Include="res\AR\Haha\facewarp3.bmp" />
+    <Image Include="res\AR\Haha\facewarp4.bmp" />
+    <Image Include="res\AR\Haha\facewarp5.bmp" />
+    <Image Include="res\AR\Haha\facewarp6.bmp" />
+    <Image Include="res\AR\list_icon_annimoji_nor.bmp" />
+    <Image Include="res\AR\list_icon_AR_nor.bmp" />
+    <Image Include="res\AR\list_icon_Bgsegmentation_nor.bmp" />
+    <Image Include="res\AR\list_icon_Expressionrecognition_nor.bmp" />
+    <Image Include="res\AR\list_icon_gesturerecognition_nor.bmp" />
+    <Image Include="res\AR\list_icon_Ha ha mirror_nor.bmp" />
+    <Image Include="res\AR\list_icon_Musicfilter_nor.bmp" />
+    <Image Include="res\AR\list_icon_Portraitdrive_nor.bmp" />
+    <Image Include="res\AR\list_icon_Propmap_nor.bmp" />
+    <Image Include="res\AR\music\douyin_01.bmp" />
+    <Image Include="res\AR\music\douyin_02.bmp" />
+    <Image Include="res\AR\portrait\picasso_e1.bmp" />
+    <Image Include="res\AR\portrait\picasso_e2.bmp" />
+    <Image Include="res\AR\portrait\picasso_e3.bmp" />
+    <Image Include="res\AR\PropMap\bling.bmp" />
+    <Image Include="res\AR\PropMap\fengya_ztt_fu.bmp" />
+    <Image Include="res\AR\PropMap\hudie_lm_fu.bmp" />
+    <Image Include="res\AR\PropMap\juanhuzi_lm_fu.bmp" />
+    <Image Include="res\AR\PropMap\mask_hat.bmp" />
+    <Image Include="res\AR\PropMap\touhua_ztt_fu.bmp" />
+    <Image Include="res\AR\PropMap\yazui.bmp" />
+    <Image Include="res\AR\PropMap\yuguan.bmp" />
+    <Image Include="res\Filter\list_image_bailiang1.bmp" />
+    <Image Include="res\Filter\list_image_fennen1.bmp" />
+    <Image Include="res\Filter\list_image_lengsediao1.bmp" />
+    <Image Include="res\Filter\list_image_nuansediao1.bmp" />
+    <Image Include="res\Filter\list_image_origin.bmp" />
+    <Image Include="res\Filter\list_image_xiaoqingxin1.bmp" />
+    <Image Include="res\makeup\bitmap2.bmp" />
+    <Image Include="res\Makeup\demo_combination_charming.bmp" />
+    <Image Include="res\Makeup\demo_combination_flower.bmp" />
+    <Image Include="res\Makeup\demo_combination_lady.bmp" />
+    <Image Include="res\Makeup\demo_combination_moon.bmp" />
+    <Image Include="res\Makeup\demo_combination_neighbor_girl.bmp" />
+    <Image Include="res\Makeup\demo_combination_occident.bmp" />
+    <Image Include="res\Makeup\demo_combination_sexy.bmp" />
+    <Image Include="res\Makeup\demo_combination_sweet.bmp" />
+    <Image Include="res\Makeup\demo_combination_tough_guy.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-  <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties RESOURCE_FILE="AgoraFaceUnityTutorial.rc" />
-    </VisualStudio>
-  </ProjectExtensions>
 </Project>
