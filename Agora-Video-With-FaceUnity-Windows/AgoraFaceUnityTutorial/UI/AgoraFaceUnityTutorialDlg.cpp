@@ -145,7 +145,7 @@ BOOL CAgoraFaceUnityTutorialDlg::OnInitDialog()
 BOOL CAgoraFaceUnityTutorialDlg::InitAgora()
 {
     CString strAppID = CAgoraObject::LoadAppID();
-    if (!strAppID.IsEmpty())
+    if (strAppID.IsEmpty())
         return FALSE;
 
     CAgoraObject::GetAgoraObject(strAppID);

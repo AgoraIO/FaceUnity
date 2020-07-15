@@ -1106,7 +1106,7 @@ std::string CAgoraObject::GetToken()
 
     TCHAR szToken[MAX_PATH] = { 0 };
     char temp[MAX_PATH] = { 0 };
-    ::GetPrivateProfileString(_T("AppID"), _T("AppToken"), NULL, szToken, MAX_PATH, szFilePath);
+    ::GetPrivateProfileString(_T("LoginInfo"), _T("AppToken"), NULL, szToken, MAX_PATH, szFilePath);
     ::WideCharToMultiByte(CP_UTF8, 0, szToken, -1, temp, 128, NULL, NULL);
 
     return temp;

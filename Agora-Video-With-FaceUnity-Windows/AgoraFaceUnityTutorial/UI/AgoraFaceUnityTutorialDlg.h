@@ -50,7 +50,7 @@ public:
     afx_msg void OnBnClickedButtonJoinchannel();
 private:
     void HideTab1ChildDlg();
-    void InitAgora();
+    BOOL InitAgora();
     void InitFaceUnity();
     void ShowLocalVideo();
     CRect m_rcTabCtrl;
