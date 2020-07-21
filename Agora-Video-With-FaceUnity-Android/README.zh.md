@@ -64,7 +64,7 @@ FaceUnity 的 effects/bundles 资源不是 SDK 的一部分，通常您需要为
 
 注意，只有得到 licence 授权的资源库类型才能够生效。
 
-## Capture and Rendering
+## 相机采集和渲染
 
 项目用到了采集渲染库 `app/libs/video-capturer.aar`， 如果想对这个库的源码和用法有更进一步的了解，请移步[这里](https://github.com/AgoraIO/Agora-Extensions/tree/master/VideoCapture/Android)
 
