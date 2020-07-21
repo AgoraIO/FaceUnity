@@ -69,6 +69,10 @@ Once you have the demo source code, unpack the zip file, and then copy all files
 
 Note only the resource types that your licence allows take effect. 
 
+## Capture and Rendering
+
+This project uses a custom camera capture & rendering library `app/libs/video-capturer.aar`. If you want to know more about source code and how to use, please go to [Here](https://github.com/AgoraIO/Agora-Extensions/tree/master/VideoCapture/Android).
+
 ## Contact Us
 
 - If you have questions, take a look at [FAQ](https://docs.agora.io/cn/faq) first
