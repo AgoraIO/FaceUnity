@@ -71,13 +71,13 @@ Note only the resource types that your licence allows take effect.
 
 ## Contact Us
 
-- For potential issues, take a look at our [FAQ](https://docs.agora.io/cn/faq) first
+- If you have questions, take a look at [FAQ](https://docs.agora.io/cn/faq) first
 - Dive into [Agora SDK Samples](https://github.com/AgoraIO) to see more tutorials
-- Take a look at [Agora Use Case](https://github.com/AgoraIO-usecase) for more complicated real use case
-- Repositories managed by developer communities can be found at [Agora Community](https://github.com/AgoraIO-Community)
+- Take a look at [Agora Use Case](https://github.com/AgoraIO-usecase) for more complicated, real-world use cases
+- More projects maintained by community can be found at [Agora Community](https://github.com/AgoraIO-Community)
 - You can find full API documentation at [Document Center](https://docs.agora.io/en/)
-- If you encounter problems during integration, you can ask question in [Stack Overflow](https://stackoverflow.com/questions/tagged/agora.io)
-- You can file bugs about this sample at [issue](https://github.com/AgoraIO/FaceUnity/issues)
+- You can ask questions or see others' solutions in [Stack Overflow](https://stackoverflow.com/questions/tagged/agora.io)
+- If you find a bug of this project, please post an issue here [issue](https://github.com/AgoraIO/FaceUnity/issues)
 
 ## License
 
