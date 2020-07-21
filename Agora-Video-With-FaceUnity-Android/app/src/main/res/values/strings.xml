@@ -258,7 +258,12 @@
 
     <string name="btn_switch_video_view">Switch View</string>
 
-    <string name="btn_switch_mirror_video_preview">Switch FlipX</string>
+    <string name="btn_local_preview_mirror_mode_title">Mirror Mode</string>
+    <string-array name="mirror_mode_values">
+        <item>Auto</item>
+        <item>Enabled</item>
+        <item>Disabled</item>
+    </string-array>
 
     <string name="msg_permission_granted">Permission granted, tap and try again</string>
     <string name="msg_permission_rejected">Permission rejected, must grant permission first</string>

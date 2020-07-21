@@ -1,16 +1,37 @@
 package io.agora.rtcwithfu;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.faceunity.FURenderer;
 
+import io.agora.capture.video.camera.CameraVideoManager;
+import io.agora.framework.PreprocessorFaceUnity;
+
 public class MyApplication extends Application {
     private WorkerThread mWorkerThread;
+    private CameraVideoManager mVideoManager;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        FURenderer.initFURenderer(this);
+        initVideoCaptureAsync();
+    }
+
+    private void initVideoCaptureAsync() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Context application = getApplicationContext();
+                FURenderer.initFURenderer(application);
+                mVideoManager = new CameraVideoManager(application,
+                        new PreprocessorFaceUnity(application));
+            }
+        }).start();
+    }
+
+    public CameraVideoManager videoManager() {
+        return mVideoManager;
     }
 
     public synchronized WorkerThread getWorkerThread() {

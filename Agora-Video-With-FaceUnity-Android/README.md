@@ -1,89 +1,87 @@
 # Agora Video With Faceunity
 
-This tutorial enables you to quickly get started in your development efforts to create an Android app with real-time video calls, voice calls, and interactive broadcasting. With this sample app you can:
+This doc helps you quickly get started with an [Agora](www.agora.io) real-time video call with [FaceUnity](http://www.faceunity.com) effects available.
 
-* Join and leave a channel.
-* Choose between the front or rear camera.
-* Real time Sticky/Effect/Filter for video(provided by Faceunity SDK)
+Refer to [Faceunity API reference](http://www.faceunity.com/docs_develop) for the use of FaceUnity SDK.
 
+Refer to [Agora API reference](https://docs.agora.io/en/Interactive%20Broadcast/API%20Reference/java/index.html) for how to implement Agora interacting video calls.
 
-## Prerequisites
+Since the use of third-party video processing librarie needs custom capture and rendering, please refer to [Custom Video Source and Renderer](https://docs.agora.io/en/Interactive%20Broadcast/custom_video_android?platform=Android)
 
-* Android Studio 3.1 or above.
-* Android device (e.g. Nexus 5X). A real device is recommended because some simulators have missing functionality or lack the performance necessary to run the sample.
 
 ## Quick Start
-This section shows you how to prepare, build, and run the sample application.
+This section shows you how to configure and run the project.
 
-### Create an Account and Obtain an App ID
-In order to build and run the sample application you must obtain an App ID:
-
-1. Create a developer account at [agora.io](https://dashboard.agora.io/signin/). Once you finish the signup process, you will be redirected to the Dashboard.
-2. Navigate in the Dashboard tree on the left to **Projects** > **Project List**.
-3. Locate the file **app/src/main/res/values/strings.xml** and replace <#YOUR APP ID#> with the App ID in the dashboard.
+### Obtain an Agora App ID and FaceUnity licence
+1. You must obtain an Agora app ID. When creating an Agora rtc engine, the engine needs the app id to identify your application.
+Locate the project file **app/src/main/res/values/strings.xml** and replace <#YOUR APP ID#> with the app id.
 
 ```xml
 <string name="agora_app_id"><#YOUR APP ID#></string>
 ```
-4. Contact sales@agora.io and get authpack.java for Faceunity SDK, then replace **faceunity/src/main/java/com/faceunity/authpack.java** with your authpack.java
+2. Contact sales@agora.io and get a licence file `authpack.java`, then copy this file to project folder `faceunity/src/main/java/com/faceunity`. Note this licence determines which FaceUnity functions/effects you are allowed to use. 
 
-### Prepare FaceUnity SDK
-1. Download [FaceUnity SDK 6.6.0](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-SDK-Android.zip)
-2. Unpack the zip file, put libs, assets, jniLibs folder following below rules
+### Configure Agora SDK
+
+Now the demo automatically imports Agora Video SDK from JCenter. By default you do not need to download Agora Video SDK anywhere else.
+
+### Download FaceUnity SDK
+
+1. Currently this demo supports FaceUnity SDK v6.6, you can download FaceUnity SDK from [Official Release v6.6](https://github.com/Faceunity/FULiveDemoDroid/releases/download/v6.6/Faceunity-Android-v6.6.zip).
+2. Unpack the zip file, copy files to `faceunity` module like:
 ```
 faceunity
-  |__ build.gradle
-  |__ proguard-rules.pro
   |__ libs
       |__ nama.jar
+
   |__ src
       |__ main
             |__ assets
-                  |__ AI_model
-                  |__ face_beautification.bundle
-                  |__ fxaa.bundle
-                  |__ v3.bundle
+                    |__ AI_model
+                        |__  ai_bgseg.bundle
+                             // other bundles related to AI
+                             // ...
+                             // ... 
+
+                    |__ body_slim.bundle
+                    |__ face_beautification.bundle
+                    |__ face_makeup.bundle
+                    |__ fxaa.bundle
+                    |__ hair_gradient.bundle
+                    |__ hair_normal.bundle
+                    |__ v3.bundle
       |__ jniLibs
             |__ arm64-v8a
             |__ armeabi-v7a
             |__ x86
             |__ x86_64
 ```
-3. Download [FaceUnity Bundles](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-bundle-Android.zip)
-4. Unpack the zip file, put bundle folder under app/src/main/effects
 
+FaceUnity SDK v6.6 has much more files than the previous version, remember to copy them all (do not forget sub directories).
 
-### Prepare agora SDK
-1. Download agora SDK from the official download page: https://www.agora.io/en/download/.
-2. Unpack the zip file, copy all .so libraries to their corresponding abi folders (app\src\main\jniLibs). The folder structure of jniLibs should be like this:
+### Download FaceUnity Demo Resources
 
-````
-jniLibs
-  |__arm64-v8a
-     |__ libagora-crypto.so
-     |__ libagora-rtc-sdk-jni.so
+FaceUnity resource effects/bundles are not part of FaceUnity SDK. Usually you need to make your own resources to the application's needs. 
 
-  |__ armeabi-v7a
-     |__ libagora-crypto.so
-     |__ libagora-rtc-sdk-jni.so
+But in order to run this project, you can download the official demo from [here](https://github.com/Faceunity/FULiveDemoDroid)
 
-  |__x86
-     |__ libagora-crypto.so
-     |__ libagora-rtc-sdk-jni.so
+Once you have the demo source code, unpack the zip file, and then copy all files in folder `app/src/main/assets` to the corresponding folder of this project.
 
-````
-3. If you need to implement raw data interfaces, please copy the header files under "include" folder in the zip file into the CPP source folder.
-4. Besides, copy agora-rtc-sdk.jar into "app/libs" folder.
+Note only the resource types that your licence allows take effect. 
 
-## Contract Us
+## Capture and Rendering
 
-- For potential issues, take a look at our [FAQ](https://docs.agora.io/cn/faq) first
+This project uses a custom camera capture & rendering library `app/libs/video-capturer.aar`. If you want to know more about source code and how to use, please go to [Here](https://github.com/AgoraIO/Agora-Extensions/tree/master/VideoCapture/Android).
+
+## Contact Us
+
+- If you have questions, take a look at [FAQ](https://docs.agora.io/cn/faq) first
 - Dive into [Agora SDK Samples](https://github.com/AgoraIO) to see more tutorials
-- Take a look at [Agora Use Case](https://github.com/AgoraIO-usecase) for more complicated real use case
-- Repositories managed by developer communities can be found at [Agora Community](https://github.com/AgoraIO-Community)
+- Take a look at [Agora Use Case](https://github.com/AgoraIO-usecase) for more complicated, real-world use cases
+- More projects maintained by community can be found at [Agora Community](https://github.com/AgoraIO-Community)
 - You can find full API documentation at [Document Center](https://docs.agora.io/en/)
-- If you encounter problems during integration, you can ask question in [Stack Overflow](https://stackoverflow.com/questions/tagged/agora.io)
-- You can file bugs about this sample at [issue](https://github.com/AgoraIO/FaceUnity/issues)
+- You can ask questions or see others' solutions in [Stack Overflow](https://stackoverflow.com/questions/tagged/agora.io)
+- If you find a bug of this project, please post an issue here [issue](https://github.com/AgoraIO/FaceUnity/issues)
 
 ## License
 

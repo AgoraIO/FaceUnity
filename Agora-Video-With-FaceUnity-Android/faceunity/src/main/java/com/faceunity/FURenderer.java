@@ -161,9 +161,11 @@ public class FURenderer implements OnFUControlListener {
         if (isNeedFaceBeauty) {
             mFuItemHandler.sendEmptyMessage(ITEM_ARRAYS_FACE_BEAUTY_INDEX);
         }
+
         if (isNeedAnimoji3D) {
             mFuItemHandler.sendEmptyMessage(ITEM_ARRAYS_EFFECT_ABIMOJI_3D_INDEX);
         }
+
         if (mIsLoadAiFaceLandmark75) {
             mFuItemHandler.post(new Runnable() {
                 @Override
@@ -767,7 +769,7 @@ public class FURenderer implements OnFUControlListener {
             mIsNeedUpdateFaceBeauty = false;
         }
 
-        // queueEvent 的 Runnable 在此处被调用
+        //queueEvent的Runnable在此处被调用
         while (!mEventQueue.isEmpty()) {
             mEventQueue.remove(0).run();
         }
@@ -995,6 +997,10 @@ public class FURenderer implements OnFUControlListener {
     //--------------------------------------IsTracking（人脸识别回调相关定义）----------------------------------------
 
     private int mTrackingStatus = 0;
+
+    public void resetTrackingStatus() {
+        mTrackingStatus = 0;
+    }
 
     public interface OnTrackingStatusChangedListener {
         void onTrackingStatusChanged(int status);
@@ -1486,5 +1492,21 @@ public class FURenderer implements OnFUControlListener {
                 mOnBundleLoadCompleteListener.onBundleLoadComplete(msg.what);
             }
         }
+    }
+
+    public void setBeautyEnabled(boolean enabled) {
+        isNeedFaceBeauty = enabled;
+    }
+
+    public void setAnimoji3dEnabled(boolean enabled) {
+        isNeedAnimoji3D = enabled;
+    }
+
+    public void setLoadLandmark75(boolean enabled) {
+        mIsLoadAiFaceLandmark75 = enabled;
+    }
+
+    public void setOnTrackingStatusChangedListener(OnTrackingStatusChangedListener listener) {
+        mOnTrackingStatusChangedListener = listener;
     }
 }

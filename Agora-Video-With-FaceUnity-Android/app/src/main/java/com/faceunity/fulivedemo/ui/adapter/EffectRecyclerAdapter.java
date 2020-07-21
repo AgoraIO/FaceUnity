@@ -46,6 +46,19 @@ public class EffectRecyclerAdapter extends RecyclerView.Adapter<EffectRecyclerAd
         }
     }
 
+    public EffectRecyclerAdapter(Context context, int effectType, OnFUControlListener onFUControlListener,
+                                 OnDescriptionChangeListener onDescriptionChangeListener) {
+        this(context, effectType, onFUControlListener);
+        mOnDescriptionChangeListener = onDescriptionChangeListener;
+
+        if (mOnDescriptionChangeListener != null && (mEffects.size() - 1) >= mPositionSelect) {
+            Effect effect = mEffects.get(mPositionSelect);
+            if (effect != null) {
+                mOnDescriptionChangeListener.onDescriptionChangeListener(effect.description());
+            }
+        }
+    }
+
     @Override
 
     public HomeRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {

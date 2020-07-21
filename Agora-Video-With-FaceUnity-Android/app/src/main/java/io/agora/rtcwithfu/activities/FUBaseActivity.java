@@ -5,7 +5,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.HashMap;
 
@@ -20,14 +19,8 @@ public abstract class FUBaseActivity extends RTCBaseActivity
         implements View.OnClickListener, View.OnTouchListener {
     private final String TAG = "FUBaseUIActivity";
 
-    private int mRecordStatus = 0;
-
-    private int mBroadcastingStatus = 1;
-
-    private int mMirrorVideoPreviewStatus = 0;
-
-    protected TextView isCalibratingText;
-
+    protected boolean broadcastingStatus = true;
+    protected boolean mirrorVideoPreviewStatus = true;
     protected EffectPanel mEffectPanel;
 
     @Override
@@ -81,32 +74,23 @@ public abstract class FUBaseActivity extends RTCBaseActivity
             case R.id.btn_choose_camera:
                 onCameraChangeRequested();
                 break;
-            case R.id.btn_recording:
-                mRecordStatus ^= 1;
-                if (mRecordStatus == 0) {
-                    ((Button) v).setText(R.string.btn_start_recording);
-                    onStopRecordingRequested();
-                } else {
-                    ((Button) v).setText(R.string.btn_stop_recording);
-                    onStartRecordingRequested();
-                }
-                break;
             case R.id.btn_switch_view:
                 onViewSwitchRequested();
                 break;
-            case R.id.btn_mirror_video_preview:
-                mMirrorVideoPreviewStatus ^= 1;
-                onMirrorPreviewRequested(mMirrorVideoPreviewStatus > 0);
-                break;
             case R.id.btn_switch_client_role:
-                mBroadcastingStatus ^= 1;
-                onChangedToBroadcaster(mBroadcastingStatus > 0);
-                if (mBroadcastingStatus > 0) {
-                    ((Button) v).setText(R.string.btn_switch_client_role_audience);
-                } else {
-                    ((Button) v).setText(R.string.btn_switch_client_role_broadcaster);
-                }
+                broadcastingStatus = !broadcastingStatus;
+                onChangedToBroadcaster(broadcastingStatus);
+                setRoleButtonText();
                 break;
+        }
+    }
+
+    protected void setRoleButtonText() {
+        Button button = findViewById(R.id.btn_switch_client_role);
+        if (broadcastingStatus) {
+            button.setText(R.string.btn_switch_client_role_audience);
+        } else {
+            button.setText(R.string.btn_switch_client_role_broadcaster);
         }
     }
 
@@ -114,11 +98,5 @@ public abstract class FUBaseActivity extends RTCBaseActivity
 
     abstract protected void onViewSwitchRequested();
 
-    abstract protected void onMirrorPreviewRequested(boolean mirror);
-
     abstract protected void onChangedToBroadcaster(boolean broadcaster);
-
-    abstract protected void onStartRecordingRequested();
-
-    abstract protected void onStopRecordingRequested();
 }

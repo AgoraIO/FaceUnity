@@ -223,9 +223,9 @@ public class EffectPanel {
         if (mEffectRecyclerAdapter != null) {
             mEffectRecyclerAdapter.stopMusic();
         }
+
         mEffectRecyclerAdapter = new EffectRecyclerAdapter(
-                mContext, effectType, mFURenderer);
-        mEffectRecyclerAdapter.setOnDescriptionChangeListener(mDescriptionListener);
+                mContext, effectType, mFURenderer, mDescriptionListener);
         list.setAdapter(mEffectRecyclerAdapter);
 
         mEffectPanel.addView(list, LinearLayout.LayoutParams.MATCH_PARENT,
