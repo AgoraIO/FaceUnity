@@ -2,30 +2,14 @@
 
 这个开源示例项目演示了如果快速集成 [Agora](www.agora.io) 视频 SDK 和 [Faceunity](http://www.faceunity.com) 美颜 SDK，实现一对一视频聊天。
 
-在这个示例项目中包含以下功能：
-
-Agora 
-
-- 加入通话和离开通话
-- 实现一对一视频聊天
-- 静音和解除静音
-
-Faceunity
-
-- 贴纸，滤镜，美颜滤镜，美肤，美型功能
-- 切换采集模式
-- 切换前置摄像头和后置摄像头
-
-本项目采用了 Faceunity 提供的视频采集，美颜，本地渲染等视频前处理功能，使用了 Agora 提供的声音采集，编码，传输，解码和远端渲染功能。
-
 Faceunity 美颜功能实现请参考 [Faceunity 官方文档](http://www.faceunity.com/docs_develop)
 
 Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/Interactive%20Broadcast/API%20Reference/java/index.html)
 
 由于在使用美颜的时候需要使用第三方采集，请特别参考[自定义视频采集和渲染 API](https://docs.agora.io/cn/Interactive%20Broadcast/custom_video_android?platform=Android)
 
-## 运行示例程序
-### 获取开发者账号与证书
+## 快速开始
+### 获取开发者账号与 FaceUnity 证书
 1. 在 [Agora.io 注册](https://dashboard.agora.io/cn/signup/) 注册账号，并创建自己的测试项目，获取到 AppID。将 AppID 填写进 strings.xml
 
 ```
@@ -33,46 +17,34 @@ Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/Intera
 ```
 2. 请联系 sales@agora.io 获取证书文件替换本项目中的 **faceunity/src/main/java/com/faceunity/authpack.java**。
 
+### 设置 Agora SDK
+
+现在 demo 将自动从 JCenter 上下载 Agora 视频 SDK，默认情况下您不需要从别的地方再下载。
+
 ### 下载FaceUnity SDK与资源文件
-1. 下载 [FaceUnity SDK 6.6.0](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-SDK-Android.zip)
-2. 解压压缩包, 将 libs, assets, jniLibs 目录按下列规则置入项目
+1. Demo 当前适配到 FaceUnity SDK v6.6，您可到官方链接下载 [FaceUnity SDK v6.6](https://github.com/Faceunity/FULiveDemoDroid/releases/download/v6.6/Faceunity-Android-v6.6.zip)
+2. 解压压缩包, 将 libs, assets, jniLibs 目录按此方式拷贝到项目中
 ```
 faceunity
-  |__ build.gradle
-  |__ proguard-rules.pro
   |__ libs
       |__ nama.jar
+
   |__ src
       |__ main
             |__ assets
-                  |__ AI_model
-                  |__ face_beautification.bundle
-                  |__ fxaa.bundle
-                  |__ v3.bundle
-      |__ jniLibs
-            |__ arm64-v8a
-            |__ armeabi-v7a
-            |__ x86
-            |__ x86_64
-```
-3. 下载 [FaceUnity Bundle](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-bundle-Android.zip)
-4. 解压压缩包, 将 bundle 目录放到app/src/main/effects 目录下
+                    |__ AI_model
+                        |__  ai_bgseg.bundle
+                             // other bundles related to AI
+                             // ...
+                             // ... 
 
-
-### 下载Agora SDK
-1. 从官方网站下载Agora SDK: https://www.agora.io/en/download/.
-2. 解压压缩包, 将 libs, jniLibs 目录按下列规则置入项目
-```
-app
-  |__ build.gradle
-  |__ proguard-rules.pro
-  |__ libs
-      |__ agora-rtc-sdk.jar
-  |__ src
-      |__ java
-      |__ effects
-      |__ res
-      |__ AndroidManifest.xml
+                    |__ body_slim.bundle
+                    |__ face_beautification.bundle
+                    |__ face_makeup.bundle
+                    |__ fxaa.bundle
+                    |__ hair_gradient.bundle
+                    |__ hair_normal.bundle
+                    |__ v3.bundle
       |__ jniLibs
             |__ arm64-v8a
             |__ armeabi-v7a
@@ -80,7 +52,17 @@ app
             |__ x86_64
 ```
 
+FaceUnity SDK v6.6 相比之前的版本拥有更多的文件, 您需要将其都拷贝到对应的路径下（包括子路径）。
 
+### 下载 FaceUnity Demo 资源
+
+FaceUnity 的 effects/bundles 资源不是 SDK 的一部分，通常您需要为您的应用定制资源库。
+
+为了运行此项目，您可以下载 [官方 demo](https://github.com/Faceunity/FULiveDemoDroid) 并使用其中的资源文件。
+
+当您下载好官方 demo 的源码后，解压缩 zip 文件并将 `app/src/main/assets` 路径下的文件全部拷贝到工程的对应文件夹下。
+
+注意，只有得到 licence 授权的资源库类型才能够生效。
 
 ## 运行环境
 * Android Studio(3.1+)
