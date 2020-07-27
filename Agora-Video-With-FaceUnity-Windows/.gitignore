@@ -352,3 +352,10 @@ ASALocalRun/
 *.exe
 *.out
 *.app
+
+sdk/
+libs/
+bin/
+FaceUnitySDK/
+ThridParty/
+windows-depencies/

@@ -1,265 +1,369 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="AgoraObject">
-      <UniqueIdentifier>{0118e6c3-2c2d-45ed-a54d-7b95381312e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Uitl">
-      <UniqueIdentifier>{94db7d38-20fd-4277-9ef9-11971b3d8e4f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Source">
+    <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Resource">
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Agora">
+      <UniqueIdentifier>{5c9d2284-9cb4-4552-8dc6-c004e59c6d40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FaceUnity">
+      <UniqueIdentifier>{bf422676-0e81-40fe-851d-e33f8a9f1eb3}</UniqueIdentifier>
+    </Filter>
     <Filter Include="UI">
-      <UniqueIdentifier>{a0cee6fa-9ec7-43cb-b7f2-33f74333b696}</UniqueIdentifier>
+      <UniqueIdentifier>{6c8ffd36-3a62-4c87-a020-ebebda0852da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DirectShow">
-      <UniqueIdentifier>{49b9d97f-4b32-442c-bb91-60b234e358dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Buffer">
-      <UniqueIdentifier>{7606e1ba-3566-4746-a17d-5399ad5b265f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FaceUnityObject">
-      <UniqueIdentifier>{be512612-75bf-4cbc-8bc0-9f8fd00406d5}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AgoraFaceUnityTutorial.h">
-      <Filter>Header</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>Header</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Header</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>Header</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AgoraFaceUnityTutorialDlg.h">
+    <ClInclude Include="UI\AgoraFaceUnityTutorialDlg.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="AGEngineEventHandler.h">
-      <Filter>AgoraObject</Filter>
-    </ClInclude>
-    <ClInclude Include="AGEventDef.h">
-      <Filter>AgoraObject</Filter>
-    </ClInclude>
-    <ClInclude Include="AgoraAudInputManager.h">
-      <Filter>AgoraObject</Filter>
-    </ClInclude>
-    <ClInclude Include="AgoraCameraManager.h">
-      <Filter>AgoraObject</Filter>
-    </ClInclude>
-    <ClInclude Include="AgoraObject.h">
-      <Filter>AgoraObject</Filter>
-    </ClInclude>
-    <ClInclude Include="AGResourceVisitor.h">
-      <Filter>AgoraObject</Filter>
-    </ClInclude>
-    <ClInclude Include="AGButton.h">
+    <ClInclude Include="UI\CDlgBeautyAR.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="AGComboBox.h">
+    <ClInclude Include="UI\CDlgBeautyFaceShape.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="AGEdit.h">
+    <ClInclude Include="UI\CDlgBeautyFilter.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="AGSliderCtrl.h">
+    <ClInclude Include="UI\CDlgBeautyMakeup.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="commonfun.h">
-      <Filter>Uitl</Filter>
+    <ClInclude Include="UI\CDlgBeautySkin.h">
+      <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="DynamicKey5.h">
-      <Filter>Uitl</Filter>
+    <ClInclude Include="Agora\AGEngineEventHandler.h">
+      <Filter>Agora</Filter>
     </ClInclude>
-    <ClInclude Include="FileIO.h">
-      <Filter>Uitl</Filter>
+    <ClInclude Include="Agora\AGEventDef.h">
+      <Filter>Agora</Filter>
     </ClInclude>
-    <ClInclude Include="Packer.h">
-      <Filter>Uitl</Filter>
+    <ClInclude Include="Agora\AgoraObject.h">
+      <Filter>Agora</Filter>
     </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>Uitl</Filter>
+    <ClInclude Include="FaceUnity\Sound\MP3.h">
+      <Filter>FaceUnity</Filter>
     </ClInclude>
-    <ClInclude Include="CameraDS.h">
-      <Filter>DirectShow</Filter>
-    </ClInclude>
-    <ClInclude Include="ExtendAudioFrameObserver.h">
-      <Filter>AgoraObject</Filter>
-    </ClInclude>
-    <ClInclude Include="ExtendVideoFrameObserver.h">
-      <Filter>AgoraObject</Filter>
-    </ClInclude>
-    <ClInclude Include="YUVTrans.h">
-      <Filter>Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="Nama.h">
-      <Filter>FaceUnityObject</Filter>
-    </ClInclude>
-    <ClInclude Include="GlobalValue.h">
-      <Filter>FaceUnityObject</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameFrequencyCtrl.h">
-      <Filter>Uitl</Filter>
-    </ClInclude>
-    <ClInclude Include="AgoraOpenGL.h">
-      <Filter>FaceUnityObject</Filter>
-    </ClInclude>
-    <ClInclude Include="BufferQueue.h">
-      <Filter>Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="VideoPackageQueue.h">
-      <Filter>Buffer</Filter>
+    <ClInclude Include="FaceUnity\Nama.h">
+      <Filter>FaceUnity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AgoraFaceUnityTutorial.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AgoraFaceUnityTutorialDlg.cpp">
+    <ClCompile Include="AgoraFaceUnityTutorial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\AgoraFaceUnityTutorialDlg.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="AGEngineEventHandler.cpp">
-      <Filter>AgoraObject</Filter>
-    </ClCompile>
-    <ClCompile Include="AgoraAudInputManager.cpp">
-      <Filter>AgoraObject</Filter>
-    </ClCompile>
-    <ClCompile Include="AgoraCameraManager.cpp">
-      <Filter>AgoraObject</Filter>
-    </ClCompile>
-    <ClCompile Include="AgoraObject.cpp">
-      <Filter>AgoraObject</Filter>
-    </ClCompile>
-    <ClCompile Include="AGResourceVisitor.cpp">
-      <Filter>AgoraObject</Filter>
-    </ClCompile>
-    <ClCompile Include="AGButton.cpp">
+    <ClCompile Include="UI\CDlgBeautyAR.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="AGComboBox.cpp">
+    <ClCompile Include="UI\CDlgBeautyFaceShape.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="AGEdit.cpp">
+    <ClCompile Include="UI\CDlgBeautyFilter.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="AGSliderCtrl.cpp">
+    <ClCompile Include="UI\CDlgBeautyMakeup.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="commonfun.cpp">
-      <Filter>Uitl</Filter>
+    <ClCompile Include="UI\CDlgBeautySkin.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="FileIO.cpp">
-      <Filter>Uitl</Filter>
+    <ClCompile Include="Agora\AGEngineEventHandler.cpp">
+      <Filter>Agora</Filter>
     </ClCompile>
-    <ClCompile Include="CameraDS.cpp">
-      <Filter>DirectShow</Filter>
+    <ClCompile Include="Agora\AgoraObject.cpp">
+      <Filter>Agora</Filter>
     </ClCompile>
-    <ClCompile Include="ExtendAudioFrameObserver.cpp">
-      <Filter>AgoraObject</Filter>
+    <ClCompile Include="CConfig.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ExtendVideoFrameObserver.cpp">
-      <Filter>AgoraObject</Filter>
+    <ClCompile Include="FaceUnity\Sound\MP3.cpp">
+      <Filter>FaceUnity</Filter>
     </ClCompile>
-    <ClCompile Include="YUVTrans.cpp">
-      <Filter>Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Nama.cpp">
-      <Filter>FaceUnityObject</Filter>
-    </ClCompile>
-    <ClCompile Include="GlobalValue.cpp">
-      <Filter>FaceUnityObject</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameFrequencyCtrl.cpp">
-      <Filter>Uitl</Filter>
-    </ClCompile>
-    <ClCompile Include="AgoraOpenGL.cpp">
-      <Filter>FaceUnityObject</Filter>
-    </ClCompile>
-    <ClCompile Include="BufferQueue.cpp">
-      <Filter>Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="VideoPackageQueue.cpp">
-      <Filter>Buffer</Filter>
+    <ClCompile Include="FaceUnity\Nama.cpp">
+      <Filter>FaceUnity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AgoraFaceUnityTutorial.rc">
-      <Filter>Resource</Filter>
+      <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\AgoraFaceUnityTutorial.rc2">
-      <Filter>Resource</Filter>
+      <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\Debug\AgoraFaceUnity.ini" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\AgoraFaceUnityTutorial.ico">
-      <Filter>Resource</Filter>
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\item0204.bmp">
-      <Filter>Resource</Filter>
+    <Image Include="res\Filter\list_image_origin.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\bgseg.bmp">
-      <Filter>Resource</Filter>
+    <Image Include="res\Filter\list_image_bailiang1.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\fu_zh_duzui.bmp">
-      <Filter>Resource</Filter>
+    <Image Include="res\Filter\list_image_fennen1.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\yazui.bmp">
-      <Filter>Resource</Filter>
+    <Image Include="res\Filter\list_image_lengsediao1.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\matianyu.bmp">
-      <Filter>Resource</Filter>
+    <Image Include="res\Filter\list_image_nuansediao1.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\houzi.bmp">
-      <Filter>Resource</Filter>
+    <Image Include="res\Filter\list_image_xiaoqingxin1.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\mood.bmp">
-      <Filter>Resource</Filter>
+    <Image Include="res\AR\list_icon_annimoji_nor.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\gradient.bmp">
-      <Filter>Resource</Filter>
+    <Image Include="res\AR\list_icon_AR_nor.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\yuguan.bmp">
-      <Filter>Resource</Filter>
+    <Image Include="res\AR\list_icon_Bgsegmentation_nor.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\nature.bmp">
-      <Filter>Resource</Filter>
+    <Image Include="res\AR\list_icon_Expressionrecognition_nor.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\delta.bmp">
-      <Filter>Resource</Filter>
+    <Image Include="res\AR\list_icon_gesturerecognition_nor.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\electric.bmp">
-      <Filter>Resource</Filter>
+    <Image Include="res\AR\list_icon_Ha ha mirror_nor.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\slowlived.bmp">
-      <Filter>Resource</Filter>
+    <Image Include="res\AR\list_icon_Musicfilter_nor.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\tokyo.bmp">
-      <Filter>Resource</Filter>
+    <Image Include="res\AR\list_icon_Portraitdrive_nor.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\warm.bmp">
-      <Filter>Resource</Filter>
+    <Image Include="res\AR\list_icon_Propmap_nor.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Makeup\demo_combination_charming.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Makeup\demo_combination_flower.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Makeup\demo_combination_lady.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Makeup\demo_combination_moon.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Makeup\demo_combination_neighbor_girl.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Makeup\demo_combination_occident.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Makeup\demo_combination_sexy.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Makeup\demo_combination_sweet.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Makeup\demo_combination_tough_guy.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\AR\afd.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\AR\armesh.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\AR\baozi.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\AR\bluebird.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\AR\fenhudie.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\AR\lanhudie.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\AR\tiger.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\AR\tiger_bai.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\AR\tiger_huang_180718.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\AR\xiongmao.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\makeup\bitmap2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Animoji\baimao_Animoji.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Animoji\chaiquan_Animoji.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Animoji\douniuquan_Animoji.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Animoji\frog_Animoji.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Animoji\hashiqi_Animoji.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Animoji\hetun_Animoji.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Animoji\huangya_Animoji.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Animoji\kuloutou_Animoji.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Animoji\maotouying_Animoji.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Animoji\qgirl.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\background\gufeng_zh_fu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\background\hez_ztt_fu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\background\ice_lm_fu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\background\sea_lm_fu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\background\xiandai_ztt_fu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Expression\future_warrior.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Expression\qingqing_ztt_fu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Expression\sdx2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Expression\xiaobianzi_zh_fu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Expression\xiaoxueshen_ztt_fu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\gesture\ssd_thread_cute.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\gesture\ssd_thread_korheart.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\gesture\ssd_thread_six.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\gesture\ssd_thread_thumb.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ar\ar\bitmap16.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Haha\facewarp2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Haha\facewarp3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Haha\facewarp4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Haha\facewarp5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Haha\facewarp6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\portrait\picasso_e1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\portrait\picasso_e2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\portrait\picasso_e3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\PropMap\bling.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\PropMap\fengya_ztt_fu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\PropMap\hudie_lm_fu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\PropMap\juanhuzi_lm_fu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\PropMap\mask_hat.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\PropMap\touhua_ztt_fu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\PropMap\yazui.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\PropMap\yuguan.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Expression\jet_mask.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\Expression\jet_mask.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\music\douyin_01.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AR\music\douyin_02.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
 </Project>

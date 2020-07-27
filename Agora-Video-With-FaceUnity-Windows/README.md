@@ -13,15 +13,19 @@ This readme describes the steps and considerations for demonstrating the Agora F
 ## Prepare Agora SDK
 1. [Download Agora SDK](https://download.agora.io/sdk/release/Agora_Native_SDK_for_Windows(x86)_v3_0_0_FULL.zip)
 
-2. unzip file, place the folder sdk Agora-Video-With-FaceUnity-Windows, then change Name to AgoraSDK.
+2. unzip file, place the folder sdk Agora-Video-With-FaceUnity-Windows.
+
+3. If sdk version >= 3.0.1, place  the folder libs Agora-Video-With-FaceUnity-Windows.
 
 ## Prepare FaceUnity SDK/Resources
 1. Download [FaceUnity SDK](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnitySDK-Windows.zip)
-2. unzip file, place the folder under Agora-Video-With-FaceUnity-Windows, then change Name to FaceUnity.
+2. unzip file, place the folder under Agora-Video-With-FaceUnity-Windows, then change Name to FaceUnitySDK.
+3. copy bin under FaceUnitySDK to  Agora-Video-With-FaceUnity-Windows.
+
 
 ## Prepare Windows Depencies
 1. Download [windows depencies](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/windows-depencies.zip)
-2. unzip file, copy openssl and ThirdParty under windows-depencies to   Agora-Video-With-FaceUnity-Windows.
+2. unzip file, copy ThirdParty under windows-depencies to   Agora-Video-With-FaceUnity-Windows.
 
 ## Introduction
 
@@ -48,11 +52,7 @@ Agora FaceUnity Tutorial Windows sample app is built using **C++** language. It 
 
           AppId=//Your App ID
  
-          ChannelName= //ChannelName
 
-          LoginUid= //Uid
-
-          VideoSolutinIndex= //VideoSolutinoIndex default 40
 
 4. Use Visual Studio 2013 to open Agora-FaceUnity-Tutorial-Windows.sln. 
 

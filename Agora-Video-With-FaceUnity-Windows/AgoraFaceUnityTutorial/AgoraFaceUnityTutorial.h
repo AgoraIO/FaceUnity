@@ -1,18 +1,18 @@
 
-// AgoraFaceUnityTutorial.h : PROJECT_NAME 应用程序的主头文件
+// AgoraFaceUnityTutorial.h : main header file for the PROJECT_NAME application
 //
 
 #pragma once
 
 #ifndef __AFXWIN_H__
-	#error "在包含此文件之前包含“stdafx.h”以生成 PCH 文件"
+	#error "include 'stdafx.h' before including this file for PCH"
 #endif
 
-#include "resource.h"		// 主符号
+#include "resource.h"		// main symbols
 
 
-// CAgoraFaceUnityTutorialApp: 
-// 有关此类的实现，请参阅 AgoraFaceUnityTutorial.cpp
+// CAgoraFaceUnityTutorialApp:
+// See AgoraFaceUnityTutorial.cpp for the implementation of this class
 //
 
 class CAgoraFaceUnityTutorialApp : public CWinApp
@@ -20,11 +20,11 @@ class CAgoraFaceUnityTutorialApp : public CWinApp
 public:
 	CAgoraFaceUnityTutorialApp();
 
-// 重写
+// Overrides
 public:
 	virtual BOOL InitInstance();
 
-// 实现
+// Implementation
 
 	DECLARE_MESSAGE_MAP()
 };
