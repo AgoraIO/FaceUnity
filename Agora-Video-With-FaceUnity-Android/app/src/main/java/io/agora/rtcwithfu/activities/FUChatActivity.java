@@ -123,8 +123,6 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     protected void initUIAndEvent() {
         mLocalViewContainer = findViewById(R.id.local_video_view_container);
         mLocalViewContainer.removeAllViews();
-        mLocalSurfaceView = new SurfaceView(this);
-        mLocalViewContainer.addView(mLocalSurfaceView);
         mRemoteView = findViewById(R.id.remote_video_view);
 
         if (mLocalViewIsBig) {
@@ -145,7 +143,6 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         mVideoManager.setPictureSize(CAPTURE_WIDTH, CAPTURE_HEIGHT);
         mVideoManager.setFrameRate(CAPTURE_FRAME_RATE);
         mVideoManager.setFacing(Constant.CAMERA_FACING_FRONT);
-        mVideoManager.setLocalPreview(mLocalSurfaceView);
         mVideoManager.setLocalPreviewMirror(Constant.MIRROR_MODE_AUTO);
 
         onChangedToBroadcaster(!mMuted);
@@ -259,6 +256,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
 
     private void onRemoteUserLeft() {
         mRemoteUid = -1;
+        setRemoteVisibility();
     }
 
     @Override
@@ -276,6 +274,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
 
     private void setupRemoteVideo(int uid) {
         mRemoteUid = uid;
+        setRemoteVisibility();
         mRemoteView.setBufferType(MediaIO.BufferType.BYTE_ARRAY);
         mRemoteView.setPixelFormat(MediaIO.PixelFormat.I420);
         rtcEngine().setRemoteVideoRenderer(uid, mRemoteView);
