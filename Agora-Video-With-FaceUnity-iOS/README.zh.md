@@ -10,8 +10,6 @@ Faceunity 美颜功能实现请参考 [Faceunity 官方文档](http://www.faceun
 
 Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/Interactive%20Broadcast/API%20Reference/oc/docs/headers/Agora-Objective-C-API-Overview.html)
 
-由于在使用美颜的时候需要使用第三方采集，请特别参考[自定义设备API](https://docs.agora.io/cn/Interactive%20Broadcast/raw_data_video_android?platform=Android)  或者 [自采集API](https://docs.agora.io/cn/Interactive%20Broadcast/raw_data_video_android?platform=Android)
-
 ## 运行示例程序
 
 这个段落主要讲解了如何编译和运行实例程序。
@@ -46,6 +44,8 @@ pod install
   
 2. 最后使用 XCode 打开 BeautifyExample.xcworkspace，连接iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。
 
+
+
 ## 如何使用 Agora 模块化 SDK的采集功能
 
 ## 支持的功能
@@ -72,15 +72,13 @@ pod install
 
 
   
-## 如何使用
+## 如何接入
 
 #### 导入方式
 可以直接通过Pod集成所需依赖,
 
 ```
-    pod 'AGMCapturer_iOS', '~> 1.3.0.1'
-    pod 'AgoraRtcEngine_iOS', '~> 3.0.1.1'
-    pod 'Nama', '~> 7.1.0'
+    pod 'AGMCapturer_iOS', '~> 1.3.1.0'
 ```
         
 
