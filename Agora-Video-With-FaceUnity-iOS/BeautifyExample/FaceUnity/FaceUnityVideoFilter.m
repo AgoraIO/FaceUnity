@@ -52,14 +52,20 @@
                 strongSelf->items[FUNamaHandleTypeBeauty] = [FURenderer itemWithContentsOfFile:path];
 
                 /* 默认精细磨皮 */
-                int result = [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"heavy_blur" value:@(0)];
-                result = [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"blur_type" value:@(2)];
+                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"heavy_blur" value:@(0)];
+                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"blur_type" value:@(2)];
                 /* 默认自定义脸型 */
-                result = [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"face_shape" value:@(4)];
-    //            [self setBeautyParameters];
+                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"face_shape" value:@(4)];
+                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"blur_level" value:@(6)];
+                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"face_shape" value:@(4)];
+                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"cheek_thinning" value:@(0.7)];
                 
                 CFAbsoluteTime endTime = (CFAbsoluteTimeGetCurrent() - startTime);
 
+                
+                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"filter_name" value:@"ziran1"];
+                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"filter_level" value:@(1)];
+                
                 NSLog(@"加载美颜道具耗时: %f ms", endTime * 1000.0);
          
             }
