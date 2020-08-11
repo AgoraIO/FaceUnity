@@ -46,9 +46,8 @@ pod install
 
 
 
-## 如何使用 Agora 模块化 SDK的采集功能
-
-## 支持的功能
+## Agora摄像头采集模块 AMGCapturer
+### 支持的功能
 - [x]     Capturer
     - [x] Camera Capturer
         - [x] Support for front and rear camera switching
@@ -72,7 +71,7 @@ pod install
 
 
   
-## 如何接入
+### 如何接入
 
 #### 导入方式
 可以直接通过Pod集成所需依赖,
@@ -82,7 +81,7 @@ pod install
 ```
         
 
-## 代码示例 
+### 代码示例 
 
 #### Objective-C
 
