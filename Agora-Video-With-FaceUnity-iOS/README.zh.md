@@ -4,20 +4,6 @@
 
 这个开源示例项目演示了如何快速集成 [Agora](www.agora.io) 视频 SDK 和 [Faceunity](http://www.faceunity.com) 美颜 SDK，实现一对一视频聊天。
 
-在这个示例项目中包含以下功能：
-
-Agora 
-
-- 加入通话和离开通话
-- 实现一对一视频聊天
-- 静音和解除静音
-
-Faceunity
-
-- 美颜，贴纸，AR面具，换脸，表情识别，背景分割，手势识别等功能
-- 切换采集模式
-- 切换前置摄像头和后置摄像头
-
 本项目采用了 Faceunity 提供的视频美颜前处理功能，使用了 Agora 提供的声音采集，编码，传输，解码和渲染功能，使用了 Agora Module 提供的视频采集功能。
 
 Faceunity 美颜功能实现请参考 [Faceunity 官方文档](http://www.faceunity.com/docs_develop/#/markdown/integrate/introduction)
@@ -26,10 +12,39 @@ Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/Intera
 
 由于在使用美颜的时候需要使用第三方采集，请特别参考[自定义设备API](https://docs.agora.io/cn/Interactive%20Broadcast/raw_data_video_android?platform=Android)  或者 [自采集API](https://docs.agora.io/cn/Interactive%20Broadcast/raw_data_video_android?platform=Android)
 
-## 下载FaceUnity SDK/资源文件
-1. 下载 [FaceUnity SDK](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-SDK-iOS.zip)
-2. 下载 [FaceUnity items](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-items-iOS.zip)
-3. 将下载得到的两个zip包放到 AgoraWithFaceunity/Faceunity 下后解压即可
+## 运行示例程序
+
+这个段落主要讲解了如何编译和运行实例程序。
+
+### 创建Agora账号并获取AppId
+
+在编译和启动实例程序前，您需要首先获取一个可用的App Id:
+
+1. 在[agora.io](https://dashboard.agora.io/signin/)创建一个开发者账号
+2. 前往后台页面，点击左部导航栏的 **项目 > 项目列表** 菜单
+3. 复制后台的 **App Id** 并备注，稍后启动应用时会用到它
+4. 在项目页面生成临时 **Access Token** (24小时内有效)并备注，注意生成的Token只能适用于对应的频道名。
+
+5. 将 AppID 和 Token 填写进 AppID.m
+
+    ```
+    + (NSString *)AppId {
+        return <#Your App Id#>;
+    }
+    ```
+
+### 替换相芯美颜证书authpack.h
+请联系 [Faceunity](http://www.faceunity.com) 获取证书文件替换本项目/AgoraWithFaceunity/Faceunity 文件夹中的 ”authpack.h“ 文件。
+
+### 集成 Agora 视频 SDK
+
+1. 执行以下命令更新CocoaPods依赖
+
+```
+pod install
+```
+  
+2. 最后使用 XCode 打开 BeautifyExample.xcworkspace，连接iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。
 
 ## 如何使用 Agora 模块化 SDK的采集功能
 
@@ -60,30 +75,13 @@ Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/Intera
 ## 如何使用
 
 #### 导入方式
+可以直接通过Pod集成所需依赖,
 
-1. 如果使用采集模块，需要下载 AgoraModule_Base 和 AgoraModule_Capturer 这两个 SDK. 
-2. 把 AGMBase.framework、AGMCapturer.framework 这两个库拖入工程里面.
-3. 依赖的系统库:
-     * UIKit.framework
-     * Foundation.framework
-     * AVFoundation.framework
-     * VideoToolbox.framework
-     * AudioToolbox.framework
-     * libz.framework
-     * libstdc++.framework
-
-#### SDK 下载
-[AgoraModule_Base_iOS-1.2.2](https://download.agora.io/components/release/AgoraModule_Base_iOS-1.2.2.zip)
-[AgoraModule_Capturer_iOS-1.2.2](https://download.agora.io/components/release/AgoraModule_Capturer_iOS-1.2.2.zip)
-                               
-                           
-#### 添加权限
-Add the following permissions in the info.plist file for device access according to your needs:
-
-| Key      |    Type | Value  |
-| :-------- | --------:| :--: |
-| Privacy - Microphone Usage Description	  | String |  To access the microphone, such as for a video call.|
-| Privacy - Camera Usage Description	     |   String |  To access the camera, such as for a video call.|
+```
+    pod 'AGMCapturer_iOS', '~> 1.3.0.1'
+    pod 'AgoraRtcEngine_iOS', '~> 3.0.1.1'
+    pod 'Nama', '~> 7.1.0'
+```
         
 
 ## 代码示例 
@@ -153,20 +151,6 @@ interface AGMSenceTimeFilter : AGMVideoSource <AGMVideoSink>
 @end
 
 ```
-
-## 运行示例程序
-首先在 [Agora.io 注册](https://dashboard.agora.io/cn/signup/) 注册账号，并创建自己的测试项目，获取到 AppID。将 AppID 填写进 KeyCenter.m
-
-```
-+ (NSString *)AppId {
-     return @"Your App ID";
-}
-```
-然后在 [Agora.io SDK](https://www.agora.io/cn/download/) 下载 视频通话 + 直播 SDK，解压后将其中的 libs/AgoraRtcEngineKit.framework 复制到本项目的 “AgoraWithFaceunity” 文件夹下。
-
-请联系 [Faceunity](http://www.faceunity.com) 获取证书文件替换本项目/AgoraWithFaceunity/Faceunity 文件夹中的 ”authpack.h“ 文件。
-
-最后使用 XCode 打开 AgoraWithFaceunity.xcodeproj，连接 iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。
 
 ## 运行环境
 * XCode 8.0 +

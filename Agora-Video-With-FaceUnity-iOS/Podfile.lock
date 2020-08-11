@@ -1,10 +1,10 @@
 PODS:
-  - AGMCapturer_iOS (1.3.0.0)
+  - AGMCapturer_iOS (1.3.1)
   - AgoraRtcEngine_iOS (3.0.1.1)
   - Nama (7.1.0)
 
 DEPENDENCIES:
-  - AGMCapturer_iOS (~> 1.3.0.0)
+  - AGMCapturer_iOS (~> 1.3.1.0)
   - AgoraRtcEngine_iOS (~> 3.0.1.1)
   - Nama (~> 7.1.0)
 
@@ -15,10 +15,10 @@ SPEC REPOS:
     - Nama
 
 SPEC CHECKSUMS:
-  AGMCapturer_iOS: 580b948122cd468fa5fda4a81d928b24fb7983ea
+  AGMCapturer_iOS: 46c2ed0abe930a3a14fa7ffb803275e2c656fc00
   AgoraRtcEngine_iOS: 8ccceaaecff2e80ab28fcd33f3dfd2b417eb5365
   Nama: 249c03c2a2ff583105aba65fbd11ebe85008b7df
 
-PODFILE CHECKSUM: fcfd5cf87045b0d3b0c72bc5c5a0b6a749098990
+PODFILE CHECKSUM: 57fb4281fd7acc8076f61a4b55d1e158d0be4389
 
 COCOAPODS: 1.8.4
