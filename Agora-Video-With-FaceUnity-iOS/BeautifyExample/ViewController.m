@@ -25,6 +25,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *switchBtn;
 @property (nonatomic, strong) IBOutlet UIButton *localMirrorBtn;
 @property (nonatomic, strong) IBOutlet UIButton *remoteMirrorBtn;
+@property (nonatomic, strong) IBOutlet UIView *missingAuthpackLabel;
 @property (nonatomic, strong) AgoraRtcVideoCanvas *videoCanvas;
 @property (nonatomic, assign) AgoraVideoMirrorMode localVideoMirrored;
 @property (nonatomic, assign) AgoraVideoMirrorMode remoteVideoMirrored;
@@ -59,6 +60,7 @@
     // FaceUnity
     self.videoFilter = [[FaceUnityVideoFilter alloc] init];
     [self.processingManager addVideoFilter:self.videoFilter];
+    self.missingAuthpackLabel.hidden = self.videoFilter.authpackLoaded;
     
     
     [self.capturerManager startCapture];

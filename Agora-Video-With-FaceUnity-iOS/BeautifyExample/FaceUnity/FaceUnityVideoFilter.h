@@ -31,6 +31,7 @@ typedef NS_ENUM(NSUInteger, FUNamaHandleType) {
 @interface FaceUnityVideoFilter : NSObject <VideoFilterDelegate>
 
 @property (nonatomic, strong) dispatch_queue_t asyncLoadQueue;
+@property (nonatomic, assign) BOOL authpackLoaded;
 @property (nonatomic, assign) BOOL enabled;
 @end
 

@@ -23,9 +23,14 @@
 {
     if (self = [super init]) {
         _asyncLoadQueue = dispatch_queue_create("com.faceLoadItem", DISPATCH_QUEUE_SERIAL);
-        [[FURenderer shareRenderer] setupWithData:nil dataSize:0 ardata:nil authPackage:&g_auth_package authSize:sizeof(g_auth_package) shouldCreateContext:YES];
-        [self loadAIModle];
-        [self loadFilter];
+        if(sizeof(g_auth_package) == 0) {
+            NSLog(@"please provide your own authpack.h and replace it into this project");
+        } else {
+            [[FURenderer shareRenderer] setupWithData:nil dataSize:0 ardata:nil authPackage:&g_auth_package authSize:sizeof(g_auth_package) shouldCreateContext:YES];
+            [self loadAIModle];
+            [self loadFilter];
+            self.authpackLoaded = YES;
+        }
     }
     return self;
 }
@@ -51,11 +56,8 @@
                 NSString *path = [[NSBundle mainBundle] pathForResource:@"face_beautification.bundle" ofType:nil];
                 strongSelf->items[FUNamaHandleTypeBeauty] = [FURenderer itemWithContentsOfFile:path];
 
-                /* 默认精细磨皮 */
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"heavy_blur" value:@(0)];
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"blur_type" value:@(2)];
-                /* 默认自定义脸型 */
-                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"face_shape" value:@(4)];
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"blur_level" value:@(6)];
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"face_shape" value:@(4)];
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"cheek_thinning" value:@(0.7)];

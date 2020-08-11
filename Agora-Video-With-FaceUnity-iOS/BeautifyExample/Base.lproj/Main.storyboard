@@ -64,10 +64,18 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="authpack.h missing replace yours with the one in this project" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZVg-Ku-q5M">
+                                <rect key="frame" x="52" y="432.5" width="310" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="ZVg-Ku-q5M" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="7Vg-be-Pa4"/>
                             <constraint firstItem="Etd-Ll-TFq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JGe-Ha-Jcu"/>
+                            <constraint firstItem="ZVg-Ku-q5M" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="KO2-eV-zg9"/>
                             <constraint firstItem="AJZ-Mt-JEw" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-10" id="YWo-Tg-ZPs"/>
                             <constraint firstItem="AJZ-Mt-JEw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="e7L-U8-zvH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Etd-Ll-TFq" secondAttribute="trailing" id="hn0-Bc-IV8"/>
@@ -81,6 +89,7 @@
                         <outlet property="enableBtn" destination="uPG-46-sPn" id="DzZ-8g-8wX"/>
                         <outlet property="localMirrorBtn" destination="kU7-jH-HDZ" id="7zZ-Su-YJK"/>
                         <outlet property="localView" destination="Etd-Ll-TFq" id="zRR-Sn-Wnu"/>
+                        <outlet property="missingAuthpackLabel" destination="ZVg-Ku-q5M" id="MBr-kz-nUH"/>
                         <outlet property="remoteMirrorBtn" destination="gCQ-5Y-7eX" id="cST-gt-QbT"/>
                         <outlet property="switchBtn" destination="8nk-2o-OpT" id="0Aq-LL-D10"/>
                     </connections>
