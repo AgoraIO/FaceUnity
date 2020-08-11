@@ -10,11 +10,11 @@ Faceunity 美颜功能实现请参考 [Faceunity 官方文档](http://www.faceun
 
 Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/Interactive%20Broadcast/API%20Reference/oc/docs/headers/Agora-Objective-C-API-Overview.html)
 
-## 运行示例程序
+## 1.运行示例程序
 
 这个段落主要讲解了如何编译和运行实例程序。
 
-### 创建Agora账号并获取AppId
+### 1.1 创建Agora账号并获取AppId
 
 在编译和启动实例程序前，您需要首先获取一个可用的App Id:
 
@@ -31,10 +31,10 @@ Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/Intera
     }
     ```
 
-### 替换相芯美颜证书authpack.h
+### 1.2 替换相芯美颜证书authpack.h
 请联系 [Faceunity](http://www.faceunity.com) 获取证书文件替换本项目/AgoraWithFaceunity/Faceunity 文件夹中的 ”authpack.h“ 文件。
 
-### 集成 Agora 视频 SDK
+### 1.3 集成 Agora 视频 SDK
 
 1. 执行以下命令更新CocoaPods依赖
 
@@ -46,8 +46,8 @@ pod install
 
 
 
-## Agora摄像头采集模块 AMGCapturer
-### 支持的功能
+## 2.Agora摄像头采集模块 AMGCapturer
+### 2.1 支持的功能
 - [x]     Capturer
     - [x] Camera Capturer
         - [x] Support for front and rear camera switching
@@ -71,9 +71,7 @@ pod install
 
 
   
-### 如何接入
-
-#### 导入方式
+### 2.2 如何接入
 可以直接通过Pod集成所需依赖,
 
 ```
@@ -81,9 +79,9 @@ pod install
 ```
         
 
-### 代码示例 
+### 2.3 代码示例 
 
-#### Objective-C
+#### 2.3.1 Objective-C
 
 ##### 如何使用采集器
 
