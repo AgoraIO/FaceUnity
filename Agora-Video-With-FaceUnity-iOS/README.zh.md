@@ -100,7 +100,7 @@ self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig 
 
 ##### 自定义滤镜模块
 
-创建一个实现 VideoFilterDelegate 协议的类，在 processFrame: 代理方法里面处理视频帧数据。
+创建一个实现 `VideoFilterDelegate` 协议的类，在 `processFrame:` 代理方法里面处理视频帧数据。
 
 ```objc
 
