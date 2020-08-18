@@ -33,23 +33,13 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8nk-2o-OpT">
-                                        <rect key="frame" x="89.5" y="0.0" width="47" height="44"/>
+                                        <rect key="frame" x="150" y="0.0" width="47" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="jPt-ga-qNm"/>
                                         </constraints>
                                         <state key="normal" title="Switch"/>
                                         <connections>
                                             <action selector="switchCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6LG-Eb-Rmi"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kU7-jH-HDZ">
-                                        <rect key="frame" x="179.5" y="0.0" width="78" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="Fli-co-ndR"/>
-                                        </constraints>
-                                        <state key="normal" title="LocalMirror"/>
-                                        <connections>
-                                            <action selector="toggleLocalMirror:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1rV-gU-gwz"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gCQ-5Y-7eX">
@@ -87,7 +77,6 @@
                     </view>
                     <connections>
                         <outlet property="enableBtn" destination="uPG-46-sPn" id="DzZ-8g-8wX"/>
-                        <outlet property="localMirrorBtn" destination="kU7-jH-HDZ" id="7zZ-Su-YJK"/>
                         <outlet property="localView" destination="Etd-Ll-TFq" id="zRR-Sn-Wnu"/>
                         <outlet property="missingAuthpackLabel" destination="ZVg-Ku-q5M" id="MBr-kz-nUH"/>
                         <outlet property="remoteMirrorBtn" destination="gCQ-5Y-7eX" id="cST-gt-QbT"/>

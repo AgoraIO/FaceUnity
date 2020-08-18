@@ -43,7 +43,9 @@
 //
 }
 
-/**加载美颜道具*/
+/**
+ * load beauty items and filter
+ */
 - (void)loadFilter{
     __weak __typeof(self)weakSelf = self;
     dispatch_async(_asyncLoadQueue, ^{
@@ -68,7 +70,7 @@
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"filter_name" value:@"ziran1"];
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"filter_level" value:@(1)];
                 
-                NSLog(@"加载美颜道具耗时: %f ms", endTime * 1000.0);
+                NSLog(@"Load beauty items takes: %f ms", endTime * 1000.0);
          
             }
         }
@@ -76,9 +78,10 @@
 }
 
 #pragma mark - VideoFilterDelegate
+/// process your video frame here
 - (CVPixelBufferRef)processFrame:(CVPixelBufferRef)frame {
     if(self.enabled) {
-        CVPixelBufferRef buffer = [[FURenderer shareRenderer] renderPixelBuffer:frame withFrameId:frameID items:items itemCount:sizeof(items)/sizeof(int) flipx:YES];//flipx 参数设为YES可以使道具做水平方向的镜像翻转
+        CVPixelBufferRef buffer = [[FURenderer shareRenderer] renderPixelBuffer:frame withFrameId:frameID items:items itemCount:sizeof(items)/sizeof(int) flipx:YES];
         return buffer;
     }
     frameID += 1;

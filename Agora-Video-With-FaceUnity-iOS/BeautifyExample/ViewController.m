@@ -45,19 +45,20 @@
     [self.rtcEngineKit setChannelProfile:AgoraChannelProfileLiveBroadcasting];
     [self.rtcEngineKit setClientRole:AgoraClientRoleBroadcaster];
     [self.rtcEngineKit enableVideo];
-    AgoraVideoEncoderConfiguration* config = [[AgoraVideoEncoderConfiguration alloc] initWithSize:CGSizeMake(640, 480) frameRate:30 bitrate:0 orientationMode:AgoraVideoOutputOrientationModeAdaptative];
+    AgoraVideoEncoderConfiguration* config = [[AgoraVideoEncoderConfiguration alloc] initWithSize:CGSizeMake(720, 1280) frameRate:30 bitrate:0 orientationMode:AgoraVideoOutputOrientationModeAdaptative];
     [self.rtcEngineKit setVideoEncoderConfiguration:config];
     
-    // 处理美颜
+    // init process manager
     self.processingManager = [[VideoProcessingManager alloc] init];
     
-    // 自采集以及封装 MediaIO, 将美颜处理后的 pixelbuffer push 到 rtc channel
+    // init capturer, it will push pixelbuffer to rtc channel
     AGMCapturerVideoConfig *videoConfig = [AGMCapturerVideoConfig defaultConfig];
+    videoConfig.sessionPreset = AGMCaptureSessionPreset720x1280;
     videoConfig.fps = 30;
     self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig delegate:self.processingManager];
     
     
-    // FaceUnity
+    // add FaceUnity filter and add to process manager
     self.videoFilter = [[FaceUnityVideoFilter alloc] init];
     [self.processingManager addVideoFilter:self.videoFilter];
     self.missingAuthpackLabel.hidden = self.videoFilter.authpackLoaded;
@@ -71,8 +72,10 @@
     // the view to be binded
     self.videoCanvas.view = self.localView;
     self.videoCanvas.renderMode = AgoraVideoRenderModeHidden;
+    self.videoCanvas.mirrorMode = AgoraVideoMirrorModeDisabled;
     [self.rtcEngineKit setupLocalVideo:self.videoCanvas];
     
+    // set custom capturer as video source
     [self.rtcEngineKit setVideoSource:self.capturerManager];
     
     [self.rtcEngineKit joinChannelByToken:nil channelId:@"test" info:nil uid:0 joinSuccess:^(NSString * _Nonnull channel, NSUInteger uid, NSInteger elapsed) {
@@ -90,16 +93,10 @@
     [self.capturerManager switchCamera];
 }
 
-- (IBAction)toggleLocalMirror:(UIButton *)button
-{
-    self.localVideoMirrored = self.localVideoMirrored == AgoraVideoMirrorModeEnabled ? AgoraVideoMirrorModeDisabled : AgoraVideoMirrorModeEnabled;
-    [self.rtcEngineKit setLocalVideoMirrorMode:self.localVideoMirrored];
-}
-
 - (IBAction)toggleRemoteMirror:(UIButton *)button
 {
     self.remoteVideoMirrored = self.remoteVideoMirrored == AgoraVideoMirrorModeEnabled ? AgoraVideoMirrorModeDisabled : AgoraVideoMirrorModeEnabled;
-    AgoraVideoEncoderConfiguration* config = [[AgoraVideoEncoderConfiguration alloc] initWithSize:CGSizeMake(640, 480) frameRate:30 bitrate:0 orientationMode:AgoraVideoOutputOrientationModeAdaptative];
+    AgoraVideoEncoderConfiguration* config = [[AgoraVideoEncoderConfiguration alloc] initWithSize:CGSizeMake(720, 1280) frameRate:30 bitrate:0 orientationMode:AgoraVideoOutputOrientationModeAdaptative];
     config.mirrorMode = self.remoteVideoMirrored;
     [self.rtcEngineKit setVideoEncoderConfiguration:config];
 }
