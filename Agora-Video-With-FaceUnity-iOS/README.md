@@ -100,7 +100,7 @@ self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig 
 
 ##### Custom Filter
 
-Create a class that implements the `VideoFilterDelegate` protocol, Implement the processFrame: method to handle the videoframe .
+Create a class that implements the `VideoFilterDelegate` protocol, Implement the `processFrame:` method to handle the videoframe .
 
 ```objc
 
