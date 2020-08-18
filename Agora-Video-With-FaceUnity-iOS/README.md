@@ -4,21 +4,6 @@
 
 This open source demo project demonstrates how to implement 1to1 video chat with  [Agora] (www.agora.io) video SDK and the [Faceunity] (http://www.faceunity.com) beauty SDK.
 
-With this sample app you can:
-
-Agora 
-
-- Join / leave channel
-- Implement 1to1 video chat 
-- Mute / unmute audio
-
-Faceunity
-
-- face tracking, beauty, Animoji, props stickers, AR mask, face transfer , face recognition, music filter, background segmentation
-- Switch capture format
-- Switch camera
-
-
 This project adopts the video beauty pre-processing function provided by Faceunity, Uses the audio collection, encoding, transmission, decoding and rendering functions provided by Agora's, and uses the video collection function provided by Agora Module.
 
 Faceunity beauty function please refer to. [Faceunity Document](http://www.faceunity.com/docs_develop_en/#/)
@@ -27,14 +12,45 @@ Agora function implementation please refer to [Agora Document](https://docs.agor
 
 Due to the need to use third-party capture when using beauty function, please refer to [Customized Media Source API](https://docs.agora.io/en/Interactive%20Broadcast/raw_data_video_android?platform=Android)  or [Configuring the External Data API](https://docs.agora.io/en/Interactive%20Broadcast/raw_data_video_android?platform=Android)
 
-## Prepare FaceUnity SDK/Resources
-1. Download [FaceUnity SDK](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-SDK-iOS.zip)
-2. Download [FaceUnity items](https://github.com/AgoraIO/FaceUnityLegacy/releases/download/6.6.0/FaceUnity-6.6.0-items-iOS.zip)
-3. Place two zip files under AgoraWithFaceunity/Faceunity, and unzip them
+## 1.Quick Start
 
-## How to use the Agora Module capturer function.
+This section shows you how to prepare, build, and run the sample application.
 
-## Features
+### 1.1 Obtain an App ID
+
+To build and run the sample application, get an App ID:
+
+1. Create a developer account at [agora.io](https://dashboard.agora.io/signin/). Once you finish the signup process, you will be redirected to the Dashboard.
+2. Navigate in the Dashboard tree on the left to **Projects** > **Project List**.
+3. Save the **App ID** from the Dashboard for later use.
+4. Generate a temp **Access Token** (valid for 24 hours) from dashboard page with given channel name, save for later use.
+
+5. Open `Agora iOS Tutorial Objective-C.xcodeproj` and edit the `AppID.m` file. Update `<#Your App Id#>` with your app ID, and assign the token variable with the temp Access Token generated from dashboard.
+
+    ```
+    NSString *const appID = @"<#Your App ID#>";
+    // assign token to nil if you have not enabled app certificate
+    NSString *const token = @"<#Temp Token#>";
+    ```
+
+### 1.2 Replace FaceUnity license file `authpack.h`
+Please contact [FaceUnity](http://www.faceunity.com) to get license file and replace the `authpack.h` file located in BeautifyExample/FaceUnity
+
+### 1.3 Integrate the Agora Video SDK
+
+1. Update CocoaPods by running:
+
+```
+pod install
+```
+
+2. Connect your iPhone or iPad device and run the project. Ensure a valid provisioning profile is applied or your project will not run.
+
+
+
+## 2.How to use the Agora Module capturer function.
+
+## 2.1 Features
 - [x] 	Capturer
 	- [x] Camera Capturer
 		- [x] Support for front and rear camera switching
@@ -57,118 +73,49 @@ Due to the need to use third-party capture when using beauty function, please re
 		- [x] Support fit、hidden zoom mode
 
 
+### 2.2 Integration
+The easiest way to integrate is to use CocoaPods,
 
-  
-## Installation
+```
+    pod 'AGMCapturer_iOS', '~> 1.3.1.0'
+```
 
-#### Manually
+### 2.3 Usage example 
 
-1. If you are using the capturer module，Go to SDK Downloads, download the AgoraModule_Base and AgoraModule_Capturer module SDK. 
-2. Copy the AGMBase.framework、AGMCapturer.framework file in the libs folder to the project folder.
-3. In Xcode, go to the TARGETS > Project Name > Build Phases > Link Binary with Libraries menu, and click + to add the following frameworks and libraries. To add the AGMBase.framework、AGMCapturer.framework  file, remember to click Add Other... after clicking +.
-4. Link with required frameworks:
-     * UIKit.framework
-     * Foundation.framework
-     * AVFoundation.framework
-     * VideoToolbox.framework
-     * AudioToolbox.framework
-     * libz.framework
-     * libstdc++.framework
-
-#### SDK Downloads
-[AgoraModule_Base_iOS-1.2.2](https://download.agora.io/components/release/AgoraModule_Base_iOS-1.2.2.zip)
-[AgoraModule_Capturer_iOS-1.2.2](https://download.agora.io/components/release/AgoraModule_Capturer_iOS-1.2.2.zip)
-                               
-                           
-#### Add project permissions
-Add the following permissions in the info.plist file for device access according to your needs:
-
-| Key      |    Type | Value  |
-| :-------- | --------:| :--: |
-| Privacy - Microphone Usage Description	  | String |  To access the microphone, such as for a video call.|
-| Privacy - Camera Usage Description	     |   String |  To access the camera, such as for a video call.|
-        
-
-## Usage example 
-
-#### Objective-C
+#### 2.3.1 Objective-C
 
 ##### How to use Capturer
 
 ```objc
+// init process manager
+self.processingManager = [[VideoProcessingManager alloc] init];
+
+// init capturer, it will push pixelbuffer to rtc channel
 AGMCapturerVideoConfig *videoConfig = [AGMCapturerVideoConfig defaultConfig];
-videoConfig.videoSize = CGSizeMake(720, 1280);
 videoConfig.sessionPreset = AGMCaptureSessionPreset720x1280;
-self.cameraCapturer = [[AGMCameraCapturer alloc] initWithConfig:videoConfig];
-[self.cameraCapturer start];
-```
-
-##### Adapter Filter
-
- ```objc
- self.videoAdapterFilter = [[AGMVideoAdapterFilter alloc] init];
- self.videoAdapterFilter.ignoreAspectRatio = YES;
- self.videoAdapterFilter.isMirror = YES;
- #define DEGREES_TO_RADIANS(x) (x * M_PI/180.0)
- CGAffineTransform rotation = CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(90));
- self.videoAdapterFilter.affineTransform = rotation;
- ```
-
-##### Associate the modules
-
-```objc
-
-[self.cameraCapturer addVideoSink:self.videoAdapterFilter];
-[self.videoAdapterFilter addVideoSink:senceTimeFilter];
-
+videoConfig.fps = 30;
+self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig delegate:self.processingManager];
+[self.capturerManager startCapture];
 ```
 
 ##### Custom Filter
 
-Create a class that inherits from AGMVideoSource and implements the AGMVideoSink protocol, Implement the onFrame: method to handle the videoframe .
+Create a class that implements the `VideoFilterDelegate` protocol, Implement the processFrame: method to handle the videoframe .
 
 ```objc
 
-#import <AGMBase/AGMBase.h>
-
-interface AGMSenceTimeFilter : AGMVideoSource <AGMVideoSink>
-
-@end
-
-#import "AGMSenceTimeFilter.h"
-
-@implementation AGMSenceTimeFilter
-
-- (void)onTextureFrame:(AGMImageFramebuffer *)textureFrame frameTime:(CMTime)time {
-{
-#pragma mark Write the filter processing.
-    
-    
-#pragma mark When you're done, pass it to the next sink.
-    if (self.allSinks.count) {
-        for (id<AGMVideoSink> sink in self.allSinks) {
-            [sink onTextureFrame:textureFrame frameTime:time];
-        }
+#pragma mark - VideoFilterDelegate
+/// process your video frame here
+- (CVPixelBufferRef)processFrame:(CVPixelBufferRef)frame {
+    if(self.enabled) {
+        CVPixelBufferRef buffer = [[FURenderer shareRenderer] renderPixelBuffer:frame withFrameId:frameID items:items itemCount:sizeof(items)/sizeof(int) flipx:YES];
+        return buffer;
     }
+    frameID += 1;
+    return frame;
 }
 
-@end
-
 ```
-
-## Running the App
-First, create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. Update "KeyCenter.m" with your App ID. 
-
-```
-+ (NSString *)AppId {
-     return @"Your App ID";
-}
-```
-Next, download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the "libs/AgoraRtcEngineKit.framework" to the "AgoraWithFaceunity" folder.
-
-Contact [Faceunity](http://www.faceunity.com)  to get the certificate file replace the "authpack.h" file in the "/AgoraWithFaceunity/Faceunity" folder of this project.
-
-Finally, Open AgoraWithFaceunity.xcodeproj, connect your iPhone／iPad device, setup your development signing and run.
 
 ## FAQ
 

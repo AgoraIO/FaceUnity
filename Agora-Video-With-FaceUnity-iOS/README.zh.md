@@ -31,8 +31,8 @@ Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/Intera
     }
     ```
 
-### 1.2 替换相芯美颜证书authpack.h
-请联系 [Faceunity](http://www.faceunity.com) 获取证书文件替换本项目/AgoraWithFaceunity/Faceunity 文件夹中的 ”authpack.h“ 文件。
+### 1.2 替换相芯美颜证书 `authpack.h`
+请联系 [Faceunity](http://www.faceunity.com) 获取证书文件替换本项目 `BeautifyExample/FaceUnity` 文件夹中的 ”authpack.h“ 文件。
 
 ### 1.3 集成 Agora 视频 SDK
 
@@ -86,64 +86,34 @@ pod install
 ##### 如何使用采集器
 
 ```objc
+// init process manager
+self.processingManager = [[VideoProcessingManager alloc] init];
+
+// init capturer, it will push pixelbuffer to rtc channel
 AGMCapturerVideoConfig *videoConfig = [AGMCapturerVideoConfig defaultConfig];
-videoConfig.videoSize = CGSizeMake(720, 1280);
 videoConfig.sessionPreset = AGMCaptureSessionPreset720x1280;
-self.cameraCapturer = [[AGMCameraCapturer alloc] initWithConfig:videoConfig];
-[self.cameraCapturer start];
+videoConfig.fps = 30;
+self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig delegate:self.processingManager];
+[self.capturerManager startCapture];
 ```
 
-##### 方向适配器
-
-```objc
-self.videoAdapterFilter = [[AGMVideoAdapterFilter alloc] init];
-self.videoAdapterFilter.ignoreAspectRatio = YES;
-self.videoAdapterFilter.isMirror = YES;
-#define DEGREES_TO_RADIANS(x) (x * M_PI/180.0)
-CGAffineTransform rotation = CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(90));
-self.videoAdapterFilter.affineTransform = rotation;
-```
-
-
-##### 模块之间连接
-
-```objc
-
-[self.cameraCapturer addVideoSink:self.videoAdapterFilter];
-[self.videoAdapterFilter addVideoSink:senceTimeFilter];
-
-```
 
 ##### 自定义滤镜模块
 
-创建一个继承 AGMVideoSource 并实现了 AGMVideoSink 协议的类，在 onFrame: 代理方法里面处理视频帧数据。
+创建一个实现 VideoFilterDelegate 协议的类，在 processFrame: 代理方法里面处理视频帧数据。
 
 ```objc
 
-#import <AGMBase/AGMBase.h>
-
-interface AGMSenceTimeFilter : AGMVideoSource <AGMVideoSink>
-
-@end
-
-#import "AGMSenceTimeFilter.h"
-
-@implementation AGMSenceTimeFilter
-
-- (void)onTextureFrame:(AGMImageFramebuffer *)textureFrame frameTime:(CMTime)time {
-{
-#pragma mark Write the filter processing.
-    
-    
-#pragma mark When you're done, pass it to the next sink.
-    if (self.allSinks.count) {
-        for (id<AGMVideoSink> sink in self.allSinks) {
-            [sink onTextureFrame:textureFrame frameTime:time];
-        }
+#pragma mark - VideoFilterDelegate
+/// process your video frame here
+- (CVPixelBufferRef)processFrame:(CVPixelBufferRef)frame {
+    if(self.enabled) {
+        CVPixelBufferRef buffer = [[FURenderer shareRenderer] renderPixelBuffer:frame withFrameId:frameID items:items itemCount:sizeof(items)/sizeof(int) flipx:YES];
+        return buffer;
     }
+    frameID += 1;
+    return frame;
 }
-
-@end
 
 ```
 
