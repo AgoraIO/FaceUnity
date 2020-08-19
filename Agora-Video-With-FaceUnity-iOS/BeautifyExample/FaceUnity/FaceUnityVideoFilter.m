@@ -28,7 +28,10 @@
         } else {
             [[FURenderer shareRenderer] setupWithData:nil dataSize:0 ardata:nil authPackage:&g_auth_package authSize:sizeof(g_auth_package) shouldCreateContext:YES];
             [self loadAIModle];
-            [self loadFilter];
+            [self loadBeautyFace];
+//            [self loadSticker];
+//            [self loadBeautyBody];
+            [self loadMakeup];
             self.authpackLoaded = YES;
         }
     }
@@ -46,7 +49,7 @@
 /**
  * load beauty items and filter
  */
-- (void)loadFilter{
+- (void)loadBeautyFace{
     __weak __typeof(self)weakSelf = self;
     dispatch_async(_asyncLoadQueue, ^{
         FaceUnityVideoFilter* strongSelf = weakSelf;
@@ -69,6 +72,74 @@
                 
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"filter_name" value:@"ziran1"];
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"filter_level" value:@(1)];
+                
+                NSLog(@"Load beauty items takes: %f ms", endTime * 1000.0);
+         
+            }
+        }
+    });
+}
+
+- (void)loadBeautyBody{
+    __weak __typeof(self)weakSelf = self;
+    dispatch_async(_asyncLoadQueue, ^{
+        FaceUnityVideoFilter* strongSelf = weakSelf;
+        if(strongSelf) {
+            if (strongSelf->items[FUNamaHandleTypeBodySlim] == 0) {
+
+                CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+
+                NSString *path = [[NSBundle mainBundle] pathForResource:@"body_slim.bundle" ofType:nil];
+                strongSelf->items[FUNamaHandleTypeBodySlim] = [FURenderer itemWithContentsOfFile:path];
+                
+                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBodySlim] withName:@"HeadSlim" value:@(1.0)];
+                
+                CFAbsoluteTime endTime = (CFAbsoluteTimeGetCurrent() - startTime);
+                
+                NSLog(@"Load beauty items takes: %f ms", endTime * 1000.0);
+         
+            }
+        }
+    });
+}
+
+- (void)loadMakeup{
+    __weak __typeof(self)weakSelf = self;
+    dispatch_async(_asyncLoadQueue, ^{
+        FaceUnityVideoFilter* strongSelf = weakSelf;
+        if(strongSelf) {
+            if (strongSelf->items[FUNamaHandleTypeMakeup] == 0) {
+
+                CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+
+                NSString *path = [[NSBundle mainBundle] pathForResource:@"face_makeup.bundle" ofType:nil];
+                strongSelf->items[FUNamaHandleTypeMakeup] = [FURenderer itemWithContentsOfFile:path];
+                
+                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeMakeup] withName:@"makeup_intensity_pupil" value:@(1.0)];
+                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeMakeup] withName:@"makeup_intensity_eye" value:@(1.0)];
+                
+                CFAbsoluteTime endTime = (CFAbsoluteTimeGetCurrent() - startTime);
+                
+                NSLog(@"Load beauty items takes: %f ms", endTime * 1000.0);
+         
+            }
+        }
+    });
+}
+
+- (void)loadSticker{
+    __weak __typeof(self)weakSelf = self;
+    dispatch_async(_asyncLoadQueue, ^{
+        FaceUnityVideoFilter* strongSelf = weakSelf;
+        if(strongSelf) {
+            if (strongSelf->items[FUNamaHandleTypeItem] == 0) {
+
+                CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+
+                NSString *path = [[NSBundle mainBundle] pathForResource:@"sticker.bundle" ofType:nil];
+                strongSelf->items[FUNamaHandleTypeItem] = [FURenderer itemWithContentsOfFile:path];
+                
+                CFAbsoluteTime endTime = (CFAbsoluteTimeGetCurrent() - startTime);
                 
                 NSLog(@"Load beauty items takes: %f ms", endTime * 1000.0);
          

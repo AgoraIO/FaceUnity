@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		039A033424ED714C00742170 /* sticker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 039A033324ED714C00742170 /* sticker.bundle */; };
 		03F8192C24E003E7004F7F36 /* FaceUnityVideoFilter.h in Sources */ = {isa = PBXBuildFile; fileRef = 090FCC5C24DBB82B00B6A04F /* FaceUnityVideoFilter.h */; };
 		03F8192D24E003E7004F7F36 /* FaceUnityVideoFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 090FCC5D24DBB82B00B6A04F /* FaceUnityVideoFilter.m */; };
 		03F8193524E004A7004F7F36 /* VideoProcessingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F8193024E004A7004F7F36 /* VideoProcessingManager.m */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		039A033324ED714C00742170 /* sticker.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = sticker.bundle; sourceTree = "<group>"; };
 		03F8192F24E004A7004F7F36 /* CapturerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapturerManager.h; sourceTree = "<group>"; };
 		03F8193024E004A7004F7F36 /* VideoProcessingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoProcessingManager.m; sourceTree = "<group>"; };
 		03F8193124E004A7004F7F36 /* CapturerManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapturerManagerDelegate.h; sourceTree = "<group>"; };
@@ -89,6 +91,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		039A033224ED714C00742170 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				039A033324ED714C00742170 /* sticker.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		03F8192E24E004A7004F7F36 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +145,7 @@
 		09C6666124D7BC89001D7AE2 /* BeautifyExample */ = {
 			isa = PBXGroup;
 			children = (
+				039A033224ED714C00742170 /* Resources */,
 				03F8192E24E004A7004F7F36 /* Utils */,
 				09275D0D24DBE135005302C0 /* FaceUnity */,
 				09C6666224D7BC89001D7AE2 /* AppDelegate.h */,
@@ -268,6 +279,7 @@
 				09C6667224D7BC8B001D7AE2 /* LaunchScreen.storyboard in Resources */,
 				09C6666F24D7BC8B001D7AE2 /* Assets.xcassets in Resources */,
 				09C6666D24D7BC89001D7AE2 /* Main.storyboard in Resources */,
+				039A033424ED714C00742170 /* sticker.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
