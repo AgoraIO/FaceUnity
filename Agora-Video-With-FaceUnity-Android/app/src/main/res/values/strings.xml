@@ -265,8 +265,8 @@
         <item>Disabled</item>
     </string-array>
 
-    <string name="msg_permission_granted">Permission granted, tap and try again</string>
-    <string name="msg_permission_rejected">Permission rejected, must grant permission first</string>
+    <string name="msg_permission_granted">All necessary permissions granted</string>
+    <string name="msg_permission_rejected">All necessary permissions need to be granted</string>
 
     <string name="legal_characters_for_agora" translatable="false" >abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&amp;()+,-:;&lt;=.>?@[]^_`{|}~</string>
 </resources>

@@ -118,6 +118,6 @@
         <item>关闭</item>
     </string-array>
 
-    <string name="msg_permission_granted">已拥有权限，请再次点击</string>
-    <string name="msg_permission_rejected">一定要有权限才可以继续哦</string>
+    <string name="msg_permission_granted">已通过所有必要的权限</string>
+    <string name="msg_permission_rejected">您需要通过所有的必要权限</string>
 </resources>
