@@ -54,6 +54,51 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="b6g-yv-gKJ">
+                                <rect key="frame" x="10" y="108" width="394" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7wV-bV-rih">
+                                        <rect key="frame" x="0.0" y="0.0" width="48" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="aAI-9q-WTT"/>
+                                        </constraints>
+                                        <state key="normal" title="Beauty"/>
+                                        <connections>
+                                            <action selector="toggleBeauty:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Sc-zU-STp"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73S-vD-cvy">
+                                        <rect key="frame" x="117" y="0.0" width="55" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="mkS-OK-YpI"/>
+                                        </constraints>
+                                        <state key="normal" title="Makeup"/>
+                                        <connections>
+                                            <action selector="toggleMakeup:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hzO-6l-MSh"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pbv-Hu-6NO">
+                                        <rect key="frame" x="241" y="0.0" width="48" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="VRc-RC-17l"/>
+                                        </constraints>
+                                        <state key="normal" title="Sticker"/>
+                                        <connections>
+                                            <action selector="toggleSticker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DLL-LG-v0L"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7j1-DD-otx">
+                                        <rect key="frame" x="358" y="0.0" width="36" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="JAI-A5-SDO"/>
+                                        </constraints>
+                                        <state key="normal" title="Body"/>
+                                        <connections>
+                                            <action selector="toggleBody:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c6K-Dy-eY7"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="authpack.h missing replace yours with the one in this project" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZVg-Ku-q5M">
                                 <rect key="frame" x="52" y="432.5" width="310" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -67,7 +112,10 @@
                             <constraint firstItem="Etd-Ll-TFq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JGe-Ha-Jcu"/>
                             <constraint firstItem="ZVg-Ku-q5M" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="KO2-eV-zg9"/>
                             <constraint firstItem="AJZ-Mt-JEw" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-10" id="YWo-Tg-ZPs"/>
+                            <constraint firstItem="b6g-yv-gKJ" firstAttribute="leading" secondItem="AJZ-Mt-JEw" secondAttribute="leading" id="ZYC-h3-1nH"/>
                             <constraint firstItem="AJZ-Mt-JEw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="e7L-U8-zvH"/>
+                            <constraint firstItem="b6g-yv-gKJ" firstAttribute="trailing" secondItem="AJZ-Mt-JEw" secondAttribute="trailing" id="eYA-t6-8Wy"/>
+                            <constraint firstItem="b6g-yv-gKJ" firstAttribute="top" secondItem="AJZ-Mt-JEw" secondAttribute="bottom" id="hlx-R9-1vY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Etd-Ll-TFq" secondAttribute="trailing" id="hn0-Bc-IV8"/>
                             <constraint firstItem="Etd-Ll-TFq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="jMC-Ey-XDb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Etd-Ll-TFq" secondAttribute="bottom" id="qJG-0R-zEx"/>

@@ -13,6 +13,7 @@
 @interface FaceUnityVideoFilter()
 {
     int items[FUNamaHandleTotal];
+    int activeitems[FUNamaHandleTotal];
     int frameID;
 }
 @end
@@ -29,8 +30,8 @@
             [[FURenderer shareRenderer] setupWithData:nil dataSize:0 ardata:nil authPackage:&g_auth_package authSize:sizeof(g_auth_package) shouldCreateContext:YES];
             [self loadAIModle];
             [self loadBeautyFace];
-//            [self loadSticker];
-//            [self loadBeautyBody];
+            [self loadSticker];
+            [self loadBeautyBody];
             [self loadMakeup];
             self.authpackLoaded = YES;
         }
@@ -60,6 +61,8 @@
 
                 NSString *path = [[NSBundle mainBundle] pathForResource:@"face_beautification.bundle" ofType:nil];
                 strongSelf->items[FUNamaHandleTypeBeauty] = [FURenderer itemWithContentsOfFile:path];
+                // active by default
+                strongSelf->activeitems[FUNamaHandleTypeBeauty] = strongSelf->items[FUNamaHandleTypeBeauty];
 
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"heavy_blur" value:@(0)];
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"blur_type" value:@(2)];
@@ -148,11 +151,16 @@
     });
 }
 
+-(void)toggleHandle:(FUNamaHandleType)type
+{
+    activeitems[type] = activeitems[type] == 0 ? items[type] : 0;
+}
+
 #pragma mark - VideoFilterDelegate
 /// process your video frame here
 - (CVPixelBufferRef)processFrame:(CVPixelBufferRef)frame {
     if(self.enabled) {
-        CVPixelBufferRef buffer = [[FURenderer shareRenderer] renderPixelBuffer:frame withFrameId:frameID items:items itemCount:sizeof(items)/sizeof(int) flipx:YES];
+        CVPixelBufferRef buffer = [[FURenderer shareRenderer] renderPixelBuffer:frame withFrameId:frameID items:activeitems itemCount:sizeof(items)/sizeof(int) flipx:YES];
         return buffer;
     }
     frameID += 1;

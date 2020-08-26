@@ -101,4 +101,24 @@
     [self.rtcEngineKit setVideoEncoderConfiguration:config];
 }
 
+- (IBAction)toggleBeauty:(UIButton *)button
+{
+    [self.videoFilter toggleHandle:FUNamaHandleTypeBeauty];
+}
+
+- (IBAction)toggleMakeup:(UIButton *)button
+{
+    [self.videoFilter toggleHandle:FUNamaHandleTypeMakeup];
+}
+
+- (IBAction)toggleSticker:(UIButton *)button
+{
+    [self.videoFilter toggleHandle:FUNamaHandleTypeItem];
+}
+
+- (IBAction)toggleBody:(UIButton *)button
+{
+    [self.videoFilter toggleHandle:FUNamaHandleTypeBodySlim];
+}
+
 @end
