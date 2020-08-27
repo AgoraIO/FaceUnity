@@ -62,7 +62,7 @@
                 NSString *path = [[NSBundle mainBundle] pathForResource:@"face_beautification.bundle" ofType:nil];
                 strongSelf->items[FUNamaHandleTypeBeauty] = [FURenderer itemWithContentsOfFile:path];
                 // active by default
-                strongSelf->activeitems[FUNamaHandleTypeBeauty] = strongSelf->items[FUNamaHandleTypeBeauty];
+                [self toggleHandle:FUNamaHandleTypeBeauty];
 
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"heavy_blur" value:@(0)];
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"blur_type" value:@(2)];
@@ -154,6 +154,15 @@
 -(void)toggleHandle:(FUNamaHandleType)type
 {
     activeitems[type] = activeitems[type] == 0 ? items[type] : 0;
+    
+    // turn off filter if there's no item enabled
+    for(int i = 0; i < FUNamaHandleTotal; i++) {
+        if(activeitems[i] != 0) {
+            self.enabled = true;
+            return;
+        }
+    }
+    self.enabled = false;
 }
 
 #pragma mark - VideoFilterDelegate

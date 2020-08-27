@@ -78,14 +78,9 @@
     // set custom capturer as video source
     [self.rtcEngineKit setVideoSource:self.capturerManager];
     
-    [self.rtcEngineKit joinChannelByToken:nil channelId:@"test" info:nil uid:0 joinSuccess:^(NSString * _Nonnull channel, NSUInteger uid, NSInteger elapsed) {
+    [self.rtcEngineKit joinChannelByToken:nil channelId:@"faceunitydemo" info:nil uid:0 joinSuccess:^(NSString * _Nonnull channel, NSUInteger uid, NSInteger elapsed) {
         
     }];
-}
-
-- (IBAction)toggleEnable:(UIButton *)button
-{
-    self.videoFilter.enabled = !self.videoFilter.enabled;
 }
 
 - (IBAction)switchCamera:(UIButton *)button

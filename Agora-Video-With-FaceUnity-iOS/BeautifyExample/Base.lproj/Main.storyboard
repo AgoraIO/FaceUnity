@@ -22,83 +22,73 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="AJZ-Mt-JEw">
                                 <rect key="frame" x="10" y="64" width="394" height="44"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPG-46-sPn">
-                                        <rect key="frame" x="0.0" y="0.0" width="47" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="eUk-WT-6TB"/>
-                                        </constraints>
-                                        <state key="normal" title="On/Off"/>
-                                        <connections>
-                                            <action selector="toggleEnable:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8t3-28-m2q"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8nk-2o-OpT">
-                                        <rect key="frame" x="150" y="0.0" width="47" height="44"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8nk-2o-OpT">
+                                        <rect key="frame" x="0.0" y="0.0" width="30.5" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="jPt-ga-qNm"/>
                                         </constraints>
-                                        <state key="normal" title="Switch"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="camera.rotate" catalog="system">
+                                            <color key="titleShadowColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                            </preferredSymbolConfiguration>
+                                        </state>
                                         <connections>
                                             <action selector="switchCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6LG-Eb-Rmi"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gCQ-5Y-7eX">
-                                        <rect key="frame" x="300" y="0.0" width="94" height="44"/>
+                                        <rect key="frame" x="357" y="0.0" width="37" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="evU-TH-YCf"/>
                                         </constraints>
-                                        <state key="normal" title="RemoteMirror"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="镜像">
+                                            <color key="titleShadowColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="toggleRemoteMirror:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ohp-lX-N6R"/>
                                         </connections>
                                     </button>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="b6g-yv-gKJ">
-                                <rect key="frame" x="10" y="108" width="394" height="44"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7wV-bV-rih">
-                                        <rect key="frame" x="0.0" y="0.0" width="48" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="aAI-9q-WTT"/>
-                                        </constraints>
-                                        <state key="normal" title="Beauty"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TD0-4Z-QAs">
+                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="taa-dg-aws"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem title="美颜" id="Tyz-vB-XrG">
                                         <connections>
-                                            <action selector="toggleBeauty:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Sc-zU-STp"/>
+                                            <action selector="toggleBeauty:" destination="BYZ-38-t0r" id="DSE-fI-b9U"/>
                                         </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73S-vD-cvy">
-                                        <rect key="frame" x="117" y="0.0" width="55" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="mkS-OK-YpI"/>
-                                        </constraints>
-                                        <state key="normal" title="Makeup"/>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="BWt-Ir-um0"/>
+                                    <barButtonItem title="美妆" id="gea-Mc-2x8">
                                         <connections>
-                                            <action selector="toggleMakeup:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hzO-6l-MSh"/>
+                                            <action selector="toggleMakeup:" destination="BYZ-38-t0r" id="Yeu-qP-Dab"/>
                                         </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pbv-Hu-6NO">
-                                        <rect key="frame" x="241" y="0.0" width="48" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="VRc-RC-17l"/>
-                                        </constraints>
-                                        <state key="normal" title="Sticker"/>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="4dG-fC-cB3"/>
+                                    <barButtonItem title="贴纸" id="Oii-Pu-g0D">
                                         <connections>
-                                            <action selector="toggleSticker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DLL-LG-v0L"/>
+                                            <action selector="toggleSticker:" destination="BYZ-38-t0r" id="COl-3u-dsU"/>
                                         </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7j1-DD-otx">
-                                        <rect key="frame" x="358" y="0.0" width="36" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="JAI-A5-SDO"/>
-                                        </constraints>
-                                        <state key="normal" title="Body"/>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="RU4-ye-ZYD"/>
+                                    <barButtonItem title="美体" id="XNq-hq-3v3">
                                         <connections>
-                                            <action selector="toggleBody:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c6K-Dy-eY7"/>
+                                            <action selector="toggleBody:" destination="BYZ-38-t0r" id="gT2-KE-WW6"/>
                                         </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
+                                    </barButtonItem>
+                                </items>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="barTintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </toolbar>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="authpack.h missing replace yours with the one in this project" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZVg-Ku-q5M">
                                 <rect key="frame" x="52" y="432.5" width="310" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -108,14 +98,14 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TD0-4Z-QAs" secondAttribute="trailing" id="7KF-Ci-S2Q"/>
                             <constraint firstItem="ZVg-Ku-q5M" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="7Vg-be-Pa4"/>
                             <constraint firstItem="Etd-Ll-TFq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JGe-Ha-Jcu"/>
                             <constraint firstItem="ZVg-Ku-q5M" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="KO2-eV-zg9"/>
+                            <constraint firstItem="TD0-4Z-QAs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="WGG-2Q-DxU"/>
                             <constraint firstItem="AJZ-Mt-JEw" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-10" id="YWo-Tg-ZPs"/>
-                            <constraint firstItem="b6g-yv-gKJ" firstAttribute="leading" secondItem="AJZ-Mt-JEw" secondAttribute="leading" id="ZYC-h3-1nH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="TD0-4Z-QAs" secondAttribute="bottom" id="c6E-aw-apN"/>
                             <constraint firstItem="AJZ-Mt-JEw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="e7L-U8-zvH"/>
-                            <constraint firstItem="b6g-yv-gKJ" firstAttribute="trailing" secondItem="AJZ-Mt-JEw" secondAttribute="trailing" id="eYA-t6-8Wy"/>
-                            <constraint firstItem="b6g-yv-gKJ" firstAttribute="top" secondItem="AJZ-Mt-JEw" secondAttribute="bottom" id="hlx-R9-1vY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Etd-Ll-TFq" secondAttribute="trailing" id="hn0-Bc-IV8"/>
                             <constraint firstItem="Etd-Ll-TFq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="jMC-Ey-XDb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Etd-Ll-TFq" secondAttribute="bottom" id="qJG-0R-zEx"/>
@@ -124,7 +114,6 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="enableBtn" destination="uPG-46-sPn" id="DzZ-8g-8wX"/>
                         <outlet property="localView" destination="Etd-Ll-TFq" id="zRR-Sn-Wnu"/>
                         <outlet property="missingAuthpackLabel" destination="ZVg-Ku-q5M" id="MBr-kz-nUH"/>
                         <outlet property="remoteMirrorBtn" destination="gCQ-5Y-7eX" id="cST-gt-QbT"/>
@@ -136,4 +125,7 @@
             <point key="canvasLocation" x="133" y="139"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="camera.rotate" catalog="system" width="128" height="96"/>
+    </resources>
 </document>
