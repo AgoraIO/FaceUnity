@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context="io.agora.rtcwithfu.activities.MainActivity">
-
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
     <EditText
         android:id="@+id/edt_channel"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/main_activity_edit_width"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/main_activity_edit_margin_top"
         android:gravity="center"
-        android:digits="@string/legal_characters_for_agora"
+        android:inputType="text"
+        android:hint="@string/room_name_edit_hint"
+        android:digits="@string/legal_characters"
         android:lines="1"
-        android:maxLines="1" />
-
+        android:autofillHints=""/>
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:onClick="onStartBroadcastClick"
-        android:text="start broadcast" />
+        android:text="@string/enter_room_btn"/>
 </LinearLayout>

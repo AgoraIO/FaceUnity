@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import io.agora.rtcwithfu.Constants;
+import io.agora.rtcwithfu.utils.Constants;
 import io.agora.rtcwithfu.R;
 
 public class MainActivity extends Activity {
@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
     public void onStartBroadcastClick(View view) {
         String name = mChannelName.getText().toString();
         if (name.isEmpty()) {
-            Toast.makeText(this, "please input the channel name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.empty_room_name_toast, Toast.LENGTH_SHORT).show();
         } else {
             Intent intent = new Intent(this, FUChatActivity.class);
             intent.putExtra(Constants.ACTION_KEY_ROOM_NAME, name);

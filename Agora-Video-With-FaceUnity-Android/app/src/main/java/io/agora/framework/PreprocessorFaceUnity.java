@@ -20,7 +20,6 @@ public class PreprocessorFaceUnity implements IPreprocessor {
         mContext = context;
         mEnabled = true;
     }
-
     @Override
     public VideoCaptureFrame onPreProcessFrame(VideoCaptureFrame outFrame, VideoChannel.ChannelContext context) {
         if (mFURenderer == null || !mEnabled) {
@@ -39,10 +38,8 @@ public class PreprocessorFaceUnity implements IPreprocessor {
     @Override
     public void initPreprocessor() {
         mFURenderer = new FURenderer.Builder(mContext).
-                inputImageFormat(FURenderer.FU_ADM_FLAG_EXTERNAL_OES_TEXTURE).build();
-        mFURenderer.setBeautyEnabled(true);
-        mFURenderer.setAnimoji3dEnabled(true);
-        mFURenderer.setLoadLandmark75(true);
+                inputImageFormat(FURenderer.FU_ADM_FLAG_EXTERNAL_OES_TEXTURE)
+                .setNeedFaceBeauty(true).build();
         mFURenderer.onSurfaceCreated();
     }
 
