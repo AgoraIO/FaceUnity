@@ -1,7 +1,17 @@
 <resources>
-    <string name="app_name">Agora with FU</string>
-    <string name="agora_app_id"><#YOUR APP ID#></string>
+    <string name="app_name" translatable="false">Agora with FU</string>
+    <string name="agora_app_id" translatable="false"><#YOUR APP ID#></string>
+    <string name="legal_characters" translatable="false">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&amp;()+,-:;&lt;=.>?@[]^_`{|}~</string>
 
+    <!-- Main Activity -->
+    <string name="room_name_edit_hint">Fill Your Room Name</string>
+    <string name="enter_room_btn">Enter Room</string>
+    <string name="empty_room_name_toast">Please input a room name</string>
+    <string name="msg_permission_granted">All necessary permissions granted</string>
+    <string name="msg_permission_rejected">All necessary permissions need to be granted</string>
+
+
+    <!-- FU Effects -->
     <string name="home_function_name_beauty">Beautification</string>
     <string name="home_function_name_makeup">Makeup</string>
     <string name="home_function_name_sticker">Sticker</string>
