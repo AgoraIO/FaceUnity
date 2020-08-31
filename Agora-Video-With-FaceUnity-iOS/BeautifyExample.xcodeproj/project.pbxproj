@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		039A033424ED714C00742170 /* sticker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 039A033324ED714C00742170 /* sticker.bundle */; };
+		03B321DE24FD0A3E008EBD2C /* hongfeng.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 03B321DD24FD0A3E008EBD2C /* hongfeng.bundle */; };
 		03F8192C24E003E7004F7F36 /* FaceUnityVideoFilter.h in Sources */ = {isa = PBXBuildFile; fileRef = 090FCC5C24DBB82B00B6A04F /* FaceUnityVideoFilter.h */; };
 		03F8192D24E003E7004F7F36 /* FaceUnityVideoFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 090FCC5D24DBB82B00B6A04F /* FaceUnityVideoFilter.m */; };
 		03F8193524E004A7004F7F36 /* VideoProcessingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F8193024E004A7004F7F36 /* VideoProcessingManager.m */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		039A033324ED714C00742170 /* sticker.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = sticker.bundle; sourceTree = "<group>"; };
+		03B321DD24FD0A3E008EBD2C /* hongfeng.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = hongfeng.bundle; sourceTree = "<group>"; };
 		03F8192F24E004A7004F7F36 /* CapturerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapturerManager.h; sourceTree = "<group>"; };
 		03F8193024E004A7004F7F36 /* VideoProcessingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoProcessingManager.m; sourceTree = "<group>"; };
 		03F8193124E004A7004F7F36 /* CapturerManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapturerManagerDelegate.h; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 		039A033224ED714C00742170 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				03B321DD24FD0A3E008EBD2C /* hongfeng.bundle */,
 				039A033324ED714C00742170 /* sticker.bundle */,
 			);
 			path = Resources;
@@ -276,6 +279,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03B321DE24FD0A3E008EBD2C /* hongfeng.bundle in Resources */,
 				09C6667224D7BC8B001D7AE2 /* LaunchScreen.storyboard in Resources */,
 				09C6666F24D7BC8B001D7AE2 /* Assets.xcassets in Resources */,
 				09C6666D24D7BC89001D7AE2 /* Main.storyboard in Resources */,
@@ -550,7 +554,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Agora.BeautifyExample;
+				PRODUCT_BUNDLE_IDENTIFIER = io.agora.AgoraLiveBroadcast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -568,7 +572,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Agora.BeautifyExample;
+				PRODUCT_BUNDLE_IDENTIFIER = io.agora.AgoraLiveBroadcast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

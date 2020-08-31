@@ -55,6 +55,12 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAr-CG-s2q">
+                                <rect key="frame" x="10" y="118" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TD0-4Z-QAs">
                                 <rect key="frame" x="0.0" y="818" width="414" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -100,8 +106,10 @@
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TD0-4Z-QAs" secondAttribute="trailing" id="7KF-Ci-S2Q"/>
                             <constraint firstItem="ZVg-Ku-q5M" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="7Vg-be-Pa4"/>
+                            <constraint firstItem="hAr-CG-s2q" firstAttribute="leading" secondItem="AJZ-Mt-JEw" secondAttribute="leading" id="JF1-uu-qxX"/>
                             <constraint firstItem="Etd-Ll-TFq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JGe-Ha-Jcu"/>
                             <constraint firstItem="ZVg-Ku-q5M" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="KO2-eV-zg9"/>
+                            <constraint firstItem="hAr-CG-s2q" firstAttribute="top" secondItem="AJZ-Mt-JEw" secondAttribute="bottom" constant="10" id="S2X-tK-V1n"/>
                             <constraint firstItem="TD0-4Z-QAs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="WGG-2Q-DxU"/>
                             <constraint firstItem="AJZ-Mt-JEw" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-10" id="YWo-Tg-ZPs"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="TD0-4Z-QAs" secondAttribute="bottom" id="c6E-aw-apN"/>
@@ -114,6 +122,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="beautyStatus" destination="hAr-CG-s2q" id="3DO-gd-fUB"/>
                         <outlet property="localView" destination="Etd-Ll-TFq" id="zRR-Sn-Wnu"/>
                         <outlet property="missingAuthpackLabel" destination="ZVg-Ku-q5M" id="MBr-kz-nUH"/>
                         <outlet property="remoteMirrorBtn" destination="gCQ-5Y-7eX" id="cST-gt-QbT"/>

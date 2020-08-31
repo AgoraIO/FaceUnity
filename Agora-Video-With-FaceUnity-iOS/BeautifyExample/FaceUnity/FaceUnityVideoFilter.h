@@ -33,6 +33,7 @@ typedef NS_ENUM(NSUInteger, FUNamaHandleType) {
 @property (nonatomic, strong) dispatch_queue_t asyncLoadQueue;
 @property (nonatomic, assign) BOOL authpackLoaded;
 @property (nonatomic, assign) BOOL enabled;
+@property (nonatomic, strong) NSString* beautyStatus;
 
 -(void)toggleHandle:(FUNamaHandleType)type;
 

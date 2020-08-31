@@ -21,10 +21,9 @@
 @property (nonatomic, strong) VideoProcessingManager *processingManager;
 @property (nonatomic, strong) AgoraRtcEngineKit *rtcEngineKit;
 @property (nonatomic, strong) IBOutlet UIView *localView;
-@property (nonatomic, strong) IBOutlet UIButton *enableBtn;
 @property (nonatomic, strong) IBOutlet UIButton *switchBtn;
-@property (nonatomic, strong) IBOutlet UIButton *localMirrorBtn;
 @property (nonatomic, strong) IBOutlet UIButton *remoteMirrorBtn;
+@property (nonatomic, strong) IBOutlet UILabel *beautyStatus;
 @property (nonatomic, strong) IBOutlet UIView *missingAuthpackLabel;
 @property (nonatomic, strong) AgoraRtcVideoCanvas *videoCanvas;
 @property (nonatomic, assign) AgoraVideoMirrorMode localVideoMirrored;
@@ -62,6 +61,7 @@
     self.videoFilter = [[FaceUnityVideoFilter alloc] init];
     [self.processingManager addVideoFilter:self.videoFilter];
     self.missingAuthpackLabel.hidden = self.videoFilter.authpackLoaded;
+    [self.videoFilter addObserver:self forKeyPath:@"beautyStatus" options:NSKeyValueObservingOptionNew context:nil];
     
     
     [self.capturerManager startCapture];
@@ -81,6 +81,20 @@
     [self.rtcEngineKit joinChannelByToken:nil channelId:@"faceunitydemo" info:nil uid:0 joinSuccess:^(NSString * _Nonnull channel, NSUInteger uid, NSInteger elapsed) {
         
     }];
+}
+
+- (void)dealloc
+{
+    [self.videoFilter removeObserver:self forKeyPath:@"beautyStatus"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if([keyPath isEqualToString:@"beautyStatus"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.beautyStatus.text = [object beautyStatus];
+        });
+    }
 }
 
 - (IBAction)switchCamera:(UIButton *)button

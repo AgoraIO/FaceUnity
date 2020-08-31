@@ -76,7 +76,7 @@
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"filter_name" value:@"ziran1"];
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBeauty] withName:@"filter_level" value:@(1)];
                 
-                NSLog(@"Load beauty items takes: %f ms", endTime * 1000.0);
+                NSLog(@"Load beauty face items takes: %f ms", endTime * 1000.0);
          
             }
         }
@@ -96,6 +96,7 @@
                 strongSelf->items[FUNamaHandleTypeBodySlim] = [FURenderer itemWithContentsOfFile:path];
                 
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBodySlim] withName:@"HeadSlim" value:@(1.0)];
+                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeBodySlim] withName:@"Debug" value:@(1)];
                 
                 CFAbsoluteTime endTime = (CFAbsoluteTimeGetCurrent() - startTime);
                 
@@ -118,12 +119,19 @@
                 NSString *path = [[NSBundle mainBundle] pathForResource:@"face_makeup.bundle" ofType:nil];
                 strongSelf->items[FUNamaHandleTypeMakeup] = [FURenderer itemWithContentsOfFile:path];
                 
-                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeMakeup] withName:@"makeup_intensity_pupil" value:@(1.0)];
                 [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeMakeup] withName:@"makeup_intensity_eye" value:@(1.0)];
+                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeMakeup] withName:@"makeup_intensity_lip" value:@(1.0)];
+                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeMakeup] withName:@"makeup_intensity" value:@(0.5)];
+                [FURenderer itemSetParam:strongSelf->items[FUNamaHandleTypeMakeup] withName:@"is_makeup_on" value:@(1.0)];
+                
+                // load makeup bundle
+                path = [[NSBundle mainBundle] pathForResource:@"hongfeng.bundle" ofType:nil];
+                int subHandle = [FURenderer itemWithContentsOfFile:path];
+                [FURenderer bindItems:self->items[FUNamaHandleTypeMakeup] items:&subHandle itemsCount:1];
                 
                 CFAbsoluteTime endTime = (CFAbsoluteTimeGetCurrent() - startTime);
                 
-                NSLog(@"Load beauty items takes: %f ms", endTime * 1000.0);
+                NSLog(@"Load makeup items takes: %f ms", endTime * 1000.0);
          
             }
         }
@@ -159,10 +167,22 @@
     for(int i = 0; i < FUNamaHandleTotal; i++) {
         if(activeitems[i] != 0) {
             self.enabled = true;
+            self.beautyStatus = [self getBeautyStatus];
             return;
         }
     }
     self.enabled = false;
+    self.beautyStatus = [self getBeautyStatus];
+}
+
+-(NSString*)getBeautyStatus
+{
+    NSMutableArray* results = [NSMutableArray new];
+    [results addObject:[NSString stringWithFormat:@"美颜: %@", activeitems[FUNamaHandleTypeBeauty] == 0 ? @"OFF" : @"ON"]];
+    [results addObject:[NSString stringWithFormat:@"美妆: %@", activeitems[FUNamaHandleTypeMakeup] == 0 ? @"OFF" : @"ON"]];
+    [results addObject:[NSString stringWithFormat:@"贴纸: %@", activeitems[FUNamaHandleTypeItem] == 0 ? @"OFF" : @"ON"]];
+    [results addObject:[NSString stringWithFormat:@"美体: %@", activeitems[FUNamaHandleTypeBodySlim] == 0 ? @"OFF" : @"ON"]];
+    return [results componentsJoinedByString:@"\n"];
 }
 
 #pragma mark - VideoFilterDelegate
