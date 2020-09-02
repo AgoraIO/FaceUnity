@@ -3,11 +3,10 @@ package io.agora.framework;
 import android.content.Context;
 import android.opengl.GLES20;
 
-import com.faceunity.FURenderer;
-
 import io.agora.capture.framework.modules.channels.VideoChannel;
 import io.agora.capture.framework.modules.processors.IPreprocessor;
 import io.agora.capture.video.camera.VideoCaptureFrame;
+import io.agora.rtcwithfu.FURenderer;
 
 public class PreprocessorFaceUnity implements IPreprocessor {
     private final static String TAG = PreprocessorFaceUnity.class.getSimpleName();

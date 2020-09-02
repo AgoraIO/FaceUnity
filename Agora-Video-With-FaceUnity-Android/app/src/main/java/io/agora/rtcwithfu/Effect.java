@@ -1,4 +1,4 @@
-package com.faceunity.entity;
+package io.agora.rtcwithfu;
 
 import java.util.Objects;
 

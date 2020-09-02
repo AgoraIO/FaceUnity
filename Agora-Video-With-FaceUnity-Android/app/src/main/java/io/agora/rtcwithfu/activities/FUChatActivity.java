@@ -10,10 +10,6 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.faceunity.FURenderer;
-import com.faceunity.entity.Effect;
-import com.faceunity.entity.MakeupItem;
-
 import io.agora.capture.video.camera.CameraVideoManager;
 import io.agora.capture.video.camera.Constant;
 import io.agora.capture.video.camera.VideoCapture;
@@ -22,12 +18,13 @@ import io.agora.framework.RtcVideoConsumer;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
+import io.agora.rtcwithfu.Effect;
 import io.agora.rtcwithfu.EffectOptionContainer;
+import io.agora.rtcwithfu.FURenderer;
 import io.agora.rtcwithfu.utils.Constants;
 import io.agora.rtcwithfu.R;
 import io.agora.rtcwithfu.RtcEngineEventHandler;
 import io.agora.rtcwithfu.utils.EffectUtil;
-import io.agora.rtcwithfu.utils.FULicence;
 import io.agora.rtcwithfu.utils.MakeupUtil;
 
 /**
@@ -48,9 +45,6 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
     private FrameLayout mRemoteViewContainer;
     private EffectOptionContainer mEffectContainer;
 
-    // Default effects & beauty options to be as examples
-    private MakeupItem mNoMakeup = MakeupUtil.noLipstickMakeupItem();
-    private MakeupItem mDefaultMakeup = MakeupUtil.defaultLipstickMakeupItem();
 
     private int mRemoteUid = -1;
     private boolean mFinished;
@@ -65,11 +59,7 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
                         mFURenderer.setBeautificationOn(selected);
                         break;
                     case 1:
-                        if (selected) {
-                            mFURenderer.setMakeupItemParam(mDefaultMakeup.getParamMap());
-                        } else {
-                            mFURenderer.setMakeupItemParam(mNoMakeup.getParamMap());
-                        }
+                        mFURenderer.setMakeupItemParam(selected);
                         break;
                     case 2:
                         Effect effect = selected ? EffectUtil.EFFECT_DEFAULT : EffectUtil.EFFECT_NONE;
@@ -157,12 +147,12 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
 
     private void updateEffectOptionPanel() {
         // Beautification
-        mEffectContainer.setItemViewStyles(0, false, FULicence.fuPermissionGrantedByIndex(0));
+        mEffectContainer.setItemViewStyles(0, false, true);
 
         // Makeup
 
         // Sticker
-        mEffectContainer.setItemViewStyles(2, false, FULicence.fuPermissionGrantedByIndex(2));
+        mEffectContainer.setItemViewStyles(2, false, true);
 
         // Body Beauty
     }

@@ -5,8 +5,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.faceunity.FURenderer;
-
 import io.agora.capture.video.camera.CameraVideoManager;
 import io.agora.framework.PreprocessorFaceUnity;
 import io.agora.rtc.RtcEngine;

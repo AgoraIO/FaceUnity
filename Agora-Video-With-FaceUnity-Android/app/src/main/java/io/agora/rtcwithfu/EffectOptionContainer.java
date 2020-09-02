@@ -10,8 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import io.agora.rtcwithfu.utils.FULicence;
-
 public class EffectOptionContainer extends FrameLayout implements View.OnClickListener {
     public interface OnEffectOptionContainerItemClickListener {
         void onEffectOptionItemClicked(int index, int textResource, boolean selected);
@@ -61,7 +59,7 @@ public class EffectOptionContainer extends FrameLayout implements View.OnClickLi
         mOptionViews[3] = mEffectOption4;
 
         for (int i = 0; i < mSelectedArray.length; i++) {
-            setViewStyle(mOptionViews[i], mSelectedArray[i], FULicence.fuPermissionGrantedByIndex(i));
+            setViewStyle(mOptionViews[i], mSelectedArray[i], true);
         }
     }
 
@@ -93,13 +91,9 @@ public class EffectOptionContainer extends FrameLayout implements View.OnClickLi
                 break;
         }
 
-        if (FULicence.fuPermissionGrantedByIndex(selected)) {
-            mSelectedArray[selected] = !mSelectedArray[selected];
-            setViewStyle(view, mSelectedArray[selected], true);
-            if (mListener != null) mListener.onEffectOptionItemClicked(selected, textRes, mSelectedArray[selected]);
-        } else {
-            if (mListener != null) mListener.onEffectNotSupported(selected, textRes);
-        }
+        mSelectedArray[selected] = !mSelectedArray[selected];
+        setViewStyle(view, mSelectedArray[selected], true);
+        if (mListener != null) mListener.onEffectOptionItemClicked(selected, textRes, mSelectedArray[selected]);
     }
 
     private void setViewStyle(AppCompatTextView view, boolean enabled, boolean supported) {
