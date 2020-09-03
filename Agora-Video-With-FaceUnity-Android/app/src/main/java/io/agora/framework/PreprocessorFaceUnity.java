@@ -38,7 +38,12 @@ public class PreprocessorFaceUnity implements IPreprocessor {
     public void initPreprocessor() {
         mFURenderer = new FURenderer.Builder(mContext).
                 inputImageFormat(FURenderer.FU_ADM_FLAG_EXTERNAL_OES_TEXTURE)
-                .setNeedFaceBeauty(true).build();
+                .setNeedFaceBeauty(true)
+                .setNeedBodySlim(true)
+                .setLoadAiHumanProcessor(true)
+                .maxHumans(1)
+                .maxFaces(4)
+                .build();
         mFURenderer.onSurfaceCreated();
     }
 

@@ -9,6 +9,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.faceunity.wrapper.authpack;
 import com.faceunity.wrapper.faceunity;
 
 import java.io.File;
@@ -59,7 +60,7 @@ public class FURenderer implements OnFUControlListener {
     // 人脸识别算法模型
     private static final String BUNDLE_AI_MODEL_FACE_PROCESSOR = AI_MODEL_ASSETS_DIR + "ai_face_processor.bundle";
 
-    private static float sIsBeautyOn = 1.0F;
+    private static float sIsBeautyOn = 0.0F;
 
     private int mFrameId = 0;
 
@@ -494,7 +495,7 @@ public class FURenderer implements OnFUControlListener {
         //修改美颜参数
         if (mIsNeedUpdateFaceBeauty && mItemsArray[ITEM_ARRAYS_FACE_BEAUTY_INDEX] > 0) {
             int itemFaceBeauty = mItemsArray[ITEM_ARRAYS_FACE_BEAUTY_INDEX];
-            faceunity.fuItemSetParam(itemFaceBeauty, "IS_BEAUTY_ON", sIsBeautyOn);
+            faceunity.fuItemSetParam(itemFaceBeauty, "is_beauty_on", sIsBeautyOn);
             mIsNeedUpdateFaceBeauty = false;
         }
 
@@ -604,7 +605,7 @@ public class FURenderer implements OnFUControlListener {
         queueEvent(() -> {
             int itemFaceBeauty = mItemsArray[ITEM_ARRAYS_FACE_BEAUTY_INDEX];
             if (itemFaceBeauty > 0) {
-                faceunity.fuItemSetParam(itemFaceBeauty, "IS_BEAUTY_ON", sIsBeautyOn);
+                faceunity.fuItemSetParam(itemFaceBeauty, "is_beauty_on", sIsBeautyOn);
             }
         });
     }
