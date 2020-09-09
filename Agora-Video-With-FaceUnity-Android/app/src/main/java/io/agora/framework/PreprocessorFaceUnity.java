@@ -3,10 +3,12 @@ package io.agora.framework;
 import android.content.Context;
 import android.opengl.GLES20;
 
+import com.faceunity.nama.FURenderer;
+import com.faceunity.nama.utils.CameraUtils;
+
 import io.agora.capture.framework.modules.channels.VideoChannel;
 import io.agora.capture.framework.modules.processors.IPreprocessor;
 import io.agora.capture.video.camera.VideoCaptureFrame;
-import io.agora.rtcwithfu.FURenderer;
 
 public class PreprocessorFaceUnity implements IPreprocessor {
     private final static String TAG = PreprocessorFaceUnity.class.getSimpleName();
@@ -25,7 +27,8 @@ public class PreprocessorFaceUnity implements IPreprocessor {
             return outFrame;
         }
 
-        outFrame.textureId = mFURenderer.onDrawFrame(outFrame.image,
+        //双输入美妆会出问题
+        outFrame.textureId = mFURenderer.onDrawFrameSingleInput(
                 outFrame.textureId, outFrame.format.getWidth(),
                 outFrame.format.getHeight());
 
@@ -36,15 +39,10 @@ public class PreprocessorFaceUnity implements IPreprocessor {
 
     @Override
     public void initPreprocessor() {
-        mFURenderer = new FURenderer.Builder(mContext).
-                inputImageFormat(FURenderer.FU_ADM_FLAG_EXTERNAL_OES_TEXTURE)
-                .setNeedFaceBeauty(true)
-                .setNeedBodySlim(true)
-                .setLoadAiHumanProcessor(true)
-                .maxHumans(1)
-                .maxFaces(4)
-                .build();
-        mFURenderer.onSurfaceCreated();
+        //这个可以不写，在FUChatActivity中添加了
+        if (mFURenderer != null) {
+            mFURenderer.onSurfaceCreated();
+        }
     }
 
     @Override
@@ -54,12 +52,13 @@ public class PreprocessorFaceUnity implements IPreprocessor {
 
     @Override
     public void releasePreprocessor(VideoChannel.ChannelContext context) {
+        //这个可以不写，在FUChatActivity中添加了
         if (mFURenderer != null) {
             mFURenderer.onSurfaceDestroyed();
         }
     }
 
-    public FURenderer getFURenderer() {
-        return mFURenderer;
+    public void setFURenderer(FURenderer FURenderer) {
+        mFURenderer = FURenderer;
     }
 }

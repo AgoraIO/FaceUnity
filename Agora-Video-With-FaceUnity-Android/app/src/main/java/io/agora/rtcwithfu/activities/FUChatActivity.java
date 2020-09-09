@@ -1,5 +1,10 @@
 package io.agora.rtcwithfu.activities;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -8,7 +13,11 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.TextView;
+
+import com.faceunity.nama.FURenderer;
+import com.faceunity.nama.ui.FaceUnityView;
+import com.faceunity.nama.utils.CameraUtils;
 
 import io.agora.capture.video.camera.CameraVideoManager;
 import io.agora.capture.video.camera.Constant;
@@ -18,14 +27,9 @@ import io.agora.framework.RtcVideoConsumer;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
-import io.agora.rtcwithfu.Effect;
-import io.agora.rtcwithfu.EffectOptionContainer;
-import io.agora.rtcwithfu.FURenderer;
 import io.agora.rtcwithfu.utils.Constants;
 import io.agora.rtcwithfu.R;
 import io.agora.rtcwithfu.RtcEngineEventHandler;
-import io.agora.rtcwithfu.utils.EffectUtil;
-import io.agora.rtcwithfu.utils.MakeupUtil;
 
 /**
  * This activity demonstrates how to make FU and Agora RTC SDK work together
@@ -33,7 +37,7 @@ import io.agora.rtcwithfu.utils.MakeupUtil;
  * The FU activity which possesses remote video chatting ability.
  */
 @SuppressWarnings("deprecation")
-public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHandler {
+public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHandler , SensorEventListener {
     private final static String TAG = FUChatActivity.class.getSimpleName();
 
     private static final int CAPTURE_WIDTH = 1280;
@@ -43,37 +47,13 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
     private CameraVideoManager mVideoManager;
     private FURenderer mFURenderer;
     private FrameLayout mRemoteViewContainer;
-    private EffectOptionContainer mEffectContainer;
+    private TextView mTrackingText;
 
 
     private int mRemoteUid = -1;
     private boolean mFinished;
-
-    private class EffectListener implements EffectOptionContainer.OnEffectOptionContainerItemClickListener {
-        @Override
-        public void onEffectOptionItemClicked(int index, int textResource, boolean selected) {
-            Log.i(TAG, "onEffectOptionItemClicked " + index + " " + selected);
-            if (mFURenderer != null) {
-                switch (index) {
-                    case 0:
-                        mFURenderer.setBeautificationOn(selected);
-                        break;
-                    case 1:
-                        mFURenderer.setMakeupItemParam(selected);
-                        break;
-                    case 2:
-                        Effect effect = selected ? EffectUtil.EFFECT_DEFAULT : EffectUtil.EFFECT_NONE;
-                        mFURenderer.onEffectSelected(effect);
-                        break;
-                }
-            }
-        }
-
-        @Override
-        public void onEffectNotSupported(int index, int textResource) {
-            Toast.makeText(FUChatActivity.this, R.string.sorry_no_permission, Toast.LENGTH_SHORT).show();
-        }
-    }
+    private int mCameraFace = FURenderer.CAMERA_FACING_FRONT;
+    private SensorManager mSensorManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +61,11 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         setContentView(R.layout.activity_base);
         initUI();
         initRoom();
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
     }
 
     private void initUI() {
         initRemoteViewLayout();
-        mEffectContainer = findViewById(R.id.effect_container);
-        mEffectContainer.setEffectOptionItemListener(new EffectListener());
     }
 
     private void initRemoteViewLayout() {
@@ -125,8 +104,27 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
             }
         });
 
-        mFURenderer = ((PreprocessorFaceUnity) mVideoManager.
-                getPreprocessor()).getFURenderer();
+        mTrackingText = findViewById(R.id.iv_face_detect);
+        FaceUnityView faceUnityView = findViewById(R.id.fu_view);
+        mFURenderer = new FURenderer.Builder(this)
+                .setInputTextureType(FURenderer.INPUT_TEXTURE_EXTERNAL_OES)
+                .setCameraFacing(FURenderer.CAMERA_FACING_FRONT)
+                .setInputImageOrientation(CameraUtils.getCameraOrientation(FURenderer.CAMERA_FACING_FRONT))
+                .build();
+        ((PreprocessorFaceUnity) mVideoManager.getPreprocessor()).setFURenderer(mFURenderer);
+        faceUnityView.setModuleManager(mFURenderer);
+        mFURenderer.setOnTrackStatusChangedListener(new FURenderer.OnTrackStatusChangedListener() {
+            @Override
+            public void onTrackStatusChanged(int type, int status) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTrackingText.setText(type == FURenderer.TRACK_TYPE_FACE ? R.string.toast_not_detect_face : R.string.toast_not_detect_body);
+                        mTrackingText.setVisibility(status > 0 ? View.INVISIBLE : View.VISIBLE);
+                    }
+                });
+            }
+        });
 
         mVideoManager.setPictureSize(CAPTURE_WIDTH, CAPTURE_HEIGHT);
         mVideoManager.setFrameRate(CAPTURE_FRAME_RATE);
@@ -136,25 +134,6 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         TextureView localVideo = findViewById(R.id.local_video_view);
         mVideoManager.setLocalPreview(localVideo);
 
-        disableFUEffects();
-        updateEffectOptionPanel();
-    }
-
-    private void disableFUEffects() {
-        mFURenderer.setBeautificationOn(false);
-        mFURenderer.onEffectSelected(EffectUtil.EFFECT_NONE);
-    }
-
-    private void updateEffectOptionPanel() {
-        // Beautification
-        mEffectContainer.setItemViewStyles(0, false, true);
-
-        // Makeup
-
-        // Sticker
-        mEffectContainer.setItemViewStyles(2, false, true);
-
-        // Body Beauty
     }
 
     private void joinChannel() {
@@ -179,12 +158,20 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
 
     private void onCameraChangeRequested() {
         mVideoManager.switchCamera();
+        mCameraFace = FURenderer.CAMERA_FACING_FRONT - mCameraFace;
+        mFURenderer.onCameraChanged(mCameraFace, CameraUtils.getCameraOrientation(mCameraFace));
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
         mVideoManager.startCapture();
+
+        if (mFURenderer != null) {
+            mFURenderer.onSurfaceCreated();
+        }
     }
 
     @Override
@@ -200,6 +187,10 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         super.onStop();
         if (!mFinished) {
             mVideoManager.stopCapture();
+        }
+        mSensorManager.unregisterListener(this);
+        if (mFURenderer != null) {
+            mFURenderer.onSurfaceDestroyed();
         }
     }
 
@@ -248,5 +239,26 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
 
     private void removeRemoteView() {
         mRemoteViewContainer.removeAllViews();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
+            if (Math.abs(x) > 3 || Math.abs(y) > 3) {
+                if (Math.abs(x) > Math.abs(y)) {
+                    mFURenderer.onDeviceOrientationChanged(x > 0 ? 0 : 180);
+                } else {
+                    mFURenderer.onDeviceOrientationChanged(y > 0 ? 90 : 270);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 }

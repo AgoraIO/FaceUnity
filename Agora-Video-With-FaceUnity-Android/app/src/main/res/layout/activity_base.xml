@@ -6,6 +6,17 @@
         android:id="@+id/local_video_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/iv_face_detect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/fu_base_is_tracking_text"
+        android:textColor="@color/colorWhite"
+        android:textSize="17sp"/>
+
     <FrameLayout
         android:id="@+id/remote_video_view"
         android:layout_width="wrap_content"
@@ -23,10 +34,12 @@
         android:src="@mipmap/camera_normal"
         android:scaleType="fitXY"
         android:onClick="onClick"/>
-    <io.agora.rtcwithfu.EffectOptionContainer
-        android:id="@+id/effect_container"
+
+
+    <com.faceunity.nama.ui.FaceUnityView
+        android:id="@+id/fu_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-    </io.agora.rtcwithfu.EffectOptionContainer>
+        android:layout_alignParentBottom="true"/>
+
 </RelativeLayout>
