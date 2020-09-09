@@ -104,7 +104,6 @@ self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig 
 
 #pragma mark - VideoFilterDelegate
 /// process your video frame here
-/// process your video frame here
 - (nonnull CVPixelBufferRef)processFrame:(nonnull CVPixelBufferRef)pixelBuffer {
     
    return [[FUManager shareManager] renderItemsToPixelBuffer:pixelBuffer];
