@@ -188,7 +188,8 @@
     
 }
 
-
+#pragma mark - CapturerManagerDelegate
+/// process your video frame here
 - (nonnull CVPixelBufferRef)processFrame:(nonnull CVPixelBufferRef)pixelBuffer {
     
    return [[FUManager shareManager] renderItemsToPixelBuffer:pixelBuffer];
