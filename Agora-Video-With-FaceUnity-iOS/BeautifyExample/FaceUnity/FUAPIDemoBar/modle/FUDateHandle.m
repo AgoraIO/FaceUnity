@@ -100,8 +100,10 @@
     return array;
 }
 
+
+/// 道具贴纸
 +(NSArray<FUBeautyParam *>*)setupSticker{
-   NSArray *prams = @[@"makeup_noitem",@"sdlu",@"DaisyPig",@"fashi",@"xueqiu_lm_fu",@"wobushi",@"gaoshiqing"];//,@"chri1"
+   NSArray *prams = @[@"makeup_noitem",@"sdlu",@"fashi"];//,@"chri1"
 
    
    NSMutableArray *array = [[NSMutableArray alloc] init];
@@ -117,9 +119,11 @@
     return array;
 }
 
+
+/// 美妆
 +(NSArray<FUBeautyParam *>*)setupMakeupData{
-   NSArray *prams = @[@"makeup_noitem",@"jianling",@"nuandong",@"hongfeng",@"Rose",@"shaonv",@"ziyun",@"yanshimao",@"renyu",@"chuqiu",@"qianzhihe",@"chaomo",@"chuju",@"gangfeng",@"xinggan",@"tianmei",@"linjia",@"oumei",@"wumei"];
-    NSDictionary *titelDic = @{@"makeup_noitem":@"卸妆",@"jianling":@"减龄",@"nuandong":@"暖冬",@"hongfeng":@"红枫",@"Rose":@"玫瑰",@"shaonv":@"少女",@"ziyun":@"紫韵",@"yanshimao":@"厌世猫",@"renyu":@"人鱼",@"chuqiu":@"初秋",@"qianzhihe":@"千纸鹤",@"chaomo":@"超模",@"chuju":@"雏菊",@"gangfeng":@"港风",@"xinggan":@"性感",@"tianmei":@"甜美",@"linjia":@"邻家",@"oumei":@"欧美",@"wumei":@"妩媚"};
+   NSArray *prams = @[@"makeup_noitem",@"gangfeng",@"linjia"];
+    NSDictionary *titelDic = @{@"makeup_noitem":@"卸妆",@"gangfeng":@"港风",@"linjia":@"邻家"};
     
     
    NSMutableArray *array = [[NSMutableArray alloc] init];
