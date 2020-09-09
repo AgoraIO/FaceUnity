@@ -102,7 +102,7 @@ self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig 
 
 ```objc
 
-#pragma mark - VideoFilterDelegate
+#pragma mark - CapturerManagerDelegate
 /// process your video frame here
 - (nonnull CVPixelBufferRef)processFrame:(nonnull CVPixelBufferRef)pixelBuffer {
     
