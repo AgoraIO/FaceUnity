@@ -2,6 +2,7 @@ package io.agora.framework;
 
 import android.content.Context;
 import android.opengl.GLES20;
+import android.util.Log;
 
 import com.faceunity.nama.FURenderer;
 import com.faceunity.nama.utils.CameraUtils;
@@ -27,9 +28,8 @@ public class PreprocessorFaceUnity implements IPreprocessor {
             return outFrame;
         }
 
-        //双输入美妆会出问题
-        outFrame.textureId = mFURenderer.onDrawFrameSingleInput(
-                outFrame.textureId, outFrame.format.getWidth(),
+        outFrame.textureId = mFURenderer.onDrawFrameDualInput(outFrame.image,
+                outFrame.textureId,  outFrame.format.getWidth(),
                 outFrame.format.getHeight());
 
         // The texture is transformed to texture2D by beauty module.
@@ -39,10 +39,13 @@ public class PreprocessorFaceUnity implements IPreprocessor {
 
     @Override
     public void initPreprocessor() {
-        //这个可以不写，在FUChatActivity中添加了
-        if (mFURenderer != null) {
-            mFURenderer.onSurfaceCreated();
-        }
+        Log.e(TAG, "initPreprocessor: " + Thread.currentThread().getName());
+        mFURenderer = new FURenderer.Builder(mContext)
+                .setInputTextureType(FURenderer.INPUT_TEXTURE_EXTERNAL_OES)
+                .setCameraFacing(FURenderer.CAMERA_FACING_FRONT)
+                .setInputImageOrientation(CameraUtils.getCameraOrientation(FURenderer.CAMERA_FACING_FRONT))
+                .build();
+        mFURenderer.onSurfaceCreated();
     }
 
     @Override
@@ -52,13 +55,14 @@ public class PreprocessorFaceUnity implements IPreprocessor {
 
     @Override
     public void releasePreprocessor(VideoChannel.ChannelContext context) {
+        Log.d(TAG, "releasePreprocessor: ");
         //这个可以不写，在FUChatActivity中添加了
         if (mFURenderer != null) {
             mFURenderer.onSurfaceDestroyed();
         }
     }
 
-    public void setFURenderer(FURenderer FURenderer) {
-        mFURenderer = FURenderer;
+    public FURenderer getFURenderer() {
+        return mFURenderer;
     }
 }
