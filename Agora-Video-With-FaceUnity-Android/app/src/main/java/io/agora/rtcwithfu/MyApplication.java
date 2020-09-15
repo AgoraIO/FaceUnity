@@ -5,6 +5,8 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.faceunity.nama.FURenderer;
+
 import io.agora.capture.video.camera.CameraVideoManager;
 import io.agora.framework.PreprocessorFaceUnity;
 import io.agora.rtc.RtcEngine;
@@ -40,7 +42,7 @@ public class MyApplication extends Application {
     private void initVideoCaptureAsync() {
         new Thread(() -> {
             Context application = getApplicationContext();
-            FURenderer.initFURenderer(application);
+            FURenderer.setup(application);
             mVideoManager = new CameraVideoManager(application,
                     new PreprocessorFaceUnity(application));
         }).start();
