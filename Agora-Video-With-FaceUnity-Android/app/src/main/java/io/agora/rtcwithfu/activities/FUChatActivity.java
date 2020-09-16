@@ -19,12 +19,17 @@ import com.faceunity.nama.FURenderer;
 import com.faceunity.nama.ui.FaceUnityView;
 import com.faceunity.nama.utils.CameraUtils;
 
+import java.nio.ByteBuffer;
+import java.util.concurrent.CountDownLatch;
+
 import io.agora.capture.video.camera.CameraVideoManager;
 import io.agora.capture.video.camera.Constant;
 import io.agora.capture.video.camera.VideoCapture;
 import io.agora.framework.PreprocessorFaceUnity;
 import io.agora.framework.RtcVideoConsumer;
+import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
+import io.agora.rtc.mediaio.IVideoSink;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
 import io.agora.rtcwithfu.utils.Constants;
@@ -106,12 +111,7 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
 
         mTrackingText = findViewById(R.id.iv_face_detect);
         FaceUnityView faceUnityView = findViewById(R.id.fu_view);
-        mFURenderer = new FURenderer.Builder(this)
-                .setInputTextureType(FURenderer.INPUT_TEXTURE_EXTERNAL_OES)
-                .setCameraFacing(FURenderer.CAMERA_FACING_FRONT)
-                .setInputImageOrientation(CameraUtils.getCameraOrientation(FURenderer.CAMERA_FACING_FRONT))
-                .build();
-        ((PreprocessorFaceUnity) mVideoManager.getPreprocessor()).setFURenderer(mFURenderer);
+        mFURenderer = ((PreprocessorFaceUnity) mVideoManager.getPreprocessor()).getFURenderer();
         faceUnityView.setModuleManager(mFURenderer);
         mFURenderer.setOnTrackStatusChangedListener(new FURenderer.OnTrackStatusChangedListener() {
             @Override
@@ -168,15 +168,30 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
         mVideoManager.startCapture();
-
-        if (mFURenderer != null) {
-            mFURenderer.onSurfaceCreated();
-        }
+        mFURenderer.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                mFURenderer.onSurfaceCreated();
+            }
+        });
     }
 
     @Override
     public void finish() {
         mFinished = true;
+        CountDownLatch countDownLatch = new CountDownLatch(1);
+        mFURenderer.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                mFURenderer.onSurfaceDestroyed();
+                countDownLatch.countDown();
+            }
+        });
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         mVideoManager.stopCapture();
         rtcEngine().leaveChannel();
         super.finish();
@@ -189,9 +204,6 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
             mVideoManager.stopCapture();
         }
         mSensorManager.unregisterListener(this);
-        if (mFURenderer != null) {
-            mFURenderer.onSurfaceDestroyed();
-        }
     }
 
     @Override
