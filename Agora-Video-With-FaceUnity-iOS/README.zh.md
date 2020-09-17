@@ -70,35 +70,93 @@ pod install
         - [x] Support fit、hidden zoom mode
 
 
-  
-### 2.2 如何接入
-可以直接通过Pod集成所需依赖,
-
-```
-    pod 'AGMCapturer_iOS', '~> 1.3.1.0'
-```
-        
 
 ### 2.3 代码示例 
 
 #### 2.3.1 Objective-C
-
 ##### 如何使用采集器
 
 ```objc
-
-// init capturer, it will push pixelbuffer to rtc channel
 AGMCapturerVideoConfig *videoConfig = [AGMCapturerVideoConfig defaultConfig];
-videoConfig.sessionPreset = AGMCaptureSessionPreset720x1280;
+videoConfig.sessionPreset = AVCaptureSessionPreset1280x720;
 videoConfig.fps = 30;
 self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig delegate:self];
 [self.capturerManager startCapture];
 ```
 
+##### 方向适配器
 
-##### faceunity 渲染
+```objc
 
-实现 `CapturerManagerDelegate` 协议，在 `processFrame:` 代理方法里面处理视频帧数据。
+在`CapturerManager.h`中查看定义
+self.videoAdapterFilter = [[AGMVideoAdapterFilter alloc] init];
+self.videoAdapterFilter.ignoreAspectRatio = YES;
+[self.cameraCapturer addVideoSink:self.videoAdapterFilter];
+
+```
+
+
+##### 模块之间连接
+
+```objc
+
+[self.cameraCapturer addVideoSink:self.videoAdapterFilter];
+__weak typeof(self) weakSelf = self;
+[self.videoAdapterFilter setFrameProcessingCompletionBlock:^(AGMVideoSource * _Nonnull videoSource, CMTime time) {
+    CVPixelBufferRef pixelBuffer = videoSource.framebufferForOutput.pixelBuffer;
+    [weakSelf didOutputPixelBuffer:pixelBuffer frameTime:time];
+}];
+
+```
+
+##### FaceUnity美颜模块加载
+
+在 `ViewController.m` `viewDidLoad:` 方法中查看美颜加载
+导入头文件,添加美颜工具条,实现代理方法 `FUAPIDemoBarDelegate`
+
+```objc
+
+#import "FUManager.h"
+#import "FUAPIDemoBar.h"
+#import <Masonry/Masonry.h>
+
+/**faceU */
+@property(nonatomic, strong) FUAPIDemoBar *demoBar;
+
+```
+
+美颜工具条代理方法 `FUAPIDemoBarDelegate`
+
+```objc
+
+-(void)filterValueChange:(FUBeautyParam *)param{
+    [[FUManager shareManager] filterValueChange:param];
+}
+
+-(void)switchRenderState:(BOOL)state{
+    [FUManager shareManager].isRender = state;
+}
+
+-(void)bottomDidChange:(int)index{
+    if (index < 3) {
+        [[FUManager shareManager] setRenderType:FUDataTypeBeautify];
+    }
+    if (index == 3) {
+        [[FUManager shareManager] setRenderType:FUDataTypeStrick];
+    }
+    
+    if (index == 4) {
+        [[FUManager shareManager] setRenderType:FUDataTypeMakeup];
+    }
+    if (index == 5) {
+        
+        [[FUManager shareManager] setRenderType:FUDataTypebody];
+    }
+}
+
+```
+
+FaceUnity渲染
 
 ```objc
 
@@ -110,8 +168,12 @@ self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig 
     
 }
 
-
 ```
+
+#### 资源释放和销毁
+
+参见``delloc:` 方法
+
 
 ## 运行环境
 * XCode 8.0 +
