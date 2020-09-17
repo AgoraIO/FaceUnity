@@ -61,10 +61,10 @@ static FUManager *shareManager = NULL;
         [self setupShapData];
         [self setupSkinData];
         
+        [self loadFilter];
         NSLog(@"faceunitySDK version:%@",[FURenderer getVersion]);
         [FURenderer setMaxFaces:4];
         self.deviceOrientation = 0;
-        self.isRender = YES;
     }
     
     return self;
@@ -224,18 +224,19 @@ static int oldHandle = 0;
 /**加载美颜道具*/
 - (void)loadFilter{
     dispatch_async(_asyncLoadQueue, ^{
-        if (items[FUNamaHandleTypeBeauty] == 0) {
+        
+        if (self->items[FUNamaHandleTypeBeauty] == 0) {
 
             CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
 
             NSString *path = [[NSBundle mainBundle] pathForResource:@"face_beautification.bundle" ofType:nil];
-            items[FUNamaHandleTypeBeauty] = [FURenderer itemWithContentsOfFile:path];
+            self->items[FUNamaHandleTypeBeauty] = [FURenderer itemWithContentsOfFile:path];
 
             /* 默认精细磨皮 */
-            [FURenderer itemSetParam:items[FUNamaHandleTypeBeauty] withName:@"heavy_blur" value:@(0)];
-            [FURenderer itemSetParam:items[FUNamaHandleTypeBeauty] withName:@"blur_type" value:@(2)];
+            [FURenderer itemSetParam:self->items[FUNamaHandleTypeBeauty] withName:@"heavy_blur" value:@(0)];
+            [FURenderer itemSetParam:self->items[FUNamaHandleTypeBeauty] withName:@"blur_type" value:@(2)];
             /* 默认自定义脸型 */
-            [FURenderer itemSetParam:items[FUNamaHandleTypeBeauty] withName:@"face_shape" value:@(4)];
+            [FURenderer itemSetParam:self->items[FUNamaHandleTypeBeauty] withName:@"face_shape" value:@(4)];
             [self setBeautyParameters];
             
             CFAbsoluteTime endTime = (CFAbsoluteTimeGetCurrent() - startTime);
@@ -385,7 +386,7 @@ static int oldHandle = 0;
 /**将道具绘制到pixelBuffer*/
 - (CVPixelBufferRef)renderItemsToPixelBuffer:(CVPixelBufferRef)pixelBuffer{
     if ([self isDeviceMotionChange]) {
-        fuSetDeviceOrientation(self.deviceOrientation);
+        fuSetDefaultRotationMode(self.deviceOrientation);
             /* 解决旋转屏幕效果异常 onCameraChange*/
         [FURenderer onCameraChange];
     }
@@ -408,12 +409,15 @@ static int oldHandle = 0;
             readerItems[1] = items[FUNamaHandleTypeBodySlim];
         }
 
-        CVPixelBufferRef buffer = [[FURenderer shareRenderer] renderPixelBuffer:pixelBuffer withFrameId:frameID items:readerItems itemCount:2 flipx:_flipx];//flipx 参数设为YES可以使道具做水平方向的镜像翻转
+//        CVPixelBufferRef buffer = [[FURenderer shareRenderer] renderToInternalPixelBuffer:pixelBuffer withFrameId:frameID items:readerItems itemCount:2];
+        
+        CVPixelBufferRef buffer = [[FURenderer shareRenderer] renderPixelBuffer:pixelBuffer withFrameId:frameID items:readerItems itemCount:2 flipx:_flipx customSize:CGSizeZero useAlpha:YES];
+        
         frameID += 1;
+        return buffer;
     }
-
     
-    return pixelBuffer;
+    return nil;
 }
 
 /**处理YUV*/

@@ -39,6 +39,7 @@
 		2D08C3F12508749400F7206C /* sdlu.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D08C3C12508749300F7206C /* sdlu.png */; };
 		2D08C3F22508749400F7206C /* sdlu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D08C3C22508749300F7206C /* sdlu.bundle */; };
 		2D08C3F52508749400F7206C /* fashi.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D08C3C52508749300F7206C /* fashi.png */; };
+		2D8ABD2F2511B63200D28745 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8ABD2E2511B63200D28745 /* MainViewController.m */; };
 		5F66A41254472834DB1BBB0E /* Pods_BeautifyExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D32F315DAB48F1AE0AFB5C4 /* Pods_BeautifyExample.framework */; };
 		610C64E814134B04440D425B /* Pods_BeautifyExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D32F315DAB48F1AE0AFB5C4 /* Pods_BeautifyExample.framework */; };
 		854160504CB197A42D6E7081 /* Pods_BeautifyExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97676B3CB57E3FBD1FE5F4F0 /* Pods_BeautifyExampleTests.framework */; };
@@ -113,6 +114,8 @@
 		2D08C3C22508749300F7206C /* sdlu.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = sdlu.bundle; sourceTree = "<group>"; };
 		2D08C3C52508749300F7206C /* fashi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fashi.png; sourceTree = "<group>"; };
 		2D08C3C92508749300F7206C /* FUManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUManager.h; sourceTree = "<group>"; };
+		2D8ABD2D2511B63200D28745 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		2D8ABD2E2511B63200D28745 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		36236FA0D16FC95D3991BC76 /* Pods-BeautifyExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeautifyExampleTests.release.xcconfig"; path = "Target Support Files/Pods-BeautifyExampleTests/Pods-BeautifyExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		3D32F315DAB48F1AE0AFB5C4 /* Pods_BeautifyExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeautifyExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55AE3D698E3E43CFA1B47A16 /* Pods-BeautifyExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeautifyExample.debug.xcconfig"; path = "Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample.debug.xcconfig"; sourceTree = "<group>"; };
@@ -193,6 +196,8 @@
 				09275D0D24DBE135005302C0 /* FaceUnity */,
 				09C6666224D7BC89001D7AE2 /* AppDelegate.h */,
 				09C6666324D7BC89001D7AE2 /* AppDelegate.m */,
+				2D8ABD2D2511B63200D28745 /* MainViewController.h */,
+				2D8ABD2E2511B63200D28745 /* MainViewController.m */,
 				09C6666824D7BC89001D7AE2 /* ViewController.h */,
 				09C6666924D7BC89001D7AE2 /* ViewController.m */,
 				09C6666B24D7BC89001D7AE2 /* Main.storyboard */,
@@ -506,6 +511,7 @@
 				2D08C3D22508749300F7206C /* FUFilterView.m in Sources */,
 				2D08C3D32508749300F7206C /* UIImage+demobar.m in Sources */,
 				03F8193624E004A7004F7F36 /* CapturerManager.m in Sources */,
+				2D8ABD2F2511B63200D28745 /* MainViewController.m in Sources */,
 				2D08C3D12508749300F7206C /* FUBeautyParam.m in Sources */,
 				03F8193524E004A7004F7F36 /* VideoProcessingManager.m in Sources */,
 				2D08C3D62508749300F7206C /* UIColor+FUAPIDemoBar.m in Sources */,
@@ -635,7 +641,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -687,7 +693,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -703,6 +709,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 35A6KD62ZJ;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = BeautifyExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -723,6 +730,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 35A6KD62ZJ;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = BeautifyExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

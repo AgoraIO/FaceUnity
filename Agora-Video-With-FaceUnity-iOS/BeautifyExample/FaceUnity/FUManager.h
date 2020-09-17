@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, FUNamaHandleType) {
 @property (nonatomic, strong) dispatch_queue_t asyncLoadQueue;
 @property (nonatomic, assign) BOOL showFaceUnityEffect ;
 @property (nonatomic, assign) BOOL flipx ;
-@property (nonatomic, assign) BOOL trackFlipx ;
+@property (nonatomic, assign) BOOL trackFlipx;
 @property (nonatomic, assign) BOOL isRender;
 @property (nonatomic,assign)FUDataType currentType;
 

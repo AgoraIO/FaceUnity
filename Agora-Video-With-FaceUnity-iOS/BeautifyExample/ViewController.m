@@ -53,17 +53,16 @@
     // 初始化 rte engine
     self.rtcEngineKit = [AgoraRtcEngineKit sharedEngineWithAppId:[KeyCenter AppId] delegate:self];
     
-    
     [self.rtcEngineKit setChannelProfile:AgoraChannelProfileLiveBroadcasting];
     [self.rtcEngineKit setClientRole:AgoraClientRoleBroadcaster];
     [self.rtcEngineKit enableVideo];
     AgoraVideoEncoderConfiguration* config = [[AgoraVideoEncoderConfiguration alloc] initWithSize:CGSizeMake(720, 1280) frameRate:30 bitrate:0 orientationMode:AgoraVideoOutputOrientationModeAdaptative];
     [self.rtcEngineKit setVideoEncoderConfiguration:config];
     
-    
+
     // init capturer, it will push pixelbuffer to rtc channel
     AGMCapturerVideoConfig *videoConfig = [AGMCapturerVideoConfig defaultConfig];
-    videoConfig.sessionPreset = AGMCaptureSessionPreset720x1280;
+    videoConfig.sessionPreset = AVCaptureSessionPreset1280x720;
     videoConfig.fps = 30;
     self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig delegate:self];
     
@@ -81,11 +80,10 @@
     // set custom capturer as video source
     [self.rtcEngineKit setVideoSource:self.capturerManager];
     
-    [self.rtcEngineKit joinChannelByToken:nil channelId:@"faceunitydemo" info:nil uid:0 joinSuccess:^(NSString * _Nonnull channel, NSUInteger uid, NSInteger elapsed) {
+    [self.rtcEngineKit joinChannelByToken:nil channelId:self.channelName info:nil uid:0 joinSuccess:^(NSString * _Nonnull channel, NSUInteger uid, NSInteger elapsed) {
         
     }];
 }
-
 
 
 /// faceunity
@@ -94,6 +92,7 @@
     [[FUManager shareManager] loadFilter];
     [FUManager shareManager].flipx = YES;
     [FUManager shareManager].trackFlipx = YES;
+    [FUManager shareManager].isRender = YES;
     [[FUManager shareManager] setAsyncTrackFaceEnable:NO];
     
     _demoBar = [[FUAPIDemoBar alloc] init];
@@ -147,8 +146,14 @@
 }
 
 
+/// 释放资源
 - (void)dealloc {
 
+    [self.capturerManager stopCapture];
+    [self.rtcEngineKit leaveChannel:nil];
+    [self.rtcEngineKit stopPreview];
+    [self.rtcEngineKit setVideoSource:nil];
+    [AgoraRtcEngineKit destroy];
     [[FUManager shareManager] destoryItems];
     
 }
