@@ -17,9 +17,11 @@
 #import "FUAPIDemoBar.h"
 #import <Masonry/Masonry.h>
 
-@interface ViewController () <AgoraRtcEngineDelegate,CapturerManagerDelegate,FUAPIDemoBarDelegate>
+@interface ViewController () <AgoraRtcEngineDelegate,FUAPIDemoBarDelegate>
 
 @property (nonatomic, strong) CapturerManager *capturerManager;
+@property (nonatomic, strong) FUManager *videoFilter;
+@property (nonatomic, strong) VideoProcessingManager *processingManager;
 @property (nonatomic, strong) AgoraRtcEngineKit *rtcEngineKit;
 @property (nonatomic, strong) IBOutlet UIView *localView;
 
@@ -47,7 +49,7 @@
     
     self.remoteView.hidden = YES;
     
-    /** 加载美颜 */
+    /** load Faceu */
     [self setupFaceUnity];
     
     // 初始化 rte engine
@@ -59,12 +61,19 @@
     AgoraVideoEncoderConfiguration* config = [[AgoraVideoEncoderConfiguration alloc] initWithSize:CGSizeMake(720, 1280) frameRate:30 bitrate:0 orientationMode:AgoraVideoOutputOrientationModeAdaptative];
     [self.rtcEngineKit setVideoEncoderConfiguration:config];
     
-
+    // init process manager
+    self.processingManager = [[VideoProcessingManager alloc] init];
+    
     // init capturer, it will push pixelbuffer to rtc channel
     AGMCapturerVideoConfig *videoConfig = [AGMCapturerVideoConfig defaultConfig];
     videoConfig.sessionPreset = AVCaptureSessionPreset1280x720;
     videoConfig.fps = 30;
-    self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig delegate:self];
+    self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig delegate:self.processingManager];
+    
+    // add FaceUnity filter and add to process manager
+    self.videoFilter = [FUManager shareManager];
+    self.videoFilter.enabled = YES;
+    [self.processingManager addVideoFilter:self.videoFilter];
     
     [self.capturerManager startCapture];
     
@@ -146,7 +155,7 @@
 }
 
 
-/// 释放资源
+/// release
 - (void)dealloc {
 
     [self.capturerManager stopCapture];
@@ -182,7 +191,7 @@
     
 }
 
-/// 远端视图第一帧来到
+/// firstRemoteVideoDecoded
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine firstRemoteVideoDecodedOfUid:(NSUInteger)uid size: (CGSize)size elapsed:(NSInteger)elapsed {
 
     if (self.remoteView.hidden) {
@@ -197,14 +206,6 @@
     videoCanvas.renderMode = AgoraVideoRenderModeHidden;
     [self.rtcEngineKit setupRemoteVideo:videoCanvas];
     // Bind remote video stream to view
-    
-}
-
-#pragma mark - CapturerManagerDelegate
-/// process your video frame here
-- (nonnull CVPixelBufferRef)processFrame:(nonnull CVPixelBufferRef)pixelBuffer {
-    
-   return [[FUManager shareManager] renderItemsToPixelBuffer:pixelBuffer];
     
 }
 

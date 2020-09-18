@@ -12,6 +12,8 @@
 #import <libCNamaSDK/FURenderer.h>
 #import "FUBeautyParam.h"
 #import "FUDateHandle.h"
+#import "VideoFilterDelegate.h"
+
 
 @class FULiveModel ;
 
@@ -25,7 +27,7 @@ typedef NS_ENUM(NSUInteger, FUNamaHandleType) {
     FUNamaHandleTotal = 6,
 };
 
-@interface FUManager : NSObject
+@interface FUManager : NSObject <VideoFilterDelegate>
 
 @property (nonatomic, strong) dispatch_queue_t asyncLoadQueue;
 @property (nonatomic, assign) BOOL showFaceUnityEffect ;
@@ -33,6 +35,8 @@ typedef NS_ENUM(NSUInteger, FUNamaHandleType) {
 @property (nonatomic, assign) BOOL trackFlipx;
 @property (nonatomic, assign) BOOL isRender;
 @property (nonatomic,assign)FUDataType currentType;
+
+@property (nonatomic, assign) BOOL enabled;
 
 
 /* 滤镜参数 */

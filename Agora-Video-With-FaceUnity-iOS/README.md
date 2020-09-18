@@ -73,13 +73,6 @@ pod install
 		- [x] Support fit、hidden zoom mode
 
 
-### 2.2 Integration
-The easiest way to integrate is to use CocoaPods,
-
-```
-    pod 'AGMCapturer_iOS', '~> 1.3.1.0'
-```
-
 ### 2.3 Usage example 
 
 #### 2.3.1 Objective-C
@@ -89,18 +82,23 @@ The easiest way to integrate is to use CocoaPods,
 ```objc
 // init process manager
 self.processingManager = [[VideoProcessingManager alloc] init];
-
+    
 // init capturer, it will push pixelbuffer to rtc channel
 AGMCapturerVideoConfig *videoConfig = [AGMCapturerVideoConfig defaultConfig];
-videoConfig.sessionPreset = AGMCaptureSessionPreset720x1280;
+videoConfig.sessionPreset = AVCaptureSessionPreset1280x720;
 videoConfig.fps = 30;
 self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig delegate:self.processingManager];
+    
+// add FaceUnity filter and add to process manager
+self.videoFilter = [FUManager shareManager];
+self.videoFilter.enabled = YES;
+[self.processingManager addVideoFilter:self.videoFilter];
 [self.capturerManager startCapture];
 ```
 
 ##### Custom Filter
 
-Create a class that implements the `VideoFilterDelegate` protocol, Implement the `processFrame:` method to handle the videoframe .
+Create a class that implements the `VideoFilterDelegate` protocol `FUManager` , Implement the `processFrame:` method to handle the videoframe .
 
 ```objc
 
@@ -108,14 +106,64 @@ Create a class that implements the `VideoFilterDelegate` protocol, Implement the
 /// process your video frame here
 - (CVPixelBufferRef)processFrame:(CVPixelBufferRef)frame {
     if(self.enabled) {
-        CVPixelBufferRef buffer = [[FURenderer shareRenderer] renderPixelBuffer:frame withFrameId:frameID items:items itemCount:sizeof(items)/sizeof(int) flipx:YES];
+        CVPixelBufferRef buffer = [self renderItemsToPixelBuffer:frame];
         return buffer;
     }
-    frameID += 1;
     return frame;
 }
 
 ```
+
+##### FaceUnity load
+
+in `ViewController.m` `viewDidLoad:` add demoBar,implements the `FUAPIDemoBarDelegate` protocol 
+
+```objc
+
+#import "FUManager.h"
+#import "FUAPIDemoBar.h"
+#import <Masonry/Masonry.h>
+
+/**faceU */
+@property(nonatomic, strong) FUAPIDemoBar *demoBar;
+
+```
+
+FaceUnity demoBar `FUAPIDemoBarDelegate`
+
+```objc
+
+-(void)filterValueChange:(FUBeautyParam *)param{
+    [[FUManager shareManager] filterValueChange:param];
+}
+
+-(void)switchRenderState:(BOOL)state{
+    [FUManager shareManager].isRender = state;
+}
+
+-(void)bottomDidChange:(int)index{
+    if (index < 3) {
+        [[FUManager shareManager] setRenderType:FUDataTypeBeautify];
+    }
+    if (index == 3) {
+        [[FUManager shareManager] setRenderType:FUDataTypeStrick];
+    }
+    
+    if (index == 4) {
+        [[FUManager shareManager] setRenderType:FUDataTypeMakeup];
+    }
+    if (index == 5) {
+        
+        [[FUManager shareManager] setRenderType:FUDataTypebody];
+    }
+}
+
+```
+
+
+#### release
+
+check `delloc:` 
 
 ## FAQ
 

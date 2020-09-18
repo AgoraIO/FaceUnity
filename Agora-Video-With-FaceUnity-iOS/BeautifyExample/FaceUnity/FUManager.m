@@ -625,4 +625,18 @@ static int oldHandle = 0;
     
     return nil;
 }
+
+
+#pragma mark - VideoFilterDelegate
+/// process your video frame here
+- (CVPixelBufferRef)processFrame:(CVPixelBufferRef)frame {
+    if(self.enabled) {
+        CVPixelBufferRef buffer = [self renderItemsToPixelBuffer:frame];
+        return buffer;
+    }
+    return frame;
+}
+
+
+
 @end

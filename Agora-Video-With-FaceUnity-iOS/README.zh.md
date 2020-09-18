@@ -77,12 +77,41 @@ pod install
 ##### 如何使用采集器
 
 ```objc
+// init process manager
+self.processingManager = [[VideoProcessingManager alloc] init];
+    
+// init capturer, it will push pixelbuffer to rtc channel
 AGMCapturerVideoConfig *videoConfig = [AGMCapturerVideoConfig defaultConfig];
 videoConfig.sessionPreset = AVCaptureSessionPreset1280x720;
 videoConfig.fps = 30;
-self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig delegate:self];
+self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig delegate:self.processingManager];
+    
+// add FaceUnity filter and add to process manager
+self.videoFilter = [FUManager shareManager];
+self.videoFilter.enabled = YES;
+[self.processingManager addVideoFilter:self.videoFilter];
 [self.capturerManager startCapture];
+
 ```
+
+##### 自定义滤镜模块
+
+创建一个实现 `VideoFilterDelegate` 协议的类 `FUManager`，在 `processFrame:` 代理方法里面处理视频帧数据。
+
+```objc
+
+#pragma mark - VideoFilterDelegate
+/// process your video frame here
+- (CVPixelBufferRef)processFrame:(CVPixelBufferRef)frame {
+    if(self.enabled) {
+        CVPixelBufferRef buffer = [self renderItemsToPixelBuffer:frame];
+        return buffer;
+    }
+    return frame;
+}
+
+```
+
 
 ##### 方向适配器
 
@@ -156,19 +185,6 @@ __weak typeof(self) weakSelf = self;
 
 ```
 
-FaceUnity渲染
-
-```objc
-
-#pragma mark - CapturerManagerDelegate
-/// process your video frame here
-- (nonnull CVPixelBufferRef)processFrame:(nonnull CVPixelBufferRef)pixelBuffer {
-    
-   return [[FUManager shareManager] renderItemsToPixelBuffer:pixelBuffer];
-    
-}
-
-```
 
 #### 资源释放和销毁
 
