@@ -116,4 +116,11 @@
 }
 
 
+- (AgoraVideoCaptureType)captureType{
+
+    return AgoraVideoCaptureTypeCamera;
+}
+
+
+
 @end
