@@ -10,6 +10,9 @@
 
 @interface ViewController : UIViewController
 
+/// 房间号
+@property (copy, nonatomic) NSString *channelName;
+
 
 @end
 
