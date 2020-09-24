@@ -1,31 +1,40 @@
 package io.agora.rtcwithfu.activities;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.SurfaceView;
+import android.view.TextureView;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.faceunity.FURenderer;
+import com.faceunity.nama.FURenderer;
+import com.faceunity.nama.ui.FaceUnityView;
+import com.faceunity.nama.utils.CameraUtils;
+
+import java.nio.ByteBuffer;
+import java.util.concurrent.CountDownLatch;
 
 import io.agora.capture.video.camera.CameraVideoManager;
 import io.agora.capture.video.camera.Constant;
 import io.agora.capture.video.camera.VideoCapture;
 import io.agora.framework.PreprocessorFaceUnity;
 import io.agora.framework.RtcVideoConsumer;
-import io.agora.rtc.mediaio.AgoraTextureView;
-import io.agora.rtc.mediaio.MediaIO;
+import io.agora.rtc.IRtcEngineEventHandler;
+import io.agora.rtc.RtcEngine;
+import io.agora.rtc.mediaio.IVideoSink;
+import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
-import io.agora.rtcwithfu.Constants;
+import io.agora.rtcwithfu.utils.Constants;
 import io.agora.rtcwithfu.R;
 import io.agora.rtcwithfu.RtcEngineEventHandler;
-import io.agora.rtcwithfu.view.EffectPanel;
 
 /**
  * This activity demonstrates how to make FU and Agora RTC SDK work together
@@ -33,42 +42,55 @@ import io.agora.rtcwithfu.view.EffectPanel;
  * The FU activity which possesses remote video chatting ability.
  */
 @SuppressWarnings("deprecation")
-public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHandler {
+public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHandler , SensorEventListener {
     private final static String TAG = FUChatActivity.class.getSimpleName();
-    private final static String KEY_MUTED = "muted";
-    private final static String KEY_MIRRORED = "mirrored";
-    private final static String KEY_LOCAL_BIG = "local-big";
 
     private static final int CAPTURE_WIDTH = 1280;
     private static final int CAPTURE_HEIGHT = 720;
     private static final int CAPTURE_FRAME_RATE = 24;
 
-    private final static int DESC_SHOW_LENGTH = 1500;
-
+    private CameraVideoManager mVideoManager;
     private FURenderer mFURenderer;
-    private SurfaceView mLocalSurfaceView;
-    private FrameLayout mLocalViewContainer;
-    private AgoraTextureView mRemoteView;
-
-    private boolean mLocalViewIsBig = true;
-    private int mRemoteUid = -1;
-
-    private TextView mDescriptionText;
+    private FrameLayout mRemoteViewContainer;
     private TextView mTrackingText;
 
-    private int mScreenWidth;
-    private int mScreenHeight;
-    private int mSmallHeight;
-    private int mSmallWidth;
-    private CameraVideoManager mVideoManager;
-    private boolean mMirrored = true;
-    private boolean mMuted;
 
+    private int mRemoteUid = -1;
     private boolean mFinished;
+    private int mCameraFace = FURenderer.CAMERA_FACING_FRONT;
+    private SensorManager mSensorManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_base);
+        initUI();
+        initRoom();
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+    }
+
+    private void initUI() {
+        initRemoteViewLayout();
+    }
+
+    private void initRemoteViewLayout() {
+        mRemoteViewContainer = findViewById(R.id.remote_video_view);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        RelativeLayout.LayoutParams params =
+                (RelativeLayout.LayoutParams) mRemoteViewContainer.getLayoutParams();
+        params.width = displayMetrics.widthPixels / 3;
+        params.height = displayMetrics.heightPixels / 3;
+        mRemoteViewContainer.setLayoutParams(params);
+    }
+
+    private void initRoom() {
+        initVideoModule();
+        rtcEngine().setVideoSource(new RtcVideoConsumer());
+        joinChannel();
+    }
+
+    private void initVideoModule() {
         mVideoManager = videoManager();
         mVideoManager.setCameraStateListener(new VideoCapture.VideoCaptureStateListener() {
             @Override
@@ -88,140 +110,90 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         });
 
         mTrackingText = findViewById(R.id.iv_face_detect);
-        mFURenderer = ((PreprocessorFaceUnity) mVideoManager.
-                getPreprocessor()).getFURenderer();
-        mFURenderer.resetTrackingStatus();
-        mFURenderer.setOnTrackingStatusChangedListener(status ->
-                runOnUiThread(() -> {
-                    int visibility = status == 0 ? View.VISIBLE : View.GONE;
-                    Log.i(TAG, "tracking visibility:" + (visibility == View.VISIBLE));
-                    mTrackingText.setVisibility(visibility);
-                }));
-
-        if (savedInstanceState != null) {
-            mMuted = savedInstanceState.getBoolean(KEY_MUTED);
-            broadcastingStatus = !mMuted;
-            mMirrored = savedInstanceState.getBoolean(KEY_MIRRORED);
-            mLocalViewIsBig = savedInstanceState.getBoolean(KEY_LOCAL_BIG);
-        }
-        mirrorVideoPreviewStatus = mMirrored;
-
-        calculateSmallViewSize();
-        initUIAndEvent();
-    }
-
-    private void calculateSmallViewSize() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        mScreenHeight = displayMetrics.heightPixels;
-        mScreenWidth = displayMetrics.widthPixels;
-        mSmallHeight = mScreenHeight / 3;
-        mSmallWidth = mScreenWidth / 3;
-    }
-
-    @Override
-    protected void initUIAndEvent() {
-        mLocalViewContainer = findViewById(R.id.local_video_view_container);
-        mLocalViewContainer.removeAllViews();
-        mRemoteView = findViewById(R.id.remote_video_view);
-
-        if (mLocalViewIsBig) {
-            setBigWindow(mLocalViewContainer);
-            setSmallWindow(mRemoteView);
-            setRemoteVisibility();
-        } else {
-            setBigWindow(mRemoteView);
-            setRemoteVisibility();
-            setSmallWindow(mLocalViewContainer);
-        }
-
-        mDescriptionText = findViewById(R.id.effect_desc_text);
-
-        mEffectPanel = new EffectPanel(findViewById(R.id.effect_container),
-                mFURenderer, description -> showDescription(description, DESC_SHOW_LENGTH));
+        FaceUnityView faceUnityView = findViewById(R.id.fu_view);
+        mFURenderer = ((PreprocessorFaceUnity) mVideoManager.getPreprocessor()).getFURenderer();
+        faceUnityView.setModuleManager(mFURenderer);
+        mFURenderer.setOnTrackStatusChangedListener(new FURenderer.OnTrackStatusChangedListener() {
+            @Override
+            public void onTrackStatusChanged(int type, int status) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTrackingText.setText(type == FURenderer.TRACK_TYPE_FACE ? R.string.toast_not_detect_face : R.string.toast_not_detect_body);
+                        mTrackingText.setVisibility(status > 0 ? View.INVISIBLE : View.VISIBLE);
+                    }
+                });
+            }
+        });
 
         mVideoManager.setPictureSize(CAPTURE_WIDTH, CAPTURE_HEIGHT);
         mVideoManager.setFrameRate(CAPTURE_FRAME_RATE);
         mVideoManager.setFacing(Constant.CAMERA_FACING_FRONT);
         mVideoManager.setLocalPreviewMirror(Constant.MIRROR_MODE_AUTO);
 
-        onChangedToBroadcaster(!mMuted);
-        setRoleButtonText();
+        TextureView localVideo = findViewById(R.id.local_video_view);
+        mVideoManager.setLocalPreview(localVideo);
 
-        Spinner spinner = findViewById(R.id.mirror_mode_spinner);
-        spinner.setSelection(0);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (mVideoManager != null) {
-                    mVideoManager.setLocalPreviewMirror(
-                            indexToMirrorMode(position));
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        rtcEngine().setVideoSource(new RtcVideoConsumer());
-        eventHandler().addEventHandler(this);
-        joinChannel();
-    }
-
-    private void showDescription(int str, int time) {
-        if (str == 0) return;
-        mDescriptionText.removeCallbacks(effectDescriptionHide);
-        mDescriptionText.setVisibility(View.VISIBLE);
-        mDescriptionText.setText(str);
-        mDescriptionText.postDelayed(effectDescriptionHide, time);
-    }
-
-    private Runnable effectDescriptionHide = new Runnable() {
-        @Override
-        public void run() {
-            mDescriptionText.setText("");
-            mDescriptionText.setVisibility(View.INVISIBLE);
-        }
-    };
-
-    private int indexToMirrorMode(int position) {
-         return position;
     }
 
     private void joinChannel() {
-        int role = mMuted ? io.agora.rtc.Constants.CLIENT_ROLE_AUDIENCE :
-                io.agora.rtc.Constants.CLIENT_ROLE_BROADCASTER;
-        worker().configEngine(role,
-                new VideoEncoderConfiguration(
-                    VideoEncoderConfiguration.VD_640x360,
-                    VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_24,
-                    VideoEncoderConfiguration.STANDARD_BITRATE,
-                    VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT));
+        rtcEngine().setVideoEncoderConfiguration(new VideoEncoderConfiguration(
+                VideoEncoderConfiguration.VD_640x360,
+                VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_24,
+                VideoEncoderConfiguration.STANDARD_BITRATE,
+                VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT));
+        rtcEngine().setClientRole(io.agora.rtc.Constants.CLIENT_ROLE_BROADCASTER);
 
         String roomName = getIntent().getStringExtra(Constants.ACTION_KEY_ROOM_NAME);
-        worker().joinChannel(roomName, config().mUid);
+        rtcEngine().joinChannel(null, roomName, null, 0);
     }
 
-    private int convert(int dp) {
-        return (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, dp,
-                getResources().getDisplayMetrics());
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_switch_camera:
+                onCameraChangeRequested();
+                break;
+        }
+    }
+
+    private void onCameraChangeRequested() {
+        mVideoManager.switchCamera();
+        mCameraFace = FURenderer.CAMERA_FACING_FRONT - mCameraFace;
+        mFURenderer.onCameraChanged(mCameraFace, CameraUtils.getCameraOrientation(mCameraFace));
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if (!mMuted) {
-            mVideoManager.startCapture();
-        }
+        Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        mVideoManager.startCapture();
+        mFURenderer.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                mFURenderer.onSurfaceCreated();
+            }
+        });
     }
 
     @Override
     public void finish() {
         mFinished = true;
+        CountDownLatch countDownLatch = new CountDownLatch(1);
+        mFURenderer.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                mFURenderer.onSurfaceDestroyed();
+                countDownLatch.countDown();
+            }
+        });
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         mVideoManager.stopCapture();
+        rtcEngine().leaveChannel();
         super.finish();
     }
 
@@ -231,6 +203,7 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
         if (!mFinished) {
             mVideoManager.stopCapture();
         }
+        mSensorManager.unregisterListener(this);
     }
 
     @Override
@@ -239,14 +212,31 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
     }
 
     @Override
-    protected void deInitUIAndEvent() {
-        eventHandler().removeEventHandler(this);
-        worker().leaveChannel(config().mChannel);
+    public void onJoinChannelSuccess(String channel, int uid, int elapsed) {
+        Log.i(TAG, "onJoinChannelSuccess " + channel + " " + (uid & 0xFFFFFFFFL));
     }
 
     @Override
-    public void onJoinChannelSuccess(String channel, int uid, int elapsed) {
+    public void onUserJoined(int uid, int elapsed) {
+        Log.i(TAG, "onUserJoined " + (uid & 0xFFFFFFFFL));
+    }
 
+    @Override
+    public void onRemoteVideoStateChanged(int uid, int state, int reason, int elapsed) {
+        Log.i(TAG, "onRemoteVideoStateChanged " + (uid & 0xFFFFFFFFL) + " " + state + " " + reason);
+        if (mRemoteUid == -1 && state == io.agora.rtc.Constants.REMOTE_VIDEO_STATE_DECODING) {
+            runOnUiThread(() -> {
+                mRemoteUid = uid;
+                setRemoteVideoView(uid);
+            });
+        }
+    }
+
+    private void setRemoteVideoView(int uid) {
+        SurfaceView surfaceView = RtcEngine.CreateRendererView(this);
+        rtcEngine().setupRemoteVideo(new VideoCanvas(
+                surfaceView, VideoCanvas.RENDER_MODE_HIDDEN, uid));
+        mRemoteViewContainer.addView(surfaceView);
     }
 
     @Override
@@ -256,111 +246,31 @@ public class FUChatActivity extends FUBaseActivity implements RtcEngineEventHand
 
     private void onRemoteUserLeft() {
         mRemoteUid = -1;
-        setRemoteVisibility();
+        removeRemoteView();
+    }
+
+    private void removeRemoteView() {
+        mRemoteViewContainer.removeAllViews();
     }
 
     @Override
-    public void onUserJoined(int uid, int elapsed) {
-
-    }
-
-    @Override
-    public void onFirstRemoteVideoDecoded(final int uid, int width, int height, int elapsed) {
-        runOnUiThread(() -> {
-            if (mRemoteUid != -1) return;
-            setupRemoteVideo(uid);
-        });
-    }
-
-    private void setupRemoteVideo(int uid) {
-        mRemoteUid = uid;
-        setRemoteVisibility();
-        mRemoteView.setBufferType(MediaIO.BufferType.BYTE_ARRAY);
-        mRemoteView.setPixelFormat(MediaIO.PixelFormat.I420);
-        rtcEngine().setRemoteVideoRenderer(uid, mRemoteView);
-    }
-
-    @Override
-    protected void onViewSwitchRequested() {
-        swapLocalRemoteDisplay();
-    }
-
-    private void swapLocalRemoteDisplay() {
-        if (mLocalViewIsBig) {
-            setSmallWindow(mLocalViewContainer);
-            setBigWindow(mRemoteView);
-            setRemoteVisibility();
-        } else {
-            setSmallWindow(mRemoteView);
-            setRemoteVisibility();
-            setBigWindow(mLocalViewContainer);
-        }
-        mLocalViewIsBig = !mLocalViewIsBig;
-    }
-
-    private void setSmallWindow(View view) {
-        RelativeLayout.LayoutParams params =
-                (RelativeLayout.LayoutParams) view.getLayoutParams();
-        params.height = mSmallHeight;
-        params.width = mSmallWidth;
-        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
-        params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
-        params.rightMargin = convert(16);
-        params.topMargin = convert(70);
-        view.setLayoutParams(params);
-        view.bringToFront();
-        view.setOnTouchListener(this);
-    }
-
-    private void setBigWindow(View view) {
-        view.setTranslationX(0);
-        view.setTranslationY(0);
-
-        RelativeLayout.LayoutParams params =
-                (RelativeLayout.LayoutParams) view.getLayoutParams();
-        params.height = RelativeLayout.LayoutParams.MATCH_PARENT;;
-        params.width = RelativeLayout.LayoutParams.MATCH_PARENT;
-        params.rightMargin = 0;
-        params.topMargin = 0;
-        view.setLayoutParams(params);
-        view.setOnTouchListener(null);
-    }
-
-    private void setRemoteVisibility() {
-        mRemoteView.setVisibility(mRemoteUid != -1 ? View.VISIBLE : View.GONE);
-    }
-
-    @Override
-    protected void onChangedToBroadcaster(boolean broadcaster) {
-        Log.i(TAG, "onChangedToBroadcaster " + broadcaster);
-        if (broadcaster) {
-            rtcEngine().setClientRole(io.agora.rtc.Constants.CLIENT_ROLE_BROADCASTER);
-            mLocalSurfaceView = new SurfaceView(this);
-            mLocalViewContainer.addView(mLocalSurfaceView,
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.MATCH_PARENT);
-            mVideoManager.setLocalPreview(mLocalSurfaceView);
-            mVideoManager.startCapture();
-            mMuted = false;
-        } else {
-            rtcEngine().setClientRole(io.agora.rtc.Constants.CLIENT_ROLE_AUDIENCE);
-            mLocalViewContainer.removeAllViews();
-            mLocalSurfaceView = null;
-            mVideoManager.stopCapture();
-            mMuted = true;
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
+            if (Math.abs(x) > 3 || Math.abs(y) > 3) {
+                if (Math.abs(x) > Math.abs(y)) {
+                    mFURenderer.onDeviceOrientationChanged(x > 0 ? 0 : 180);
+                } else {
+                    mFURenderer.onDeviceOrientationChanged(y > 0 ? 90 : 270);
+                }
+            }
         }
     }
 
     @Override
-    protected void onCameraChangeRequested() {
-        mVideoManager.switchCamera();
-    }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(KEY_MUTED, mMuted);
-        outState.putBoolean(KEY_MIRRORED, mMirrored);
-        outState.putBoolean(KEY_LOCAL_BIG, mLocalViewIsBig);
-        super.onSaveInstanceState(outState);
     }
 }

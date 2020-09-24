@@ -20,7 +20,10 @@
 
     <dimen name="blur_circle_size">35dp</dimen>
 
+    <!-- Main Activity -->
+    <dimen name="main_activity_edit_width">220dp</dimen>
+    <dimen name="main_activity_edit_margin_top">220dp</dimen>
+
     <!-- Effect panel -->
     <dimen name="effect_type_item_height">52dp</dimen>
-    <dimen name="effect_type_item_width">64dp</dimen>
 </resources>

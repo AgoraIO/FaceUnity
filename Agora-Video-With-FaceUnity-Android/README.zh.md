@@ -15,54 +15,11 @@ Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/Intera
 ```
 <string name="agora_app_id"><#YOUR APP ID#></string>
 ```
-2. 请联系 sales@agora.io 获取证书文件替换本项目中的 **faceunity/src/main/java/com/faceunity/authpack.java**。
+2. 请联系 sales@agora.io 获取证书文件替换本项目中的 **app/src/main/java/io/agora/rtcwithfu/authpack.java**。
 
 ### 设置 Agora SDK
 
 现在 demo 将自动从 JCenter 上下载 Agora 视频 SDK，默认情况下您不需要从别的地方再下载。
-
-### 下载FaceUnity SDK与资源文件
-1. Demo 当前适配到 FaceUnity SDK v6.6，您可到官方链接下载 [FaceUnity SDK v6.6](https://github.com/Faceunity/FULiveDemoDroid/releases/download/v6.6/Faceunity-Android-v6.6.zip)
-2. 解压压缩包, 将 libs, assets, jniLibs 目录按此方式拷贝到项目中
-```
-faceunity
-  |__ libs
-      |__ nama.jar
-
-  |__ src
-      |__ main
-            |__ assets
-                    |__ AI_model
-                        |__  ai_bgseg.bundle
-                             // other bundles related to AI
-                             // ...
-                             // ... 
-
-                    |__ body_slim.bundle
-                    |__ face_beautification.bundle
-                    |__ face_makeup.bundle
-                    |__ fxaa.bundle
-                    |__ hair_gradient.bundle
-                    |__ hair_normal.bundle
-                    |__ v3.bundle
-      |__ jniLibs
-            |__ arm64-v8a
-            |__ armeabi-v7a
-            |__ x86
-            |__ x86_64
-```
-
-FaceUnity SDK v6.6 相比之前的版本拥有更多的文件, 您需要将其都拷贝到对应的路径下（包括子路径）。
-
-### 下载 FaceUnity Demo 资源
-
-FaceUnity 的 effects/bundles 资源不是 SDK 的一部分，通常您需要为您的应用定制资源库。
-
-为了运行此项目，您可以下载 [官方 demo](https://github.com/Faceunity/FULiveDemoDroid) 并使用其中的资源文件。
-
-当您下载好官方 demo 的源码后，解压缩 zip 文件并将 `app/src/main/assets` 路径下的文件全部拷贝到工程的对应文件夹下。
-
-注意，只有得到 licence 授权的资源库类型才能够生效。
 
 ## 相机采集和渲染
 

@@ -2,8 +2,10 @@ package io.agora.framework;
 
 import android.content.Context;
 import android.opengl.GLES20;
+import android.util.Log;
 
-import com.faceunity.FURenderer;
+import com.faceunity.nama.FURenderer;
+import com.faceunity.nama.utils.CameraUtils;
 
 import io.agora.capture.framework.modules.channels.VideoChannel;
 import io.agora.capture.framework.modules.processors.IPreprocessor;
@@ -20,15 +22,14 @@ public class PreprocessorFaceUnity implements IPreprocessor {
         mContext = context;
         mEnabled = true;
     }
-
     @Override
     public VideoCaptureFrame onPreProcessFrame(VideoCaptureFrame outFrame, VideoChannel.ChannelContext context) {
         if (mFURenderer == null || !mEnabled) {
             return outFrame;
         }
 
-        outFrame.textureId = mFURenderer.onDrawFrame(outFrame.image,
-                outFrame.textureId, outFrame.format.getWidth(),
+        outFrame.textureId = mFURenderer.onDrawFrameDualInput(outFrame.image,
+                outFrame.textureId,  outFrame.format.getWidth(),
                 outFrame.format.getHeight());
 
         // The texture is transformed to texture2D by beauty module.
@@ -38,11 +39,12 @@ public class PreprocessorFaceUnity implements IPreprocessor {
 
     @Override
     public void initPreprocessor() {
-        mFURenderer = new FURenderer.Builder(mContext).
-                inputImageFormat(FURenderer.FU_ADM_FLAG_EXTERNAL_OES_TEXTURE).build();
-        mFURenderer.setBeautyEnabled(true);
-        mFURenderer.setAnimoji3dEnabled(true);
-        mFURenderer.setLoadLandmark75(true);
+        Log.e(TAG, "initPreprocessor: " + Thread.currentThread().getName());
+        mFURenderer = new FURenderer.Builder(mContext)
+                .setInputTextureType(FURenderer.INPUT_TEXTURE_EXTERNAL_OES)
+                .setCameraFacing(FURenderer.CAMERA_FACING_FRONT)
+                .setInputImageOrientation(CameraUtils.getCameraOrientation(FURenderer.CAMERA_FACING_FRONT))
+                .build();
         mFURenderer.onSurfaceCreated();
     }
 
@@ -53,6 +55,8 @@ public class PreprocessorFaceUnity implements IPreprocessor {
 
     @Override
     public void releasePreprocessor(VideoChannel.ChannelContext context) {
+        Log.d(TAG, "releasePreprocessor: ");
+        //这个可以不写，在FUChatActivity中添加了
         if (mFURenderer != null) {
             mFURenderer.onSurfaceDestroyed();
         }
