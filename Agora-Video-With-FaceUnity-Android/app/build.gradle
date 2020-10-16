@@ -22,17 +22,6 @@ android {
         }
     }
 
-    sourceSets {
-        main.assets.srcDirs += ['src/main/assets', 'src/main/effects/bundle', 'src/main/makeup/bundle', 'src/main/assets/effect']
-        main.res.srcDirs += ['src/main/res', 'src/main/effects/res', 'src/main/filters/res', 'src/main/makeup/res']
-    }
-
-    repositories {
-        flatDir {
-            dirs 'libs'
-        }
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -40,14 +29,13 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
 
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.1'
     implementation project(':faceunity')
     implementation 'io.agora.rtc:full-sdk:3.0.1'
     implementation 'com.wuyr:pathlayoutmanager:1.0.3'
     implementation 'org.adw.library:discrete-seekbar:1.0.1'
-    implementation files('libs/video-capture.aar')
 }

@@ -2,7 +2,7 @@
 
 本工程是第三方 Demo 依赖的 faceunity 模块，每次升级 SDK 时会优先在这里改动，然后同步到各个第三方 Demo 中。
 
-当前的 Nama SDK 版本是 **7.1.0**。
+当前的 Nama SDK 版本是 **7.2.0**。
 
 --------
 
@@ -35,7 +35,7 @@
       +model                           // 算法能力模型
         -ai_face_processor.bundle      // 人脸识别AI能力模型，需要默认加载
         -ai_face_processor_lite.bundle // 人脸识别AI能力模型，轻量版
-        -ai_gesture.bundle             // 手势识别AI能力模型
+        -ai_hand_processor.bundle      // 手势识别AI能力模型
         -ai_human_processor.bundle     // 人体点位AI能力模型
     +jni                               // CNama fuai 库
       +armeabi-v7a
@@ -75,7 +75,7 @@ android {
         variant.mergeAssetsProvider.configure {
             doLast {
                 delete(fileTree(dir: outputDir, includes: ['model/ai_face_processor_lite.bundle',
-                                                           'model/ai_gesture.bundle',
+                                                           'model/ai_hand_processor.bundle',
                                                            'graphics/controller.bundle',
                                                            'graphics/fuzzytoonfilter.bundle',
                                                            'graphics/fxaa.bundle',
@@ -85,9 +85,6 @@ android {
     }
 }
 ```
-
-
-###
 
 ### 二、使用 SDK
 

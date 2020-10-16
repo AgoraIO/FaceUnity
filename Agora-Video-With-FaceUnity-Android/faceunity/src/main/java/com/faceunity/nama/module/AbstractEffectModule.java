@@ -22,7 +22,7 @@ public abstract class AbstractEffectModule implements IEffectModule {
                 @Override
                 public void run() {
                     faceunity.fuSetDefaultRotationMode(rotationMode);
-                    LogUtils.debug(TAG, "fuSetDefaultRotationMode : %d", rotationMode);
+                    LogUtils.debug(TAG, "%s fuSetDefaultRotationMode : %d", AbstractEffectModule.this.getClass().getSimpleName(), rotationMode);
                 }
             });
         }
@@ -39,7 +39,7 @@ public abstract class AbstractEffectModule implements IEffectModule {
     public void destroy() {
         if (mItemHandle > 0) {
             faceunity.fuDestroyItem(mItemHandle);
-            LogUtils.debug(TAG, "destroy item %d", mItemHandle);
+            LogUtils.debug(TAG, "%s destroy item %d", getClass().getSimpleName(), mItemHandle);
             mItemHandle = 0;
         }
     }

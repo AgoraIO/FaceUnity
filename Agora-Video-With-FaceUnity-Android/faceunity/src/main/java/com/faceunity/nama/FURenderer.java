@@ -101,7 +101,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
         long startTime = System.currentTimeMillis();
         // fuSetup 需要 eglContext
         faceunity.fuCreateEGLContext();
-        faceunity.fuSetLogLevel(FuLogLevel.FU_LOG_LEVEL_OFF);
+        faceunity.fuSetLogLevel(FuLogLevel.FU_LOG_LEVEL_WARN);
         LogUtils.setLogLevel(LogUtils.DEBUG);
         // 打印设备信息
         LogUtils.info(TAG, "device info: {%s}", DeviceUtils.retrieveDeviceInfo(context));
@@ -168,7 +168,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
         if (mFaceBeautyModule != null) {
             mFaceBeautyModule.create(mContext, new IEffectModule.ModuleCallback() {
                 @Override
-                public void onCreateFinish(int itemHandle) {
+                public void onBundleCreated(int itemHandle) {
                     mItemsArray[ITEMS_ARRAY_FACE_BEAUTY] = itemHandle;
                 }
             });
@@ -184,6 +184,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
         if (mIsCreatedBodySlim) {
             createBodySlimModule();
         }
+        setUseTexAsync(true);
     }
 
     @Override
@@ -234,7 +235,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
         }
         int fuTex = faceunity.fuRenderToTexture(tex, w, h, mFrameId++, mItemsArray, flags);
         if (mIsRunBenchmark) {
-            mSumRenderTime += System.nanoTime() - mCallStartTime;
+            mSumCallTime += System.nanoTime() - mCallStartTime;
         }
         return fuTex;
     }
@@ -265,7 +266,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
                 break;
         }
         if (mIsRunBenchmark) {
-            mSumRenderTime += System.nanoTime() - mCallStartTime;
+            mSumCallTime += System.nanoTime() - mCallStartTime;
         }
         return fuTex;
     }
@@ -300,7 +301,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
                 break;
         }
         if (mIsRunBenchmark) {
-            mSumRenderTime += System.nanoTime() - mCallStartTime;
+            mSumCallTime += System.nanoTime() - mCallStartTime;
         }
         return fuTex;
     }
@@ -318,7 +319,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
         }
         int fuTex = faceunity.fuDualInputToTexture(img, tex, flags, w, h, mFrameId++, mItemsArray);
         if (mIsRunBenchmark) {
-            mSumRenderTime += System.nanoTime() - mCallStartTime;
+            mSumCallTime += System.nanoTime() - mCallStartTime;
         }
         return fuTex;
     }
@@ -337,7 +338,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
         int fuTex = faceunity.fuDualInputToTexture(img, tex, flags, w, h, mFrameId++, mItemsArray,
                 readBackW, readBackH, readBackImg);
         if (mIsRunBenchmark) {
-            mSumRenderTime += System.nanoTime() - mCallStartTime;
+            mSumCallTime += System.nanoTime() - mCallStartTime;
         }
         return fuTex;
     }
@@ -391,16 +392,23 @@ public class FURenderer implements IFURenderer, IModuleManager {
         mIsCreatedSticker = true;
         mStickerModule.create(mContext, new IEffectModule.ModuleCallback() {
             @Override
-            public void onCreateFinish(int itemHandle) {
-                int oldItem = mItemsArray[ITEMS_ARRAY_STICKER];
-                if (oldItem > 0) {
-                    faceunity.fuDestroyItem(oldItem);
-                }
+            public void onBundleCreated(int itemHandle) {
+                final int oldItem = mItemsArray[ITEMS_ARRAY_STICKER];
+                queueEvent(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (oldItem > 0) {
+                            faceunity.fuDestroyItem(oldItem);
+                        }
+                    }
+                });
                 double isAndroid = mInputTextureType == INPUT_TEXTURE_EXTERNAL_OES ? 1.0 : 0.0;
                 // 历史遗留参数，和具体贴纸有关，用于全屏贴纸道具
                 mStickerModule.setItemParam("isAndroid", isAndroid);
+                if (itemHandle > 0) {
+                    mStickerModule.setRotationMode(mRotationMode);
+                }
                 mItemsArray[ITEMS_ARRAY_STICKER] = itemHandle;
-                mStickerModule.setRotationMode(mRotationMode);
             }
         });
     }
@@ -434,7 +442,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
         mIsCreatedMakeup = true;
         mMakeupModule.create(mContext, new IEffectModule.ModuleCallback() {
             @Override
-            public void onCreateFinish(int itemHandle) {
+            public void onBundleCreated(int itemHandle) {
                 mItemsArray[ITEMS_ARRAY_MAKEUP] = itemHandle;
             }
         });
@@ -469,9 +477,9 @@ public class FURenderer implements IFURenderer, IModuleManager {
         mIsCreatedBodySlim = true;
         mBodySlimModule.create(mContext, new IEffectModule.ModuleCallback() {
             @Override
-            public void onCreateFinish(int itemHandle) {
-                mItemsArray[ITEMS_ARRAY_BODY_SLIM] = itemHandle;
+            public void onBundleCreated(int itemHandle) {
                 mBodySlimModule.setRotationMode(mRotationMode);
+                mItemsArray[ITEMS_ARRAY_BODY_SLIM] = itemHandle;
                 resetTrackStatus();
             }
         });
@@ -492,10 +500,40 @@ public class FURenderer implements IFURenderer, IModuleManager {
                 public void run() {
                     mBodySlimModule.destroy();
                     mItemsArray[ITEMS_ARRAY_BODY_SLIM] = 0;
-                    resetTrackStatus();
                 }
             });
+            resetTrackStatus();
         }
+    }
+
+    /**
+     * 为了解决第三方推流使用 texture 时，异步读取输出纹理效果异常。如果发送 buffer，可以不设置。
+     *
+     * @param use 1 使用，0 不使用。默认 0，性能更优。
+     */
+    private void setUseTexAsync(final boolean use) {
+        queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                faceunity.fuSetUseTexAsync(use ? 1 : 0);
+                LogUtils.debug(TAG, "fuSetUseTexAsync: %s", use);
+            }
+        });
+    }
+
+    /**
+     * 视频模式下，不保证每帧都检测到人脸，针对无人脸场景做了优化。如果是图片处理，要设置图片模式。
+     *
+     * @param mode 0 图片模式, 1 视频模式, 默认 1。
+     */
+    private void setFaceProcessorDetectMode(final int mode) {
+        queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                faceunity.fuSetFaceProcessorDetectMode(mode);
+                LogUtils.debug(TAG, "fuSetFaceProcessorDetectMode: %d", mode);
+            }
+        });
     }
 
     public void setOnTrackStatusChangedListener(OnTrackStatusChangedListener listener) {
@@ -510,10 +548,11 @@ public class FURenderer implements IFURenderer, IModuleManager {
         // 获取人体是否识别
         int trackHumans = faceunity.fuHumanProcessorGetNumResults();
         if (mItemsArray[ITEMS_ARRAY_BODY_SLIM] > 0) {
-            if (mTrackHumanStatus != trackHumans) {
+            if (mTrackHumanStatus != trackHumans || mTrackFaceStatus != trackFace) {
                 mTrackHumanStatus = trackHumans;
+                mTrackFaceStatus = trackFace;
                 if (mOnTrackStatusChangedListener != null) {
-                    mOnTrackStatusChangedListener.onTrackStatusChanged(TRACK_TYPE_HUMAN, trackHumans);
+                    mOnTrackStatusChangedListener.onTrackStatusChanged(TRACK_TYPE_HUMAN, trackHumans + trackFace);
                 }
             }
         } else {
@@ -557,6 +596,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
     private void callWhenDeviceChanged() {
         int rotationMode = createRotationMode();
         LogUtils.debug(TAG, "callWhenDeviceChanged() rotationMode: %d", rotationMode);
+        mRotationMode = rotationMode;
         if (mFaceBeautyModule != null) {
             mFaceBeautyModule.setRotationMode(rotationMode);
         }
@@ -569,7 +609,6 @@ public class FURenderer implements IFURenderer, IModuleManager {
         if (mBodySlimModule != null) {
             mBodySlimModule.setRotationMode(rotationMode);
         }
-        mRotationMode = rotationMode;
         queueEvent(new Runnable() {
             @Override
             public void run() {
@@ -676,11 +715,11 @@ public class FURenderer implements IFURenderer, IModuleManager {
 
     private static final int NANO_IN_ONE_MILLI_SECOND = 1_000_000;
     private static final int NANO_IN_ONE_SECOND = 1_000_000_000;
-    private static final int FRAME_COUNT = 10;
+    private static final int FRAME_COUNT = 20;
     private boolean mIsRunBenchmark = false;
     private int mCurrentFrameCount;
     private long mLastFrameTimestamp;
-    private long mSumRenderTime;
+    private long mSumCallTime;
     private long mCallStartTime;
     private OnDebugListener mOnDebugListener;
 
@@ -701,9 +740,9 @@ public class FURenderer implements IFURenderer, IModuleManager {
         if (++mCurrentFrameCount == FRAME_COUNT) {
             long tmp = System.nanoTime();
             double fps = (double) NANO_IN_ONE_SECOND / ((double) (tmp - mLastFrameTimestamp) / FRAME_COUNT);
-            double renderTime = (double) mSumRenderTime / FRAME_COUNT / NANO_IN_ONE_MILLI_SECOND;
+            double renderTime = (double) mSumCallTime / FRAME_COUNT / NANO_IN_ONE_MILLI_SECOND;
             mLastFrameTimestamp = tmp;
-            mSumRenderTime = 0;
+            mSumCallTime = 0;
             mCurrentFrameCount = 0;
 
             if (mOnDebugListener != null) {
@@ -873,7 +912,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
         }
 
         /**
-         * FPS 和函数时长数据回调
+         * FPS 和函数时长数据回调，需要开启 benchmark
          *
          * @param onDebugListener
          * @return
@@ -884,7 +923,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
         }
 
         /**
-         * 人脸识别状态回调
+         * 人脸和人体识别状态回调
          *
          * @param onTrackStatusChangedListener
          * @return

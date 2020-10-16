@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.opengl.GLES20;
 import android.os.Build;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -31,6 +32,7 @@ public final class DeviceUtils {
                 ", Android Version: " + Build.VERSION.RELEASE +
                 ", Android SDK: " + Build.VERSION.SDK_INT +
                 ", Supported ABIs: " + getSupportedAbis() +
+                ", Main ABI: " + getMainAbi(context) +
                 ", GL Vendor: " + GLES20.glGetString(GLES20.GL_VENDOR) +
                 ", GL Renderer: " + GLES20.glGetString(GLES20.GL_RENDERER) +
                 ", GL Version : " + GLES20.glGetString(GLES20.GL_VERSION) +
@@ -40,7 +42,7 @@ public final class DeviceUtils {
                 ", App VersionCode: " + getAppVersionCode(context);
     }
 
-    private static String getAppVersionName(final Context context) {
+    private static String getAppVersionName(Context context) {
         try {
             String packageName = context.getPackageName();
             PackageManager pm = context.getPackageManager();
@@ -51,7 +53,7 @@ public final class DeviceUtils {
         }
     }
 
-    private static int getAppVersionCode(final Context context) {
+    private static int getAppVersionCode(Context context) {
         try {
             String packageName = context.getPackageName();
             PackageManager pm = context.getPackageManager();
@@ -72,6 +74,12 @@ public final class DeviceUtils {
             supportedAbis = "[" + cpuAbi + ", " + cpuAbi2 + "]";
         }
         return supportedAbis;
+    }
+
+    private static String getMainAbi(Context context) {
+        String nativeLibraryDir = context.getApplicationInfo().nativeLibraryDir;
+        String abi = nativeLibraryDir.substring(nativeLibraryDir.lastIndexOf(File.separatorChar) + 1);
+        return abi;
     }
 
 }

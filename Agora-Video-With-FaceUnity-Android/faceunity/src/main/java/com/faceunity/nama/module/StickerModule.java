@@ -8,6 +8,8 @@ import com.faceunity.nama.utils.LogUtils;
 import com.faceunity.nama.utils.ThreadHelper;
 
 /**
+ * 贴纸模块
+ *
  * @author Richie on 2020.07.07
  */
 public class StickerModule extends AbstractEffectModule implements IStickerModule {
@@ -53,7 +55,7 @@ public class StickerModule extends AbstractEffectModule implements IStickerModul
                 }
                 mItemHandle = itemSticker;
                 if (mModuleCallback != null) {
-                    mModuleCallback.onCreateFinish(itemSticker);
+                    mModuleCallback.onBundleCreated(itemSticker);
                 }
             }
         });
@@ -66,8 +68,4 @@ public class StickerModule extends AbstractEffectModule implements IStickerModul
         }
     }
 
-    @Override
-    public void destroy() {
-        super.destroy();
-    }
 }

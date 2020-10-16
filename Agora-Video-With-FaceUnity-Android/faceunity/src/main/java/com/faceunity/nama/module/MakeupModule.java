@@ -43,7 +43,7 @@ public class MakeupModule extends AbstractEffectModule implements IMakeupModule 
                     selectMakeup(new Makeup(mMakeup));
                 }
                 if (moduleCallback != null) {
-                    moduleCallback.onCreateFinish(itemMakeup);
+                    moduleCallback.onBundleCreated(itemMakeup);
                 }
             }
         });

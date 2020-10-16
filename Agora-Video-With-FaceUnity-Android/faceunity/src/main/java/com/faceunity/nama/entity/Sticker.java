@@ -45,6 +45,23 @@ public class Sticker {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Sticker sticker = (Sticker) o;
+        return filePath != null ? filePath.equals(sticker.filePath) : sticker.filePath == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return filePath != null ? filePath.hashCode() : 0;
+    }
+
+    @Override
     public String toString() {
         return "Sticker{" +
                 "filePath='" + filePath + '\'' +
