@@ -50,6 +50,8 @@ typedef NS_ENUM(NSUInteger, FUNamaHandleType) {
 @property (nonatomic, strong) FUBeautyParam *seletedFliter;
 
 
+
+
 + (FUManager *)shareManager;
 
 - (void)setAsyncTrackFaceEnable:(BOOL)enable;

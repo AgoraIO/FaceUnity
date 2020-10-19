@@ -16,8 +16,9 @@
 #import "FUManager.h"
 #import "FUAPIDemoBar.h"
 #import <Masonry/Masonry.h>
+#import <AGMRenderer/AGMRenderer.h>
 
-@interface ViewController () <AgoraRtcEngineDelegate,FUAPIDemoBarDelegate>
+@interface ViewController () <AgoraRtcEngineDelegate,FUAPIDemoBarDelegate, AgoraVideoSourceProtocol>
 
 @property (nonatomic, strong) CapturerManager *capturerManager;
 @property (nonatomic, strong) FUManager *videoFilter;
@@ -34,7 +35,7 @@
 @property (nonatomic, strong) AgoraRtcVideoCanvas *videoCanvas;
 @property (nonatomic, assign) AgoraVideoMirrorMode localVideoMirrored;
 @property (nonatomic, assign) AgoraVideoMirrorMode remoteVideoMirrored;
-
+@property (nonatomic, strong) AGMEAGLVideoView *glVideoView;
 /**faceU */
 @property(nonatomic, strong) FUAPIDemoBar *demoBar;
 
@@ -42,11 +43,11 @@
 @end
 
 @implementation ViewController
+@synthesize consumer;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     self.remoteView.hidden = YES;
     
     /** load Faceu */
@@ -58,7 +59,11 @@
     [self.rtcEngineKit setChannelProfile:AgoraChannelProfileLiveBroadcasting];
     [self.rtcEngineKit setClientRole:AgoraClientRoleBroadcaster];
     [self.rtcEngineKit enableVideo];
-    AgoraVideoEncoderConfiguration* config = [[AgoraVideoEncoderConfiguration alloc] initWithSize:CGSizeMake(720, 1280) frameRate:30 bitrate:0 orientationMode:AgoraVideoOutputOrientationModeAdaptative];
+    [self.rtcEngineKit setParameters:@"{\"che.video.zerocopy\":true}"];
+    AgoraVideoEncoderConfiguration* config = [[AgoraVideoEncoderConfiguration alloc] initWithSize:AgoraVideoDimension1280x720
+                                                                                        frameRate:AgoraVideoFrameRateFps30
+                                                                                          bitrate:AgoraVideoBitrateStandard
+                                                                                  orientationMode:AgoraVideoOutputOrientationModeFixedPortrait];
     [self.rtcEngineKit setVideoEncoderConfiguration:config];
     
     // init process manager
@@ -68,6 +73,7 @@
     AGMCapturerVideoConfig *videoConfig = [AGMCapturerVideoConfig defaultConfig];
     videoConfig.sessionPreset = AVCaptureSessionPreset1280x720;
     videoConfig.fps = 30;
+    videoConfig.pixelFormat =  AGMVideoPixelFormatNV12;
     self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig delegate:self.processingManager];
     
     // add FaceUnity filter and add to process manager
@@ -78,22 +84,32 @@
     [self.capturerManager startCapture];
     
     // set up local video to render your local camera preview
-    self.videoCanvas = [AgoraRtcVideoCanvas new];
-    self.videoCanvas.uid = 0;
-    // the view to be binded
-    self.videoCanvas.view = self.localView;
-    self.videoCanvas.renderMode = AgoraVideoRenderModeHidden;
-    self.videoCanvas.mirrorMode = AgoraVideoMirrorModeDisabled;
-    [self.rtcEngineKit setupLocalVideo:self.videoCanvas];
+//    self.videoCanvas = [AgoraRtcVideoCanvas new];
+//    self.videoCanvas.uid = 0;
+//    // the view to be binded
+//    self.videoCanvas.view = self.localView;
+//    self.videoCanvas.renderMode = AgoraVideoRenderModeHidden;
+//    self.videoCanvas.mirrorMode = AgoraVideoMirrorModeDisabled;
+//    [self.rtcEngineKit setupLocalVideo:self.videoCanvas];
     
+    [self.localView layoutIfNeeded];
+    self.glVideoView = [[AGMEAGLVideoView alloc] initWithFrame:self.localView.frame];
+//    [self.glVideoView setRenderMode:(AGMRenderMode_Fit)];
+    [self.localView addSubview:self.glVideoView];
+    [self.capturerManager setVideoView:self.glVideoView];
     // set custom capturer as video source
     [self.rtcEngineKit setVideoSource:self.capturerManager];
+
     
     [self.rtcEngineKit joinChannelByToken:nil channelId:self.channelName info:nil uid:0 joinSuccess:^(NSString * _Nonnull channel, NSUInteger uid, NSInteger elapsed) {
         
     }];
 }
 
+
+- (void)viewDidLayoutSubviews {
+    self.glVideoView.frame = self.view.bounds;
+}
 
 /// faceunity
 - (void)setupFaceUnity{
@@ -157,13 +173,13 @@
 
 /// release
 - (void)dealloc {
-
+    
+    [[FUManager shareManager] destoryItems];
     [self.capturerManager stopCapture];
     [self.rtcEngineKit leaveChannel:nil];
     [self.rtcEngineKit stopPreview];
     [self.rtcEngineKit setVideoSource:nil];
     [AgoraRtcEngineKit destroy];
-    [[FUManager shareManager] destoryItems];
     
 }
 
@@ -208,6 +224,7 @@
     // Bind remote video stream to view
     
 }
+
 
 
 @end
