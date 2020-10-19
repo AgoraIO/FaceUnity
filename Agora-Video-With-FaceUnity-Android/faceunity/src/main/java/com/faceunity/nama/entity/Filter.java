@@ -41,6 +41,23 @@ public class Filter {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Filter filter = (Filter) o;
+        return name != null ? name.equals(filter.name) : filter.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
+    }
+
+    @Override
     public String toString() {
         return "Filter{" +
                 "name='" + name + '\'' +

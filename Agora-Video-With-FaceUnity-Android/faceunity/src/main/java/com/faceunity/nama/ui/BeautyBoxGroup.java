@@ -18,7 +18,7 @@ public class BeautyBoxGroup extends LinearLayout {
     private BaseBeautyBox.OnCheckedChangeListener mChildOnCheckedChangeListener;
     // when true, mOnCheckedChangeListener discards events
     private boolean mProtectFromCheckedChange = false;
-    private BeautyBoxGroup.OnCheckedChangeListener mOnCheckedChangeListener;
+    private OnCheckedChangeListener mOnCheckedChangeListener;
     private PassThroughHierarchyChangeListener mPassThroughListener;
 
     /**
@@ -158,7 +158,7 @@ public class BeautyBoxGroup extends LinearLayout {
      *
      * @param listener the callback to call on checked state change
      */
-    public void setOnCheckedChangeListener(BeautyBoxGroup.OnCheckedChangeListener listener) {
+    public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
         mOnCheckedChangeListener = listener;
     }
 
@@ -166,8 +166,8 @@ public class BeautyBoxGroup extends LinearLayout {
      * {@inheritDoc}
      */
     @Override
-    public BeautyBoxGroup.LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new BeautyBoxGroup.LayoutParams(getContext(), attrs);
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new LayoutParams(getContext(), attrs);
     }
 
     /**
@@ -175,12 +175,12 @@ public class BeautyBoxGroup extends LinearLayout {
      */
     @Override
     protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
-        return p instanceof BeautyBoxGroup.LayoutParams;
+        return p instanceof LayoutParams;
     }
 
     @Override
     protected LinearLayout.LayoutParams generateDefaultLayoutParams() {
-        return new BeautyBoxGroup.LayoutParams(BeautyBoxGroup.LayoutParams.WRAP_CONTENT, BeautyBoxGroup.LayoutParams.WRAP_CONTENT);
+        return new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
     }
 
     @Override

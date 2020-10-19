@@ -55,6 +55,23 @@ public class Makeup {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Makeup makeup = (Makeup) o;
+        return filePath != null ? filePath.equals(makeup.filePath) : makeup.filePath == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return filePath != null ? filePath.hashCode() : 0;
+    }
+
+    @Override
     public String toString() {
         return "Makeup{" +
                 "name='" + name + '\'' +

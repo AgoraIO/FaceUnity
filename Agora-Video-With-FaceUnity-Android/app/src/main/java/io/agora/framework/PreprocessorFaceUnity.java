@@ -22,6 +22,7 @@ public class PreprocessorFaceUnity implements IPreprocessor {
         mContext = context;
         mEnabled = true;
     }
+
     @Override
     public VideoCaptureFrame onPreProcessFrame(VideoCaptureFrame outFrame, VideoChannel.ChannelContext context) {
         if (mFURenderer == null || !mEnabled) {
@@ -39,13 +40,14 @@ public class PreprocessorFaceUnity implements IPreprocessor {
 
     @Override
     public void initPreprocessor() {
-        Log.e(TAG, "initPreprocessor: " + Thread.currentThread().getName());
+        // only call once when app launched
+        Log.e(TAG, "initPreprocessor: ");
         mFURenderer = new FURenderer.Builder(mContext)
                 .setInputTextureType(FURenderer.INPUT_TEXTURE_EXTERNAL_OES)
                 .setCameraFacing(FURenderer.CAMERA_FACING_FRONT)
                 .setInputImageOrientation(CameraUtils.getCameraOrientation(FURenderer.CAMERA_FACING_FRONT))
                 .build();
-        mFURenderer.onSurfaceCreated();
+//        mFURenderer.onSurfaceCreated();
     }
 
     @Override
@@ -55,11 +57,12 @@ public class PreprocessorFaceUnity implements IPreprocessor {
 
     @Override
     public void releasePreprocessor(VideoChannel.ChannelContext context) {
+        // not called
         Log.d(TAG, "releasePreprocessor: ");
         //这个可以不写，在FUChatActivity中添加了
-        if (mFURenderer != null) {
-            mFURenderer.onSurfaceDestroyed();
-        }
+//        if (mFURenderer != null) {
+//            mFURenderer.onSurfaceDestroyed();
+//        }
     }
 
     public FURenderer getFURenderer() {

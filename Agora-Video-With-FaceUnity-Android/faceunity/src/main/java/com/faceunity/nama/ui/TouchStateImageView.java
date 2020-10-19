@@ -32,8 +32,8 @@ public class TouchStateImageView extends AppCompatImageView {
     }
 
     @Override
-    public void setOnTouchListener(final View.OnTouchListener l) {
-        View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+    public void setOnTouchListener(final OnTouchListener l) {
+        OnTouchListener onTouchListener = new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 setState(event);

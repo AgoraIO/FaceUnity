@@ -19,7 +19,6 @@ import com.faceunity.nama.FURenderer;
 import com.faceunity.nama.ui.FaceUnityView;
 import com.faceunity.nama.utils.CameraUtils;
 
-import java.nio.ByteBuffer;
 import java.util.concurrent.CountDownLatch;
 
 import io.agora.capture.video.camera.CameraVideoManager;
@@ -27,14 +26,12 @@ import io.agora.capture.video.camera.Constant;
 import io.agora.capture.video.camera.VideoCapture;
 import io.agora.framework.PreprocessorFaceUnity;
 import io.agora.framework.RtcVideoConsumer;
-import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
-import io.agora.rtc.mediaio.IVideoSink;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
-import io.agora.rtcwithfu.utils.Constants;
 import io.agora.rtcwithfu.R;
 import io.agora.rtcwithfu.RtcEngineEventHandler;
+import io.agora.rtcwithfu.utils.Constants;
 
 /**
  * This activity demonstrates how to make FU and Agora RTC SDK work together
@@ -67,6 +64,9 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         initUI();
         initRoom();
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        String sdkVersion = RtcEngine.getSdkVersion();
+        Log.i(TAG, "onCreate: agora sdk version " + sdkVersion);
     }
 
     private void initUI() {
@@ -119,7 +119,7 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mTrackingText.setText(type == FURenderer.TRACK_TYPE_FACE ? R.string.toast_not_detect_face : R.string.toast_not_detect_body);
+                        mTrackingText.setText(type == FURenderer.TRACK_TYPE_FACE ? R.string.toast_not_detect_face : R.string.toast_not_detect_face_or_body);
                         mTrackingText.setVisibility(status > 0 ? View.INVISIBLE : View.VISIBLE);
                     }
                 });
@@ -143,7 +143,7 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
                 VideoEncoderConfiguration.STANDARD_BITRATE,
                 VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT));
         rtcEngine().setClientRole(io.agora.rtc.Constants.CLIENT_ROLE_BROADCASTER);
-
+        rtcEngine().enableLocalAudio(false);
         String roomName = getIntent().getStringExtra(Constants.ACTION_KEY_ROOM_NAME);
         rtcEngine().joinChannel(null, roomName, null, 0);
     }

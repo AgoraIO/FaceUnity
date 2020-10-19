@@ -510,12 +510,12 @@ public class BeautyControlView extends FrameLayout implements TouchStateImageVie
     class FilterRecyclerAdapter extends RecyclerView.Adapter<FilterRecyclerAdapter.HomeRecyclerHolder> {
 
         @Override
-        public FilterRecyclerAdapter.HomeRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new FilterRecyclerAdapter.HomeRecyclerHolder(LayoutInflater.from(mContext).inflate(R.layout.layout_beauty_recycler, parent, false));
+        public HomeRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new HomeRecyclerHolder(LayoutInflater.from(mContext).inflate(R.layout.layout_beauty_recycler, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(FilterRecyclerAdapter.HomeRecyclerHolder holder, final int position) {
+        public void onBindViewHolder(HomeRecyclerHolder holder, final int position) {
             final List<Filter> filters = mFilters;
             holder.filterImg.setImageResource(filters.get(position).getIconId());
             holder.filterName.setText(filters.get(position).getDescription());

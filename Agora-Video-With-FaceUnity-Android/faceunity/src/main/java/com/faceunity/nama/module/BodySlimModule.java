@@ -55,7 +55,7 @@ public class BodySlimModule extends AbstractEffectModule implements IBodySlimMod
                 setLegThinSlimIntensity(mLegThinSlimStrength);
 
                 if (moduleCallback != null) {
-                    moduleCallback.onCreateFinish(itemBodySlim);
+                    moduleCallback.onBundleCreated(itemBodySlim);
                 }
             }
         });

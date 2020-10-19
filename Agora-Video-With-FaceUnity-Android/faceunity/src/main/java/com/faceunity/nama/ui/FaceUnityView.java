@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.util.AttributeSet;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -96,16 +95,9 @@ public class FaceUnityView extends FrameLayout {
 
         CheckGroup checkGroup = view.findViewById(R.id.cg_nav_bar);
         checkGroup.setOnCheckedChangeListener(new CheckGroup.OnCheckedChangeListener() {
-            private long mLastClickTime;
 
             @Override
             public void onCheckedChanged(CheckGroup group, int checkedId) {
-                long curClickTime = System.currentTimeMillis();
-                if (curClickTime - mLastClickTime < OnMultiClickListener.MIN_CLICK_DELAY_TIME) {
-                    return;
-                }
-                mLastClickTime = curClickTime;
-
                 if (checkedId == R.id.cb_face_beauty) {
                     beautyControlView.setVisibility(VISIBLE);
                     bodySlimControlView.setVisibility(GONE);

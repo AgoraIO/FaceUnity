@@ -101,7 +101,7 @@ public class FaceBeautyModule extends AbstractEffectModule implements IFaceBeaut
                         + mIntensityEyeSpace + ", eyeRotate:" + mIntensityEyeRotate);
 
                 if (moduleCallback != null) {
-                    moduleCallback.onCreateFinish(itemFaceBeauty);
+                    moduleCallback.onBundleCreated(itemFaceBeauty);
                 }
             }
         });
@@ -123,6 +123,9 @@ public class FaceBeautyModule extends AbstractEffectModule implements IFaceBeaut
 
     @Override
     public void setIsBeautyOn(int isBeautyOn) {
+        if (mIsBeautyOn == isBeautyOn) {
+            return;
+        }
         mIsBeautyOn = isBeautyOn;
         if (mRenderEventQueue != null) {
             mRenderEventQueue.addItemSetParamEvent(mItemHandle, BeautificationParam.IS_BEAUTY_ON, isBeautyOn);
