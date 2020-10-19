@@ -1,7 +1,5 @@
 ## 对接第三方 Demo 的 faceunity 模块
 
-本工程是第三方 Demo 依赖的 faceunity 模块，每次升级 SDK 时会优先在这里改动，然后同步到各个第三方 Demo 中。
-
 当前的 Nama SDK 版本是 **7.2.0**。
 
 --------
@@ -16,7 +14,7 @@
 - assets/makeup 文件夹下 \*.bundle 是美妆素材文件。
 - com/faceunity/nama/authpack.java 是鉴权证书文件，必须提供有效的证书才能运行 Demo，请联系技术支持获取。
 
-通过 Maven 依赖最新版 SDK：`implementation 'com.faceunity:nama:7.1.0'`，方便升级，推荐使用。
+通过 Maven 依赖最新版 SDK：`implementation 'com.faceunity:nama:7.2.0'`，方便升级，推荐使用。
 
 其中，AAR 包含以下内容：
 
