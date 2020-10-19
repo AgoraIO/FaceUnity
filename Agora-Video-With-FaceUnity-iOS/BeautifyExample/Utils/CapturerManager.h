@@ -11,15 +11,18 @@
 #import <AGMCapturer/AGMCapturer.h>
 #import <AGMBase/AGMBase.h>
 #import "CapturerManagerDelegate.h"
+#import <AGMRenderer/AGMRenderer.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CapturerManager : NSObject <AgoraVideoSourceProtocol>
+@interface CapturerManager : NSObject <AgoraVideoSourceProtocol, AGMVideoCameraDelegate>
 
 - (instancetype)initWithVideoConfig:(AGMCapturerVideoConfig *)config delegate:(id <CapturerManagerDelegate>)delegate;
 - (void)startCapture;
 - (void)stopCapture;
 - (void)switchCamera;
+
+@property (nonatomic, strong) AGMEAGLVideoView *videoView;
 
 @end
 

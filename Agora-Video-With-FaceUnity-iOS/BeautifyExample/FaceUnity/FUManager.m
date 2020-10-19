@@ -13,6 +13,8 @@
 #import "authpack.h"
 #import <sys/utsname.h>
 
+#import "FUTestRecorder.h"
+
 @interface FUManager ()
 {
     //MARK: Faceunity
@@ -65,6 +67,8 @@ static FUManager *shareManager = NULL;
         NSLog(@"faceunitySDK version:%@",[FURenderer getVersion]);
         [FURenderer setMaxFaces:4];
         self.deviceOrientation = 0;
+        
+//        [[FUTestRecorder shareRecorder] setupRecord];
     }
     
     return self;
@@ -386,8 +390,10 @@ static int oldHandle = 0;
 /**将道具绘制到pixelBuffer*/
 - (CVPixelBufferRef)renderItemsToPixelBuffer:(CVPixelBufferRef)pixelBuffer{
     if ([self isDeviceMotionChange]) {
+        
         fuSetDefaultRotationMode(self.deviceOrientation);
-            /* 解决旋转屏幕效果异常 onCameraChange*/
+
+        /* 解决旋转屏幕效果异常 onCameraChange*/
         [FURenderer onCameraChange];
     }
     
@@ -408,16 +414,13 @@ static int oldHandle = 0;
         if (_currentType == FUDataTypebody) {
             readerItems[1] = items[FUNamaHandleTypeBodySlim];
         }
-
-//        CVPixelBufferRef buffer = [[FURenderer shareRenderer] renderToInternalPixelBuffer:pixelBuffer withFrameId:frameID items:readerItems itemCount:2];
         
-        CVPixelBufferRef buffer = [[FURenderer shareRenderer] renderPixelBuffer:pixelBuffer withFrameId:frameID items:readerItems itemCount:2 flipx:_flipx customSize:CGSizeZero useAlpha:YES];
+        CVPixelBufferRef buffer = [[FURenderer shareRenderer] renderPixelBuffer:pixelBuffer withFrameId:frameID items:readerItems itemCount:2 flipx:_flipx];
         
         frameID += 1;
-        return buffer;
     }
     
-    return nil;
+    return pixelBuffer;
 }
 
 /**处理YUV*/
@@ -631,7 +634,10 @@ static int oldHandle = 0;
 /// process your video frame here
 - (CVPixelBufferRef)processFrame:(CVPixelBufferRef)frame {
     if(self.enabled) {
+        
         CVPixelBufferRef buffer = [self renderItemsToPixelBuffer:frame];
+//        [[FUTestRecorder shareRecorder] processFrameWithLog];
+        
         return buffer;
     }
     return frame;
