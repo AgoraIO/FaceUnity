@@ -1,0 +1,28 @@
+PODS:
+  - AGMCapturer_iOS (2.0.0)
+  - AgoraRtcEngine_iOS (3.1.2.60)
+  - Masonry (1.1.0)
+  - Nama (7.2.0)
+
+DEPENDENCIES:
+  - AGMCapturer_iOS (~> 2.0.0)
+  - AgoraRtcEngine_iOS (~> 3.1.2)
+  - Masonry
+  - Nama (~> 7.2.0)
+
+SPEC REPOS:
+  trunk:
+    - AGMCapturer_iOS
+    - AgoraRtcEngine_iOS
+    - Masonry
+    - Nama
+
+SPEC CHECKSUMS:
+  AGMCapturer_iOS: 93984ef65e71fe2631d1fad4c703b47bdc3f3a30
+  AgoraRtcEngine_iOS: c6e19ddbf0979faab1e108b94ff7500344fcbadb
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  Nama: 6513d06085933c8d13b1e6360f5c1ea6996f745b
+
+PODFILE CHECKSUM: dfe1f9777c02351312abd40c3aa941c4a5e7e620
+
+COCOAPODS: 1.9.3
