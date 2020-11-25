@@ -153,6 +153,7 @@ BOOL CAgoraFaceUnityTutorialDlg::InitAgora()
     CAgoraObject::GetAgoraObject()->SetChannelProfile(TRUE);
     CAgoraObject::GetAgoraObject()->EnableVideo();
     CAgoraObject::GetAgoraObject()->SetClientRole(CLIENT_ROLE_BROADCASTER);
+	return TRUE;
 }
 
 void CAgoraFaceUnityTutorialDlg::ShowLocalVideo()

@@ -414,9 +414,11 @@ void CDlgBeautyAR::UpdateFaceUnityBundle(int type)
         m_staARInfo.SetWindowText(m_vecGestures[item]);
     }
 
-    std::string itemName = Nama::categoryBundles[Nama::bundleCategory][item];
-    int bundle_index = type;
-    if (bundle_index >= ChangeFace)
-        bundle_index += 1;
-    CAgoraObject::GetAgoraObject()->UpdateBundle(g_fuDataDir + Nama::gBundlePath[bundle_index] + itemName);
+	if (!Nama::categoryBundles[Nama::bundleCategory].empty()) {
+		std::string itemName = Nama::categoryBundles[Nama::bundleCategory][item];
+		int bundle_index = type;
+		if (bundle_index >= ChangeFace)
+			bundle_index += 1;
+		CAgoraObject::GetAgoraObject()->UpdateBundle(g_fuDataDir + Nama::gBundlePath[bundle_index] + itemName);
+	}
 }

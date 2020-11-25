@@ -40,8 +40,8 @@
 #include <mutex>
 #include "Language.h"
 
-#include "IAgoraRtcEngine.h"
-#include "IAgoraMediaEngine.h"
+#include <IAgoraRtcEngine.h>
+#include <IAgoraMediaEngine.h>
 #include <afxcontrolbars.h>
 #include <afxcontrolbars.h>
 #include <afxcontrolbars.h>

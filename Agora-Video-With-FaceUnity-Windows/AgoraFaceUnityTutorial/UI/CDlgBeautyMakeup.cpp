@@ -115,8 +115,8 @@ void CDlgBeautyMakeup::OnItemchangedListMakeup(NMHDR *pNMHDR, LRESULT *pResult)
    // m_staMakupInfo.SetWindowText(m_vecMakeupNames[item]); 
     if (Nama::bundleCategory < 0)
         return;
- 
-    std::string itemName = Nama::categoryBundles[Nama::bundleCategory][item];
-
-    CAgoraObject::GetAgoraObject()->UpdateBundle(itemName);
+	if (!Nama::categoryBundles[Nama::bundleCategory].empty()) {
+		std::string itemName = Nama::categoryBundles[Nama::bundleCategory][item];
+		CAgoraObject::GetAgoraObject()->UpdateBundle(itemName);
+	}
 }
