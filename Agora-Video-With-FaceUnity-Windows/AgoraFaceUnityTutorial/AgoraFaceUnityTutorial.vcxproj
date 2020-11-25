@@ -153,13 +153,13 @@ copy $(SolutionDir)\AgoraFaceUnityTutorial\*.ini $(OutDir)
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG; _CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdk\include;$(SolutionDir)AgoraFaceUnityTutorial</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdk\include;$(SolutionDir)AgoraFaceUnityTutorial;$(SolutionDir)ThridParty\GL;$(SolutionDir)ThridParty;$(SolutionDir)FaceUnitySDK\include;$(SolutionDir)ThridParty\opencv400\opencv\build\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)sdk\lib;$(SolutionDir)FaceUnitySDK\Win32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)sdk\lib;$(SolutionDir)FaceUnitySDK\Win32;$(SolutionDir)ThridParty\GL\x86;$(SolutionDir)ThridParty\opencv400\opencv\build\x86\vc14\lib;$(SolutionDir)ThridParty\GL</AdditionalLibraryDirectories>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
