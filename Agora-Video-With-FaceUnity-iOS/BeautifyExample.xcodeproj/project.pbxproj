@@ -42,8 +42,8 @@
 		2D08C3F12508749400F7206C /* sdlu.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D08C3C12508749300F7206C /* sdlu.png */; };
 		2D08C3F22508749400F7206C /* sdlu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D08C3C22508749300F7206C /* sdlu.bundle */; };
 		2D08C3F52508749400F7206C /* fashi.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D08C3C52508749300F7206C /* fashi.png */; };
-		2D76FAC6253D3CC1004F040F /* FURecordEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D76FAC5253D3CC1004F040F /* FURecordEncoder.m */; };
 		2D8ABD2F2511B63200D28745 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8ABD2E2511B63200D28745 /* MainViewController.m */; };
+		2DC7C633257E15CE00690AEE /* FURecordEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC7C632257E15CE00690AEE /* FURecordEncoder.m */; };
 		2DC7D6142537240200DA0A4B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC7D6132537240100DA0A4B /* AVFoundation.framework */; };
 		2DC7D6162537240800DA0A4B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC7D6152537240800DA0A4B /* Accelerate.framework */; };
 		2DC7D61A2537244900DA0A4B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC7D6192537244900DA0A4B /* SystemConfiguration.framework */; };
@@ -54,8 +54,11 @@
 		2DF48BEE2514912900575424 /* FUManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF48BED2514912900575424 /* FUManager.m */; };
 		5F66A41254472834DB1BBB0E /* Pods_BeautifyExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D32F315DAB48F1AE0AFB5C4 /* Pods_BeautifyExample.framework */; };
 		610C64E814134B04440D425B /* Pods_BeautifyExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D32F315DAB48F1AE0AFB5C4 /* Pods_BeautifyExample.framework */; };
-		BCCBCEC3059EE2F43DE18141 /* Pods_BeautifyExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F138143775C3F4F14DC39F0 /* Pods_BeautifyExampleTests.framework */; };
+		E327E03B25958C52002875F9 /* chaoA.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E327E03A25958C52002875F9 /* chaoA.bundle */; };
+		E327E03E25958D74002875F9 /* dousha.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E327E03C25958D74002875F9 /* dousha.bundle */; };
+		E327E03F25958D74002875F9 /* naicha.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E327E03D25958D74002875F9 /* naicha.bundle */; };
 		E35B22CA253571FF00F50AC2 /* FUTestRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E35B22C9253571FF00F50AC2 /* FUTestRecorder.m */; };
+		EF9F4BBC82E8B0644E0F1CD2 /* Pods_BeautifyExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA4FF26FEF71B547AC46AE1 /* Pods_BeautifyExampleTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,10 +150,10 @@
 		2D08C3C12508749300F7206C /* sdlu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sdlu.png; sourceTree = "<group>"; };
 		2D08C3C22508749300F7206C /* sdlu.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = sdlu.bundle; sourceTree = "<group>"; };
 		2D08C3C52508749300F7206C /* fashi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fashi.png; sourceTree = "<group>"; };
-		2D76FAC4253D3CC1004F040F /* FURecordEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FURecordEncoder.h; sourceTree = "<group>"; };
-		2D76FAC5253D3CC1004F040F /* FURecordEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FURecordEncoder.m; sourceTree = "<group>"; };
 		2D8ABD2D2511B63200D28745 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		2D8ABD2E2511B63200D28745 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		2DC7C631257E15CD00690AEE /* FURecordEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FURecordEncoder.h; sourceTree = "<group>"; };
+		2DC7C632257E15CE00690AEE /* FURecordEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FURecordEncoder.m; sourceTree = "<group>"; };
 		2DC7D60A2537238B00DA0A4B /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		2DC7D6132537240100DA0A4B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2DC7D6152537240800DA0A4B /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -164,8 +167,11 @@
 		36236FA0D16FC95D3991BC76 /* Pods-BeautifyExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeautifyExampleTests.release.xcconfig"; path = "Target Support Files/Pods-BeautifyExampleTests/Pods-BeautifyExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		3D32F315DAB48F1AE0AFB5C4 /* Pods_BeautifyExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeautifyExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55AE3D698E3E43CFA1B47A16 /* Pods-BeautifyExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeautifyExample.debug.xcconfig"; path = "Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample.debug.xcconfig"; sourceTree = "<group>"; };
-		5F138143775C3F4F14DC39F0 /* Pods_BeautifyExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeautifyExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC523AADA896ACCF33329856 /* Pods-BeautifyExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeautifyExample.release.xcconfig"; path = "Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample.release.xcconfig"; sourceTree = "<group>"; };
+		DDA4FF26FEF71B547AC46AE1 /* Pods_BeautifyExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeautifyExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E327E03A25958C52002875F9 /* chaoA.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = chaoA.bundle; sourceTree = "<group>"; };
+		E327E03C25958D74002875F9 /* dousha.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = dousha.bundle; sourceTree = "<group>"; };
+		E327E03D25958D74002875F9 /* naicha.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = naicha.bundle; sourceTree = "<group>"; };
 		E35B22C8253571FF00F50AC2 /* FUTestRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUTestRecorder.h; sourceTree = "<group>"; };
 		E35B22C9253571FF00F50AC2 /* FUTestRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTestRecorder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -193,7 +199,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCCBCEC3059EE2F43DE18141 /* Pods_BeautifyExampleTests.framework in Frameworks */,
+				EF9F4BBC82E8B0644E0F1CD2 /* Pods_BeautifyExampleTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,13 +222,13 @@
 		09275D0D24DBE135005302C0 /* FaceUnity */ = {
 			isa = PBXGroup;
 			children = (
-				03F8193D24E0E66A004F7F36 /* authpack.h */,
-				2D76FAC4253D3CC1004F040F /* FURecordEncoder.h */,
-				2D76FAC5253D3CC1004F040F /* FURecordEncoder.m */,
 				09197A832534B53700F94343 /* FUCamera.h */,
 				09197A862534B53800F94343 /* FUCamera.m */,
+				2DC7C631257E15CD00690AEE /* FURecordEncoder.h */,
+				2DC7C632257E15CE00690AEE /* FURecordEncoder.m */,
 				09197A842534B53800F94343 /* FUOpenGLView.h */,
 				09197A852534B53800F94343 /* FUOpenGLView.m */,
+				03F8193D24E0E66A004F7F36 /* authpack.h */,
 				E35B22C8253571FF00F50AC2 /* FUTestRecorder.h */,
 				E35B22C9253571FF00F50AC2 /* FUTestRecorder.m */,
 				2DF48BEC2514912900575424 /* FUManager.h */,
@@ -336,6 +342,9 @@
 		2D08C3A72508749300F7206C /* 美妆 */ = {
 			isa = PBXGroup;
 			children = (
+				E327E03C25958D74002875F9 /* dousha.bundle */,
+				E327E03D25958D74002875F9 /* naicha.bundle */,
+				E327E03A25958C52002875F9 /* chaoA.bundle */,
 				2D08C3AA2508749300F7206C /* linjia.bundle */,
 				2D08C3B12508749300F7206C /* gangfeng.bundle */,
 			);
@@ -381,7 +390,7 @@
 				09D9725425206D9D00EF9E46 /* CoreML.framework */,
 				09D97238251DE97400EF9E46 /* VideoToolbox.framework */,
 				3D32F315DAB48F1AE0AFB5C4 /* Pods_BeautifyExample.framework */,
-				5F138143775C3F4F14DC39F0 /* Pods_BeautifyExampleTests.framework */,
+				DDA4FF26FEF71B547AC46AE1 /* Pods_BeautifyExampleTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -399,7 +408,7 @@
 				09C6665D24D7BC89001D7AE2 /* Resources */,
 				AB7B94B55A971FAC4E9EBF43 /* [CP] Embed Pods Frameworks */,
 				2DC7D6082537235B00DA0A4B /* Embed Frameworks */,
-				07DC546CD82FF1978D250A2A /* [CP] Copy Pods Resources */,
+				CFA0CFFFB7E5A31B023BEC5F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -477,8 +486,11 @@
 				2D08C3CE2508749300F7206C /* Localizable.strings in Resources */,
 				2D08C3E22508749300F7206C /* gangfeng.bundle in Resources */,
 				2D08C3EE2508749400F7206C /* fashi.bundle in Resources */,
+				E327E03E25958D74002875F9 /* dousha.bundle in Resources */,
+				E327E03B25958C52002875F9 /* chaoA.bundle in Resources */,
 				2D08C3DB2508749300F7206C /* linjia.bundle in Resources */,
 				2D08C3F22508749400F7206C /* sdlu.bundle in Resources */,
+				E327E03F25958D74002875F9 /* naicha.bundle in Resources */,
 				09C6667224D7BC8B001D7AE2 /* LaunchScreen.storyboard in Resources */,
 				2D08C3F12508749400F7206C /* sdlu.png in Resources */,
 				2D08C3D52508749300F7206C /* FUAPIDemoBar.xib in Resources */,
@@ -498,23 +510,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		07DC546CD82FF1978D250A2A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		74349EBC31DE4BC52CC4BB83 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -576,6 +571,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		CFA0CFFFB7E5A31B023BEC5F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -596,7 +608,7 @@
 				03F8193524E004A7004F7F36 /* VideoProcessingManager.m in Sources */,
 				2D08C3D62508749300F7206C /* UIColor+FUAPIDemoBar.m in Sources */,
 				03F8196324E1371B004F7F36 /* KeyCenter.m in Sources */,
-				2D76FAC6253D3CC1004F040F /* FURecordEncoder.m in Sources */,
+				2DC7C633257E15CE00690AEE /* FURecordEncoder.m in Sources */,
 				2DF48BEE2514912900575424 /* FUManager.m in Sources */,
 				2D08C3D42508749300F7206C /* FUAPIDemoBar.m in Sources */,
 				2D08C3D82508749300F7206C /* FUDateHandle.m in Sources */,

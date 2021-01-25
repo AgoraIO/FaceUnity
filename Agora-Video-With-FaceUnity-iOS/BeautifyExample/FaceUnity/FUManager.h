@@ -50,11 +50,7 @@ typedef NS_ENUM(NSUInteger, FUNamaHandleType) {
 @property (nonatomic, strong) FUBeautyParam *seletedFliter;
 
 
-
-
 + (FUManager *)shareManager;
-
-- (void)setAsyncTrackFaceEnable:(BOOL)enable;
 
 /**销毁全部道具*/
 - (void)destoryItems;
