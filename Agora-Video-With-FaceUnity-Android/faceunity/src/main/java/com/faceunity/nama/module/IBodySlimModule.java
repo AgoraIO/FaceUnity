@@ -5,7 +5,7 @@ package com.faceunity.nama.module;
  *
  * @author Richie on 2020.07.07
  */
-public interface IBodySlimModule {
+public interface IBodySlimModule extends IEffectModule {
     /**
      * 设置最大人体数量
      *

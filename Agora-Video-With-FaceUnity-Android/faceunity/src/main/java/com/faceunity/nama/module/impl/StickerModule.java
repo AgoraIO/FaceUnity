@@ -1,8 +1,10 @@
-package com.faceunity.nama.module;
+package com.faceunity.nama.module.impl;
 
 import android.content.Context;
 
 import com.faceunity.nama.entity.Sticker;
+import com.faceunity.nama.module.IStickerModule;
+import com.faceunity.nama.module.event.RenderEventQueue;
 import com.faceunity.nama.utils.BundleUtils;
 import com.faceunity.nama.utils.LogUtils;
 import com.faceunity.nama.utils.ThreadHelper;

@@ -15,11 +15,11 @@ import com.faceunity.nama.FURenderer;
 import com.faceunity.nama.IModuleManager;
 import com.faceunity.nama.R;
 import com.faceunity.nama.entity.Makeup;
-import com.faceunity.nama.entity.MakeupEnum;
 import com.faceunity.nama.entity.Sticker;
-import com.faceunity.nama.entity.StickerEnum;
 import com.faceunity.nama.module.IMakeupModule;
 import com.faceunity.nama.module.IStickerModule;
+import com.faceunity.nama.ui.enums.MakeupEnum;
+import com.faceunity.nama.ui.enums.StickerEnum;
 import com.faceunity.nama.ui.seekbar.DiscreteSeekBar;
 
 import java.util.ArrayList;
@@ -95,9 +95,22 @@ public class FaceUnityView extends FrameLayout {
 
         CheckGroup checkGroup = view.findViewById(R.id.cg_nav_bar);
         checkGroup.setOnCheckedChangeListener(new CheckGroup.OnCheckedChangeListener() {
+            private long mLastClickTime;
+            private int mLastCheckedId = View.NO_ID;
 
             @Override
             public void onCheckedChanged(CheckGroup group, int checkedId) {
+                if (mLastCheckedId == checkedId) {
+                    return;
+                }
+                long curClickTime = System.currentTimeMillis();
+                if (curClickTime - mLastClickTime < OnMultiClickListener.MIN_CLICK_DELAY_TIME) {
+                    group.check(mLastCheckedId);
+                    return;
+                }
+                mLastClickTime = curClickTime;
+                mLastCheckedId = checkedId;
+
                 if (checkedId == R.id.cb_face_beauty) {
                     beautyControlView.setVisibility(VISIBLE);
                     bodySlimControlView.setVisibility(GONE);

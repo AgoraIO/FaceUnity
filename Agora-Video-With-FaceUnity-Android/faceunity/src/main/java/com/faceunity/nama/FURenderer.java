@@ -2,14 +2,15 @@ package com.faceunity.nama;
 
 import android.content.Context;
 
-import com.faceunity.nama.module.BodySlimModule;
-import com.faceunity.nama.module.FaceBeautyModule;
+import com.faceunity.nama.module.IBodySlimModule;
 import com.faceunity.nama.module.IEffectModule;
 import com.faceunity.nama.module.IFaceBeautyModule;
 import com.faceunity.nama.module.IMakeupModule;
 import com.faceunity.nama.module.IStickerModule;
-import com.faceunity.nama.module.MakeupModule;
-import com.faceunity.nama.module.StickerModule;
+import com.faceunity.nama.module.impl.BodySlimModule;
+import com.faceunity.nama.module.impl.FaceBeautyModule;
+import com.faceunity.nama.module.impl.MakeupModule;
+import com.faceunity.nama.module.impl.StickerModule;
 import com.faceunity.nama.utils.BundleUtils;
 import com.faceunity.nama.utils.DeviceUtils;
 import com.faceunity.nama.utils.LogUtils;
@@ -35,7 +36,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
     private static final int ITEMS_ARRAY_STICKER = 1;
     private static final int ITEMS_ARRAY_MAKEUP = 2;
     private static final int ITEMS_ARRAY_BODY_SLIM = 3;
-    /* 句柄数组长度 4 */
+    /* 句柄数组长度 4，根据功能需要调整大小 */
     private static final int ITEMS_ARRAY_LENGTH = 4;
     /* 存放美颜、贴纸等句柄的数组 */
     private final int[] mItemsArray = new int[ITEMS_ARRAY_LENGTH];
@@ -63,10 +64,10 @@ public class FURenderer implements IFURenderer, IModuleManager {
     /* GL 线程 ID */
     private long mGlThreadId;
     /* 特效模块，美颜、贴纸、美妆和美体 */
-    private FaceBeautyModule mFaceBeautyModule;
-    private StickerModule mStickerModule;
-    private MakeupModule mMakeupModule;
-    private BodySlimModule mBodySlimModule;
+    private IFaceBeautyModule mFaceBeautyModule;
+    private IStickerModule mStickerModule;
+    private IMakeupModule mMakeupModule;
+    private IBodySlimModule mBodySlimModule;
     /* 是否创建过特效模块，用于恢复选中效果 */
     private boolean mIsCreatedSticker;
     private boolean mIsCreatedMakeup;
@@ -281,6 +282,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
         prepareDrawFrame();
         int flags = createFlags();
         flags ^= mInputTextureType;
+        flags |= faceunity.FU_ADM_FLAG_ENABLE_READBACK;
         if (mIsRunBenchmark) {
             mCallStartTime = System.nanoTime();
         }
@@ -486,7 +488,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
     }
 
     @Override
-    public BodySlimModule getBodySlimModule() {
+    public IBodySlimModule getBodySlimModule() {
         return mBodySlimModule;
     }
 
@@ -547,7 +549,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
         int trackFace = faceunity.fuIsTracking();
         // 获取人体是否识别
         int trackHumans = faceunity.fuHumanProcessorGetNumResults();
-        if (mItemsArray[ITEMS_ARRAY_BODY_SLIM] > 0) {
+        if (BundleUtils.isAiModelLoaded(faceunity.FUAITYPE_HUMAN_PROCESSOR)) {
             if (mTrackHumanStatus != trackHumans || mTrackFaceStatus != trackFace) {
                 mTrackHumanStatus = trackHumans;
                 mTrackFaceStatus = trackFace;
@@ -555,7 +557,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
                     mOnTrackStatusChangedListener.onTrackStatusChanged(TRACK_TYPE_HUMAN, trackHumans + trackFace);
                 }
             }
-        } else {
+        } else if (BundleUtils.isAiModelLoaded(faceunity.FUAITYPE_FACEPROCESSOR)) {
             if (mTrackFaceStatus != trackFace) {
                 mTrackFaceStatus = trackFace;
                 if (mOnTrackStatusChangedListener != null) {
@@ -618,6 +620,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
         });
     }
 
+    /* 根据不同的 texture 类型和输入方向，修改 rotationMode */
     private int createRotationMode() {
         if (mInputTextureType == FURenderer.INPUT_TEXTURE_2D) {
             return faceunity.FU_ROTATION_MODE_0;
@@ -715,7 +718,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
 
     private static final int NANO_IN_ONE_MILLI_SECOND = 1_000_000;
     private static final int NANO_IN_ONE_SECOND = 1_000_000_000;
-    private static final int FRAME_COUNT = 20;
+    private static final int FRAME_COUNT = 100;
     private boolean mIsRunBenchmark = false;
     private int mCurrentFrameCount;
     private long mLastFrameTimestamp;
@@ -779,7 +782,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
         }
 
         /**
-         * 是否手动创建 EGLContext
+         * 是否手动创建 EGLContext，默认不创建
          *
          * @param isCreateEGLContext
          * @return
@@ -824,17 +827,6 @@ public class FURenderer implements IFURenderer, IModuleManager {
         }
 
         /**
-         * 输入图像的 buffer 类型，一般不用修改此项
-         *
-         * @param inputImageFormat
-         * @return
-         */
-        public Builder setInputImageFormat(int inputImageFormat) {
-            this.inputImageFormat = inputImageFormat;
-            return this;
-        }
-
-        /**
          * 输入图像的方向
          *
          * @param inputImageOrientation
@@ -846,7 +838,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
         }
 
         /**
-         * 相机前后方向
+         * 相机前后置方向
          *
          * @param cameraFacing
          * @return
@@ -901,7 +893,7 @@ public class FURenderer implements IFURenderer, IModuleManager {
         }
 
         /**
-         * 是否需要 benchmark 统计数据
+         * 是否运行 benchmark 数据统计，一般用于性能分析
          *
          * @param isRunBenchmark
          * @return
@@ -962,12 +954,13 @@ public class FURenderer implements IFURenderer, IModuleManager {
             fuRenderer.mOnTrackStatusChangedListener = onTrackStatusChangedListener;
             fuRenderer.mOnSystemErrorListener = onSystemErrorListener;
 
-            LogUtils.debug(TAG, "FURenderer fields. isCreateEglContext: " + isCreateEglContext + ", maxFaces: "
-                    + maxFaces + ", inputTextureType: " + inputTextureType + ", inputImageFormat: "
-                    + inputImageFormat + ", inputImageOrientation: " + inputImageOrientation
-                    + ", deviceOrientation: " + deviceOrientation + ", cameraType: " + cameraFacing
-                    + ", isRunBenchmark: " + isRunBenchmark + ", isCreateSticker: " + isCreateSticker
-                    + ", isCreateMakeup: " + isCreateMakeup + ", isCreateBodySlim: " + isCreateBodySlim);
+            LogUtils.debug(TAG, "FURenderer fields. isCreateEglContext: " + isCreateEglContext
+                    + ", maxFaces: " + maxFaces + ", inputTextureType: " + inputTextureType
+                    + ", inputImageFormat: " + inputImageFormat + ", inputImageOrientation: " + inputImageOrientation
+                    + ", deviceOrientation: " + deviceOrientation + ", cameraFacing: " + cameraFacing
+                    + ", isRunBenchmark: " + isRunBenchmark + ", isCreateFaceBeauty: " + isCreateFaceBeauty
+                    + ", isCreateSticker: " + isCreateSticker + ", isCreateMakeup: " + isCreateMakeup
+                    + ", isCreateBodySlim: " + isCreateBodySlim);
             return fuRenderer;
         }
     }

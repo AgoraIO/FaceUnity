@@ -1,6 +1,6 @@
 package com.faceunity.nama;
 
-import com.faceunity.nama.module.BodySlimModule;
+import com.faceunity.nama.module.IBodySlimModule;
 import com.faceunity.nama.module.IFaceBeautyModule;
 import com.faceunity.nama.module.IMakeupModule;
 import com.faceunity.nama.module.IStickerModule;
@@ -63,7 +63,7 @@ public interface IModuleManager {
      *
      * @return
      */
-    BodySlimModule getBodySlimModule();
+    IBodySlimModule getBodySlimModule();
 
     /**
      * 销毁美体模块

@@ -1,5 +1,7 @@
-package com.faceunity.nama.module;
+package com.faceunity.nama.module.impl;
 
+import com.faceunity.nama.module.IEffectModule;
+import com.faceunity.nama.module.event.RenderEventQueue;
 import com.faceunity.nama.utils.LogUtils;
 import com.faceunity.wrapper.faceunity;
 

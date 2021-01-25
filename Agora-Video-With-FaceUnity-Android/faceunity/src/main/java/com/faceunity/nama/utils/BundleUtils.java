@@ -24,6 +24,9 @@ public final class BundleUtils {
      * @param type       faceunity.FUAITYPE_XXX
      */
     public static boolean loadAiModel(Context context, String bundlePath, int type) {
+        if (isAiModelLoaded(type)) {
+            return true;
+        }
         byte[] buffer = IOUtils.readFile(context, bundlePath);
         if (buffer != null) {
             int isLoaded = faceunity.fuLoadAIModelFromPackage(buffer, type);

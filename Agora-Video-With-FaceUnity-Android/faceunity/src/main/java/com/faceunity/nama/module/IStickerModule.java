@@ -7,7 +7,7 @@ import com.faceunity.nama.entity.Sticker;
  *
  * @author Richie on 2020.07.07
  */
-public interface IStickerModule {
+public interface IStickerModule extends IEffectModule {
     /**
      * 选择贴纸
      *

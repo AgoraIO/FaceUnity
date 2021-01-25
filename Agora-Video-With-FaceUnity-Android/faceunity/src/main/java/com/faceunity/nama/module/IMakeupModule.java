@@ -7,7 +7,7 @@ import com.faceunity.nama.entity.Makeup;
  *
  * @author Richie on 2020.07.07
  */
-public interface IMakeupModule {
+public interface IMakeupModule extends IEffectModule {
     /**
      * 选择美妆
      *
@@ -28,4 +28,20 @@ public interface IMakeupModule {
      * @param isMakeupFlipPoints 0 为关闭，1 为开启
      */
     void setIsMakeupFlipPoints(int isMakeupFlipPoints);
+
+    /**
+     * 设置美妆选择回调
+     *
+     * @param onMakeupSelectedListener
+     */
+    void setOnMakeupSelectedListener(OnMakeupSelectedListener onMakeupSelectedListener);
+
+    interface OnMakeupSelectedListener {
+        /**
+         * 选择美妆
+         *
+         * @param itemHandle 句柄
+         */
+        void onMakeupSelected(int itemHandle);
+    }
 }

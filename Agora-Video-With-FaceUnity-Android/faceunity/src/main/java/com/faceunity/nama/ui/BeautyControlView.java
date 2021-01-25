@@ -19,10 +19,10 @@ import android.widget.TextView;
 
 import com.faceunity.nama.R;
 import com.faceunity.nama.entity.Filter;
-import com.faceunity.nama.entity.FilterEnum;
 import com.faceunity.nama.module.IFaceBeautyModule;
 import com.faceunity.nama.ui.dialog.BaseDialogFragment;
 import com.faceunity.nama.ui.dialog.ConfirmDialogFragment;
+import com.faceunity.nama.ui.enums.FilterEnum;
 import com.faceunity.nama.ui.seekbar.DiscreteSeekBar;
 import com.faceunity.nama.utils.DecimalUtils;
 
