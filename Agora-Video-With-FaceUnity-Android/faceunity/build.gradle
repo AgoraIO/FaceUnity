@@ -6,9 +6,9 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 720
-        versionName "7.2.0"
-        // 7.2.0_phy_6f1ec6e4_b431017
+        versionCode 730
+        versionName "7.3.0"
+        // 7.3.0_phy_505b959b_bf80f59
     }
     buildTypes {
         release {
@@ -23,5 +23,5 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:2.0.1'
-    implementation 'com.faceunity:nama:7.2.0'
+    implementation 'com.faceunity:nama:7.3.0'
 }

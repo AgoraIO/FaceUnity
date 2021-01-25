@@ -5,7 +5,7 @@ package com.faceunity.nama.module;
  *
  * @author Richie on 2020.07.07
  */
-public interface IFaceBeautyModule {
+public interface IFaceBeautyModule extends IEffectModule {
     /**
      * 设置需要识别的人脸个数
      *

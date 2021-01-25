@@ -1,4 +1,4 @@
-package com.faceunity.nama.module;
+package com.faceunity.nama.module.event;
 
 import com.faceunity.nama.utils.LogUtils;
 import com.faceunity.wrapper.faceunity;

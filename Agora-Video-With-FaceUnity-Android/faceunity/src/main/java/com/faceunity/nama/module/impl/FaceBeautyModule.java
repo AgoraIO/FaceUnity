@@ -1,7 +1,9 @@
-package com.faceunity.nama.module;
+package com.faceunity.nama.module.impl;
 
 import android.content.Context;
 
+import com.faceunity.nama.module.IFaceBeautyModule;
+import com.faceunity.nama.module.event.RenderEventQueue;
 import com.faceunity.nama.param.BeautificationParam;
 import com.faceunity.nama.utils.BundleUtils;
 import com.faceunity.nama.utils.LogUtils;

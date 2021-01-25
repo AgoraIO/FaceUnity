@@ -1,6 +1,7 @@
-package com.faceunity.nama.entity;
+package com.faceunity.nama.ui.enums;
 
 import com.faceunity.nama.R;
+import com.faceunity.nama.entity.Sticker;
 
 import java.util.ArrayList;
 import java.util.List;

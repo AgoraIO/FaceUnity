@@ -1,6 +1,7 @@
-package com.faceunity.nama.entity;
+package com.faceunity.nama.ui.enums;
 
 import com.faceunity.nama.R;
+import com.faceunity.nama.entity.Makeup;
 
 import java.util.ArrayList;
 
@@ -14,8 +15,9 @@ public enum MakeupEnum {
      * 减龄，暖冬，红枫，Rose，少女
      */
     MAKEUP_NONE(R.drawable.makeup_none_normal, "卸妆", "", false),
-    MAKEUP_HONGFENG(R.drawable.demo_combination_red_maple, "红枫", "makeup/hongfeng.bundle", false),
-    MAKEUP_SHAONV(R.drawable.demo_combination_girl, "少女", "makeup/shaonv.bundle", false);
+    MAKEUP_NAICHA(R.drawable.demo_combination_tea_with_milk, "奶茶", "makeup/naicha.bundle", false),
+    MAKEUP_DOUSHA(R.drawable.demo_combination_red_bean_paste, "豆沙", "makeup/dousha.bundle", false),
+    MAKEUP_CHAOA(R.drawable.demo_combination_super_a, "超A", "makeup/chaoa.bundle", false);
 
     private int iconId;
     private String name;

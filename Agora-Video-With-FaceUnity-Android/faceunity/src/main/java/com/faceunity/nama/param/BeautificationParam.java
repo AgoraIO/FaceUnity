@@ -27,6 +27,10 @@ public final class BeautificationParam {
      */
     public static final String COLOR_LEVEL = "color_level";
     /**
+     * 锐化程度，范围 [0-1]，默认 0.0
+     */
+    public static final String SHARPEN = "sharpen";
+    /**
      * 红润程度，范围 [0-2]，默认 0.5
      */
     public static final String RED_LEVEL = "red_level";
@@ -71,6 +75,18 @@ public final class BeautificationParam {
      * 变形程度，0-1，默认 1
      */
     public static final String FACE_SHAPE_LEVEL = "face_shape_level";
+    /**
+     * 下颌骨，范围 [0-1]，默认 0
+     */
+    public static final String INTENSITY_LOW_JAW = "intensity_lower_jaw";
+    /**
+     * 颧骨，范围 [0-1]，默认 0
+     */
+    public static final String INTENSITY_CHEEKBONES = "intensity_cheekbones";
+    /**
+     * 圆眼，范围 [0-1]，默认 0.5
+     */
+    public static final String INTENSITY_EYE_CIRCLE = "intensity_eye_circle";
     /**
      * 大眼程度，范围 [0-1]，默认 0.5
      */

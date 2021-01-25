@@ -2,7 +2,7 @@ package com.faceunity.nama.ui;
 
 import com.faceunity.nama.R;
 import com.faceunity.nama.entity.Filter;
-import com.faceunity.nama.entity.FilterEnum;
+import com.faceunity.nama.ui.enums.FilterEnum;
 import com.faceunity.nama.utils.DecimalUtils;
 
 import java.util.HashMap;

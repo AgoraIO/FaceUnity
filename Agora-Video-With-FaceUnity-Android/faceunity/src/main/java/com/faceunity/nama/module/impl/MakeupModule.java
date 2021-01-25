@@ -1,8 +1,10 @@
-package com.faceunity.nama.module;
+package com.faceunity.nama.module.impl;
 
 import android.content.Context;
 
 import com.faceunity.nama.entity.Makeup;
+import com.faceunity.nama.module.IMakeupModule;
+import com.faceunity.nama.module.event.RenderEventQueue;
 import com.faceunity.nama.param.MakeupParam;
 import com.faceunity.nama.utils.BundleUtils;
 import com.faceunity.nama.utils.LogUtils;
@@ -21,12 +23,15 @@ public class MakeupModule extends AbstractEffectModule implements IMakeupModule 
     private int mIsFlipPoints = 0;
     private Context mContext;
     private int mMakeupHandle;
+    private boolean mCreatingItem;
+    private OnMakeupSelectedListener mOnMakeupSelectedListener;
 
     @Override
     public void create(final Context context, final ModuleCallback moduleCallback) {
         if (mItemHandle > 0) {
             return;
         }
+        mCreatingItem = false;
         mContext = context;
         mRenderEventQueue = new RenderEventQueue();
         ThreadHelper.getInstance().execute(new Runnable() {
@@ -54,6 +59,7 @@ public class MakeupModule extends AbstractEffectModule implements IMakeupModule 
         if (makeup == null) {
             return;
         }
+        mCreatingItem = true;
         LogUtils.debug(TAG, "selectMakeup %s", makeup);
         ThreadHelper.getInstance().execute(new Runnable() {
             @Override
@@ -74,9 +80,10 @@ public class MakeupModule extends AbstractEffectModule implements IMakeupModule 
                             LogUtils.debug(TAG, "makeup unbind %d", oldHandle);
                         }
                         if (makeupHandle > 0) {
-                            setIsMakeupFlipPoints(mIsFlipPoints);
                             faceunity.fuBindItems(mItemHandle, new int[]{makeupHandle});
                             LogUtils.debug(TAG, "makeup bind %d", makeupHandle);
+                            faceunity.fuItemSetParam(mItemHandle, MakeupParam.MAKEUP_INTENSITY, mMakeupIntensity);
+                            faceunity.fuItemSetParam(mItemHandle, MakeupParam.IS_FLIP_POINTS, mIsFlipPoints);
                         }
                         if (oldHandle > 0) {
                             faceunity.fuDestroyItem(oldHandle);
@@ -84,6 +91,11 @@ public class MakeupModule extends AbstractEffectModule implements IMakeupModule 
                         }
                         mMakeupHandle = makeupHandle;
                         mMakeup = makeup;
+                        mCreatingItem = false;
+
+                        if (mOnMakeupSelectedListener != null) {
+                            mOnMakeupSelectedListener.onMakeupSelected(makeupHandle);
+                        }
                     }
                 });
             }
@@ -103,13 +115,14 @@ public class MakeupModule extends AbstractEffectModule implements IMakeupModule 
                 mMakeupHandle = 0;
             }
         }
+        mCreatingItem = false;
         super.destroy();
     }
 
     @Override
     public void setMakeupIntensity(float intensity) {
         mMakeupIntensity = intensity;
-        if (mRenderEventQueue != null) {
+        if (!mCreatingItem && mRenderEventQueue != null) {
             mRenderEventQueue.addItemSetParamEvent(mItemHandle, MakeupParam.MAKEUP_INTENSITY, intensity);
         }
     }
@@ -120,6 +133,11 @@ public class MakeupModule extends AbstractEffectModule implements IMakeupModule 
         if (mRenderEventQueue != null) {
             mRenderEventQueue.addItemSetParamEvent(mItemHandle, MakeupParam.IS_FLIP_POINTS, isFlipPoints);
         }
+    }
+
+    @Override
+    public void setOnMakeupSelectedListener(OnMakeupSelectedListener onMakeupSelectedListener) {
+        mOnMakeupSelectedListener = onMakeupSelectedListener;
     }
 
 }

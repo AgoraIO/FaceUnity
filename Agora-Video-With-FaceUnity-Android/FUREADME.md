@@ -1,6 +1,8 @@
 ## 对接第三方 Demo 的 faceunity 模块
 
-当前的 Nama SDK 版本是 **7.2.0**。
+本工程是第三方 Demo 依赖的 faceunity 模块，每次升级 SDK 时会优先在这里改动，然后同步到各个第三方 Demo 中。
+
+当前的 Nama SDK 版本是 **7.3.0**。
 
 --------
 
@@ -14,7 +16,7 @@
 - assets/makeup 文件夹下 \*.bundle 是美妆素材文件。
 - com/faceunity/nama/authpack.java 是鉴权证书文件，必须提供有效的证书才能运行 Demo，请联系技术支持获取。
 
-通过 Maven 依赖最新版 SDK：`implementation 'com.faceunity:nama:7.2.0'`，方便升级，推荐使用。
+通过 Maven 依赖最新版 SDK：`implementation 'com.faceunity:nama:7.3.0'`，方便升级，推荐使用。
 
 其中，AAR 包含以下内容：
 
@@ -178,10 +180,10 @@ demo中，在FUChatActivity类，onCameraChangeRequested方法中执行，缺少
 ### 三、接口介绍
 
 - IFURenderer 是核心接口，提供了创建、销毁、处理等功能。使用时通过 FURenderer.Builder 创建合适的 FURenderer 实例即可。
-- IModuleManager 是模块管理接口，用于创建和销毁各个功能模块，FURenderer 是其实现类。
-- IFaceBeautyModule 是美颜模块的接口，用于调整美颜参数。使用时通过 FURenderer 拿到 FaceBeautyModule 实例，调用里面的接口方法即可。
-- IStickerModule 是贴纸模块的接口，用于加载贴纸效果。使用时通过 FURenderer 拿到 StickerModule 实例，调用里面的接口方法即可。
-- IMakeModule 是美妆模块的接口，用于加载美妆效果。使用时通过 FURenderer 拿到 MakeupModule 实例，调用里面的接口方法即可。
-- IBodySlimModule 是美体模块的接口，用于调整美体参数。使用时通过 FURenderer 拿到 BodySlimModule 实例，调用里面的接口方法即可。
+- IModuleManager 是模块管理接口，用于创建和销毁各个功能模块，FURenderer 是其实现类，通过它访问各个模块接口。
+- IFaceBeautyModule 是美颜模块的接口，用于调整美颜参数。使用时通过 FURenderer 拿到 IFaceBeautyModule 的实例，调用接口方法即可。
+- IStickerModule 是贴纸模块的接口，用于呈现贴纸效果。使用时通过 FURenderer 拿到 IStickerModule 的实例，调用接口方法即可。
+- IMakeModule 是美妆模块的接口，用于呈现美妆效果。使用时通过 FURenderer 拿到 IMakeupModule 的实例，调用接口方法即可。
+- IBodySlimModule 是美体模块的接口，用于调整美体参数。使用时通过 FURenderer 拿到 IBodySlimModule 的实例，调用接口方法即可。
 
 关于 SDK 的更多详细说明，请参看 **[FULiveDemoDroid](https://github.com/Faceunity/FULiveDemoDroid/)**。如有对接问题，请联系技术支持。
