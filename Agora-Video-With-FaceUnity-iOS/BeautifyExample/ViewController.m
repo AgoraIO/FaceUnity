@@ -30,8 +30,8 @@
 
 @property (nonatomic, strong) IBOutlet UIButton *switchBtn;
 @property (nonatomic, strong) IBOutlet UIButton *remoteMirrorBtn;
-@property (nonatomic, strong) IBOutlet UILabel *beautyStatus;
 @property (nonatomic, strong) IBOutlet UIView *missingAuthpackLabel;
+@property (weak, nonatomic) IBOutlet UIButton *muteAudioBtn;
 @property (nonatomic, strong) AgoraRtcVideoCanvas *videoCanvas;
 @property (nonatomic, assign) AgoraVideoMirrorMode localVideoMirrored;
 @property (nonatomic, assign) AgoraVideoMirrorMode remoteVideoMirrored;
@@ -61,7 +61,7 @@
     [self.rtcEngineKit enableVideo];
     [self.rtcEngineKit setParameters:@"{\"che.video.zerocopy\":true}"];
     AgoraVideoEncoderConfiguration* config = [[AgoraVideoEncoderConfiguration alloc] initWithSize:AgoraVideoDimension1280x720
-                                                                                        frameRate:AgoraVideoFrameRateFps30
+                                                                                        frameRate:AgoraVideoFrameRateFps15
                                                                                           bitrate:AgoraVideoBitrateStandard
                                                                                   orientationMode:AgoraVideoOutputOrientationModeFixedPortrait];
     [self.rtcEngineKit setVideoEncoderConfiguration:config];
@@ -99,7 +99,6 @@
     [self.capturerManager setVideoView:self.glVideoView];
     // set custom capturer as video source
     [self.rtcEngineKit setVideoSource:self.capturerManager];
-
     
     [self.rtcEngineKit joinChannelByToken:nil channelId:self.channelName info:nil uid:0 joinSuccess:^(NSString * _Nonnull channel, NSUInteger uid, NSInteger elapsed) {
         
@@ -118,7 +117,6 @@
     [FUManager shareManager].flipx = YES;
     [FUManager shareManager].trackFlipx = YES;
     [FUManager shareManager].isRender = YES;
-    [[FUManager shareManager] setAsyncTrackFaceEnable:NO];
     
     _demoBar = [[FUAPIDemoBar alloc] init];
     _demoBar.mDelegate = self;
@@ -199,6 +197,18 @@
     config.mirrorMode = self.remoteVideoMirrored;
     [self.rtcEngineKit setVideoEncoderConfiguration:config];
 }
+
+- (IBAction)muteAudioBtn:(UIButton *)sender {
+
+    sender.selected = !sender.selected;
+    if (sender.selected) {
+        
+        [sender setTitleColor:[UIColor blueColor] forState:(UIControlStateSelected)];
+    }
+    [self.rtcEngineKit muteLocalAudioStream:sender.selected];
+    
+}
+
 
 
 - (IBAction)backBtnClick:(UIButton *)sender {
