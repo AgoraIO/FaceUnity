@@ -122,9 +122,8 @@
 
 /// 美妆
 +(NSArray<FUBeautyParam *>*)setupMakeupData{
-   NSArray *prams = @[@"makeup_noitem",@"gangfeng",@"linjia"];
-    NSDictionary *titelDic = @{@"makeup_noitem":@"卸妆",@"gangfeng":@"港风",@"linjia":@"邻家"};
-    
+   NSArray *prams = @[@"makeup_noitem",@"chaoA",@"dousha",@"naicha"];
+   NSDictionary *titelDic = @{@"makeup_noitem":@"卸妆",@"naicha":@"奶茶",@"dousha":@"豆沙",@"chaoA":@"超A"};
     
    NSMutableArray *array = [[NSMutableArray alloc] init];
    for (NSString *str in prams) {

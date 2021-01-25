@@ -24,8 +24,6 @@
 	<string>Request Camera Usage</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Request Mic Usage</string>
-	<key>UIFileSharingEnabled</key>
-	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

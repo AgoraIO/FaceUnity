@@ -28,6 +28,7 @@
 @property (nonatomic, assign) int deviceOrientation;
 
 
+
 @end
 
 static FUManager *shareManager = NULL;
@@ -62,23 +63,15 @@ static FUManager *shareManager = NULL;
         [self setupFilterData];
         [self setupShapData];
         [self setupSkinData];
-        
         [self loadFilter];
         NSLog(@"faceunitySDK version:%@",[FURenderer getVersion]);
         [FURenderer setMaxFaces:4];
         self.deviceOrientation = 0;
         
-//        [[FUTestRecorder shareRecorder] setupRecord];
+        [[FUTestRecorder shareRecorder] setupRecord];
     }
     
     return self;
-}
-
-
-#pragma mark -  nama查询&设置
-- (void)   setAsyncTrackFaceEnable:(BOOL)enable{
-    
-    [FURenderer setAsyncTrackFaceEnable:enable];
 }
 
 -(void)loadAIModle{
@@ -390,10 +383,10 @@ static int oldHandle = 0;
 /**将道具绘制到pixelBuffer*/
 - (CVPixelBufferRef)renderItemsToPixelBuffer:(CVPixelBufferRef)pixelBuffer{
     if ([self isDeviceMotionChange]) {
-        
+    
         fuSetDefaultRotationMode(self.deviceOrientation);
-
-        /* 解决旋转屏幕效果异常 onCameraChange*/
+            
+            /* 解决旋转屏幕效果异常 onCameraChange*/
         [FURenderer onCameraChange];
     }
     
@@ -635,9 +628,8 @@ static int oldHandle = 0;
 - (CVPixelBufferRef)processFrame:(CVPixelBufferRef)frame {
     if(self.enabled) {
         
+        [[FUTestRecorder shareRecorder] processFrameWithLog];
         CVPixelBufferRef buffer = [self renderItemsToPixelBuffer:frame];
-//        [[FUTestRecorder shareRecorder] processFrameWithLog];
-        
         return buffer;
     }
     return frame;
