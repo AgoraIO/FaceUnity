@@ -40,12 +40,10 @@ public class MyApplication extends Application {
     }
 
     private void initVideoCaptureAsync() {
-        new Thread(() -> {
-            Context application = getApplicationContext();
-            FURenderer.setup(application);
-            mVideoManager = new CameraVideoManager(application,
-                    new PreprocessorFaceUnity(application));
-        }).start();
+        Context application = getApplicationContext();
+        FURenderer.setup(application);
+        mVideoManager = new CameraVideoManager(application,
+                new PreprocessorFaceUnity(application));
     }
 
     public RtcEngine rtcEngine() {
