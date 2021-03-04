@@ -98,7 +98,7 @@ self.videoFilter.enabled = YES;
 
 ##### Custom Filter
 
-Create a class that implements the `VideoFilterDelegate` protocol `FUManager` , Implement the `processFrame:` method to handle the videoframe .
+Create a class that implements the `VideoFilterDelegate` protocol `FUManager`, Implement the `processFrame:` method to handle the videoframe .
 
 ```objc
 
@@ -116,7 +116,7 @@ Create a class that implements the `VideoFilterDelegate` protocol `FUManager` , 
 
 ##### FaceUnity load
 
-in `ViewController.m` `viewDidLoad:` add demoBar,implements the `FUAPIDemoBarDelegate` protocol 
+in `ViewController.m` `viewDidLoad:` add demoBar, implements the `FUAPIDemoBarDelegate` protocol 
 
 ```objc
 
@@ -172,7 +172,7 @@ check `delloc:`
 - If you encounter a big head problem, please contact technical support
 
 ## Developer Environment Requirements
-* XCode 8.0 +
+* Xcode 8.0 +
 * Real devices (iPhone or iPad)
 * iOS simulator is NOT supported
 
