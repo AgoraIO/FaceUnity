@@ -42,7 +42,7 @@ Agora 功能实现请参考 [Agora 官方文档](https://docs.agora.io/cn/Intera
 pod install
 ```
   
-2. 最后使用 XCode 打开 BeautifyExample.xcworkspace，连接iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。
+2. 最后使用 Xcode 打开 BeautifyExample.xcworkspace，连接iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。
 
 
 
