@@ -14,10 +14,10 @@
 @property (nonatomic, strong) AGMCameraCapturer *cameraCapturer;
 @property (nonatomic, strong) AGMCapturerVideoConfig *videoConfig;
 @property (nonatomic, weak) id<CapturerManagerDelegate> delegate;
+@property (nonatomic, strong) AgoraRtcEngineKit *rtcEngineKit;
 @end
 
 @implementation CapturerManager
-@synthesize consumer;
 
 - (void)initCapturer {
     self.cameraCapturer = [[AGMCameraCapturer alloc] initWithConfig:self.videoConfig];
@@ -28,7 +28,13 @@
     if ([self.delegate respondsToSelector:@selector(processFrame:)]) {
         CVPixelBufferRef outputPixelBuffer = [self.delegate processFrame:pixelBuffer];
         if (!outputPixelBuffer) return;
-        [self.consumer consumePixelBuffer:outputPixelBuffer withTimestamp:time rotation:AgoraVideoRotationNone];
+//        [self.consumer consumePixelBuffer:outputPixelBuffer withTimestamp:time rotation:AgoraVideoRotationNone];
+        AgoraVideoFrame *agoraVideoFrame = [AgoraVideoFrame alloc];
+        agoraVideoFrame.format = 12;
+        agoraVideoFrame.textureBuf = outputPixelBuffer;
+        agoraVideoFrame.time = time;
+        agoraVideoFrame.rotation = 0;
+        [self.rtcEngineKit pushExternalVideoFrame:agoraVideoFrame];
     }
 }
 
@@ -38,7 +44,13 @@
             AGMCVPixelBuffer *agmPixelBuffer = frame;
             CVPixelBufferRef outputPixelBuffer = [self.delegate processFrame:agmPixelBuffer.pixelBuffer];
             if (!outputPixelBuffer) return;
-            [self.consumer consumePixelBuffer:outputPixelBuffer withTimestamp:CMTimeMake(CACurrentMediaTime() * 1000, 1000) rotation:AgoraVideoRotationNone];
+            AgoraVideoFrame *agoraVideoFrame = [AgoraVideoFrame alloc];
+            agoraVideoFrame.format = 12;
+            agoraVideoFrame.textureBuf = outputPixelBuffer;
+            agoraVideoFrame.time = CMTimeMake(CACurrentMediaTime() * 1000, 1000);
+            agoraVideoFrame.rotation = 0;
+            [self.rtcEngineKit pushExternalVideoFrame:agoraVideoFrame];
+//            [self.consumer consumePixelBuffer:outputPixelBuffer withTimestamp:CMTimeMake(CACurrentMediaTime() * 1000, 1000) rotation:AgoraVideoRotationNone];
             if (self.videoView) {
                 AGMCVPixelBuffer *newPixelBuffer = [[AGMCVPixelBuffer alloc] initWithPixelBuffer:outputPixelBuffer];
                 [newPixelBuffer setParamWithWidth:agmPixelBuffer.width height:agmPixelBuffer.height rotation:agmPixelBuffer.rotation timeStampMs:agmPixelBuffer.timeStampMs];
@@ -49,7 +61,13 @@
         AGMNV12Texture *nv12Texture = frame;
         CVPixelBufferRef outputPixelBuffer = [self.delegate processFrame:nv12Texture.pixelBuffer];
         if (!outputPixelBuffer) return;
-        [self.consumer consumePixelBuffer:outputPixelBuffer withTimestamp:CMTimeMake(1, (int32_t)frame.timeStampMs) rotation:AgoraVideoRotationNone];
+        AgoraVideoFrame *agoraVideoFrame = [AgoraVideoFrame alloc];
+        agoraVideoFrame.format = 12;
+        agoraVideoFrame.textureBuf = outputPixelBuffer;
+        agoraVideoFrame.time = CMTimeMake(1, (int32_t)frame.timeStampMs);
+        agoraVideoFrame.rotation = 0;
+        [self.rtcEngineKit pushExternalVideoFrame:agoraVideoFrame];
+//        [self.consumer consumePixelBuffer:outputPixelBuffer withTimestamp:CMTimeMake(1, (int32_t)frame.timeStampMs) rotation:AgoraVideoRotationNone];
         if (self.videoView) {
             AGMNV12Texture *newTexture = [[AGMNV12Texture alloc] init];
             [newTexture uploadPixelBufferToTextures:outputPixelBuffer];
@@ -82,11 +100,6 @@
     [self.cameraCapturer switchCamera];
 }
 
-#pragma mark - AgoraVideoSourceProtocol
-- (AgoraVideoBufferType)bufferType {
-    return AgoraVideoBufferTypePixelBuffer;
-}
-
 - (void)shouldDispose {
     
 }
@@ -104,10 +117,9 @@
 }
 
 
-- (AgoraVideoCaptureType)captureType {
-    return AgoraVideoCaptureTypeCamera;
+- (void)setEngine: (AgoraRtcEngineKit *)engine {
+    self.rtcEngineKit = engine;
 }
-
 
 
 @end

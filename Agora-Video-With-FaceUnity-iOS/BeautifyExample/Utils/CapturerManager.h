@@ -15,12 +15,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CapturerManager : NSObject <AgoraVideoSourceProtocol, AGMVideoCameraDelegate>
+@interface CapturerManager : NSObject <AGMVideoCameraDelegate>
 
 - (instancetype)initWithVideoConfig:(AGMCapturerVideoConfig *)config delegate:(id <CapturerManagerDelegate>)delegate;
 - (void)startCapture;
 - (void)stopCapture;
 - (void)switchCamera;
+- (void)setEngine:(AgoraRtcEngineKit *)engine;
 
 @property (nonatomic, strong) AGMEAGLVideoView *videoView;
 
