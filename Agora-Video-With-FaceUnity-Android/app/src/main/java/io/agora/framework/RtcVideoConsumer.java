@@ -1,6 +1,5 @@
 package io.agora.framework;
 
-import android.opengl.GLES20;
 import android.util.Log;
 
 import io.agora.base.NV21Buffer;
@@ -13,11 +12,11 @@ import io.agora.capture.video.camera.VideoModule;
 import io.agora.rtc2.RtcEngine;
 
 /**
- * The renderer acts as the consumer of the video source
- * from current video channel, and also the video source
- * of rtc engine.
+ * The renderer acts as the consumer of the video source from current video channel, and also the
+ * video source of rtc engine.
  */
 public class RtcVideoConsumer implements IVideoConsumer {
+
     private static final String TAG = RtcVideoConsumer.class.getSimpleName();
 
     private volatile boolean mValidInRtc;
@@ -29,7 +28,7 @@ public class RtcVideoConsumer implements IVideoConsumer {
 
     public RtcVideoConsumer(RtcEngine mRtcEngine) {
         this(ChannelManager.ChannelID.CAMERA);
-        this.mRtcEngine=mRtcEngine;
+        this.mRtcEngine = mRtcEngine;
     }
 
     private RtcVideoConsumer(int channelId) {
@@ -42,8 +41,14 @@ public class RtcVideoConsumer implements IVideoConsumer {
         if (mValidInRtc) {
             //TODO update
             if (frame.image != null) {
-                VideoFrame.Buffer buffer = new NV21Buffer(frame.image, frame.format.getWidth(), frame.format.getHeight(), null);
-                mRtcEngine.pushExternalVideoFrame(new VideoFrame(buffer, frame.rotation, System.nanoTime()));
+                VideoFrame.Buffer buffer = new NV21Buffer(
+                        frame.image,
+                        frame.format.getHeight(),
+                        frame.format.getWidth(),
+                        null);
+                mRtcEngine
+                        .pushExternalVideoFrame(
+                                new VideoFrame(buffer, frame.rotation + 270, System.nanoTime()));
             } else {
                 Log.e(TAG, "onConsumeFrame: frame.image is empty");
             }
@@ -113,7 +118,7 @@ public class RtcVideoConsumer implements IVideoConsumer {
     }
 
     public void onDispose() {
-        Log.i(TAG , "onDispose");
+        Log.i(TAG, "onDispose");
         mValidInRtc = false;
         disconnectChannel(mChannelId);
     }
