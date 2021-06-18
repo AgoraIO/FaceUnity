@@ -6,7 +6,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import io.agora.capture.video.camera.CameraVideoManager;
-import io.agora.rtc.RtcEngine;
+import io.agora.rtc2.RtcEngine;
 import io.agora.rtcwithfu.MyApplication;
 import io.agora.rtcwithfu.RtcEngineEventHandler;
 
