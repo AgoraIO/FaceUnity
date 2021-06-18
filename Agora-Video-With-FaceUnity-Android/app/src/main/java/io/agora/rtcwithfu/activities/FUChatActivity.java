@@ -19,8 +19,6 @@ import com.faceunity.nama.FURenderer;
 import com.faceunity.nama.ui.FaceUnityView;
 import com.faceunity.nama.utils.CameraUtils;
 
-import java.util.concurrent.CountDownLatch;
-
 import io.agora.capture.video.camera.CameraVideoManager;
 import io.agora.capture.video.camera.Constant;
 import io.agora.capture.video.camera.VideoCapture;
@@ -182,60 +180,41 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
         mVideoManager.startCapture();
-        mFURenderer.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                mFURenderer.onSurfaceCreated();
-            }
-        });
+        //TODO update
     }
 
     @Override
-    public void finish() {
-        mFinished = true;
-        CountDownLatch countDownLatch = new CountDownLatch(1);
-        mFURenderer.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                mFURenderer.onSurfaceDestroyed();
-                countDownLatch.countDown();
-            }
-        });
-        try {
-            countDownLatch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        mVideoManager.stopCapture();
-        rtcEngine().leaveChannel();
-        super.finish();
+    protected void onResume() {
+        super.onResume();
+        //TODO update
+        mFURenderer.onSurfaceCreated();
     }
 
-    private void stopCapture() {
-        CountDownLatch countDownLatch = new CountDownLatch(1);
-        mFURenderer.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                mFURenderer.onSurfaceDestroyed();
-                countDownLatch.countDown();
-            }
-        });
-        try {
-            countDownLatch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        mVideoManager.stopCapture();
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //TODO update
+        mFURenderer.onSurfaceDestroyed();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (!mFinished) {
-            mVideoManager.stopCapture();
-        }
+        //TODO update
+        mVideoManager.stopCapture();
         mSensorManager.unregisterListener(this);
+    }
+
+    @Override
+    public void finish() {
+        //TODO update
+        mFinished = true;
+        rtcEngine().leaveChannel();
+        super.finish();
+    }
+
+    private void stopCapture() {
+        mVideoManager.stopCapture();
     }
 
     @Override

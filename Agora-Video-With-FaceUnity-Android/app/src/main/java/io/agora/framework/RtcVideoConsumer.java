@@ -24,9 +24,9 @@ public class RtcVideoConsumer implements IVideoConsumer {
 
     private static final String TAG = RtcVideoConsumer.class.getSimpleName();
 
-    private volatile boolean mValidInRtc;
+    private static volatile boolean mValidInRtc;
 
-    private volatile VideoModule mVideoModule;
+    private static volatile VideoModule mVideoModule;
     private int mChannelId;
 
     private RtcEngine mRtcEngine;
@@ -93,7 +93,7 @@ public class RtcVideoConsumer implements IVideoConsumer {
     }
 
     private volatile static boolean glPrepared;
-    private TextureBufferHelper textureBufferHelper;
+    private volatile TextureBufferHelper textureBufferHelper;
 
     private boolean prepareGl(EglBase.Context eglContext, final int width, final int height) {
         Log.d(TAG, "prepareGl");
@@ -163,10 +163,12 @@ public class RtcVideoConsumer implements IVideoConsumer {
         Log.i(TAG, "onDispose");
         mValidInRtc = false;
 
+        //TODO update
         if (textureBufferHelper != null) {
             textureBufferHelper.dispose();
             textureBufferHelper = null;
         }
+        glPrepared = false;
         disconnectChannel(mChannelId);
     }
 }
