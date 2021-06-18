@@ -35,6 +35,15 @@
         android:scaleType="fitXY"
         android:onClick="onClick"/>
 
+    <Button
+        android:id="@+id/btstopCapture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="StopCapture"
+        android:onClick="onClick"
+        android:textColor="@color/colorWhite"
+        android:textSize="17sp"/>
 
     <com.faceunity.nama.ui.FaceUnityView
         android:id="@+id/fu_view"

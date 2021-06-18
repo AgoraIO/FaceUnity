@@ -11,6 +11,7 @@
         android:layout_marginTop="@dimen/main_activity_edit_margin_top"
         android:gravity="center"
         android:inputType="text"
+        android:text="123456"
         android:hint="@string/room_name_edit_hint"
         android:digits="@string/legal_characters"
         android:lines="1"
