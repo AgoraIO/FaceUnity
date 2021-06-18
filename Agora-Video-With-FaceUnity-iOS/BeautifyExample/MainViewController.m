@@ -24,7 +24,7 @@
     [super viewDidLoad];
 
 //    self.view.backgroundColor = [UIColor whiteColor];
-    
+    self.channelNameTF.text = @"xxx";
 }
 
 /// 输入房间号开始跳转

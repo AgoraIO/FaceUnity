@@ -18,7 +18,7 @@
 #import <Masonry/Masonry.h>
 #import <AGMRenderer/AGMRenderer.h>
 
-@interface ViewController () <AgoraRtcEngineDelegate,FUAPIDemoBarDelegate, AgoraVideoSourceProtocol>
+@interface ViewController () <AgoraRtcEngineDelegate,FUAPIDemoBarDelegate>
 
 @property (nonatomic, strong) CapturerManager *capturerManager;
 @property (nonatomic, strong) FUManager *videoFilter;
@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIView *remoteView;
 
 @property (nonatomic, strong) IBOutlet UIButton *switchBtn;
+@property (nonatomic, strong) IBOutlet UISwitch *switcher;
 @property (nonatomic, strong) IBOutlet UIButton *remoteMirrorBtn;
 @property (nonatomic, strong) IBOutlet UIView *missingAuthpackLabel;
 @property (weak, nonatomic) IBOutlet UIButton *muteAudioBtn;
@@ -43,7 +44,6 @@
 @end
 
 @implementation ViewController
-@synthesize consumer;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -60,10 +60,8 @@
     [self.rtcEngineKit setClientRole:AgoraClientRoleBroadcaster];
     [self.rtcEngineKit enableVideo];
     [self.rtcEngineKit setParameters:@"{\"che.video.zerocopy\":true}"];
-    AgoraVideoEncoderConfiguration* config = [[AgoraVideoEncoderConfiguration alloc] initWithSize:AgoraVideoDimension1280x720
-                                                                                        frameRate:AgoraVideoFrameRateFps15
-                                                                                          bitrate:AgoraVideoBitrateStandard
-                                                                                  orientationMode:AgoraVideoOutputOrientationModeFixedPortrait];
+    AgoraVideoEncoderConfiguration* config = [[AgoraVideoEncoderConfiguration alloc] initWithSize:AgoraVideoDimension1280x720 frameRate:AgoraVideoFrameRateFps15 bitrate:AgoraVideoBitrateStandard orientationMode:AgoraVideoOutputOrientationModeFixedPortrait mirrorMode:YES];
+    
     [self.rtcEngineKit setVideoEncoderConfiguration:config];
     
     // init process manager
@@ -80,7 +78,7 @@
     self.videoFilter = [FUManager shareManager];
     self.videoFilter.enabled = YES;
     [self.processingManager addVideoFilter:self.videoFilter];
-    
+    [self.capturerManager setEngine:self.rtcEngineKit];
     [self.capturerManager startCapture];
     
     // set up local video to render your local camera preview
@@ -98,7 +96,8 @@
     [self.localView addSubview:self.glVideoView];
     [self.capturerManager setVideoView:self.glVideoView];
     // set custom capturer as video source
-    [self.rtcEngineKit setVideoSource:self.capturerManager];
+//    [self.rtcEngineKit setVideoSource:self.capturerManager];
+    [self.rtcEngineKit setExternalVideoSource:YES useTexture:YES encodedFrame:NO];
     
     [self.rtcEngineKit joinChannelByToken:nil channelId:self.channelName info:nil uid:0 joinSuccess:^(NSString * _Nonnull channel, NSUInteger uid, NSInteger elapsed) {
         
@@ -176,11 +175,14 @@
     [self.capturerManager stopCapture];
     [self.rtcEngineKit leaveChannel:nil];
     [self.rtcEngineKit stopPreview];
-    [self.rtcEngineKit setVideoSource:nil];
     [AgoraRtcEngineKit destroy];
     
 }
 
+- (IBAction)switchFB:(UISwitch *)button
+{
+    self.videoFilter.enabled = button.on;
+}
 
 - (IBAction)switchCamera:(UIButton *)button
 {
@@ -193,8 +195,7 @@
 - (IBAction)toggleRemoteMirror:(UIButton *)button
 {
     self.remoteVideoMirrored = self.remoteVideoMirrored == AgoraVideoMirrorModeEnabled ? AgoraVideoMirrorModeDisabled : AgoraVideoMirrorModeEnabled;
-    AgoraVideoEncoderConfiguration* config = [[AgoraVideoEncoderConfiguration alloc] initWithSize:CGSizeMake(720, 1280) frameRate:30 bitrate:0 orientationMode:AgoraVideoOutputOrientationModeAdaptative];
-    config.mirrorMode = self.remoteVideoMirrored;
+    AgoraVideoEncoderConfiguration* config = [[AgoraVideoEncoderConfiguration alloc] initWithSize:AgoraVideoDimension1280x720 frameRate:AgoraVideoFrameRateFps15 bitrate:AgoraVideoBitrateStandard orientationMode:AgoraVideoOutputOrientationModeFixedPortrait mirrorMode:self.remoteVideoMirrored];
     [self.rtcEngineKit setVideoEncoderConfiguration:config];
 }
 
