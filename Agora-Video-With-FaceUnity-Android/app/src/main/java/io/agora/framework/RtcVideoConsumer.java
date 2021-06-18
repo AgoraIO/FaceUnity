@@ -3,32 +3,33 @@ package io.agora.framework;
 import android.opengl.GLES20;
 import android.util.Log;
 
+import io.agora.base.NV21Buffer;
+import io.agora.base.VideoFrame;
 import io.agora.capture.framework.modules.channels.ChannelManager;
 import io.agora.capture.framework.modules.channels.VideoChannel;
 import io.agora.capture.framework.modules.consumers.IVideoConsumer;
 import io.agora.capture.video.camera.VideoCaptureFrame;
 import io.agora.capture.video.camera.VideoModule;
-import io.agora.rtc.mediaio.IVideoFrameConsumer;
-import io.agora.rtc.mediaio.IVideoSource;
-import io.agora.rtc.mediaio.MediaIO;
-import io.agora.rtc.video.AgoraVideoFrame;
+import io.agora.rtc2.RtcEngine;
 
 /**
  * The renderer acts as the consumer of the video source
  * from current video channel, and also the video source
  * of rtc engine.
  */
-public class RtcVideoConsumer implements IVideoConsumer, IVideoSource {
+public class RtcVideoConsumer implements IVideoConsumer {
     private static final String TAG = RtcVideoConsumer.class.getSimpleName();
 
-    private volatile IVideoFrameConsumer mRtcConsumer;
     private volatile boolean mValidInRtc;
 
     private volatile VideoModule mVideoModule;
     private int mChannelId;
 
-    public RtcVideoConsumer() {
+    private RtcEngine mRtcEngine;
+
+    public RtcVideoConsumer(RtcEngine mRtcEngine) {
         this(ChannelManager.ChannelID.CAMERA);
+        this.mRtcEngine=mRtcEngine;
     }
 
     private RtcVideoConsumer(int channelId) {
@@ -39,14 +40,22 @@ public class RtcVideoConsumer implements IVideoConsumer, IVideoSource {
     @Override
     public void onConsumeFrame(VideoCaptureFrame frame, VideoChannel.ChannelContext context) {
         if (mValidInRtc) {
-            int format = frame.format.getTexFormat() == GLES20.GL_TEXTURE_2D
-                    ? AgoraVideoFrame.FORMAT_TEXTURE_2D
-                    : AgoraVideoFrame.FORMAT_TEXTURE_OES;
-            if (mRtcConsumer != null) {
-                mRtcConsumer.consumeTextureFrame(frame.textureId, format,
-                        frame.format.getWidth(), frame.format.getHeight(),
-                        frame.rotation, frame.timestamp, frame.textureTransform);
+            //TODO update
+            if (frame.image != null) {
+                VideoFrame.Buffer buffer = new NV21Buffer(frame.image, frame.format.getWidth(), frame.format.getHeight(), null);
+                mRtcEngine.pushExternalVideoFrame(new VideoFrame(buffer, frame.rotation, System.nanoTime()));
+            } else {
+                Log.e(TAG, "onConsumeFrame: frame.image is empty");
             }
+
+//            int format = frame.format.getTexFormat() == GLES20.GL_TEXTURE_2D
+//                    ? AgoraVideoFrame.FORMAT_TEXTURE_2D
+//                    : AgoraVideoFrame.FORMAT_TEXTURE_OES;
+//            if (mRtcConsumer != null) {
+//                mRtcConsumer.consumeTextureFrame(frame.textureId, format,
+//                        frame.format.getWidth(), frame.format.getHeight(),
+//                        frame.rotation, frame.timestamp, frame.textureTransform);
+//            }
         }
     }
 
@@ -92,14 +101,6 @@ public class RtcVideoConsumer implements IVideoConsumer, IVideoSource {
         return null;
     }
 
-    @Override
-    public boolean onInitialize(IVideoFrameConsumer consumer) {
-        Log.i(TAG, "onInitialize");
-        mRtcConsumer = consumer;
-        return true;
-    }
-
-    @Override
     public boolean onStart() {
         Log.i(TAG, "onStart");
         connectChannel(mChannelId);
@@ -107,22 +108,13 @@ public class RtcVideoConsumer implements IVideoConsumer, IVideoSource {
         return true;
     }
 
-    @Override
     public void onStop() {
         mValidInRtc = false;
-        mRtcConsumer = null;
     }
 
-    @Override
     public void onDispose() {
         Log.i(TAG , "onDispose");
         mValidInRtc = false;
-        mRtcConsumer = null;
         disconnectChannel(mChannelId);
-    }
-
-    @Override
-    public int getBufferType() {
-        return MediaIO.BufferType.TEXTURE.intValue();
     }
 }

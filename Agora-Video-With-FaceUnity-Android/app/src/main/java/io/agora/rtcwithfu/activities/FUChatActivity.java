@@ -26,9 +26,9 @@ import io.agora.capture.video.camera.Constant;
 import io.agora.capture.video.camera.VideoCapture;
 import io.agora.framework.PreprocessorFaceUnity;
 import io.agora.framework.RtcVideoConsumer;
-import io.agora.rtc.RtcEngine;
-import io.agora.rtc.video.VideoCanvas;
-import io.agora.rtc.video.VideoEncoderConfiguration;
+import io.agora.rtc2.RtcEngine;
+import io.agora.rtc2.video.VideoCanvas;
+import io.agora.rtc2.video.VideoEncoderConfiguration;
 import io.agora.rtcwithfu.R;
 import io.agora.rtcwithfu.RtcEngineEventHandler;
 import io.agora.rtcwithfu.utils.Constants;
@@ -84,9 +84,14 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         mRemoteViewContainer.setLayoutParams(params);
     }
 
+    private RtcVideoConsumer mRtcVideoConsumer;
     private void initRoom() {
         initVideoModule();
-        rtcEngine().setVideoSource(new RtcVideoConsumer());
+        //TODO update
+        rtcEngine().setExternalVideoSource(true,false,false);
+        mRtcVideoConsumer=new RtcVideoConsumer(rtcEngine());
+        mRtcVideoConsumer.onStart();
+//        rtcEngine().setVideoSource(new RtcVideoConsumer());
         joinChannel();
     }
 
@@ -106,6 +111,11 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
                     // be stopped to reset the internal states.
                     mVideoManager.stopCapture();
                 }
+            }
+
+            @Override
+            public void onCameraClosed() {
+
             }
         });
 
@@ -142,7 +152,7 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
                 VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_24,
                 VideoEncoderConfiguration.STANDARD_BITRATE,
                 VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT));
-        rtcEngine().setClientRole(io.agora.rtc.Constants.CLIENT_ROLE_BROADCASTER);
+        rtcEngine().setClientRole(io.agora.rtc2.Constants.CLIENT_ROLE_BROADCASTER);
         rtcEngine().enableLocalAudio(false);
         String roomName = getIntent().getStringExtra(Constants.ACTION_KEY_ROOM_NAME);
         rtcEngine().joinChannel(null, roomName, null, 0);
@@ -208,6 +218,8 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
 
     @Override
     protected void onDestroy() {
+        //TODO update
+        mRtcVideoConsumer.onDispose();
         super.onDestroy();
     }
 
@@ -224,7 +236,7 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
     @Override
     public void onRemoteVideoStateChanged(int uid, int state, int reason, int elapsed) {
         Log.i(TAG, "onRemoteVideoStateChanged " + (uid & 0xFFFFFFFFL) + " " + state + " " + reason);
-        if (mRemoteUid == -1 && state == io.agora.rtc.Constants.REMOTE_VIDEO_STATE_DECODING) {
+        if (mRemoteUid == -1 && state == io.agora.rtc2.Constants.REMOTE_VIDEO_STATE_PLAYING) {
             runOnUiThread(() -> {
                 mRemoteUid = uid;
                 setRemoteVideoView(uid);
