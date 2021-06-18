@@ -2,8 +2,13 @@ package io.agora.framework;
 
 import android.util.Log;
 
-import io.agora.base.NV21Buffer;
+import java.util.concurrent.Callable;
+
+import io.agora.base.TextureBufferHelper;
 import io.agora.base.VideoFrame;
+import io.agora.base.internal.video.EglBase;
+import io.agora.base.internal.video.EglBase14;
+import io.agora.base.internal.video.RendererCommon;
 import io.agora.capture.framework.modules.channels.ChannelManager;
 import io.agora.capture.framework.modules.channels.VideoChannel;
 import io.agora.capture.framework.modules.consumers.IVideoConsumer;
@@ -40,17 +45,40 @@ public class RtcVideoConsumer implements IVideoConsumer {
     public void onConsumeFrame(VideoCaptureFrame frame, VideoChannel.ChannelContext context) {
         if (mValidInRtc) {
             //TODO update
-            if (frame.image != null) {
-                VideoFrame.Buffer buffer = new NV21Buffer(
-                        frame.image,
-                        frame.format.getHeight(),
-                        frame.format.getWidth(),
-                        null);
-                mRtcEngine
-                        .pushExternalVideoFrame(
-                                new VideoFrame(buffer, frame.rotation + 270, System.nanoTime()));
+            if (glPrepared) {
+                //TODO update
             } else {
-                Log.e(TAG, "onConsumeFrame: frame.image is empty");
+                // setup egl context
+                EglBase.Context eglContext = new EglBase14.Context(context.getEglContext());
+                glPrepared = prepareGl(eglContext, frame.format.getWidth(), frame.format.getHeight());
+                if (!glPrepared) {
+                    // just by pass for now.
+                    Log.w(TAG, "Failed to prepare context");
+                    return;
+                }
+            }
+
+            int rotation = frame.rotation;
+            VideoFrame.Buffer processedBuffer = textureBufferHelper
+                    .invoke(new Callable<VideoFrame.Buffer>() {
+                        @Override
+                        public VideoFrame.Buffer call() throws Exception {
+                            int textureId = frame.textureId;
+                            return textureBufferHelper.wrapTextureBuffer(
+                                    frame.format.getWidth(),
+                                    frame.format.getHeight(),
+                                    VideoFrame.TextureBuffer.Type.RGB,
+                                    textureId,
+                                    RendererCommon.convertMatrixToAndroidGraphicsMatrix(frame.textureTransform));
+                        }
+                    });
+
+            if (processedBuffer == null) {
+                Log.w(TAG, "Drop, buffer in use");
+            } else {
+                //Log.d(TAG, "videoFrame done");
+                VideoFrame mVideoFrame = new VideoFrame(processedBuffer, rotation, System.nanoTime());
+                mRtcEngine.pushExternalVideoFrame(mVideoFrame);
             }
 
 //            int format = frame.format.getTexFormat() == GLES20.GL_TEXTURE_2D
@@ -62,6 +90,20 @@ public class RtcVideoConsumer implements IVideoConsumer {
 //                        frame.rotation, frame.timestamp, frame.textureTransform);
 //            }
         }
+    }
+
+    private volatile static boolean glPrepared;
+    private TextureBufferHelper textureBufferHelper;
+
+    private boolean prepareGl(EglBase.Context eglContext, final int width, final int height) {
+        Log.d(TAG, "prepareGl");
+        textureBufferHelper = TextureBufferHelper.create("STProcess", eglContext);
+        if (textureBufferHelper == null) {
+//            LogUtils.e(TAG, "Failed to create texture buffer helper!");
+            return false;
+        }
+        Log.d(TAG, "prepareGl completed");
+        return true;
     }
 
     @Override
@@ -120,6 +162,11 @@ public class RtcVideoConsumer implements IVideoConsumer {
     public void onDispose() {
         Log.i(TAG, "onDispose");
         mValidInRtc = false;
+
+        if (textureBufferHelper != null) {
+            textureBufferHelper.dispose();
+            textureBufferHelper = null;
+        }
         disconnectChannel(mChannelId);
     }
 }

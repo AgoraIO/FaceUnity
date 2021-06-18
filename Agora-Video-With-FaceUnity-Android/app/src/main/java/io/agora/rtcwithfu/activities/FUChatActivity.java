@@ -39,7 +39,7 @@ import io.agora.rtcwithfu.utils.Constants;
  * The FU activity which possesses remote video chatting ability.
  */
 @SuppressWarnings("deprecation")
-public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHandler , SensorEventListener {
+public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHandler, SensorEventListener {
     private final static String TAG = FUChatActivity.class.getSimpleName();
 
     private static final int CAPTURE_WIDTH = 1280;
@@ -85,11 +85,12 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
     }
 
     private RtcVideoConsumer mRtcVideoConsumer;
+
     private void initRoom() {
         initVideoModule();
         //TODO update
-        rtcEngine().setExternalVideoSource(true,false,false);
-        mRtcVideoConsumer=new RtcVideoConsumer(rtcEngine());
+        rtcEngine().setExternalVideoSource(true, false, false);
+        mRtcVideoConsumer = new RtcVideoConsumer(rtcEngine());
         mRtcVideoConsumer.onStart();
 //        rtcEngine().setVideoSource(new RtcVideoConsumer());
         joinChannel();
@@ -163,6 +164,9 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
             case R.id.btn_switch_camera:
                 onCameraChangeRequested();
                 break;
+            case R.id.btstopCapture:
+                stopCapture();
+                break;
         }
     }
 
@@ -205,6 +209,24 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         mVideoManager.stopCapture();
         rtcEngine().leaveChannel();
         super.finish();
+    }
+
+    private void stopCapture() {
+        CountDownLatch countDownLatch = new CountDownLatch(1);
+        mFURenderer.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                mFURenderer.onSurfaceDestroyed();
+                countDownLatch.countDown();
+            }
+        });
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        mVideoManager.stopCapture();
     }
 
     @Override
