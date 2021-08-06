@@ -11,8 +11,6 @@
 		03F8193624E004A7004F7F36 /* CapturerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F8193424E004A7004F7F36 /* CapturerManager.m */; };
 		03F8194524E0E75C004F7F36 /* authpack.h in Sources */ = {isa = PBXBuildFile; fileRef = 03F8193D24E0E66A004F7F36 /* authpack.h */; };
 		03F8196324E1371B004F7F36 /* KeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F8196224E1371B004F7F36 /* KeyCenter.m */; };
-		09197A872534B53800F94343 /* FUOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09197A852534B53800F94343 /* FUOpenGLView.m */; };
-		09197A882534B53800F94343 /* FUCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 09197A862534B53800F94343 /* FUCamera.m */; };
 		09C6666424D7BC89001D7AE2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09C6666324D7BC89001D7AE2 /* AppDelegate.m */; };
 		09C6666A24D7BC89001D7AE2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09C6666924D7BC89001D7AE2 /* ViewController.m */; };
 		09C6666D24D7BC89001D7AE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09C6666B24D7BC89001D7AE2 /* Main.storyboard */; };
@@ -25,17 +23,14 @@
 		2D08C3CB2508749300F7206C /* FUBottomColletionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D08C3882508749300F7206C /* FUBottomColletionView.m */; };
 		2D08C3CC2508749300F7206C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D08C3892508749300F7206C /* Media.xcassets */; };
 		2D08C3CD2508749300F7206C /* FUDemoBar.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2D08C38A2508749300F7206C /* FUDemoBar.strings */; };
-		2D08C3CE2508749300F7206C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2D08C38C2508749300F7206C /* Localizable.strings */; };
 		2D08C3CF2508749300F7206C /* FUBeautyEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D08C3902508749300F7206C /* FUBeautyEditView.m */; };
 		2D08C3D02508749300F7206C /* FUSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D08C3922508749300F7206C /* FUSlider.m */; };
-		2D08C3D12508749300F7206C /* FUBeautyParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D08C3942508749300F7206C /* FUBeautyParam.m */; };
 		2D08C3D22508749300F7206C /* FUFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D08C3952508749300F7206C /* FUFilterView.m */; };
 		2D08C3D32508749300F7206C /* UIImage+demobar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D08C3962508749300F7206C /* UIImage+demobar.m */; };
 		2D08C3D42508749300F7206C /* FUAPIDemoBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D08C3972508749300F7206C /* FUAPIDemoBar.m */; };
 		2D08C3D52508749300F7206C /* FUAPIDemoBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D08C3982508749300F7206C /* FUAPIDemoBar.xib */; };
 		2D08C3D62508749300F7206C /* UIColor+FUAPIDemoBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D08C39B2508749300F7206C /* UIColor+FUAPIDemoBar.m */; };
 		2D08C3D72508749300F7206C /* FUBeautyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D08C39D2508749300F7206C /* FUBeautyView.m */; };
-		2D08C3D82508749300F7206C /* FUDateHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D08C3A02508749300F7206C /* FUDateHandle.m */; };
 		2D08C3DB2508749300F7206C /* linjia.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D08C3AA2508749300F7206C /* linjia.bundle */; };
 		2D08C3E22508749300F7206C /* gangfeng.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D08C3B12508749300F7206C /* gangfeng.bundle */; };
 		2D08C3EE2508749400F7206C /* fashi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D08C3BE2508749300F7206C /* fashi.bundle */; };
@@ -43,7 +38,6 @@
 		2D08C3F22508749400F7206C /* sdlu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D08C3C22508749300F7206C /* sdlu.bundle */; };
 		2D08C3F52508749400F7206C /* fashi.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D08C3C52508749300F7206C /* fashi.png */; };
 		2D8ABD2F2511B63200D28745 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8ABD2E2511B63200D28745 /* MainViewController.m */; };
-		2DC7C633257E15CE00690AEE /* FURecordEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC7C632257E15CE00690AEE /* FURecordEncoder.m */; };
 		2DC7D6142537240200DA0A4B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC7D6132537240100DA0A4B /* AVFoundation.framework */; };
 		2DC7D6162537240800DA0A4B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC7D6152537240800DA0A4B /* Accelerate.framework */; };
 		2DC7D61A2537244900DA0A4B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC7D6192537244900DA0A4B /* SystemConfiguration.framework */; };
@@ -52,11 +46,48 @@
 		2DC7D6202537247900DA0A4B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC7D61F2537247900DA0A4B /* AudioToolbox.framework */; };
 		2DC7D6272537248600DA0A4B /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC7D60A2537238B00DA0A4B /* libc++.tbd */; };
 		2DF48BEE2514912900575424 /* FUManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF48BED2514912900575424 /* FUManager.m */; };
+		4197DB172643C5FD00EE97E8 /* FURenderKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4197DB152643C5F800EE97E8 /* FURenderKit.framework */; };
+		4197DB182643C5FD00EE97E8 /* FURenderKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4197DB152643C5F800EE97E8 /* FURenderKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		41D59CB526356F27001D0ECB /* FUBaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41D59CB426356F27001D0ECB /* FUBaseCollectionView.m */; };
+		41D59CE426357E02001D0ECB /* FUBeautyBodyNodeModelProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 41D59CE326357E02001D0ECB /* FUBeautyBodyNodeModelProvider.m */; };
+		41D59CE926357E2B001D0ECB /* FUBeautyBodyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41D59CE826357E2B001D0ECB /* FUBeautyBodyViewModel.m */; };
+		41D59D0726365C04001D0ECB /* ai_human_processor_mb_fast.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41D59CF726365C04001D0ECB /* ai_human_processor_mb_fast.bundle */; };
+		41D59D0826365C04001D0ECB /* ai_hand_processor.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41D59CF826365C04001D0ECB /* ai_hand_processor.bundle */; };
+		41D59D0926365C04001D0ECB /* ai_face_processor.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41D59CF926365C04001D0ECB /* ai_face_processor.bundle */; };
+		41D59D0A26365C04001D0ECB /* ai_bgseg_green.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41D59CFA26365C04001D0ECB /* ai_bgseg_green.bundle */; };
+		41D59D0B26365C04001D0ECB /* ai_face_processor_lite.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41D59CFB26365C04001D0ECB /* ai_face_processor_lite.bundle */; };
+		41D59D0C26365C04001D0ECB /* ai_hairseg.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41D59CFC26365C04001D0ECB /* ai_hairseg.bundle */; };
+		41D59D0D26365C04001D0ECB /* ai_human_processor.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41D59CFD26365C04001D0ECB /* ai_human_processor.bundle */; };
+		41D59D0E26365C04001D0ECB /* tongue.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41D59CFF26365C04001D0ECB /* tongue.bundle */; };
+		41D59D0F26365C04001D0ECB /* fxaa.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41D59D0026365C04001D0ECB /* fxaa.bundle */; };
+		41D59D1026365C04001D0ECB /* face_makeup.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41D59D0126365C04001D0ECB /* face_makeup.bundle */; };
+		41D59D1126365C04001D0ECB /* controller_cpp.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41D59D0226365C04001D0ECB /* controller_cpp.bundle */; };
+		41D59D1226365C04001D0ECB /* body_slim.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41D59D0326365C04001D0ECB /* body_slim.bundle */; };
+		41D59D1326365C04001D0ECB /* fuzzytoonfilter.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41D59D0426365C04001D0ECB /* fuzzytoonfilter.bundle */; };
+		41D59D1426365C04001D0ECB /* face_beautification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41D59D0526365C04001D0ECB /* face_beautification.bundle */; };
+		41E9113D263BEAE600BEA442 /* UIViewController+FaceUnityUIExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E9113C263BEAE600BEA442 /* UIViewController+FaceUnityUIExtension.m */; };
+		41F0A7322636A70F0072EB26 /* FUViewModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F0A7312636A70F0072EB26 /* FUViewModelManager.m */; };
+		41F0A7772637B3C80072EB26 /* FUBeautyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F0A7762637B3C80072EB26 /* FUBeautyViewModel.m */; };
+		41F0A77B2637B8260072EB26 /* FUBeautyNodeModelProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F0A77A2637B8260072EB26 /* FUBeautyNodeModelProvider.m */; };
+		41F8771F26353DC600DBFE2E /* FUBaseNodeModelProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F876FF26353DC600DBFE2E /* FUBaseNodeModelProvider.m */; };
+		41F8772026353DC600DBFE2E /* FUBeautySkinNodeModelProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F8770126353DC600DBFE2E /* FUBeautySkinNodeModelProvider.m */; };
+		41F8772126353DC600DBFE2E /* FUStickerNodeModelProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F8770326353DC600DBFE2E /* FUStickerNodeModelProvider.m */; };
+		41F8772226353DC600DBFE2E /* FUMakeupNodeModelProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F8770526353DC600DBFE2E /* FUMakeupNodeModelProvider.m */; };
+		41F8772326353DC600DBFE2E /* FUBeautyShapeNodeModelProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F8770726353DC600DBFE2E /* FUBeautyShapeNodeModelProvider.m */; };
+		41F8772426353DC600DBFE2E /* FUBeautyFilterNodeModelProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F8770926353DC600DBFE2E /* FUBeautyFilterNodeModelProvider.m */; };
+		41F8772526353DC600DBFE2E /* FUBeautyFilterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F8771026353DC600DBFE2E /* FUBeautyFilterViewModel.m */; };
+		41F8772626353DC600DBFE2E /* FUBeautyShapeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F8771226353DC600DBFE2E /* FUBeautyShapeViewModel.m */; };
+		41F8772726353DC600DBFE2E /* FUMakeupViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F8771426353DC600DBFE2E /* FUMakeupViewModel.m */; };
+		41F8772826353DC600DBFE2E /* FUStickerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F8771626353DC600DBFE2E /* FUStickerViewModel.m */; };
+		41F8772926353DC600DBFE2E /* FUBeautySkinViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F8771826353DC600DBFE2E /* FUBeautySkinViewModel.m */; };
+		41F8772A26353DC600DBFE2E /* FUBaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F8771926353DC600DBFE2E /* FUBaseViewModel.m */; };
+		41F8772C26353DC600DBFE2E /* FUBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F8771E26353DC600DBFE2E /* FUBaseModel.m */; };
 		5F66A41254472834DB1BBB0E /* Pods_BeautifyExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D32F315DAB48F1AE0AFB5C4 /* Pods_BeautifyExample.framework */; };
 		610C64E814134B04440D425B /* Pods_BeautifyExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D32F315DAB48F1AE0AFB5C4 /* Pods_BeautifyExample.framework */; };
 		E327E03B25958C52002875F9 /* chaoA.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E327E03A25958C52002875F9 /* chaoA.bundle */; };
 		E327E03E25958D74002875F9 /* dousha.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E327E03C25958D74002875F9 /* dousha.bundle */; };
 		E327E03F25958D74002875F9 /* naicha.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E327E03D25958D74002875F9 /* naicha.bundle */; };
+		E340F37226258347001D967B /* FUSquareButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E340F37026258347001D967B /* FUSquareButton.m */; };
 		E35B22CA253571FF00F50AC2 /* FUTestRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E35B22C9253571FF00F50AC2 /* FUTestRecorder.m */; };
 		EF9F4BBC82E8B0644E0F1CD2 /* Pods_BeautifyExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA4FF26FEF71B547AC46AE1 /* Pods_BeautifyExampleTests.framework */; };
 /* End PBXBuildFile section */
@@ -78,6 +109,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				4197DB182643C5FD00EE97E8 /* FURenderKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,10 +126,6 @@
 		03F8193D24E0E66A004F7F36 /* authpack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = authpack.h; sourceTree = "<group>"; };
 		03F8196124E1371B004F7F36 /* KeyCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyCenter.h; sourceTree = "<group>"; };
 		03F8196224E1371B004F7F36 /* KeyCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyCenter.m; sourceTree = "<group>"; };
-		09197A832534B53700F94343 /* FUCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUCamera.h; sourceTree = "<group>"; };
-		09197A842534B53800F94343 /* FUOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUOpenGLView.h; sourceTree = "<group>"; };
-		09197A852534B53800F94343 /* FUOpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUOpenGLView.m; sourceTree = "<group>"; };
-		09197A862534B53800F94343 /* FUCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUCamera.m; sourceTree = "<group>"; };
 		09197A8F25354D4200F94343 /* AGMRenderer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AGMRenderer.framework; sourceTree = "<group>"; };
 		09197A9025354D4200F94343 /* AGMBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AGMBase.framework; sourceTree = "<group>"; };
 		09197A9125354D4300F94343 /* AGMCapturer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AGMCapturer.framework; sourceTree = "<group>"; };
@@ -121,14 +149,11 @@
 		2D08C3882508749300F7206C /* FUBottomColletionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBottomColletionView.m; sourceTree = "<group>"; };
 		2D08C3892508749300F7206C /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		2D08C38B2508749300F7206C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/FUDemoBar.strings"; sourceTree = "<group>"; };
-		2D08C38D2508749300F7206C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2D08C38E2508749300F7206C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/FUDemoBar.strings; sourceTree = "<group>"; };
-		2D08C38F2508749300F7206C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2D08C3902508749300F7206C /* FUBeautyEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBeautyEditView.m; sourceTree = "<group>"; };
 		2D08C3912508749300F7206C /* FUDemoBarDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUDemoBarDefine.h; sourceTree = "<group>"; };
 		2D08C3922508749300F7206C /* FUSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSlider.m; sourceTree = "<group>"; };
 		2D08C3932508749300F7206C /* FUBeautyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBeautyView.h; sourceTree = "<group>"; };
-		2D08C3942508749300F7206C /* FUBeautyParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBeautyParam.m; sourceTree = "<group>"; };
 		2D08C3952508749300F7206C /* FUFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUFilterView.m; sourceTree = "<group>"; };
 		2D08C3962508749300F7206C /* UIImage+demobar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+demobar.m"; sourceTree = "<group>"; };
 		2D08C3972508749300F7206C /* FUAPIDemoBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUAPIDemoBar.m; sourceTree = "<group>"; };
@@ -138,10 +163,7 @@
 		2D08C39C2508749300F7206C /* FUBottomColletionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBottomColletionView.h; sourceTree = "<group>"; };
 		2D08C39D2508749300F7206C /* FUBeautyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBeautyView.m; sourceTree = "<group>"; };
 		2D08C39E2508749300F7206C /* FUSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUSlider.h; sourceTree = "<group>"; };
-		2D08C3A02508749300F7206C /* FUDateHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUDateHandle.m; sourceTree = "<group>"; };
-		2D08C3A12508749300F7206C /* FUDateHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUDateHandle.h; sourceTree = "<group>"; };
 		2D08C3A22508749300F7206C /* FUFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUFilterView.h; sourceTree = "<group>"; };
-		2D08C3A32508749300F7206C /* FUBeautyParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBeautyParam.h; sourceTree = "<group>"; };
 		2D08C3A42508749300F7206C /* FUAPIDemoBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUAPIDemoBar.h; sourceTree = "<group>"; };
 		2D08C3A52508749300F7206C /* UIImage+demobar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+demobar.h"; sourceTree = "<group>"; };
 		2D08C3AA2508749300F7206C /* linjia.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = linjia.bundle; sourceTree = "<group>"; };
@@ -152,8 +174,6 @@
 		2D08C3C52508749300F7206C /* fashi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fashi.png; sourceTree = "<group>"; };
 		2D8ABD2D2511B63200D28745 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		2D8ABD2E2511B63200D28745 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		2DC7C631257E15CD00690AEE /* FURecordEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FURecordEncoder.h; sourceTree = "<group>"; };
-		2DC7C632257E15CE00690AEE /* FURecordEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FURecordEncoder.m; sourceTree = "<group>"; };
 		2DC7D60A2537238B00DA0A4B /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		2DC7D6132537240100DA0A4B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2DC7D6152537240800DA0A4B /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -166,12 +186,73 @@
 		2DF48BED2514912900575424 /* FUManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUManager.m; sourceTree = "<group>"; };
 		36236FA0D16FC95D3991BC76 /* Pods-BeautifyExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeautifyExampleTests.release.xcconfig"; path = "Target Support Files/Pods-BeautifyExampleTests/Pods-BeautifyExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		3D32F315DAB48F1AE0AFB5C4 /* Pods_BeautifyExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeautifyExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4197DB152643C5F800EE97E8 /* FURenderKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FURenderKit.framework; sourceTree = "<group>"; };
+		41D59CB326356F27001D0ECB /* FUBaseCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUBaseCollectionView.h; sourceTree = "<group>"; };
+		41D59CB426356F27001D0ECB /* FUBaseCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FUBaseCollectionView.m; sourceTree = "<group>"; };
+		41D59CE226357E02001D0ECB /* FUBeautyBodyNodeModelProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUBeautyBodyNodeModelProvider.h; sourceTree = "<group>"; };
+		41D59CE326357E02001D0ECB /* FUBeautyBodyNodeModelProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FUBeautyBodyNodeModelProvider.m; sourceTree = "<group>"; };
+		41D59CE726357E2B001D0ECB /* FUBeautyBodyViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUBeautyBodyViewModel.h; sourceTree = "<group>"; };
+		41D59CE826357E2B001D0ECB /* FUBeautyBodyViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FUBeautyBodyViewModel.m; sourceTree = "<group>"; };
+		41D59CEB26357F24001D0ECB /* FUBodyBeautyDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBodyBeautyDefine.h; sourceTree = "<group>"; };
+		41D59CF726365C04001D0ECB /* ai_human_processor_mb_fast.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = ai_human_processor_mb_fast.bundle; sourceTree = "<group>"; };
+		41D59CF826365C04001D0ECB /* ai_hand_processor.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = ai_hand_processor.bundle; sourceTree = "<group>"; };
+		41D59CF926365C04001D0ECB /* ai_face_processor.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = ai_face_processor.bundle; sourceTree = "<group>"; };
+		41D59CFA26365C04001D0ECB /* ai_bgseg_green.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = ai_bgseg_green.bundle; sourceTree = "<group>"; };
+		41D59CFB26365C04001D0ECB /* ai_face_processor_lite.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = ai_face_processor_lite.bundle; sourceTree = "<group>"; };
+		41D59CFC26365C04001D0ECB /* ai_hairseg.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = ai_hairseg.bundle; sourceTree = "<group>"; };
+		41D59CFD26365C04001D0ECB /* ai_human_processor.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = ai_human_processor.bundle; sourceTree = "<group>"; };
+		41D59CFF26365C04001D0ECB /* tongue.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = tongue.bundle; sourceTree = "<group>"; };
+		41D59D0026365C04001D0ECB /* fxaa.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = fxaa.bundle; sourceTree = "<group>"; };
+		41D59D0126365C04001D0ECB /* face_makeup.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = face_makeup.bundle; sourceTree = "<group>"; };
+		41D59D0226365C04001D0ECB /* controller_cpp.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = controller_cpp.bundle; sourceTree = "<group>"; };
+		41D59D0326365C04001D0ECB /* body_slim.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = body_slim.bundle; sourceTree = "<group>"; };
+		41D59D0426365C04001D0ECB /* fuzzytoonfilter.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = fuzzytoonfilter.bundle; sourceTree = "<group>"; };
+		41D59D0526365C04001D0ECB /* face_beautification.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = face_beautification.bundle; sourceTree = "<group>"; };
+		41D59D2926366609001D0ECB /* FUCharacteristicProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUCharacteristicProtocol.h; sourceTree = "<group>"; };
+		41E9113B263BEAE600BEA442 /* UIViewController+FaceUnityUIExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+FaceUnityUIExtension.h"; sourceTree = "<group>"; };
+		41E9113C263BEAE600BEA442 /* UIViewController+FaceUnityUIExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+FaceUnityUIExtension.m"; sourceTree = "<group>"; };
+		41F0A7302636A70F0072EB26 /* FUViewModelManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUViewModelManager.h; sourceTree = "<group>"; };
+		41F0A7312636A70F0072EB26 /* FUViewModelManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FUViewModelManager.m; sourceTree = "<group>"; };
+		41F0A7342636AA9C0072EB26 /* FUModuleDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUModuleDefine.h; sourceTree = "<group>"; };
+		41F0A7752637B3C80072EB26 /* FUBeautyViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUBeautyViewModel.h; sourceTree = "<group>"; };
+		41F0A7762637B3C80072EB26 /* FUBeautyViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FUBeautyViewModel.m; sourceTree = "<group>"; };
+		41F0A7792637B8260072EB26 /* FUBeautyNodeModelProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUBeautyNodeModelProvider.h; sourceTree = "<group>"; };
+		41F0A77A2637B8260072EB26 /* FUBeautyNodeModelProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FUBeautyNodeModelProvider.m; sourceTree = "<group>"; };
+		41F876FF26353DC600DBFE2E /* FUBaseNodeModelProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBaseNodeModelProvider.m; sourceTree = "<group>"; };
+		41F8770126353DC600DBFE2E /* FUBeautySkinNodeModelProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBeautySkinNodeModelProvider.m; sourceTree = "<group>"; };
+		41F8770226353DC600DBFE2E /* FUBeautyShapeNodeModelProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBeautyShapeNodeModelProvider.h; sourceTree = "<group>"; };
+		41F8770326353DC600DBFE2E /* FUStickerNodeModelProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUStickerNodeModelProvider.m; sourceTree = "<group>"; };
+		41F8770426353DC600DBFE2E /* FUBeautyFilterNodeModelProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBeautyFilterNodeModelProvider.h; sourceTree = "<group>"; };
+		41F8770526353DC600DBFE2E /* FUMakeupNodeModelProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUMakeupNodeModelProvider.m; sourceTree = "<group>"; };
+		41F8770626353DC600DBFE2E /* FUBeautySkinNodeModelProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBeautySkinNodeModelProvider.h; sourceTree = "<group>"; };
+		41F8770726353DC600DBFE2E /* FUBeautyShapeNodeModelProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBeautyShapeNodeModelProvider.m; sourceTree = "<group>"; };
+		41F8770826353DC600DBFE2E /* FUStickerNodeModelProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUStickerNodeModelProvider.h; sourceTree = "<group>"; };
+		41F8770926353DC600DBFE2E /* FUBeautyFilterNodeModelProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBeautyFilterNodeModelProvider.m; sourceTree = "<group>"; };
+		41F8770A26353DC600DBFE2E /* FUMakeupNodeModelProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUMakeupNodeModelProvider.h; sourceTree = "<group>"; };
+		41F8770B26353DC600DBFE2E /* FUBaseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBaseViewModel.h; sourceTree = "<group>"; };
+		41F8770C26353DC600DBFE2E /* FUBeautyDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBeautyDefine.h; sourceTree = "<group>"; };
+		41F8770D26353DC600DBFE2E /* FUBaseNodeModelProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBaseNodeModelProvider.h; sourceTree = "<group>"; };
+		41F8770F26353DC600DBFE2E /* FUMakeupViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUMakeupViewModel.h; sourceTree = "<group>"; };
+		41F8771026353DC600DBFE2E /* FUBeautyFilterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBeautyFilterViewModel.m; sourceTree = "<group>"; };
+		41F8771126353DC600DBFE2E /* FUStickerViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUStickerViewModel.h; sourceTree = "<group>"; };
+		41F8771226353DC600DBFE2E /* FUBeautyShapeViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBeautyShapeViewModel.m; sourceTree = "<group>"; };
+		41F8771326353DC600DBFE2E /* FUBeautySkinViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBeautySkinViewModel.h; sourceTree = "<group>"; };
+		41F8771426353DC600DBFE2E /* FUMakeupViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUMakeupViewModel.m; sourceTree = "<group>"; };
+		41F8771526353DC600DBFE2E /* FUBeautyFilterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBeautyFilterViewModel.h; sourceTree = "<group>"; };
+		41F8771626353DC600DBFE2E /* FUStickerViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUStickerViewModel.m; sourceTree = "<group>"; };
+		41F8771726353DC600DBFE2E /* FUBeautyShapeViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBeautyShapeViewModel.h; sourceTree = "<group>"; };
+		41F8771826353DC600DBFE2E /* FUBeautySkinViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBeautySkinViewModel.m; sourceTree = "<group>"; };
+		41F8771926353DC600DBFE2E /* FUBaseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBaseViewModel.m; sourceTree = "<group>"; };
+		41F8771C26353DC600DBFE2E /* FUBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBaseModel.h; sourceTree = "<group>"; };
+		41F8771E26353DC600DBFE2E /* FUBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBaseModel.m; sourceTree = "<group>"; };
 		55AE3D698E3E43CFA1B47A16 /* Pods-BeautifyExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeautifyExample.debug.xcconfig"; path = "Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample.debug.xcconfig"; sourceTree = "<group>"; };
 		AC523AADA896ACCF33329856 /* Pods-BeautifyExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeautifyExample.release.xcconfig"; path = "Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample.release.xcconfig"; sourceTree = "<group>"; };
 		DDA4FF26FEF71B547AC46AE1 /* Pods_BeautifyExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeautifyExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E327E03A25958C52002875F9 /* chaoA.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = chaoA.bundle; sourceTree = "<group>"; };
 		E327E03C25958D74002875F9 /* dousha.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = dousha.bundle; sourceTree = "<group>"; };
 		E327E03D25958D74002875F9 /* naicha.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = naicha.bundle; sourceTree = "<group>"; };
+		E340F37026258347001D967B /* FUSquareButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSquareButton.m; sourceTree = "<group>"; };
+		E340F37126258347001D967B /* FUSquareButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUSquareButton.h; sourceTree = "<group>"; };
 		E35B22C8253571FF00F50AC2 /* FUTestRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUTestRecorder.h; sourceTree = "<group>"; };
 		E35B22C9253571FF00F50AC2 /* FUTestRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTestRecorder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -189,6 +270,7 @@
 				2DC7D61E2537246D00DA0A4B /* CoreMotion.framework in Frameworks */,
 				09D97239251DE97400EF9E46 /* VideoToolbox.framework in Frameworks */,
 				2DC7D61A2537244900DA0A4B /* SystemConfiguration.framework in Frameworks */,
+				4197DB172643C5FD00EE97E8 /* FURenderKit.framework in Frameworks */,
 				610C64E814134B04440D425B /* Pods_BeautifyExample.framework in Frameworks */,
 				5F66A41254472834DB1BBB0E /* Pods_BeautifyExample.framework in Frameworks */,
 				2DC7D6202537247900DA0A4B /* AudioToolbox.framework in Frameworks */,
@@ -222,12 +304,7 @@
 		09275D0D24DBE135005302C0 /* FaceUnity */ = {
 			isa = PBXGroup;
 			children = (
-				09197A832534B53700F94343 /* FUCamera.h */,
-				09197A862534B53800F94343 /* FUCamera.m */,
-				2DC7C631257E15CD00690AEE /* FURecordEncoder.h */,
-				2DC7C632257E15CE00690AEE /* FURecordEncoder.m */,
-				09197A842534B53800F94343 /* FUOpenGLView.h */,
-				09197A852534B53800F94343 /* FUOpenGLView.m */,
+				41F876FD26353DC600DBFE2E /* Abstract */,
 				03F8193D24E0E66A004F7F36 /* authpack.h */,
 				E35B22C8253571FF00F50AC2 /* FUTestRecorder.h */,
 				E35B22C9253571FF00F50AC2 /* FUTestRecorder.m */,
@@ -262,6 +339,7 @@
 		09C6666124D7BC89001D7AE2 /* BeautifyExample */ = {
 			isa = PBXGroup;
 			children = (
+				E3E277C02623E17A0014B3AD /* Lib */,
 				03F8192E24E004A7004F7F36 /* Utils */,
 				09275D0D24DBE135005302C0 /* FaceUnity */,
 				09C6666224D7BC89001D7AE2 /* AppDelegate.h */,
@@ -293,41 +371,32 @@
 		2D08C3862508749300F7206C /* FUAPIDemoBar */ = {
 			isa = PBXGroup;
 			children = (
-				2D08C3872508749300F7206C /* UIColor+FUAPIDemoBar.h */,
-				2D08C3882508749300F7206C /* FUBottomColletionView.m */,
-				2D08C3892508749300F7206C /* Media.xcassets */,
-				2D08C38A2508749300F7206C /* FUDemoBar.strings */,
-				2D08C38C2508749300F7206C /* Localizable.strings */,
-				2D08C3902508749300F7206C /* FUBeautyEditView.m */,
-				2D08C3912508749300F7206C /* FUDemoBarDefine.h */,
-				2D08C3922508749300F7206C /* FUSlider.m */,
-				2D08C3932508749300F7206C /* FUBeautyView.h */,
-				2D08C3942508749300F7206C /* FUBeautyParam.m */,
-				2D08C3952508749300F7206C /* FUFilterView.m */,
-				2D08C3962508749300F7206C /* UIImage+demobar.m */,
+				E340F37126258347001D967B /* FUSquareButton.h */,
+				E340F37026258347001D967B /* FUSquareButton.m */,
+				2D08C3A42508749300F7206C /* FUAPIDemoBar.h */,
 				2D08C3972508749300F7206C /* FUAPIDemoBar.m */,
 				2D08C3982508749300F7206C /* FUAPIDemoBar.xib */,
 				2D08C39A2508749300F7206C /* FUBeautyEditView.h */,
-				2D08C39B2508749300F7206C /* UIColor+FUAPIDemoBar.m */,
-				2D08C39C2508749300F7206C /* FUBottomColletionView.h */,
+				2D08C3902508749300F7206C /* FUBeautyEditView.m */,
+				2D08C3932508749300F7206C /* FUBeautyView.h */,
 				2D08C39D2508749300F7206C /* FUBeautyView.m */,
-				2D08C39E2508749300F7206C /* FUSlider.h */,
-				2D08C39F2508749300F7206C /* modle */,
+				2D08C39C2508749300F7206C /* FUBottomColletionView.h */,
+				2D08C3882508749300F7206C /* FUBottomColletionView.m */,
+				2D08C38A2508749300F7206C /* FUDemoBar.strings */,
+				2D08C3912508749300F7206C /* FUDemoBarDefine.h */,
 				2D08C3A22508749300F7206C /* FUFilterView.h */,
-				2D08C3A32508749300F7206C /* FUBeautyParam.h */,
-				2D08C3A42508749300F7206C /* FUAPIDemoBar.h */,
+				2D08C3952508749300F7206C /* FUFilterView.m */,
+				2D08C39E2508749300F7206C /* FUSlider.h */,
+				2D08C3922508749300F7206C /* FUSlider.m */,
+				2D08C3892508749300F7206C /* Media.xcassets */,
+				2D08C3872508749300F7206C /* UIColor+FUAPIDemoBar.h */,
+				2D08C39B2508749300F7206C /* UIColor+FUAPIDemoBar.m */,
 				2D08C3A52508749300F7206C /* UIImage+demobar.h */,
+				2D08C3962508749300F7206C /* UIImage+demobar.m */,
+				41E9113B263BEAE600BEA442 /* UIViewController+FaceUnityUIExtension.h */,
+				41E9113C263BEAE600BEA442 /* UIViewController+FaceUnityUIExtension.m */,
 			);
 			path = FUAPIDemoBar;
-			sourceTree = "<group>";
-		};
-		2D08C39F2508749300F7206C /* modle */ = {
-			isa = PBXGroup;
-			children = (
-				2D08C3A12508749300F7206C /* FUDateHandle.h */,
-				2D08C3A02508749300F7206C /* FUDateHandle.m */,
-			);
-			path = modle;
 			sourceTree = "<group>";
 		};
 		2D08C3A62508749300F7206C /* items */ = {
@@ -360,6 +429,132 @@
 				2D08C3C22508749300F7206C /* sdlu.bundle */,
 			);
 			path = "贴纸";
+			sourceTree = "<group>";
+		};
+		41D59CB226356EF7001D0ECB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				41D59CB326356F27001D0ECB /* FUBaseCollectionView.h */,
+				41D59CB426356F27001D0ECB /* FUBaseCollectionView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		41D59CF526365C04001D0ECB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				41D59CF626365C04001D0ECB /* model */,
+				41D59CFE26365C04001D0ECB /* graphics */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		41D59CF626365C04001D0ECB /* model */ = {
+			isa = PBXGroup;
+			children = (
+				41D59CF726365C04001D0ECB /* ai_human_processor_mb_fast.bundle */,
+				41D59CF826365C04001D0ECB /* ai_hand_processor.bundle */,
+				41D59CF926365C04001D0ECB /* ai_face_processor.bundle */,
+				41D59CFA26365C04001D0ECB /* ai_bgseg_green.bundle */,
+				41D59CFB26365C04001D0ECB /* ai_face_processor_lite.bundle */,
+				41D59CFC26365C04001D0ECB /* ai_hairseg.bundle */,
+				41D59CFD26365C04001D0ECB /* ai_human_processor.bundle */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		41D59CFE26365C04001D0ECB /* graphics */ = {
+			isa = PBXGroup;
+			children = (
+				41D59CFF26365C04001D0ECB /* tongue.bundle */,
+				41D59D0026365C04001D0ECB /* fxaa.bundle */,
+				41D59D0126365C04001D0ECB /* face_makeup.bundle */,
+				41D59D0226365C04001D0ECB /* controller_cpp.bundle */,
+				41D59D0326365C04001D0ECB /* body_slim.bundle */,
+				41D59D0426365C04001D0ECB /* fuzzytoonfilter.bundle */,
+				41D59D0526365C04001D0ECB /* face_beautification.bundle */,
+			);
+			path = graphics;
+			sourceTree = "<group>";
+		};
+		41F876FD26353DC600DBFE2E /* Abstract */ = {
+			isa = PBXGroup;
+			children = (
+				41D59CB226356EF7001D0ECB /* View */,
+				41F876FE26353DC600DBFE2E /* Business */,
+				41F8771A26353DC600DBFE2E /* Model */,
+				41D59D2926366609001D0ECB /* FUCharacteristicProtocol.h */,
+			);
+			path = Abstract;
+			sourceTree = "<group>";
+		};
+		41F876FE26353DC600DBFE2E /* Business */ = {
+			isa = PBXGroup;
+			children = (
+				41F8770C26353DC600DBFE2E /* FUBeautyDefine.h */,
+				41D59CEB26357F24001D0ECB /* FUBodyBeautyDefine.h */,
+				41F8770026353DC600DBFE2E /* FUProvider */,
+				41F8770E26353DC600DBFE2E /* ViewModel */,
+				41F8770D26353DC600DBFE2E /* FUBaseNodeModelProvider.h */,
+				41F876FF26353DC600DBFE2E /* FUBaseNodeModelProvider.m */,
+				41F8770B26353DC600DBFE2E /* FUBaseViewModel.h */,
+				41F8771926353DC600DBFE2E /* FUBaseViewModel.m */,
+				41F0A7302636A70F0072EB26 /* FUViewModelManager.h */,
+				41F0A7312636A70F0072EB26 /* FUViewModelManager.m */,
+				41F0A7342636AA9C0072EB26 /* FUModuleDefine.h */,
+			);
+			path = Business;
+			sourceTree = "<group>";
+		};
+		41F8770026353DC600DBFE2E /* FUProvider */ = {
+			isa = PBXGroup;
+			children = (
+				41F8770626353DC600DBFE2E /* FUBeautySkinNodeModelProvider.h */,
+				41F8770126353DC600DBFE2E /* FUBeautySkinNodeModelProvider.m */,
+				41F8770426353DC600DBFE2E /* FUBeautyFilterNodeModelProvider.h */,
+				41F8770926353DC600DBFE2E /* FUBeautyFilterNodeModelProvider.m */,
+				41F8770226353DC600DBFE2E /* FUBeautyShapeNodeModelProvider.h */,
+				41F8770726353DC600DBFE2E /* FUBeautyShapeNodeModelProvider.m */,
+				41F8770826353DC600DBFE2E /* FUStickerNodeModelProvider.h */,
+				41F8770326353DC600DBFE2E /* FUStickerNodeModelProvider.m */,
+				41F8770A26353DC600DBFE2E /* FUMakeupNodeModelProvider.h */,
+				41F8770526353DC600DBFE2E /* FUMakeupNodeModelProvider.m */,
+				41D59CE226357E02001D0ECB /* FUBeautyBodyNodeModelProvider.h */,
+				41D59CE326357E02001D0ECB /* FUBeautyBodyNodeModelProvider.m */,
+				41F0A7792637B8260072EB26 /* FUBeautyNodeModelProvider.h */,
+				41F0A77A2637B8260072EB26 /* FUBeautyNodeModelProvider.m */,
+			);
+			path = FUProvider;
+			sourceTree = "<group>";
+		};
+		41F8770E26353DC600DBFE2E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				41F8771526353DC600DBFE2E /* FUBeautyFilterViewModel.h */,
+				41F8771026353DC600DBFE2E /* FUBeautyFilterViewModel.m */,
+				41F8771726353DC600DBFE2E /* FUBeautyShapeViewModel.h */,
+				41F8771226353DC600DBFE2E /* FUBeautyShapeViewModel.m */,
+				41F8771326353DC600DBFE2E /* FUBeautySkinViewModel.h */,
+				41F8771826353DC600DBFE2E /* FUBeautySkinViewModel.m */,
+				41F8770F26353DC600DBFE2E /* FUMakeupViewModel.h */,
+				41F8771426353DC600DBFE2E /* FUMakeupViewModel.m */,
+				41F8771126353DC600DBFE2E /* FUStickerViewModel.h */,
+				41F8771626353DC600DBFE2E /* FUStickerViewModel.m */,
+				41D59CE726357E2B001D0ECB /* FUBeautyBodyViewModel.h */,
+				41D59CE826357E2B001D0ECB /* FUBeautyBodyViewModel.m */,
+				41F0A7752637B3C80072EB26 /* FUBeautyViewModel.h */,
+				41F0A7762637B3C80072EB26 /* FUBeautyViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		41F8771A26353DC600DBFE2E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				41F8771C26353DC600DBFE2E /* FUBaseModel.h */,
+				41F8771E26353DC600DBFE2E /* FUBaseModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		42A85BEAC6A36FA392D1839E /* Pods */ = {
@@ -395,6 +590,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E3E277C02623E17A0014B3AD /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				4197DB152643C5F800EE97E8 /* FURenderKit.framework */,
+				41D59CF526365C04001D0ECB /* Resources */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -408,7 +612,6 @@
 				09C6665D24D7BC89001D7AE2 /* Resources */,
 				AB7B94B55A971FAC4E9EBF43 /* [CP] Embed Pods Frameworks */,
 				2DC7D6082537235B00DA0A4B /* Embed Frameworks */,
-				CFA0CFFFB7E5A31B023BEC5F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -482,18 +685,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D08C3CD2508749300F7206C /* FUDemoBar.strings in Resources */,
+				41D59D0C26365C04001D0ECB /* ai_hairseg.bundle in Resources */,
+				41D59D1226365C04001D0ECB /* body_slim.bundle in Resources */,
+				41D59D0F26365C04001D0ECB /* fxaa.bundle in Resources */,
 				2D08C3F52508749400F7206C /* fashi.png in Resources */,
-				2D08C3CE2508749300F7206C /* Localizable.strings in Resources */,
+				41D59D1026365C04001D0ECB /* face_makeup.bundle in Resources */,
 				2D08C3E22508749300F7206C /* gangfeng.bundle in Resources */,
 				2D08C3EE2508749400F7206C /* fashi.bundle in Resources */,
+				41D59D1426365C04001D0ECB /* face_beautification.bundle in Resources */,
+				41D59D0826365C04001D0ECB /* ai_hand_processor.bundle in Resources */,
+				41D59D0E26365C04001D0ECB /* tongue.bundle in Resources */,
+				41D59D0A26365C04001D0ECB /* ai_bgseg_green.bundle in Resources */,
+				41D59D0726365C04001D0ECB /* ai_human_processor_mb_fast.bundle in Resources */,
 				E327E03E25958D74002875F9 /* dousha.bundle in Resources */,
 				E327E03B25958C52002875F9 /* chaoA.bundle in Resources */,
 				2D08C3DB2508749300F7206C /* linjia.bundle in Resources */,
+				41D59D0B26365C04001D0ECB /* ai_face_processor_lite.bundle in Resources */,
+				41D59D1326365C04001D0ECB /* fuzzytoonfilter.bundle in Resources */,
 				2D08C3F22508749400F7206C /* sdlu.bundle in Resources */,
 				E327E03F25958D74002875F9 /* naicha.bundle in Resources */,
 				09C6667224D7BC8B001D7AE2 /* LaunchScreen.storyboard in Resources */,
 				2D08C3F12508749400F7206C /* sdlu.png in Resources */,
 				2D08C3D52508749300F7206C /* FUAPIDemoBar.xib in Resources */,
+				41D59D0926365C04001D0ECB /* ai_face_processor.bundle in Resources */,
+				41D59D1126365C04001D0ECB /* controller_cpp.bundle in Resources */,
+				41D59D0D26365C04001D0ECB /* ai_human_processor.bundle in Resources */,
 				09C6666F24D7BC8B001D7AE2 /* Assets.xcassets in Resources */,
 				2D08C3CC2508749300F7206C /* Media.xcassets in Resources */,
 				09C6666D24D7BC89001D7AE2 /* Main.storyboard in Resources */,
@@ -571,23 +787,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CFA0CFFFB7E5A31B023BEC5F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -595,29 +794,45 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41F8772426353DC600DBFE2E /* FUBeautyFilterNodeModelProvider.m in Sources */,
+				41F8772326353DC600DBFE2E /* FUBeautyShapeNodeModelProvider.m in Sources */,
 				03F8194524E0E75C004F7F36 /* authpack.h in Sources */,
 				2D08C3D02508749300F7206C /* FUSlider.m in Sources */,
 				2D08C3CF2508749300F7206C /* FUBeautyEditView.m in Sources */,
+				41D59CE426357E02001D0ECB /* FUBeautyBodyNodeModelProvider.m in Sources */,
 				2D08C3D22508749300F7206C /* FUFilterView.m in Sources */,
+				41F0A7772637B3C80072EB26 /* FUBeautyViewModel.m in Sources */,
 				E35B22CA253571FF00F50AC2 /* FUTestRecorder.m in Sources */,
-				09197A872534B53800F94343 /* FUOpenGLView.m in Sources */,
 				2D08C3D32508749300F7206C /* UIImage+demobar.m in Sources */,
 				03F8193624E004A7004F7F36 /* CapturerManager.m in Sources */,
+				E340F37226258347001D967B /* FUSquareButton.m in Sources */,
+				41F8772626353DC600DBFE2E /* FUBeautyShapeViewModel.m in Sources */,
 				2D8ABD2F2511B63200D28745 /* MainViewController.m in Sources */,
-				2D08C3D12508749300F7206C /* FUBeautyParam.m in Sources */,
+				41F8772A26353DC600DBFE2E /* FUBaseViewModel.m in Sources */,
+				41F8772526353DC600DBFE2E /* FUBeautyFilterViewModel.m in Sources */,
 				03F8193524E004A7004F7F36 /* VideoProcessingManager.m in Sources */,
 				2D08C3D62508749300F7206C /* UIColor+FUAPIDemoBar.m in Sources */,
+				41E9113D263BEAE600BEA442 /* UIViewController+FaceUnityUIExtension.m in Sources */,
 				03F8196324E1371B004F7F36 /* KeyCenter.m in Sources */,
-				2DC7C633257E15CE00690AEE /* FURecordEncoder.m in Sources */,
+				41F8772826353DC600DBFE2E /* FUStickerViewModel.m in Sources */,
+				41F0A7322636A70F0072EB26 /* FUViewModelManager.m in Sources */,
 				2DF48BEE2514912900575424 /* FUManager.m in Sources */,
+				41F8772126353DC600DBFE2E /* FUStickerNodeModelProvider.m in Sources */,
+				41F8772226353DC600DBFE2E /* FUMakeupNodeModelProvider.m in Sources */,
+				41F8772C26353DC600DBFE2E /* FUBaseModel.m in Sources */,
+				41F8772026353DC600DBFE2E /* FUBeautySkinNodeModelProvider.m in Sources */,
+				41F8772726353DC600DBFE2E /* FUMakeupViewModel.m in Sources */,
 				2D08C3D42508749300F7206C /* FUAPIDemoBar.m in Sources */,
-				2D08C3D82508749300F7206C /* FUDateHandle.m in Sources */,
 				2D08C3D72508749300F7206C /* FUBeautyView.m in Sources */,
 				09C6666A24D7BC89001D7AE2 /* ViewController.m in Sources */,
+				41D59CE926357E2B001D0ECB /* FUBeautyBodyViewModel.m in Sources */,
 				09C6666424D7BC89001D7AE2 /* AppDelegate.m in Sources */,
+				41F8772926353DC600DBFE2E /* FUBeautySkinViewModel.m in Sources */,
+				41F0A77B2637B8260072EB26 /* FUBeautyNodeModelProvider.m in Sources */,
 				09C6667524D7BC8B001D7AE2 /* main.m in Sources */,
+				41D59CB526356F27001D0ECB /* FUBaseCollectionView.m in Sources */,
+				41F8771F26353DC600DBFE2E /* FUBaseNodeModelProvider.m in Sources */,
 				2D08C3CB2508749300F7206C /* FUBottomColletionView.m in Sources */,
-				09197A882534B53800F94343 /* FUCamera.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,15 +878,6 @@
 				2D08C38E2508749300F7206C /* en */,
 			);
 			name = FUDemoBar.strings;
-			sourceTree = "<group>";
-		};
-		2D08C38C2508749300F7206C /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2D08C38D2508749300F7206C /* zh-Hans */,
-				2D08C38F2508749300F7206C /* en */,
-			);
-			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		2D08C3982508749300F7206C /* FUAPIDemoBar.xib */ = {
@@ -808,13 +1014,14 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/BeautifyExample/FaceUnity/Lib",
+					"$(PROJECT_DIR)/BeautifyExample/Lib",
 				);
 				INFOPLIST_FILE = BeautifyExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.agora.AgoraLiveBroadcastxx;
+				PRODUCT_BUNDLE_IDENTIFIER = io.agora.AgoraLiveBroadcast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = FUWildcard;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -834,6 +1041,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/BeautifyExample/FaceUnity/Lib",
+					"$(PROJECT_DIR)/BeautifyExample/Lib",
 				);
 				INFOPLIST_FILE = BeautifyExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

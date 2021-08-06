@@ -7,24 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FUBeautyParam.h"
+#import "FUBaseModel.h"
+#import "FUBaseViewModel.h"
+
 
 @protocol FUAPIDemoBarDelegate <NSObject>
 
-// 滤镜程度改变
-- (void)filterValueChange:(FUBeautyParam *)param;
-
--(void)bottomDidChange:(int)index;
+-(void)bottomDidChangeViewModel:(FUBaseViewModel *)viewModel;
 // 显示上半部分View
 -(void)showTopView:(BOOL)shown;
-
-// 开启关闭按钮
-- (void)switchRenderState:(BOOL)state;
-
 @end
 
 @interface FUAPIDemoBar : UIView
-
 @property (nonatomic, assign) id<FUAPIDemoBarDelegate>mDelegate ;
 
 
@@ -34,7 +28,7 @@
 // 上半部是否显示
 @property (nonatomic, assign) BOOL isTopViewShow ;
 
--(void)setDefaultFilter:(FUBeautyParam *)filter;
+- (void)setDefaultFilter:(FUBaseModel *)filter;
 
 
 @end

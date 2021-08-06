@@ -8,23 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "FUDemoBarDefine.h"
-#import "FUBeautyParam.h"
-
+#import "FUBaseModel.h"
+#import "FUBaseCollectionView.h"
 @class FUBeautyView;
 @protocol FUBeautyViewDelegate <NSObject>
 
-- (void)beautyCollectionView:(FUBeautyView *)beautyView didSelectedParam:(FUBeautyParam *)param;
+- (void)beautyCollectionView:(FUBeautyView *)beautyView didSelectedParam:(FUBaseModel *)param;
 
 @end
 
-@interface FUBeautyView : UICollectionView
+@interface FUBeautyView : FUBaseCollectionView
 
 @property (nonatomic, assign) id<FUBeautyViewDelegate>mDelegate ;
-
-@property (nonatomic, assign) NSInteger selectedIndex ;
-
-@property (nonatomic, strong) NSArray <FUBeautyParam *>*dataArray;
-
 
 @end
 

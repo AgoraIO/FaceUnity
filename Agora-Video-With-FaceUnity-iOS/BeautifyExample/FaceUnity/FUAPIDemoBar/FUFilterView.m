@@ -15,14 +15,18 @@
 @end
 
 @implementation FUFilterView
+@synthesize selectedIndex = _selectedIndex;
+@synthesize dataList = _dataList;
 
--(void)awakeFromNib{
+-(void)awakeFromNib {
+    [super awakeFromNib];
     self.backgroundColor = [UIColor clearColor];
     self.delegate = self;
     self.dataSource = self ;
     [self registerClass:[FUFilterCell class] forCellWithReuseIdentifier:@"FUFilterCell"];
     
     _selectedIndex = 0 ;
+
 }
 
 -(void)setType:(FUFilterViewType)type {
@@ -35,9 +39,9 @@
     [self reloadData];
 }
 
--(void)setDefaultFilter:(FUBeautyParam *)filter{
-    for (int i = 0; i < _filters.count; i ++) {
-        FUBeautyParam *model = _filters[i];
+-(void)setDefaultFilter:(FUBaseModel *)filter{
+    for (int i = 0; i < self.dataList.count; i ++) {
+        FUBaseModel *model = self.dataList[i];
         if (model == filter) {
             self.selectedIndex = i;
             return;
@@ -49,18 +53,18 @@
 #pragma mark ---- UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.filters.count;
+    return self.dataList.count;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     FUFilterCell *cell = (FUFilterCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"FUFilterCell" forIndexPath:indexPath];
     
-    FUBeautyParam *model = _filters[indexPath.row];
+    FUBaseModel *model = self.dataList[indexPath.row];
     
     cell.titleLabel.text = NSLocalizedString(model.mTitle,nil);
     cell.titleLabel.textColor = [UIColor whiteColor];
-    cell.imageView.image = [UIImage imageWithName:model.mParam];
+    cell.imageView.image = [UIImage imageWithName:model.imageName];
     
     cell.imageView.layer.borderWidth = 0.0 ;
     cell.imageView.layer.borderColor = [UIColor clearColor].CGColor;
@@ -82,7 +86,7 @@
     _selectedIndex = indexPath.row ;
     [self reloadData];
     
-    FUBeautyParam *model = _filters[indexPath.row];
+    FUBaseModel *model = self.dataList[indexPath.row];
     
     if (self.mDelegate && [self.mDelegate respondsToSelector:@selector(filterViewDidSelectedFilter:)]) {
         [self.mDelegate filterViewDidSelectedFilter:model];
