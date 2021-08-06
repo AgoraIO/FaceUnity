@@ -22,15 +22,6 @@
 - (void)initCapturer {
     self.cameraCapturer = [[AGMCameraCapturer alloc] initWithConfig:self.videoConfig];
     self.cameraCapturer.delegate = self;
-//    self.videoAdapterFilter = [[AGMVideoAdapterFilter alloc] init];
-//    self.videoAdapterFilter.ignoreAspectRatio = YES;
-//    self.videoAdapterFilter.isMirror = YES;
-//    [self.cameraCapturer addVideoSink:self.videoAdapterFilter];
-//    __weak typeof(self) weakSelf = self;
-//    [self.videoAdapterFilter setFrameProcessingCompletionBlock:^(AGMVideoSource * _Nonnull videoSource, CMTime time) {
-//        CVPixelBufferRef pixelBuffer = videoSource.framebufferForOutput.pixelBuffer;
-//        [weakSelf didOutputPixelBuffer:pixelBuffer frameTime:time];
-//    }];
 }
 
 - (void)didOutputPixelBuffer:(CVPixelBufferRef)pixelBuffer frameTime:(CMTime)time {

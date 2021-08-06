@@ -119,61 +119,70 @@ self.videoFilter.enabled = YES;
 #pragma mark - VideoFilterDelegate
 /// process your video frame here
 - (CVPixelBufferRef)processFrame:(CVPixelBufferRef)frame {
-    if(self.enabled) {
-        CVPixelBufferRef buffer = [self renderItemsToPixelBuffer:frame];
-        return buffer;
+    [[FUTestRecorder shareRecorder] processFrameWithLog];
+    
+    FURenderInput *input = [[FURenderInput alloc] init];
+    input.pixelBuffer = frame;
+    //默认图片内部的人脸始终是朝上，旋转屏幕也无需修改该属性。
+    input.renderConfig.imageOrientation = FUImageOrientationUP;
+    //开启重力感应，内部会自动计算正确方向，设置fuSetDefaultRotationMode，无须外面设置
+    input.renderConfig.gravityEnable = YES;
+    //如果来源相机捕获的图片一定要设置，否则将会导致内部检测异常
+    input.renderConfig.isFromFrontCamera = YES;
+    //该属性是指系统相机是否做了镜像: 一般情况前置摄像头出来的帧都是设置过镜像，所以默认需要设置下。如果相机属性未设置镜像，改属性不用设置。
+    input.renderConfig.isFromMirroredCamera = YES;
+    FURenderOutput *output = [self renderWithInput:input];
+    if ([self.delegate respondsToSelector:@selector(checkAI)]) {
+        [self.delegate checkAI];
     }
-    return frame;
+    return output.pixelBuffer;
 }
 
 ```
 
 ##### FaceUnity美颜模块加载
 
-在 `ViewController.m` `viewDidLoad:` 方法中查看美颜加载
-导入头文件,添加美颜工具条,实现代理方法 `FUAPIDemoBarDelegate`
+在 `ViewController.m` 中导入头文件
 
 ```objc
 
-#import "FUManager.h"
-#import "FUAPIDemoBar.h"
-#import <Masonry/Masonry.h>
-
-/**faceU */
-@property(nonatomic, strong) FUAPIDemoBar *demoBar;
+#import "UIViewController+FaceUnityUIExtension.h"
 
 ```
-
-美颜工具条代理方法 `FUAPIDemoBarDelegate`
+在 `viewDidLoad` 中初始化 FaceUnity的界面和 SDK，FaceUnity界面工具和SDK都放在UIViewController+FaceUnityUIExtension中初始化了，也可以自行调用FUAPIDemoBar和FUManager初始化
 
 ```objc
+[self setupFaceUnity];
+```
 
--(void)filterValueChange:(FUBeautyParam *)param{
-    [[FUManager shareManager] filterValueChange:param];
-}
+底部栏切换功能：使用不同的ViewModel控制
 
--(void)switchRenderState:(BOOL)state{
-    [FUManager shareManager].isRender = state;
-}
-
--(void)bottomDidChange:(int)index{
-    if (index < 3) {
-        [[FUManager shareManager] setRenderType:FUDataTypeBeautify];
+```C
+-(void)bottomDidChangeViewModel:(FUBaseViewModel *)viewModel {
+    if (viewModel.type == FUDataTypeBeauty || viewModel.type == FUDataTypebody) {
+        self.renderSwitch.hidden = NO;
+    } else {
+        self.renderSwitch.hidden = YES;
     }
-    if (index == 3) {
-        [[FUManager shareManager] setRenderType:FUDataTypeStrick];
-    }
+
+    [[FUManager shareManager].viewModelManager addToRenderLoop:viewModel];
     
-    if (index == 4) {
-        [[FUManager shareManager] setRenderType:FUDataTypeMakeup];
-    }
-    if (index == 5) {
-        
-        [[FUManager shareManager] setRenderType:FUDataTypebody];
-    }
+    // 设置人脸数
+    [[FUManager shareManager].viewModelManager resetMaxFacesNumber:viewModel.type];
 }
 
 ```
+
+更新美颜参数
+
+```C
+- (IBAction)filterSliderValueChange:(FUSlider *)sender {
+    _seletedParam.mValue = @(sender.value * _seletedParam.ratio);
+    /**
+     * 这里使用抽象接口，有具体子类决定去哪个业务员模块处理数据
+     */
+    [self.selectedView.viewModel consumerWithData:_seletedParam viewModelBlock:nil];
+}
 
 
 #### 资源释放和销毁

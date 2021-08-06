@@ -104,7 +104,7 @@ static int frame= 0;
         if (fps > 30) {
             fps = 30 ;
         }
-        NSLog(@"%@,%d,%.01f,%.02f\n",currnetDate,(int)fps,cpu/count,memory);
+//        NSLog(@"%@,%d,%.01f,%.02f\n",currnetDate,(int)fps,cpu/count,memory);
         NSString *performance = [NSString stringWithFormat:@"%@,%d,%.01f,%.02f\n",currnetDate,(int)fps,cpu/count,memory];
 
        NSFileHandle* fileHandle = [NSFileHandle fileHandleForUpdatingAtPath:self.logPath];

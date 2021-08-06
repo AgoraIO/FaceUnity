@@ -12,7 +12,5 @@
 
 /// 房间号
 @property (copy, nonatomic) NSString *channelName;
-
-
 @end
 

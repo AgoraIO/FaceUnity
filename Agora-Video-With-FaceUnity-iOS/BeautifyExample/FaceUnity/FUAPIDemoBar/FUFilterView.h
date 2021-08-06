@@ -8,27 +8,23 @@
 
 #import <UIKit/UIKit.h>
 #import "FUDemoBarDefine.h"
-#import "FUBeautyParam.h"
-
+#import "FUBaseModel.h"
+#import "FUBaseCollectionView.h"
 
 @protocol FUFilterViewDelegate <NSObject>
 
 // 开启滤镜
-- (void)filterViewDidSelectedFilter:(FUBeautyParam *)param;
+- (void)filterViewDidSelectedFilter:(FUBaseModel *)param;
 @end
 
 
-@interface FUFilterView : UICollectionView
+@interface FUFilterView : FUBaseCollectionView
 
 @property (nonatomic, assign) FUFilterViewType type ;
 
 @property (nonatomic, assign) id<FUFilterViewDelegate>mDelegate ;
 
-@property (nonatomic, assign) NSInteger selectedIndex ;
-
-@property (nonatomic, strong) NSArray<FUBeautyParam *> *filters;
-
--(void)setDefaultFilter:(FUBeautyParam *)filter;
+-(void)setDefaultFilter:(FUBaseModel *)filter;
 
 @end
 

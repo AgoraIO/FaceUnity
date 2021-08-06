@@ -116,54 +116,37 @@ Create a class that implements the `VideoFilterDelegate` protocol `FUManager` , 
 
 ##### FaceUnity load
 
-in `ViewController.m` `viewDidLoad:` add demoBar,implements the `FUAPIDemoBarDelegate` protocol 
+decoupling module, we user Abstract API and category to do this，now , you can setupFaceUnity in viewDidLoad.
 
 ```objc
 
-#import "FUManager.h"
-#import "FUAPIDemoBar.h"
-#import <Masonry/Masonry.h>
+#import "UIViewController+FaceUnityUIExtension.h"
 
-/**faceU */
-@property(nonatomic, strong) FUAPIDemoBar *demoBar;
+/** load Faceu */
+[self setupFaceUnity];
 
 ```
 
-FaceUnity demoBar `FUAPIDemoBarDelegate`
+All Business in Abstract file folder. you do not care for detail, only need add for every module(like makeup)  a provider and a viewModel.  for example:
 
-```objc
+```objective-c
+#import "FUAPIDemoBar.h"
+...   
+//create viewModel
+_makeupViewModel = [FUMakeupViewModel instanceViewModel];
+//create provider for dataSource
+_makeupViewModel.provider = [FUMakeupNodeModelProvider instanceProducer];
 
--(void)filterValueChange:(FUBeautyParam *)param{
-    [[FUManager shareManager] filterValueChange:param];
-}
-
--(void)switchRenderState:(BOOL)state{
-    [FUManager shareManager].isRender = state;
-}
-
--(void)bottomDidChange:(int)index{
-    if (index < 3) {
-        [[FUManager shareManager] setRenderType:FUDataTypeBeautify];
-    }
-    if (index == 3) {
-        [[FUManager shareManager] setRenderType:FUDataTypeStrick];
-    }
-    
-    if (index == 4) {
-        [[FUManager shareManager] setRenderType:FUDataTypeMakeup];
-    }
-    if (index == 5) {
-        
-        [[FUManager shareManager] setRenderType:FUDataTypebody];
-    }
-}
+//bind to you view
+_makeupView.dataList = _makeupViewModel.provider.dataSource;
+_makeupView.viewModel = _makeupViewModel;
 
 ```
 
 
 #### release
 
-check `delloc:` 
+check `viewDidLoad dealloc:` 
 
 ## FAQ
 

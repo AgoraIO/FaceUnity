@@ -1,15 +1,13 @@
 PODS:
   - AGMCapturer_iOS (2.0.0)
-  - AgoraRtcEngine_iOS (3.1.2)
+  - AgoraRtcEngine_iOS (3.2.1)
   - Masonry (1.1.0)
-  - Nama (7.2.0)
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
-  - AGMCapturer_iOS (~> 2.0.0)
-  - AgoraRtcEngine_iOS (~> 3.1.2)
+  - AGMCapturer_iOS
+  - AgoraRtcEngine_iOS
   - Masonry
-  - Nama (~> 7.2.0)
   - SVProgressHUD
 
 SPEC REPOS:
@@ -17,16 +15,14 @@ SPEC REPOS:
     - AGMCapturer_iOS
     - AgoraRtcEngine_iOS
     - Masonry
-    - Nama
     - SVProgressHUD
 
 SPEC CHECKSUMS:
   AGMCapturer_iOS: 93984ef65e71fe2631d1fad4c703b47bdc3f3a30
-  AgoraRtcEngine_iOS: 0628532d3475471d1c352ba548cee98492850cc0
+  AgoraRtcEngine_iOS: bf8ee53108d31dd9e3b7e448701b9098162c42c7
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  Nama: 6513d06085933c8d13b1e6360f5c1ea6996f745b
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 48897399c48b5273ec2d16c8c8a9aa5aeb0555aa
+PODFILE CHECKSUM: 1fa21ca09f7a72d786786a19c5e8dc147cb5eb39
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1

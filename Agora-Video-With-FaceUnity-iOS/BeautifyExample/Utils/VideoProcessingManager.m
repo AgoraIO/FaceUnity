@@ -45,7 +45,7 @@
             outputPixelBuffer = [filter processFrame:outputPixelBuffer];
         }
     }
-    return outputPixelBuffer;;
+    return outputPixelBuffer;
 }
 
 @end
