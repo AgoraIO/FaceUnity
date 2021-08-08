@@ -71,7 +71,8 @@
     [super layoutSubviews];
     
     if (!middleView) {
-        middleView = [[UIView alloc] initWithFrame:CGRectMake(2, self.frame.size.height /2.0 - 1, 100, 4)];
+        CGFloat middY = [self getSubViewsMidY];
+        middleView = [[UIView alloc] initWithFrame:CGRectMake(2, middY, 100, 4)];
         middleView.backgroundColor = [UIColor colorWithHexColorString:@"5EC7FE"];
         middleView.hidden = YES;
         [self insertSubview:middleView atIndex: self.subviews.count - 1];
@@ -90,6 +91,24 @@
     
     CGFloat value = self.value ;
     [self setValue:value animated:NO];
+}
+
+
+- (CGFloat)getSubViewsMidY {
+    CGFloat midY = 7.0;
+    //暂时hock 系统slider 进度条的位置，后续有改变再修改即可（个人认为变动几率不是很大）
+    for (UIView *subView in self.subviews) {
+        Class subViewClass = NSClassFromString(@"_UISlideriOSVisualElement");
+        if ([subView isKindOfClass:subViewClass]) {
+            for (UIView *desView in subView.subviews) {
+                if ([desView isKindOfClass:[UIView class]]) {
+                    midY = desView.frame.origin.y;
+                    break;
+                }
+            }
+        }
+    }
+    return midY;
 }
 
 -(void)setType:(FUSliderType)type {

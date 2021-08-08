@@ -11,9 +11,15 @@
 #import "UIColor+FUAPIDemoBar.h"
 
 @interface FUBeautyView ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+
+/// 恢复按钮
+@property (nonatomic, strong) UIButton *recoverButton;
+
 @end
 
 @implementation FUBeautyView
+@synthesize selectedIndex = _selectedIndex;
+@synthesize dataList = _dataList;
 
 -(void)awakeFromNib {
     [super awakeFromNib];
@@ -30,36 +36,36 @@
 #pragma mark ---- UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.dataArray.count ;
+    return self.dataList.count;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     FUBeautyCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FUBeautyCell" forIndexPath:indexPath];
     
-    if (indexPath.row < self.dataArray.count){
-        FUBeautyParam *modle = self.dataArray[indexPath.row] ;
+    if (indexPath.row < self.dataList.count){
+        FUBaseModel *model = self.dataList[indexPath.row] ;
         NSString *imageName ;
         
             BOOL opened = YES;
         
-        if (modle.iSStyle101) {
-            opened = fabs(modle.mValue - 0.5) > 0.01 ? YES : NO;
+        if (model.iSStyle101) {
+            opened = fabs([model.mValue floatValue] - 0.5) > 0.01 ? YES : NO;
         }else{
-            opened = fabsf(modle.mValue - 0) > 0.01 ? YES : NO;
+            opened = fabsf([model.mValue floatValue] - 0) > 0.01 ? YES : NO;
         }
         
         
             BOOL selected = _selectedIndex == indexPath.row ;
             
             if (selected) {
-                imageName = opened ? [modle.mTitle stringByAppendingString:@"-3.png"] : [modle.mTitle stringByAppendingString:@"-2.png"] ;
+                imageName = opened ? [model.imageName stringByAppendingString:@"-3.png"] : [model.imageName stringByAppendingString:@"-2.png"] ;
             }else {
-                imageName = opened ? [modle.mTitle stringByAppendingString:@"-1.png"] : [modle.mTitle stringByAppendingString:@"-0.png"] ;
+                imageName = opened ? [model.imageName stringByAppendingString:@"-1.png"] : [model.imageName stringByAppendingString:@"-0.png"] ;
             }
 
         cell.imageView.image = [UIImage imageWithName:imageName];
-        cell.titleLabel.text = NSLocalizedString(modle.mTitle,nil);
+        cell.titleLabel.text = NSLocalizedString(model.mTitle,nil);
         cell.titleLabel.textColor = _selectedIndex == indexPath.row ? [UIColor colorWithHexColorString:@"5EC7FE"] : [UIColor whiteColor];
     }
     return cell ;
@@ -71,7 +77,7 @@
     if (_selectedIndex == indexPath.row) {
         return ;
     }
-    FUBeautyParam *model = _dataArray[indexPath.row];
+    FUBaseModel *model = self.dataList[indexPath.row];
     _selectedIndex = indexPath.row ;
     
     [self reloadData];
@@ -89,7 +95,12 @@
 }
 
 
-
+- (UIButton *)recoverButton {
+    if (!_recoverButton) {
+        _recoverButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    }
+    return _recoverButton;
+}
 
 
 @end

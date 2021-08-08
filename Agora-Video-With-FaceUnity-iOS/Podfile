@@ -14,7 +14,7 @@ target 'BeautifyExample' do
 
    pod 'AGMCapturer_iOS'
    pod 'AgoraRtcEngine_iOS'
-   pod 'Nama','~> 7.3.0'
+   #pod 'Nama','~> 7.3.0'
    pod 'Masonry'
    pod 'SVProgressHUD'
 

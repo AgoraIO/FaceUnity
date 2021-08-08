@@ -14,11 +14,12 @@
 #import "KeyCenter.h"
 
 #import "FUManager.h"
-#import "FUAPIDemoBar.h"
+
 #import <Masonry/Masonry.h>
 #import <AGMRenderer/AGMRenderer.h>
+#import "UIViewController+FaceUnityUIExtension.h"
 
-@interface ViewController () <AgoraRtcEngineDelegate,FUAPIDemoBarDelegate, AgoraVideoSourceProtocol>
+@interface ViewController () <AgoraRtcEngineDelegate, AgoraVideoSourceProtocol>
 
 @property (nonatomic, strong) CapturerManager *capturerManager;
 @property (nonatomic, strong) FUManager *videoFilter;
@@ -36,9 +37,6 @@
 @property (nonatomic, assign) AgoraVideoMirrorMode localVideoMirrored;
 @property (nonatomic, assign) AgoraVideoMirrorMode remoteVideoMirrored;
 @property (nonatomic, strong) AGMEAGLVideoView *glVideoView;
-/**faceU */
-@property(nonatomic, strong) FUAPIDemoBar *demoBar;
-
 
 @end
 
@@ -48,11 +46,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [FUManager shareManager].delegate = self;
     self.remoteView.hidden = YES;
     
     /** load Faceu */
     [self setupFaceUnity];
-    
+
     // 初始化 rte engine
     self.rtcEngineKit = [AgoraRtcEngineKit sharedEngineWithAppId:[KeyCenter AppId] delegate:self];
     
@@ -61,7 +60,7 @@
     [self.rtcEngineKit enableVideo];
     [self.rtcEngineKit setParameters:@"{\"che.video.zerocopy\":true}"];
     AgoraVideoEncoderConfiguration* config = [[AgoraVideoEncoderConfiguration alloc] initWithSize:AgoraVideoDimension1280x720
-                                                                                        frameRate:AgoraVideoFrameRateFps15
+                                                                                        frameRate:AgoraVideoFrameRateFps30
                                                                                           bitrate:AgoraVideoBitrateStandard
                                                                                   orientationMode:AgoraVideoOutputOrientationModeFixedPortrait];
     [self.rtcEngineKit setVideoEncoderConfiguration:config];
@@ -78,8 +77,9 @@
     
     // add FaceUnity filter and add to process manager
     self.videoFilter = [FUManager shareManager];
-    self.videoFilter.enabled = YES;
     [self.processingManager addVideoFilter:self.videoFilter];
+    
+    // self.processingManager.enableFilter = NO;
     
     [self.capturerManager startCapture];
     
@@ -100,9 +100,8 @@
     // set custom capturer as video source
     [self.rtcEngineKit setVideoSource:self.capturerManager];
     
-    [self.rtcEngineKit joinChannelByToken:nil channelId:self.channelName info:nil uid:0 joinSuccess:^(NSString * _Nonnull channel, NSUInteger uid, NSInteger elapsed) {
-        
-    }];
+    [self.rtcEngineKit joinChannelByToken:nil channelId:self.channelName info:nil uid:0 joinSuccess:nil];
+
 }
 
 
@@ -110,66 +109,6 @@
     self.glVideoView.frame = self.view.bounds;
 }
 
-/// faceunity
-- (void)setupFaceUnity{
-
-    [[FUManager shareManager] loadFilter];
-    [FUManager shareManager].flipx = YES;
-    [FUManager shareManager].trackFlipx = YES;
-    [FUManager shareManager].isRender = YES;
-    
-    _demoBar = [[FUAPIDemoBar alloc] init];
-    _demoBar.mDelegate = self;
-    [self.view addSubview:_demoBar];
-    [_demoBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        if (@available(iOS 11.0, *)) {
-           
-            make.left.mas_equalTo(self.view.mas_safeAreaLayoutGuideLeft);
-            make.right.mas_equalTo(self.view.mas_safeAreaLayoutGuideRight);
-            make.bottom.mas_equalTo(self.view.mas_safeAreaLayoutGuideBottom);
-        
-        } else {
-        
-            make.left.right.bottom.mas_equalTo(0);
-        }
-
-        make.height.mas_equalTo(195);
-        
-    }];
-    
-}
-
-
-#pragma mark -  FUAPIDemoBarDelegate
-
--(void)filterValueChange:(FUBeautyParam *)param{
-    [[FUManager shareManager] filterValueChange:param];
-}
-
--(void)switchRenderState:(BOOL)state{
-    [FUManager shareManager].isRender = state;
-}
-
--(void)bottomDidChange:(int)index{
-    if (index < 3) {
-        [[FUManager shareManager] setRenderType:FUDataTypeBeautify];
-    }
-    if (index == 3) {
-        [[FUManager shareManager] setRenderType:FUDataTypeStrick];
-    }
-    
-    if (index == 4) {
-        [[FUManager shareManager] setRenderType:FUDataTypeMakeup];
-    }
-    if (index == 5) {
-        
-        [[FUManager shareManager] setRenderType:FUDataTypebody];
-    }
-}
-
-
-/// release
 - (void)dealloc {
     
     [[FUManager shareManager] destoryItems];
@@ -180,7 +119,6 @@
     [AgoraRtcEngineKit destroy];
     
 }
-
 
 - (IBAction)switchCamera:(UIButton *)button
 {
@@ -196,33 +134,72 @@
     AgoraVideoEncoderConfiguration* config = [[AgoraVideoEncoderConfiguration alloc] initWithSize:CGSizeMake(720, 1280) frameRate:30 bitrate:0 orientationMode:AgoraVideoOutputOrientationModeAdaptative];
     config.mirrorMode = self.remoteVideoMirrored;
     [self.rtcEngineKit setVideoEncoderConfiguration:config];
+    
+    
 }
 
 - (IBAction)muteAudioBtn:(UIButton *)sender {
-
     sender.selected = !sender.selected;
     if (sender.selected) {
         
         [sender setTitleColor:[UIColor blueColor] forState:(UIControlStateSelected)];
     }
     [self.rtcEngineKit muteLocalAudioStream:sender.selected];
-    
 }
-
-
 
 - (IBAction)backBtnClick:(UIButton *)sender {
-    
+    [[FUManager shareManager] destoryItems];
     [self dismissViewControllerAnimated:YES completion:nil];
-    
+    //缓存数据
+    for (FUBaseViewModel *viewModel in [FUManager shareManager].viewModelManager.allViewModels) {
+        if ([viewModel conformsToProtocol:@protocol(FUCharacteristicProtocol)] && [viewModel respondsToSelector:@selector(cacheData)]) {
+            [viewModel cacheData];
+        }
+    }
 }
+
 
 /// firstRemoteVideoDecoded
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine firstRemoteVideoDecodedOfUid:(NSUInteger)uid size: (CGSize)size elapsed:(NSInteger)elapsed {
+//    if (self.remoteView.hidden) {
+//        self.remoteView.hidden = NO;
+//    }
+//
+//    AgoraRtcVideoCanvas *videoCanvas = [[AgoraRtcVideoCanvas alloc] init];
+//    videoCanvas.uid = uid;
+//    // Since we are making a simple 1:1 video chat app, for simplicity sake, we are not storing the UIDs. You could use a mechanism such as an array to store the UIDs in a channel.
+//
+//    videoCanvas.view = self.remoteView;
+//    videoCanvas.renderMode = AgoraVideoRenderModeHidden;
+//    [self.rtcEngineKit setupRemoteVideo:videoCanvas];
+    // Bind remote video stream to view
+    
+}
 
-    if (self.remoteView.hidden) {
-        self.remoteView.hidden = NO;
+#pragma mark - AgoraRtcEngineDelegate
+- (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine didJoinChannel:(NSString * _Nonnull)channel withUid:(NSUInteger)uid elapsed:(NSInteger) elapsed {
+    NSLog(@"加入房间");
+}
+
+
+- (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine remoteVideoStateChangedOfUid:(NSUInteger)uid state:(AgoraVideoRemoteState)state reason:(AgoraVideoRemoteStateReason)reason elapsed:(NSInteger)elapsed {
+    switch (state) {
+        case AgoraVideoRemoteStateStarting: {
+            if (self.remoteView.hidden) {
+                self.remoteView.hidden = NO;
+            }
+        }
+            break;
+        case AgoraVideoRemoteStateStopped: {
+            if (!self.remoteView.hidden) {
+                self.remoteView.hidden = YES;
+            }
+        }
+            
+        default:
+            break;
     }
+    
     
     AgoraRtcVideoCanvas *videoCanvas = [[AgoraRtcVideoCanvas alloc] init];
     videoCanvas.uid = uid;
@@ -231,10 +208,5 @@
     videoCanvas.view = self.remoteView;
     videoCanvas.renderMode = AgoraVideoRenderModeHidden;
     [self.rtcEngineKit setupRemoteVideo:videoCanvas];
-    // Bind remote video stream to view
-    
 }
-
-
-
 @end
