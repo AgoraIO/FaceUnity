@@ -63,6 +63,7 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         setContentView(R.layout.activity_base);
         initUI();
         initRoom();
+
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         String sdkVersion = RtcEngine.getSdkVersion();
@@ -107,6 +108,11 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
                     mVideoManager.stopCapture();
                 }
             }
+
+            @Override
+            public void onCameraClosed() {
+
+            }
         });
 
         mTrackingText = findViewById(R.id.iv_face_detect);
@@ -133,6 +139,14 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
 
         TextureView localVideo = findViewById(R.id.local_video_view);
         mVideoManager.setLocalPreview(localVideo);
+        // create screenshot to compare effect before and after using API
+        /**
+         * {@link io.agora.framework.PreprocessorFaceUnity#onPreProcessFrame}
+         */
+        findViewById(R.id.btn_switch_camera).setOnLongClickListener(view -> {
+            PreprocessorFaceUnity.needCapture = true;
+            return true;
+        });
 
     }
 
