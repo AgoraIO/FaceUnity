@@ -207,6 +207,8 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
             e.printStackTrace();
         }
         mVideoManager.stopCapture();
+        mVideoManager.setCameraStateListener(null);
+        mFURenderer.setOnTrackStatusChangedListener(null);
         rtcEngine().leaveChannel();
         super.finish();
     }
