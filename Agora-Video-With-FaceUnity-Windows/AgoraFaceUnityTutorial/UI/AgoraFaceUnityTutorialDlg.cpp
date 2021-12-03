@@ -163,7 +163,7 @@ void CAgoraFaceUnityTutorialDlg::ShowLocalVideo()
     canvas.uid = 0;
     
     canvas.renderMode = RENDER_MODE_FIT;
-    canvas.mirrorMode = VIDEO_MIRROR_MODE_ENABLED;
+    //canvas.mirrorMode = VIDEO_MIRROR_MODE_ENABLED;
     canvas.channelId[0] = 0;
     canvas.view = m_staLocalVideo.GetSafeHwnd();
     CAgoraObject::GetEngine()->setupLocalVideo(canvas);

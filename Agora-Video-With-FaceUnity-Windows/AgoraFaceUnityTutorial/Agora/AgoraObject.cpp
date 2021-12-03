@@ -30,6 +30,7 @@ bool AgoraVideoFrameObserver::onCaptureVideoFrame(VideoFrame& videoFrame)
         m_nama =  Nama::create(width, height);
         if (!Nama::initFuError.empty()) {
             ::SendMessage(m_msgHwnd, WM_FU_MSGID(EID_FU_INIT_ERROR), 0, 0);
+			return false;
         }
         m_InitNama = true;
         m_nama->UpdateBeauty();
