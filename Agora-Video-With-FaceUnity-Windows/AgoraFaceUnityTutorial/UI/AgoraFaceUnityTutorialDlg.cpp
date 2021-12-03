@@ -310,6 +310,7 @@ void CAgoraFaceUnityTutorialDlg::OnBnClickedButtonJoinchannel()
             AfxMessageBox(_T("Input Channel Name"));
             return;
         }
+		CAgoraObject::GetAgoraObject()->SetObserverReportFlag(true);
         CAgoraObject::GetAgoraObject()->EnableVideoFrameObserver(TRUE);
         CAgoraObject::GetAgoraObject()->JoinChannel(strChannel);
         m_btnJoinChannel.SetWindowText(_T("LeaveChannel"));
@@ -375,8 +376,10 @@ void CAgoraFaceUnityTutorialDlg::OnSelchangeTabFaceunity2(NMHDR *pNMHDR, LRESULT
 LRESULT CAgoraFaceUnityTutorialDlg::OnEIDInitError(WPARAM wParam, LPARAM lParam)
 {
     CString str = _T("Error:");
-    str += fuSDKErrorNoFile + utf82cs(Nama::initFuError);
+	str += fuSDKErrorNoFile;
+	str += utf82cs(Nama::initFuError);
     m_staFacunityInfo.SetWindowText(str);
+	AfxMessageBox(str);
     return 0;
 }
 

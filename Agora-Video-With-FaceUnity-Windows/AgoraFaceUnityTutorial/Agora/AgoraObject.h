@@ -75,6 +75,8 @@ public:
     }
 
     void SetMsgReceiver(HWND hwnd) { m_msgHwnd = hwnd; }
+
+	bool firstReportInitError = true;
 private:
     uint8_t* m_fauceFrameBuffer = nullptr;
    
@@ -218,6 +220,7 @@ public:
     void UpdateBeauty(bool bEnable = true);
     void UpdateFilter(bool bEnable = true);
     void UpdateBundle(std::string itemName, bool bEnable = true);
+	void SetObserverReportFlag(bool b) { m_videoObserver.firstReportInitError = b; }
    // Nama* GetNama();
 
     static IRtcEngine *GetEngine();

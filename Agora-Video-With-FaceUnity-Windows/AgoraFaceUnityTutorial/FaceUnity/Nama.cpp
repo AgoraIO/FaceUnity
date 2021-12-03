@@ -234,16 +234,16 @@ bool Nama::Init(uint32_t& width, uint32_t& height)
     {
         //read nama data and initialize
         std::vector<char> v3data;
-        
-        if (false == LoadBundle(g_fuDataDir + g_v3Data, v3data))
+		initFuError = "";
+       
+		if (false == LoadBundle(g_fuDataDir + g_v3Data, v3data))
         {  
             initFuError = initFuError +  g_fuDataDir + g_v3Data;
             return false;
         }
         //CheckGLContext();
-        fuSetup(reinterpret_cast<float*>(&v3data[0]), v3data.size(), NULL, g_auth_package, sizeof(g_auth_package));
+        int ret = fuSetup(reinterpret_cast<float*>(&v3data[0]), v3data.size(), NULL, g_auth_package, sizeof(g_auth_package));
 
-        printf("Nama version:%s \n", fuGetVersion());
         std::vector<char> tongue_model_data;
         if (false == LoadBundle(g_fuDataDir + g_tongue, tongue_model_data))
         {
@@ -308,6 +308,11 @@ bool Nama::Init(uint32_t& width, uint32_t& height)
             mMakeUpHandle = fuCreateItemFromPackage(&propData[0], propData.size());
 
         }
+		if (fuGetSystemError())
+		{
+			initFuError = fuGetSystemErrorString(fuGetSystemError());
+			return false;
+		}
         initFuError = "";
         fuSetDefaultOrientation(0);
         float fValue = 0.5f;

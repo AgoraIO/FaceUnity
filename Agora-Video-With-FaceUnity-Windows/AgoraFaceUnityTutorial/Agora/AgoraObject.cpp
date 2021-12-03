@@ -29,7 +29,10 @@ bool AgoraVideoFrameObserver::onCaptureVideoFrame(VideoFrame& videoFrame)
         uint32_t height = videoFrame.height;
         m_nama =  Nama::create(width, height);
         if (!Nama::initFuError.empty()) {
-            ::SendMessage(m_msgHwnd, WM_FU_MSGID(EID_FU_INIT_ERROR), 0, 0);
+			if (firstReportInitError) {
+				::SendMessage(m_msgHwnd, WM_FU_MSGID(EID_FU_INIT_ERROR), 0, 0);
+				firstReportInitError = false;
+			}
 			return false;
         }
         m_InitNama = true;
