@@ -163,7 +163,7 @@ void CAgoraFaceUnityTutorialDlg::ShowLocalVideo()
     canvas.uid = 0;
     
     canvas.renderMode = RENDER_MODE_FIT;
-    canvas.mirrorMode = VIDEO_MIRROR_MODE_ENABLED;
+    //canvas.mirrorMode = VIDEO_MIRROR_MODE_ENABLED;
     canvas.channelId[0] = 0;
     canvas.view = m_staLocalVideo.GetSafeHwnd();
     CAgoraObject::GetEngine()->setupLocalVideo(canvas);
@@ -310,6 +310,7 @@ void CAgoraFaceUnityTutorialDlg::OnBnClickedButtonJoinchannel()
             AfxMessageBox(_T("Input Channel Name"));
             return;
         }
+		CAgoraObject::GetAgoraObject()->SetObserverReportFlag(true);
         CAgoraObject::GetAgoraObject()->EnableVideoFrameObserver(TRUE);
         CAgoraObject::GetAgoraObject()->JoinChannel(strChannel);
         m_btnJoinChannel.SetWindowText(_T("LeaveChannel"));
@@ -375,8 +376,10 @@ void CAgoraFaceUnityTutorialDlg::OnSelchangeTabFaceunity2(NMHDR *pNMHDR, LRESULT
 LRESULT CAgoraFaceUnityTutorialDlg::OnEIDInitError(WPARAM wParam, LPARAM lParam)
 {
     CString str = _T("Error:");
-    str += fuSDKErrorNoFile + utf82cs(Nama::initFuError);
+	str += fuSDKErrorNoFile;
+	str += utf82cs(Nama::initFuError);
     m_staFacunityInfo.SetWindowText(str);
+	AfxMessageBox(str);
     return 0;
 }
 
