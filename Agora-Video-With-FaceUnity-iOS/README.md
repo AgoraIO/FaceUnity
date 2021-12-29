@@ -120,10 +120,14 @@ decoupling module, we user Abstract API and category to do this，now , you can 
 
 ```objc
 
-#import "UIViewController+FaceUnityUIExtension.h"
+#import "FUDemoManager.h"
 
-/** load Faceu */
-[self setupFaceUnity];
+    // FaceUnity UI
+    CGFloat safeAreaBottom = 0;
+    if (@available(iOS 11.0, *)) {
+        safeAreaBottom = [UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom;
+    }
+    [FUDemoManager setupFaceUnityDemoInController:self originY:CGRectGetHeight(self.view.frame) - FUBottomBarHeight - safeAreaBottom];
 
 ```
 

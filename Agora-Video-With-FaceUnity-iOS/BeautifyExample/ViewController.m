@@ -13,11 +13,10 @@
 #import "VideoProcessingManager.h"
 #import "KeyCenter.h"
 
-#import "FUManager.h"
+#import "FUDemoManager.h"
 
 #import <Masonry/Masonry.h>
 #import <AGMRenderer/AGMRenderer.h>
-#import "UIViewController+FaceUnityUIExtension.h"
 
 @interface ViewController () <AgoraRtcEngineDelegate, AgoraVideoSourceProtocol>
 
@@ -46,11 +45,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [FUManager shareManager].delegate = self;
     self.remoteView.hidden = YES;
     
-    /** load Faceu */
-    [self setupFaceUnity];
+    // FaceUnity UI
+    CGFloat safeAreaBottom = 0;
+    if (@available(iOS 11.0, *)) {
+        safeAreaBottom = [UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom;
+    }
+    [FUDemoManager setupFaceUnityDemoInController:self originY:CGRectGetHeight(self.view.frame) - FUBottomBarHeight - safeAreaBottom];
 
     // 初始化 rte engine
     self.rtcEngineKit = [AgoraRtcEngineKit sharedEngineWithAppId:[KeyCenter AppId] delegate:self];
@@ -150,12 +152,6 @@
 - (IBAction)backBtnClick:(UIButton *)sender {
     [[FUManager shareManager] destoryItems];
     [self dismissViewControllerAnimated:YES completion:nil];
-    //缓存数据
-    for (FUBaseViewModel *viewModel in [FUManager shareManager].viewModelManager.allViewModels) {
-        if ([viewModel conformsToProtocol:@protocol(FUCharacteristicProtocol)] && [viewModel respondsToSelector:@selector(cacheData)]) {
-            [viewModel cacheData];
-        }
-    }
 }
 
 
