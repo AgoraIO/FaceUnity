@@ -146,13 +146,18 @@ self.videoFilter.enabled = YES;
 
 ```objc
 
-#import "UIViewController+FaceUnityUIExtension.h"
+#import "FUDemoManager.h"
 
 ```
-在 `viewDidLoad` 中初始化 FaceUnity的界面和 SDK，FaceUnity界面工具和SDK都放在UIViewController+FaceUnityUIExtension中初始化了，也可以自行调用FUAPIDemoBar和FUManager初始化
+在 `viewDidLoad` 中初始化 FaceUnity的界面和 SDK，FaceUnity界面工具和SDK都放在FUDemoManager中初始化了，也可以自行调用FUAPIDemoBar和FUManager初始化
 
 ```objc
-[self setupFaceUnity];
+    // FaceUnity UI
+    CGFloat safeAreaBottom = 0;
+    if (@available(iOS 11.0, *)) {
+        safeAreaBottom = [UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom;
+    }
+    [FUDemoManager setupFaceUnityDemoInController:self originY:CGRectGetHeight(self.view.frame) - FUBottomBarHeight - safeAreaBottom];
 ```
 
 底部栏切换功能：使用不同的ViewModel控制
