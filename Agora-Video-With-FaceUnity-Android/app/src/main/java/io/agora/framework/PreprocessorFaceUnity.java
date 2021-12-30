@@ -16,7 +16,6 @@ import com.faceunity.nama.utils.FuDeviceUtils;
 import io.agora.capture.framework.modules.channels.VideoChannel;
 import io.agora.capture.framework.modules.processors.IPreprocessor;
 import io.agora.capture.video.camera.VideoCaptureFrame;
-import io.agora.profile.CSVUtils;
 
 public class PreprocessorFaceUnity implements IPreprocessor {
     private final static String TAG = PreprocessorFaceUnity.class.getSimpleName();
@@ -26,12 +25,6 @@ public class PreprocessorFaceUnity implements IPreprocessor {
     private int skipFrame = 0;
 
     private Handler mGLHandler;
-
-    public void setCSVUtils(CSVUtils cSVUtils) {
-        this.mCSVUtils = cSVUtils;
-    }
-
-    private CSVUtils mCSVUtils;
 
     public PreprocessorFaceUnity(Context context) {
     }
@@ -54,15 +47,9 @@ public class PreprocessorFaceUnity implements IPreprocessor {
         if (FUConfig.DEVICE_LEVEL > FuDeviceUtils.DEVICE_LEVEL_MID)//高性能设备
             cheekFaceNum();
 
-        long start = System.nanoTime();
         int texId = mFURenderer.onDrawFrameDualInput(outFrame.image,
                 outFrame.textureId, outFrame.format.getWidth(),
                 outFrame.format.getHeight());
-
-        long renderTime = System.nanoTime() - start;
-        if (mCSVUtils != null) {
-            mCSVUtils.writeCsv(null, renderTime);
-        }
 
         // The texture is transformed to texture2D by beauty module.
         if (skipFrame <= 0) {

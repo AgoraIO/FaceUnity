@@ -32,7 +32,6 @@ import io.agora.capture.video.camera.Constant;
 import io.agora.capture.video.camera.VideoCapture;
 import io.agora.framework.PreprocessorFaceUnity;
 import io.agora.framework.RtcVideoConsumer;
-import io.agora.profile.CSVUtils;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
@@ -77,10 +76,6 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         mFURenderer.bindListener(mFURendererListener);
         String sdkVersion = RtcEngine.getSdkVersion();
         Log.i(TAG, "onCreate: agora sdk version " + sdkVersion);
-        initCsvUtil(this);
-        if (preprocessor !=null) {
-            preprocessor.setCSVUtils(mCSVUtils);
-        }
     }
 
     private void initUI() {
@@ -286,34 +281,5 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
-    }
-
-    private static final int ENCODE_FRAME_WIDTH = 960;
-    private static final int ENCODE_FRAME_HEIGHT = 540;
-    private static final int ENCODE_FRAME_BITRATE = 1000;
-    private static final int ENCODE_FRAME_FPS = 30;
-
-    private CSVUtils mCSVUtils;
-    private void initCsvUtil(Context context) {
-        mCSVUtils = new CSVUtils(context);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.getDefault());
-        String dateStrDir = format.format(new Date(System.currentTimeMillis()));
-        dateStrDir = dateStrDir.replaceAll("-", "").replaceAll("_", "");
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.getDefault());
-        String dateStrFile = df.format(new Date());
-        String filePath = io.agora.profile.Constant.filePath + dateStrDir + File.separator + "excel-" + dateStrFile + ".csv";
-        Log.d(TAG, "initLog: CSV file path:" + filePath);
-        StringBuilder headerInfo = new StringBuilder();
-        headerInfo.append("version：").append(FURenderer.getInstance().getVersion()).append(CSVUtils.COMMA)
-                .append("机型：").append(android.os.Build.MANUFACTURER).append(android.os.Build.MODEL).append(CSVUtils.COMMA)
-                .append("处理方式：双输入纹理输出").append(CSVUtils.COMMA)
-                .append("编码方式：硬件编码").append(CSVUtils.COMMA)
-                .append("编码分辨率：").append(ENCODE_FRAME_WIDTH).append("x").append(ENCODE_FRAME_HEIGHT).append(CSVUtils.COMMA)
-                .append("编码帧率：").append(ENCODE_FRAME_FPS).append(CSVUtils.COMMA)
-                .append("编码码率：").append(ENCODE_FRAME_BITRATE).append(CSVUtils.COMMA)
-                .append("预览分辨率：").append(CAPTURE_WIDTH).append("x").append(CAPTURE_HEIGHT).append(CSVUtils.COMMA)
-                .append("预览帧率：").append(CAPTURE_FRAME_RATE).append(CSVUtils.COMMA);
-        mCSVUtils.initHeader(filePath, headerInfo);
-        mCSVUtils.setRtcEngineEventHandler(((MyApplication) getApplication()).getRtcEventHandler());
     }
 }
