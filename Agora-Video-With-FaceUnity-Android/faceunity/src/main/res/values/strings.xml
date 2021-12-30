@@ -38,6 +38,7 @@
     <string name="beauty_box_cheekbones">Cheekbone</string>
     <string name="beauty_box_lower_jaw">Jawbone</string>
     <string name="beauty_box_cheek_narrow">CheekNarrow</string>
+    <string name="beauty_box_cheek_short">Cheek short</string>
     <string name="beauty_box_cheek_small">Cheek small</string>
     <string name="beauty_box_intensity_chin">Chin</string>
     <string name="beauty_box_intensity_forehead">Forehead</string>

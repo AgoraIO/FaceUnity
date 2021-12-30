@@ -70,6 +70,14 @@ public class FURenderer extends IFURenderer {
     private int aIProcessTrackStatus = -1;
 
     /**
+     *
+     * @return version
+     */
+    public String getVersion() {
+        return mFURenderKit.getVersion();
+    }
+
+    /**
      * 初始化鉴权
      *
      * @param context
@@ -122,8 +130,8 @@ public class FURenderer extends IFURenderer {
         prepareDrawFrame();
         FURenderInputData inputData = new FURenderInputData(width, height);
         /*注释掉Buffer配置，启用单纹理模式，防止Buffer跟纹理存在不对齐造成，美妆偏移*/
-        //inputData.setImageBuffer(new FURenderInputData.FUImageBuffer(inputBufferType, img));//设置为单Buffer输入
-       inputData.setTexture(new FURenderInputData.FUTexture(inputTextureType, texId));
+//        inputData.setImageBuffer(new FURenderInputData.FUImageBuffer(inputBufferType, img));//设置为单Buffer输入
+        inputData.setTexture(new FURenderInputData.FUTexture(inputTextureType, texId));
         FURenderInputData.FURenderConfig config = inputData.getRenderConfig();
         config.setExternalInputType(externalInputType);
         config.setInputOrientation(inputOrientation);

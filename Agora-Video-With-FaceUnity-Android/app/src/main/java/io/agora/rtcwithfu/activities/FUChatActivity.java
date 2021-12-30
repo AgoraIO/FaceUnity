@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.view.TextureView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,20 +19,24 @@ import android.widget.TextView;
 import com.faceunity.core.enumeration.FUAIProcessorEnum;
 import com.faceunity.nama.FURenderer;
 import com.faceunity.nama.data.FaceUnityDataFactory;
-import com.faceunity.nama.dialog.ToastHelper;
 import com.faceunity.nama.listener.FURendererListener;
 import com.faceunity.nama.ui.FaceUnityView;
 
-import java.util.concurrent.CountDownLatch;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import io.agora.capture.video.camera.CameraVideoManager;
 import io.agora.capture.video.camera.Constant;
 import io.agora.capture.video.camera.VideoCapture;
 import io.agora.framework.PreprocessorFaceUnity;
 import io.agora.framework.RtcVideoConsumer;
+import io.agora.profile.CSVUtils;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
+import io.agora.rtcwithfu.MyApplication;
 import io.agora.rtcwithfu.R;
 import io.agora.rtcwithfu.RtcEngineEventHandler;
 import io.agora.rtcwithfu.utils.Constants;
@@ -64,6 +69,7 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_base);
         initUI();
         initRoom();
@@ -71,6 +77,10 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         mFURenderer.bindListener(mFURendererListener);
         String sdkVersion = RtcEngine.getSdkVersion();
         Log.i(TAG, "onCreate: agora sdk version " + sdkVersion);
+        initCsvUtil(this);
+        if (preprocessor !=null) {
+            preprocessor.setCSVUtils(mCSVUtils);
+        }
     }
 
     private void initUI() {
@@ -131,6 +141,17 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         TextureView localVideo = findViewById(R.id.local_video_view);
         mVideoManager.setLocalPreview(localVideo);
 
+        preprocessor.setSurfaceListener(new PreprocessorFaceUnity.SurfaceViewListener() {
+            @Override
+            public void onSurfaceCreated() {
+                mFaceUnityDataFactory.bindCurrentRenderer();
+            }
+
+            @Override
+            public void onSurfaceDestroyed() {
+                mFURenderer.release();
+            }
+        });
     }
 
     private void joinChannel() {
@@ -186,7 +207,6 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         super.onResume();
         Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
-        mFaceUnityDataFactory.bindCurrentRenderer();
         preprocessor.setRenderEnable(true);
         mVideoManager.startCapture();
     }
@@ -266,5 +286,34 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    private static final int ENCODE_FRAME_WIDTH = 960;
+    private static final int ENCODE_FRAME_HEIGHT = 540;
+    private static final int ENCODE_FRAME_BITRATE = 1000;
+    private static final int ENCODE_FRAME_FPS = 30;
+
+    private CSVUtils mCSVUtils;
+    private void initCsvUtil(Context context) {
+        mCSVUtils = new CSVUtils(context);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.getDefault());
+        String dateStrDir = format.format(new Date(System.currentTimeMillis()));
+        dateStrDir = dateStrDir.replaceAll("-", "").replaceAll("_", "");
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.getDefault());
+        String dateStrFile = df.format(new Date());
+        String filePath = io.agora.profile.Constant.filePath + dateStrDir + File.separator + "excel-" + dateStrFile + ".csv";
+        Log.d(TAG, "initLog: CSV file path:" + filePath);
+        StringBuilder headerInfo = new StringBuilder();
+        headerInfo.append("version：").append(FURenderer.getInstance().getVersion()).append(CSVUtils.COMMA)
+                .append("机型：").append(android.os.Build.MANUFACTURER).append(android.os.Build.MODEL).append(CSVUtils.COMMA)
+                .append("处理方式：双输入纹理输出").append(CSVUtils.COMMA)
+                .append("编码方式：硬件编码").append(CSVUtils.COMMA)
+                .append("编码分辨率：").append(ENCODE_FRAME_WIDTH).append("x").append(ENCODE_FRAME_HEIGHT).append(CSVUtils.COMMA)
+                .append("编码帧率：").append(ENCODE_FRAME_FPS).append(CSVUtils.COMMA)
+                .append("编码码率：").append(ENCODE_FRAME_BITRATE).append(CSVUtils.COMMA)
+                .append("预览分辨率：").append(CAPTURE_WIDTH).append("x").append(CAPTURE_HEIGHT).append(CSVUtils.COMMA)
+                .append("预览帧率：").append(CAPTURE_FRAME_RATE).append(CSVUtils.COMMA);
+        mCSVUtils.initHeader(filePath, headerInfo);
+        mCSVUtils.setRtcEngineEventHandler(((MyApplication) getApplication()).getRtcEventHandler());
     }
 }

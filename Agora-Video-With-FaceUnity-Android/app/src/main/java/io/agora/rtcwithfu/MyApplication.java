@@ -59,6 +59,10 @@ public class MyApplication extends Application {
         mRtcEventHandler.removeEventHandler(handler);
     }
 
+    public RtcEngineEventHandlerProxy getRtcEventHandler() {
+        return mRtcEventHandler;
+    }
+
     public CameraVideoManager videoManager() {
         return mVideoManager;
     }

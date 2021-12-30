@@ -6,9 +6,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 741
-        versionName "7.4.1.0"
-        // 7.3.0_phy_505b959b_bf80f59
+        versionCode 802
+        versionName "8.0.2"
     }
     buildTypes {
         release {
@@ -28,7 +27,7 @@ dependencies {
         resolutionStrategy.cacheDynamicVersionsFor 0,'seconds'
     }
     implementation 'com.android.support:appcompat-v7:28.0.0'
-    api 'com.faceunity:core:7.4.1.0'
-    implementation 'com.faceunity:model:7.4.1.0'
+    api 'com.faceunity:core:8.0.2'
+    implementation 'com.faceunity:model:8.0.2'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
 }
