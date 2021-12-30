@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.view.TextureView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,11 +19,13 @@ import android.widget.TextView;
 import com.faceunity.core.enumeration.FUAIProcessorEnum;
 import com.faceunity.nama.FURenderer;
 import com.faceunity.nama.data.FaceUnityDataFactory;
-import com.faceunity.nama.dialog.ToastHelper;
 import com.faceunity.nama.listener.FURendererListener;
 import com.faceunity.nama.ui.FaceUnityView;
 
-import java.util.concurrent.CountDownLatch;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import io.agora.capture.video.camera.CameraVideoManager;
 import io.agora.capture.video.camera.Constant;
@@ -32,6 +35,7 @@ import io.agora.framework.RtcVideoConsumer;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
+import io.agora.rtcwithfu.MyApplication;
 import io.agora.rtcwithfu.R;
 import io.agora.rtcwithfu.RtcEngineEventHandler;
 import io.agora.rtcwithfu.utils.Constants;
@@ -64,6 +68,7 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_base);
         initUI();
         initRoom();
@@ -131,6 +136,17 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         TextureView localVideo = findViewById(R.id.local_video_view);
         mVideoManager.setLocalPreview(localVideo);
 
+        preprocessor.setSurfaceListener(new PreprocessorFaceUnity.SurfaceViewListener() {
+            @Override
+            public void onSurfaceCreated() {
+                mFaceUnityDataFactory.bindCurrentRenderer();
+            }
+
+            @Override
+            public void onSurfaceDestroyed() {
+                mFURenderer.release();
+            }
+        });
     }
 
     private void joinChannel() {
@@ -186,7 +202,6 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         super.onResume();
         Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
-        mFaceUnityDataFactory.bindCurrentRenderer();
         preprocessor.setRenderEnable(true);
         mVideoManager.startCapture();
     }
