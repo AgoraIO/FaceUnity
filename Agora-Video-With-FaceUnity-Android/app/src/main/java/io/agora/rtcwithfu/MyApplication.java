@@ -7,12 +7,10 @@ import android.util.Log;
 
 import com.faceunity.nama.FURenderer;
 
-import io.agora.capture.video.camera.CameraVideoManager;
-import io.agora.framework.PreprocessorFaceUnity;
-import io.agora.rtc.RtcEngine;
+import io.agora.rtc2.RtcEngine;
+
 
 public class MyApplication extends Application {
-    private CameraVideoManager mVideoManager;
     private RtcEngine mRtcEngine;
     private RtcEngineEventHandlerProxy mRtcEventHandler;
 
@@ -33,7 +31,7 @@ public class MyApplication extends Application {
         try {
             mRtcEngine = RtcEngine.create(this, appId, mRtcEventHandler);
             mRtcEngine.enableVideo();
-            mRtcEngine.setChannelProfile(io.agora.rtc.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
+            mRtcEngine.setChannelProfile(io.agora.rtc2.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
         } catch (Exception e) {
             throw new RuntimeException("NEED TO check rtc sdk init fatal error\n" + Log.getStackTraceString(e));
         }
@@ -43,7 +41,6 @@ public class MyApplication extends Application {
         new Thread(() -> {
             Context application = getApplicationContext();
             FURenderer.getInstance().setup(application);
-            mVideoManager = new CameraVideoManager(application, new PreprocessorFaceUnity(application));
         }).start();
     }
 
@@ -63,7 +60,4 @@ public class MyApplication extends Application {
         return mRtcEventHandler;
     }
 
-    public CameraVideoManager videoManager() {
-        return mVideoManager;
-    }
 }
