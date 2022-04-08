@@ -184,8 +184,8 @@ public class PreprocessorFaceUnity implements IVideoFrameObserver {
                 if (FUConfig.DEVICE_LEVEL > FuDeviceUtils.DEVICE_LEVEL_MID)//高性能设备
                     cheekFaceNum();
                 int texId = mFURenderer.onDrawFrameDualInput(null,
-                        ((VideoFrame.TextureBuffer) buffer).getTextureId(), mImageWidth,
-                        mImageHeight);
+                        ((VideoFrame.TextureBuffer) buffer).getTextureId(), mImageHeight,
+                        mImageWidth);
 
                 // The texture is transformed to texture2D by beauty module.
                 return textureBufferHelper.wrapTextureBuffer(buffer.getWidth(), buffer.getHeight(),
