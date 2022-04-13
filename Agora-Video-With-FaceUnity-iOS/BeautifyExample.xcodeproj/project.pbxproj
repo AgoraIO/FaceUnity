@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		03F8193524E004A7004F7F36 /* VideoProcessingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F8193024E004A7004F7F36 /* VideoProcessingManager.m */; };
-		03F8193624E004A7004F7F36 /* CapturerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F8193424E004A7004F7F36 /* CapturerManager.m */; };
 		03F8194524E0E75C004F7F36 /* authpack.h in Sources */ = {isa = PBXBuildFile; fileRef = 03F8193D24E0E66A004F7F36 /* authpack.h */; };
 		03F8196324E1371B004F7F36 /* KeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F8196224E1371B004F7F36 /* KeyCenter.m */; };
 		09C6666424D7BC89001D7AE2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09C6666324D7BC89001D7AE2 /* AppDelegate.m */; };
@@ -122,12 +121,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		03F8192F24E004A7004F7F36 /* CapturerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapturerManager.h; sourceTree = "<group>"; };
 		03F8193024E004A7004F7F36 /* VideoProcessingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoProcessingManager.m; sourceTree = "<group>"; };
 		03F8193124E004A7004F7F36 /* CapturerManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapturerManagerDelegate.h; sourceTree = "<group>"; };
 		03F8193224E004A7004F7F36 /* VideoFilterDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoFilterDelegate.h; sourceTree = "<group>"; };
 		03F8193324E004A7004F7F36 /* VideoProcessingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoProcessingManager.h; sourceTree = "<group>"; };
-		03F8193424E004A7004F7F36 /* CapturerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapturerManager.m; sourceTree = "<group>"; };
 		03F8193D24E0E66A004F7F36 /* authpack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = authpack.h; sourceTree = "<group>"; };
 		03F8196124E1371B004F7F36 /* KeyCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyCenter.h; sourceTree = "<group>"; };
 		03F8196224E1371B004F7F36 /* KeyCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyCenter.m; sourceTree = "<group>"; };
@@ -291,8 +288,6 @@
 			children = (
 				03F8193324E004A7004F7F36 /* VideoProcessingManager.h */,
 				03F8193024E004A7004F7F36 /* VideoProcessingManager.m */,
-				03F8192F24E004A7004F7F36 /* CapturerManager.h */,
-				03F8193424E004A7004F7F36 /* CapturerManager.m */,
 				03F8193124E004A7004F7F36 /* CapturerManagerDelegate.h */,
 				03F8193224E004A7004F7F36 /* VideoFilterDelegate.h */,
 			);
@@ -789,7 +784,6 @@
 				E3583EFB271198D2008E52A7 /* FUMakeupModel.m in Sources */,
 				E35B22CA253571FF00F50AC2 /* FUTestRecorder.m in Sources */,
 				E3583EF5271198D2008E52A7 /* FUBeautyShapeModel.m in Sources */,
-				03F8193624E004A7004F7F36 /* CapturerManager.m in Sources */,
 				E3583EFF271198D2008E52A7 /* FUStickerViewModel.m in Sources */,
 				E3583F00271198D2008E52A7 /* FUMakeupViewModel.m in Sources */,
 				E3583EAA271198AF008E52A7 /* FUDemoManager.m in Sources */,
