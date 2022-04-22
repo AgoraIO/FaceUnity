@@ -70,13 +70,13 @@
             self.beauty.cheekV = subModel.currentValue;
             break;
         case FUBeautyShapeItemCheekNarrow:
-            self.beauty.cheekNarrowV2 = subModel.currentValue;
+            self.beauty.cheekNarrow = subModel.currentValue;
             break;
         case FUBeautyShapeItemCheekShort:
             self.beauty.cheekShort = subModel.currentValue;
             break;
         case FUBeautyShapeItemCheekSmall:
-            self.beauty.cheekSmallV2 = subModel.currentValue;
+            self.beauty.cheekSmall = subModel.currentValue;
             break;
         case FUBeautyShapeItemCheekBones:
             self.beauty.intensityCheekbones = subModel.currentValue;
@@ -85,7 +85,7 @@
             self.beauty.intensityLowerJaw = subModel.currentValue;
             break;
         case FUBeautyShapeItemEyeEnlarging:
-            self.beauty.eyeEnlargingV2 = subModel.currentValue;
+            self.beauty.eyeEnlarging = subModel.currentValue;
             break;
         case FUBeautyShapeItemEyeCircle:
             self.beauty.intensityEyeCircle = subModel.currentValue;
@@ -94,13 +94,13 @@
             self.beauty.intensityChin = subModel.currentValue;
             break;
         case FUBeautyShapeItemForehead:
-            self.beauty.intensityForeheadV2 = subModel.currentValue;
+            self.beauty.intensityForehead = subModel.currentValue;
             break;
         case FUBeautyShapeItemNose:
-            self.beauty.intensityNoseV2 = subModel.currentValue;
+            self.beauty.intensityNose = subModel.currentValue;
             break;
         case FUBeautyShapeItemMouth:
-            self.beauty.intensityMouthV2 = subModel.currentValue;
+            self.beauty.intensityMouth = subModel.currentValue;
             break;
         case FUBeautyShapeItemCanthus:
             self.beauty.intensityCanthus = subModel.currentValue;
