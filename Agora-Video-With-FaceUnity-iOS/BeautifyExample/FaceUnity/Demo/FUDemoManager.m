@@ -91,6 +91,13 @@
         beauty.blurType = 3;
         // 默认自定义脸型
         beauty.faceShape = 4;
+        // 高性能设备设置去黑眼圈、去法令纹、大眼、嘴型最新效果
+        if ([FURenderKit devicePerformanceLevel] == FUDevicePerformanceLevelHigh) {
+            [beauty addPropertyMode:FUBeautyPropertyMode2 forKey:FUModeKeyRemovePouchStrength];
+            [beauty addPropertyMode:FUBeautyPropertyMode2 forKey:FUModeKeyRemoveNasolabialFoldsStrength];
+            [beauty addPropertyMode:FUBeautyPropertyMode3 forKey:FUModeKeyEyeEnlarging];
+            [beauty addPropertyMode:FUBeautyPropertyMode3 forKey:FUModeKeyIntensityMouth];
+        }
         [FURenderKit shareRenderKit].beauty = beauty;
         
         // 默认美肤、美型、滤镜

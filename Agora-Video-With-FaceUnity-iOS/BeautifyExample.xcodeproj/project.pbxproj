@@ -289,12 +289,12 @@
 		03F8192E24E004A7004F7F36 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				03F8193324E004A7004F7F36 /* VideoProcessingManager.h */,
-				03F8193024E004A7004F7F36 /* VideoProcessingManager.m */,
 				03F8192F24E004A7004F7F36 /* CapturerManager.h */,
 				03F8193424E004A7004F7F36 /* CapturerManager.m */,
 				03F8193124E004A7004F7F36 /* CapturerManagerDelegate.h */,
 				03F8193224E004A7004F7F36 /* VideoFilterDelegate.h */,
+				03F8193324E004A7004F7F36 /* VideoProcessingManager.h */,
+				03F8193024E004A7004F7F36 /* VideoProcessingManager.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
