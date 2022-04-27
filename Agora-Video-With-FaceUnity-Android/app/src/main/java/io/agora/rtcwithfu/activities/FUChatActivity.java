@@ -154,7 +154,7 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
     @Override
     protected void onPause() {
         super.onPause();
-        preprocessor.releaseFURender();
+//        preprocessor.releaseFURender();
         mSensorManager.unregisterListener(this);
     }
 

@@ -102,6 +102,12 @@ public class PreprocessorFaceUnity implements IVideoFrameObserver {
             if (mSurfaceViewListener !=null ) mSurfaceViewListener.onSurfaceDestroyed();
         });
         mGLHandler = null;
+        if (textureBufferHelper != null)
+        {
+            textureBufferHelper.dispose();
+            textureBufferHelper = null;
+        }
+        glPrepared = false;
     }
 
     private SurfaceViewListener mSurfaceViewListener;
