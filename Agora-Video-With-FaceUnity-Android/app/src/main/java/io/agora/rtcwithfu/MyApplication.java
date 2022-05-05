@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.faceunity.nama.FURenderer;
 
+import io.agora.framework.PreprocessorFaceUnity;
 import io.agora.rtc2.RtcEngine;
 
 
@@ -30,6 +31,7 @@ public class MyApplication extends Application {
         mRtcEventHandler = new RtcEngineEventHandlerProxy();
         try {
             mRtcEngine = RtcEngine.create(this, appId, mRtcEventHandler);
+            mRtcEngine.registerVideoFrameObserver(PreprocessorFaceUnity.getInstance());
             mRtcEngine.enableVideo();
             mRtcEngine.setChannelProfile(io.agora.rtc2.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
         } catch (Exception e) {

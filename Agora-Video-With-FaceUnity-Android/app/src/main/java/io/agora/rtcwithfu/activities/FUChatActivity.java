@@ -86,8 +86,8 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
     }
 
     private void initRoom() {
-        preprocessor = new PreprocessorFaceUnity(this);
-        rtcEngine().registerVideoFrameObserver(preprocessor);mTrackingText = findViewById(R.id.iv_face_detect);
+        preprocessor =  PreprocessorFaceUnity.getInstance();
+        mTrackingText = findViewById(R.id.iv_face_detect);
         FaceUnityView faceUnityView = findViewById(R.id.fu_view);
         mFaceUnityDataFactory = new FaceUnityDataFactory(0);
         faceUnityView.bindDataFactory(mFaceUnityDataFactory);
@@ -118,6 +118,7 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         switch (v.getId()) {
             case R.id.btn_switch_camera:
                 preprocessor.skipFrame();
+                rtcEngine().switchCamera();
                 break;
         }
     }
@@ -154,7 +155,7 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
     @Override
     protected void onPause() {
         super.onPause();
-//        preprocessor.releaseFURender();
+        preprocessor.setRenderEnable(false);
         mSensorManager.unregisterListener(this);
     }
 

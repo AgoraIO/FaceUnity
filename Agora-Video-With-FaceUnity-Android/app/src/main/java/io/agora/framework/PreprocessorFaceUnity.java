@@ -1,6 +1,5 @@
 package io.agora.framework;
 
-import android.content.Context;
 import android.opengl.GLES20;
 import android.os.Handler;
 import android.os.Looper;
@@ -13,14 +12,11 @@ import com.faceunity.core.model.facebeauty.FaceBeautyBlurTypeEnum;
 import com.faceunity.nama.FURenderer;
 import com.faceunity.nama.utils.FuDeviceUtils;
 
-import java.nio.ByteBuffer;
 import java.util.concurrent.Callable;
 
-import io.agora.base.JavaI420Buffer;
 import io.agora.base.TextureBufferHelper;
 import io.agora.base.VideoFrame;
 import io.agora.base.internal.video.EglBase;
-import io.agora.rtc2.Constants;
 import io.agora.rtc2.video.IVideoFrameObserver;
 
 public class PreprocessorFaceUnity implements IVideoFrameObserver {
@@ -37,6 +33,18 @@ public class PreprocessorFaceUnity implements IVideoFrameObserver {
     private int mImageHeight = 0;
     private int mImageRotation = 0;
     private final android.graphics.Matrix localRenderMatrix = new android.graphics.Matrix();
+    private static PreprocessorFaceUnity instance;
+
+    public static PreprocessorFaceUnity getInstance() {
+        if(instance == null){
+            instance = new PreprocessorFaceUnity();
+        }
+        return instance;
+    }
+
+    private PreprocessorFaceUnity() {
+
+    }
 
     private boolean prepareGl(EglBase.Context eglContext, final int width, final int height) {
         Log.d(TAG, "prepareGl");
@@ -67,9 +75,6 @@ public class PreprocessorFaceUnity implements IVideoFrameObserver {
             mImageHeight = height;
             GLES20.glViewport(0, 0, mImageWidth, mImageHeight);
         }
-    }
-
-    public PreprocessorFaceUnity(Context context) {
     }
 
     /* 创建线程  */
