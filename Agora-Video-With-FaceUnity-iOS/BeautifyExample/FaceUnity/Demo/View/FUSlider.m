@@ -23,19 +23,33 @@
 
 @implementation FUSlider
 
--(instancetype)initWithFrame:(CGRect)frame{
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self configureUI];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        [self setThumbImage:[UIImage imageNamed:@"expource_slider_dot"] forState:UIControlStateNormal];
-        [self setMaximumTrackTintColor:[UIColor whiteColor]];
-        [self setMinimumTrackTintColor:[UIColor colorWithRed:55/255.0 green:151/255.0 blue:240/255.0 alpha:1]];
-        [self addSubview:self.tipBackgroundImageView];
-        [self addSubview:self.tipLabel];
-        
-        [self addSubview:self.trackView];
-        [self addSubview:self.middleLine];
-        
+        [self configureUI];
     }
     return self;
+}
+
+- (void)configureUI {
+    [self setThumbImage:[UIImage imageNamed:@"expource_slider_dot"] forState:UIControlStateNormal];
+    [self setMaximumTrackTintColor:[UIColor whiteColor]];
+    [self setMinimumTrackTintColor:[UIColor colorWithRed:94/255.0 green:199/255.0 blue:254/255.0 alpha:1]];
+    [self addSubview:self.tipBackgroundImageView];
+    [self addSubview:self.tipLabel];
+    [self addSubview:self.trackView];
+    [self addSubview:self.middleLine];
+}
+
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    
+    self.middleLine.frame = CGRectMake(CGRectGetWidth(self.bounds)/2.0 - 1, CGRectGetHeight(self.bounds)/2.0 - 4, 2, 8);
+    [self setValue:self.value animated:NO];
 }
 
 - (void)setBidirection:(BOOL)bidirection {
@@ -47,7 +61,7 @@
     } else {
         self.middleLine.hidden = YES ;
         self.trackView.hidden = YES ;
-        [self setMinimumTrackTintColor:[UIColor colorWithRed:55/255.0 green:151/255.0 blue:240/255.0 alpha:1]];
+        [self setMinimumTrackTintColor:[UIColor colorWithRed:94/255.0 green:199/255.0 blue:254/255.0 alpha:1]];
     }
 }
 
@@ -62,7 +76,6 @@
             width = -width ;
         }
         CGFloat originX = currentValue > 0 ? CGRectGetWidth(self.bounds) / 2.0 : CGRectGetWidth(self.bounds) / 2.0 - width ;
-        
         self.trackView.frame = CGRectMake(originX, CGRectGetHeight(self.frame)/2.0 - 2, width, 4.0);
     } else {
         self.tipLabel.text = [NSString stringWithFormat:@"%d",(int)(value * 100)];
@@ -77,6 +90,7 @@
     self.tipLabel.hidden = !self.tracking;
     self.tipBackgroundImageView.hidden = !self.tracking;
 }
+
 
 #pragma mark - Getters
 
@@ -105,7 +119,7 @@
 - (UIView *)trackView {
     if (!_trackView) {
         _trackView = [[UIView alloc] init];
-        _trackView.backgroundColor = [UIColor colorWithRed:55/255.0 green:151/255.0 blue:240/255.0 alpha:1];
+        _trackView.backgroundColor = [UIColor colorWithRed:94/255.0 green:199/255.0 blue:254/255.0 alpha:1];
         _trackView.hidden = YES;
     }
     return _trackView;
@@ -113,7 +127,7 @@
 
 - (UIView *)middleLine {
     if (!_middleLine) {
-        _middleLine = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame)/2.0 - 1, CGRectGetHeight(self.frame)/2.0 - 4, 2, 8)];
+        _middleLine = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds)/2.0 - 1, CGRectGetHeight(self.bounds)/2.0 - 4, 2, 8)];
         _middleLine.backgroundColor = [UIColor whiteColor];
         _middleLine.layer.masksToBounds = YES ;
         _middleLine.layer.cornerRadius = 1.0 ;

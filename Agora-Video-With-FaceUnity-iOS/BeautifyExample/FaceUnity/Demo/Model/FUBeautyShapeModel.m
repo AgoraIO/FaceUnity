@@ -6,6 +6,7 @@
 //
 
 #import "FUBeautyShapeModel.h"
+#import "FUManager.h"
 
 @implementation FUBeautyShapeModel
 
@@ -184,6 +185,28 @@
                     model.currentValue = 0;
                     model.defaultValue = 0;
                     model.ratio = 1.0;
+                }
+                    break;
+                case FUBeautyShapeItemBrowHeight:{
+                    model.title = FULocalizedString(@"眉毛上下");
+                    model.imageName = @"眉毛上下";
+                    model.currentValue = 0.5;
+                    model.defaultValue = 0.5;
+                    model.ratio = 1.0;
+                    model.isBidirection = YES;
+                    // 低性能手机禁用眉毛上下
+                    model.disabled = [FUManager shareManager].devicePerformanceLevel != FUDevicePerformanceLevelHigh;
+                }
+                    break;
+                case FUBeautyShapeItemBrowSpace:{
+                    model.title = FULocalizedString(@"眉间距");
+                    model.imageName = @"眉间距";
+                    model.currentValue = 0.5;
+                    model.defaultValue = 0.5;
+                    model.ratio = 1.0;
+                    model.isBidirection = YES;
+                    // 低性能手机禁用眉间距
+                    model.disabled = [FUManager shareManager].devicePerformanceLevel != FUDevicePerformanceLevelHigh;
                 }
                     break;
             }

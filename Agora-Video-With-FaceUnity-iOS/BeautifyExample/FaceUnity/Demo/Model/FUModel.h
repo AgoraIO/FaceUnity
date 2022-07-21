@@ -36,6 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 默认值1.0
 @property (nonatomic) float ratio;
 
+/// 是否禁用
+@property (nonatomic, assign) BOOL disabled;
+
 @end
 
 @interface FUModel : NSObject

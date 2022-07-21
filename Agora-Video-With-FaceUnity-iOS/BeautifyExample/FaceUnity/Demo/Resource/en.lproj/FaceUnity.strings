@@ -45,6 +45,8 @@
 "长鼻" = " Length";
 "缩人中" = "Philtrum";
 "微笑嘴角" = "Smile";
+"眉毛上下"  = "Brow height";
+"眉间距"  = "Brow space";
 
 /// Body
 "瘦身" = "Slim";

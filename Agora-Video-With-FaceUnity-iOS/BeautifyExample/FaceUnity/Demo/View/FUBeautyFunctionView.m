@@ -7,6 +7,7 @@
 
 #import "FUBeautyFunctionView.h"
 #import "FUSquareButton.h"
+#import "FUTipHUD.h"
 
 #import "FUViewModel.h"
 
@@ -104,6 +105,15 @@ static NSString * const kFUBeautyCellIdentifierKey = @"FUBeautyCellIdentifier";
 }
 
 #pragma mark - Collection view delegate
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    FUSubModel *subModel = self.viewModel.model.moduleData[indexPath.item];
+    if (subModel.disabled) {
+        NSString *tipString = [NSString stringWithFormat:NSLocalizedString(@"该功能只支持在高端机使用", nil), NSLocalizedString(subModel.title, nil)];
+        [FUTipHUD showTips:tipString dismissWithDelay:1];
+        return NO;
+    }
+    return YES;
+}
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.item == self.viewModel.selectedIndex) {
         return;
@@ -181,18 +191,24 @@ static NSString * const kFUBeautyCellIdentifierKey = @"FUBeautyCellIdentifier";
 #pragma mark - Setters
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
-    BOOL changed = NO;
-    if (self.subModel.isBidirection) {
-        changed = fabs(self.subModel.currentValue - 0.5) > 0.01;
-    }else{
-        changed = self.subModel.currentValue > 0.01;
-    }
-    if (selected) {
-        self.fuImageView.image = changed ? [UIImage imageNamed:[NSString stringWithFormat:@"%@-3", self.subModel.imageName]] : [UIImage imageNamed:[NSString stringWithFormat:@"%@-2", self.subModel.imageName]];
-        self.fuTitleLabel.textColor = [UIColor colorWithRed:94/255.f green:199/255.f blue:254/255.f alpha:1];
+    if (self.subModel.disabled) {
+        self.fuImageView.image = [UIImage imageNamed:[self.subModel.imageName stringByAppendingString:@"-0"]];
+        self.fuImageView.alpha = 0.7;
+        self.fuTitleLabel.alpha = 0.7;
     } else {
-        self.fuImageView.image = changed ? [UIImage imageNamed:[NSString stringWithFormat:@"%@-1", self.subModel.imageName]] : [UIImage imageNamed:[NSString stringWithFormat:@"%@-0", self.subModel.imageName]];
-        self.fuTitleLabel.textColor = [UIColor whiteColor];
+        BOOL changed = NO;
+        if (self.subModel.isBidirection) {
+            changed = fabs(self.subModel.currentValue - 0.5) > 0.01;
+        }else{
+            changed = self.subModel.currentValue > 0.01;
+        }
+        if (selected) {
+            self.fuImageView.image = changed ? [UIImage imageNamed:[NSString stringWithFormat:@"%@-3", self.subModel.imageName]] : [UIImage imageNamed:[NSString stringWithFormat:@"%@-2", self.subModel.imageName]];
+            self.fuTitleLabel.textColor = [UIColor colorWithRed:94/255.f green:199/255.f blue:254/255.f alpha:1];
+        } else {
+            self.fuImageView.image = changed ? [UIImage imageNamed:[NSString stringWithFormat:@"%@-1", self.subModel.imageName]] : [UIImage imageNamed:[NSString stringWithFormat:@"%@-0", self.subModel.imageName]];
+            self.fuTitleLabel.textColor = [UIColor whiteColor];
+        }
     }
 }
 

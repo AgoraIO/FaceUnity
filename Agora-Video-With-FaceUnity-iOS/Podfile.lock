@@ -1,6 +1,28 @@
 PODS:
-  - AGMCapturer_iOS (2.0.0)
-  - AgoraRtcEngine_iOS (3.2.1)
+  - AGMCapturer_iOS (2.0.1)
+  - AgoraRtcEngine_iOS (3.7.0.3):
+    - AgoraRtcEngine_iOS/AINS (= 3.7.0.3)
+    - AgoraRtcEngine_iOS/AV1Dec (= 3.7.0.3)
+    - AgoraRtcEngine_iOS/ContentInspect (= 3.7.0.3)
+    - AgoraRtcEngine_iOS/FullAudioFormat (= 3.7.0.3)
+    - AgoraRtcEngine_iOS/ReplayKit (= 3.7.0.3)
+    - AgoraRtcEngine_iOS/ROIEnc (= 3.7.0.3)
+    - AgoraRtcEngine_iOS/RtcBasic (= 3.7.0.3)
+    - AgoraRtcEngine_iOS/SpatialAudio (= 3.7.0.3)
+    - AgoraRtcEngine_iOS/SuperResolution (= 3.7.0.3)
+    - AgoraRtcEngine_iOS/VideoPreprocess (= 3.7.0.3)
+    - AgoraRtcEngine_iOS/VirtualBackground (= 3.7.0.3)
+  - AgoraRtcEngine_iOS/AINS (3.7.0.3)
+  - AgoraRtcEngine_iOS/AV1Dec (3.7.0.3)
+  - AgoraRtcEngine_iOS/ContentInspect (3.7.0.3)
+  - AgoraRtcEngine_iOS/FullAudioFormat (3.7.0.3)
+  - AgoraRtcEngine_iOS/ReplayKit (3.7.0.3)
+  - AgoraRtcEngine_iOS/ROIEnc (3.7.0.3)
+  - AgoraRtcEngine_iOS/RtcBasic (3.7.0.3)
+  - AgoraRtcEngine_iOS/SpatialAudio (3.7.0.3)
+  - AgoraRtcEngine_iOS/SuperResolution (3.7.0.3)
+  - AgoraRtcEngine_iOS/VideoPreprocess (3.7.0.3)
+  - AgoraRtcEngine_iOS/VirtualBackground (3.7.0.3)
   - Masonry (1.1.0)
   - SVProgressHUD (2.2.5)
 
@@ -18,11 +40,11 @@ SPEC REPOS:
     - SVProgressHUD
 
 SPEC CHECKSUMS:
-  AGMCapturer_iOS: 93984ef65e71fe2631d1fad4c703b47bdc3f3a30
-  AgoraRtcEngine_iOS: bf8ee53108d31dd9e3b7e448701b9098162c42c7
+  AGMCapturer_iOS: db3e573afc0a6cd9f73dfc36b6ef4df7887f922a
+  AgoraRtcEngine_iOS: 549bb3853d5afb18fabca4197786f39f31141da8
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 1fa21ca09f7a72d786786a19c5e8dc147cb5eb39
+PODFILE CHECKSUM: 7547425d3c718ed3ee5612a3cd2bc054b7d47ddb
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.3

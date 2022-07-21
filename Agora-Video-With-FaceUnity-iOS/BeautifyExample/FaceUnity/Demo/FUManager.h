@@ -24,6 +24,8 @@
 
 @property (nonatomic, weak) id<FUManagerProtocol>delegate;
 
+@property (nonatomic, assign, readonly) FUDevicePerformanceLevel devicePerformanceLevel;
+
 + (FUManager *)shareManager;
 
 /// 销毁全部道具

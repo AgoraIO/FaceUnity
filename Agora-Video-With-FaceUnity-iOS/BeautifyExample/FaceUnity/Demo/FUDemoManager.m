@@ -7,7 +7,6 @@
 
 #import "FUDemoManager.h"
 
-#import "FUBottomBar.h"
 #import "FUBeautyFunctionView.h"
 #import "FUOthersFunctionView.h"
 
@@ -18,10 +17,12 @@
 #import "FUMakeupViewModel.h"
 #import "FUBeautyBodyViewModel.h"
 
-@interface FUDemoManager ()<FUFunctionViewDelegate, FUManagerProtocol>
+#import "FUSegmentBar.h"
+
+@interface FUDemoManager ()<FUFunctionViewDelegate, FUManagerProtocol, FUSegmentBarDelegate>
 
 /// 底部功能选择栏
-@property (nonatomic, strong) FUBottomBar *bottomBar;
+@property (nonatomic, strong) FUSegmentBar *bottomBar;
 /// 美肤功能视图
 @property (nonatomic, strong) FUBeautyFunctionView *skinView;
 /// 美型功能视图
@@ -66,12 +67,6 @@
 
 @implementation FUDemoManager
 
-#pragma mark - Class methods
-
-+ (instancetype)setupFaceUnityDemoInController:(UIViewController *)controller originY:(CGFloat)originY {
-    return [[self alloc] initWithTargetController:controller originY:originY];
-}
-
 #pragma mark - Initialization
 - (instancetype)initWithTargetController:(UIViewController *)controller originY:(CGFloat)originY {
     self = [super init];
@@ -92,7 +87,7 @@
         // 默认自定义脸型
         beauty.faceShape = 4;
         // 高性能设备设置去黑眼圈、去法令纹、大眼、嘴型最新效果
-        if ([FURenderKit devicePerformanceLevel] == FUDevicePerformanceLevelHigh) {
+        if ([FUManager shareManager].devicePerformanceLevel == FUDevicePerformanceLevelHigh) {
             [beauty addPropertyMode:FUBeautyPropertyMode2 forKey:FUModeKeyRemovePouchStrength];
             [beauty addPropertyMode:FUBeautyPropertyMode2 forKey:FUModeKeyRemoveNasolabialFoldsStrength];
             [beauty addPropertyMode:FUBeautyPropertyMode3 forKey:FUModeKeyEyeEnlarging];
@@ -253,6 +248,11 @@
     });
 }
 
+#pragma mark - FUSegmentBarDelegate
+- (void)segmentBar:(FUSegmentBar *)segmentBar didSelectItemAtIndex:(NSUInteger)index {
+    [self resolveModuleOperations:index];
+}
+
 #pragma mark - FUFunctionViewDelegate
 - (void)functionView:(FUFunctionView *)functionView didSelectFunctionAtIndex:(NSInteger)index {
     if (functionView.viewModel.isNeedSlider) {
@@ -321,11 +321,14 @@
 }
 
 #pragma mark - Getters
-- (FUBottomBar *)bottomBar {
+- (FUSegmentBar *)bottomBar {
     if (!_bottomBar) {
-        _bottomBar = [[FUBottomBar alloc] initWithFrame:CGRectMake(0, self.demoOriginY, CGRectGetWidth(self.targetController.view.bounds), FUBottomBarHeight) viewModels:self.viewModels moduleOperationHandler:^(NSInteger item) {
-            [self resolveModuleOperations:item];
-        }];
+        NSMutableArray *segments = [[NSMutableArray alloc] init];
+        for (FUViewModel *viewModel in self.viewModels) {
+            [segments addObject:viewModel.model.name];
+        }
+        _bottomBar = [[FUSegmentBar alloc] initWithFrame:CGRectMake(0, self.demoOriginY, CGRectGetWidth(self.targetController.view.bounds), 49) titles:[segments copy] configuration:[FUSegmentBarConfigurations new]];
+        _bottomBar.segmentDelegate = self;
     }
     return _bottomBar;
 }
