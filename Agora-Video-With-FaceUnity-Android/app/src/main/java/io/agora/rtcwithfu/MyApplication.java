@@ -43,7 +43,7 @@ public class MyApplication extends Application {
         new Thread(() -> {
             Context application = getApplicationContext();
             FURenderer.getInstance().setup(application);
-            mVideoManager = new CameraVideoManager(application, new PreprocessorFaceUnity(application));
+            mVideoManager = CameraVideoManager.create(application, new PreprocessorFaceUnity(application));
         }).start();
     }
 

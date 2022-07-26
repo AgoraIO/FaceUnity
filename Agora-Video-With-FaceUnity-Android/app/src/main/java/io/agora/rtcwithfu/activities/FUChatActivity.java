@@ -1,6 +1,8 @@
 package io.agora.rtcwithfu.activities;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -22,20 +24,18 @@ import com.faceunity.nama.data.FaceUnityDataFactory;
 import com.faceunity.nama.listener.FURendererListener;
 import com.faceunity.nama.ui.FaceUnityView;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
+import io.agora.capture.framework.gles.MatrixOperator;
 import io.agora.capture.video.camera.CameraVideoManager;
 import io.agora.capture.video.camera.Constant;
 import io.agora.capture.video.camera.VideoCapture;
+import io.agora.capture.video.camera.WatermarkConfig;
 import io.agora.framework.PreprocessorFaceUnity;
 import io.agora.framework.RtcVideoConsumer;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
-import io.agora.rtcwithfu.MyApplication;
 import io.agora.rtcwithfu.R;
 import io.agora.rtcwithfu.RtcEngineEventHandler;
 import io.agora.rtcwithfu.utils.Constants;
@@ -49,9 +49,9 @@ import io.agora.rtcwithfu.utils.Constants;
 public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHandler, SensorEventListener {
     private final static String TAG = FUChatActivity.class.getSimpleName();
 
-    private static final int CAPTURE_WIDTH = 1280;
-    private static final int CAPTURE_HEIGHT = 720;
-    private static final int CAPTURE_FRAME_RATE = 24;
+    private static final int CAPTURE_WIDTH = 640;
+    private static final int CAPTURE_HEIGHT = 480;
+    private static final int CAPTURE_FRAME_RATE = 15;
 
     private CameraVideoManager mVideoManager;
     private FURenderer mFURenderer = FURenderer.getInstance();
@@ -95,7 +95,7 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
 
     private void initRoom() {
         initVideoModule();
-        rtcEngine().setVideoSource(new RtcVideoConsumer());
+        rtcEngine().setVideoSource(new RtcVideoConsumer(videoManager()));
         joinChannel();
     }
 
@@ -118,8 +118,18 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
             }
 
             @Override
+            public void onCameraOpen() {
+
+            }
+
+            @Override
             public void onCameraClosed() {
 
+            }
+
+            @Override
+            public VideoCapture.FrameRateRange onSelectCameraFpsRange(List<VideoCapture.FrameRateRange> supportFpsRange, VideoCapture.FrameRateRange selectedRange) {
+                return null;
             }
         });
         preprocessor = (PreprocessorFaceUnity) mVideoManager.getPreprocessor();
@@ -134,7 +144,13 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
         mVideoManager.setLocalPreviewMirror(Constant.MIRROR_MODE_AUTO);
 
         TextureView localVideo = findViewById(R.id.local_video_view);
-        mVideoManager.setLocalPreview(localVideo);
+        mVideoManager.setLocalPreview(localVideo, MatrixOperator.ScaleType.FitCenter, "");
+
+        Bitmap waterMarkBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        MatrixOperator matrixOperator = mVideoManager.setWaterMark(waterMarkBitmap, new WatermarkConfig(360, 640));
+        matrixOperator.translateX(-0.8f);
+        matrixOperator.translateY(-0.8f);
+        matrixOperator.setScaleRadio(0.3f);
 
         preprocessor.setSurfaceListener(new PreprocessorFaceUnity.SurfaceViewListener() {
             @Override
