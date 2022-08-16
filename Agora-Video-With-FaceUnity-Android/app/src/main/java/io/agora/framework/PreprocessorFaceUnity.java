@@ -214,7 +214,17 @@ public class PreprocessorFaceUnity implements IVideoFrameObserver {
     }
 
     @Override
+    public boolean onPreEncodeVideoFrame(VideoFrame videoFrame) {
+        return false;
+    }
+
+    @Override
     public boolean onScreenCaptureVideoFrame(VideoFrame videoFrame) {
+        return false;
+    }
+
+    @Override
+    public boolean onPreEncodeScreenVideoFrame(VideoFrame videoFrame) {
         return false;
     }
 
@@ -235,7 +245,7 @@ public class PreprocessorFaceUnity implements IVideoFrameObserver {
 
     @Override
     public int getVideoFormatPreference() {
-        return 10;
+        return IVideoFrameObserver.VIDEO_PIXEL_DEFAULT;
     }
 
     @Override
@@ -246,5 +256,10 @@ public class PreprocessorFaceUnity implements IVideoFrameObserver {
     @Override
     public boolean getMirrorApplied() {
         return false;
+    }
+
+    @Override
+    public int getObservedFramePosition() {
+        return IVideoFrameObserver.POSITION_POST_CAPTURER;
     }
 }

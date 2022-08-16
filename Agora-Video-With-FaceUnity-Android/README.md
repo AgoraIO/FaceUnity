@@ -25,9 +25,9 @@ Locate the project file **app/src/main/res/values/strings.xml** and replace <#YO
 
 Now the demo automatically imports Agora Video SDK from JCenter. By default you do not need to download Agora Video SDK anywhere else.
 
-## Capture and Rendering
+## FU Extension
 
-This project uses a custom camera capture & rendering library `app/libs/video-capturer.aar`. If you want to know more about source code and how to use, please go to [Here](https://github.com/AgoraIO/Agora-Extensions/tree/master/VideoCapture/Android).
+FU Extension is available in agora extension marketplace. Using extension is more easier than using raw video data. You can refer the [demo](https://github.com/AgoraIO-Community/AgoraMarketPlace/blob/master/FaceUnity/README.md) to use the extension.
 
 ## Contact Us
 

@@ -31,8 +31,8 @@ public class MyApplication extends Application {
         mRtcEventHandler = new RtcEngineEventHandlerProxy();
         try {
             mRtcEngine = RtcEngine.create(this, appId, mRtcEventHandler);
-            mRtcEngine.registerVideoFrameObserver(PreprocessorFaceUnity.getInstance());
             mRtcEngine.enableVideo();
+            mRtcEngine.registerVideoFrameObserver(PreprocessorFaceUnity.getInstance());
             mRtcEngine.setChannelProfile(io.agora.rtc2.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
         } catch (Exception e) {
             throw new RuntimeException("NEED TO check rtc sdk init fatal error\n" + Log.getStackTraceString(e));

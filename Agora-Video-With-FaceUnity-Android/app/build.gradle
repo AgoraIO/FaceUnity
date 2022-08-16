@@ -52,7 +52,7 @@ dependencies {
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:2.0.1'
-    implementation 'com.github.agorabuilder:agora-full-preview:4.0.0.preview.5'
+    implementation 'io.agora.rtc:full-sdk:4.0.0-rc.1'
     implementation project(':faceunity')
     implementation 'com.wuyr:pathlayoutmanager:1.0.3'
     implementation 'org.adw.library:discrete-seekbar:1.0.1'
