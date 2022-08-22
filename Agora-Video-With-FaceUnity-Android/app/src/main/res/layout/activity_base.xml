@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextureView
+    <FrameLayout
         android:id="@+id/local_video_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
@@ -34,7 +34,6 @@
         android:src="@mipmap/camera_normal"
         android:scaleType="fitXY"
         android:onClick="onClick"/>
-
 
     <com.faceunity.nama.ui.FaceUnityView
         android:id="@+id/fu_view"

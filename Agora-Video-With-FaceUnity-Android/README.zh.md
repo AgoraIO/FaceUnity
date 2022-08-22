@@ -197,9 +197,9 @@ onDrawFrameDualInput 双输入，输入图像buffer数组与纹理Id，输出纹
 - MakeupDataFactory 是美妆业务工厂，用于加载美妆效果。
 - BodyBeautyDataFactory 是美体业务工厂，用于调整美体参数。
 
-## 相机采集和渲染
+## 相芯云插件
 
-项目用到了采集渲染库 `app/libs/video-capturer.aar`， 如果想对这个库的源码和用法有更进一步的了解，请移步[这里](https://github.com/AgoraIO/Agora-Extensions/tree/master/VideoCapture/Android)
+在声网云市场上有相芯插件，使用插件方式集成会比使用裸数据集成更加便捷快速。插件方式集成可以参与这个[demo](https://github.com/AgoraIO-Community/AgoraMarketPlace/blob/master/FaceUnity/README.md)
 
 ## 联系我们
 
