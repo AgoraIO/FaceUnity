@@ -49,51 +49,31 @@ pod install
 
 
 ## 2.How to use the Agora Module capturer function.
-
-## 2.1 Features
-- [x] 	Capturer
-	- [x] Camera Capturer
-		- [x] Support for front and rear camera switching
-		- [x] Support for dynamic resolution switching
-		- [x] Support I420, NV12, BGRA pixel format output
-		- [x] Support Exposure, ISO
-		- [ ] Support ZoomScale
-		- [ ] Support Torch
-		- [ ] Support watermark
-	- [x] Audio Capturer
-		- [x] Support single and double channel
-		- [x] Support Mute
-	- [x]  Video Adapter Filter (For processing the video frame direction required by different modules)
-		- [x] Support VideoOutputOrientationModeAdaptative for RTC function
-		- [x] Support ...FixedLandscape and ...FixedLandscape for CDN live streaming
-- [x] Renderer
-	- [x] gles
-		- [x] Support glContext Shared
-		- [x] Support mirror
-		- [x] Support fit、hidden zoom mode
+Use RTC to collect video streams and then send them to FaceU SDK for beauty treatment
 
 
-### 2.3 Usage example 
-
-#### 2.3.1 Objective-C
-
-##### How to use Capturer
+### Usage example 
 
 ```objc
-// init process manager
-self.processingManager = [[VideoProcessingManager alloc] init];
+// set delegate
+[self.rtcEngineKit setVideoFrameDelegate:self];
+
+// set Capturer Configuration
+ AgoraCameraCapturerConfiguration *captuer = [[AgoraCameraCapturerConfiguration alloc] init];
+captuer.cameraDirection = AgoraCameraDirectionFront;
+[self.rtcEngineKit setCameraCapturerConfiguration:captuer];
     
-// init capturer, it will push pixelbuffer to rtc channel
-AGMCapturerVideoConfig *videoConfig = [AGMCapturerVideoConfig defaultConfig];
-videoConfig.sessionPreset = AVCaptureSessionPreset1280x720;
-videoConfig.fps = 30;
-self.capturerManager = [[CapturerManager alloc] initWithVideoConfig:videoConfig delegate:self.processingManager];
+AgoraVideoEncoderConfiguration *configuration = [[AgoraVideoEncoderConfiguration alloc] init];
+configuration.dimensions = CGSizeMake(1280, 720);
+[self.rtcEngineKit setVideoEncoderConfiguration: configuration];
     
-// add FaceUnity filter and add to process manager
-self.videoFilter = [FUManager shareManager];
-self.videoFilter.enabled = YES;
-[self.processingManager addVideoFilter:self.videoFilter];
-[self.capturerManager startCapture];
+// on delegate handler
+- (BOOL)onCaptureVideoFrame:(AgoraOutputVideoFrame *)videoFrame {
+    CVPixelBufferRef pixelBuffer = [self.videoFilter processFrame:videoFrame.pixelBuffer];
+    videoFrame.pixelBuffer = pixelBuffer;
+    return YES;
+}
+
 ```
 
 ##### Custom Filter
@@ -165,6 +145,7 @@ check `viewDidLoad dealloc:`
 
 ## Connect Us
 
+- If you want to use plug-in integration, see [云市场](https://docs.agora.io/cn/extension_customer/quickstart_faceunity?platform=iOS)
 - You can find full API document at [Document Center](https://docs.agora.io/en/)
 - You can file bugs about this demo at [issue](https://github.com/AgoraIO/Agora-iOS-Tutorial-Swift-1to1/issues)
 
