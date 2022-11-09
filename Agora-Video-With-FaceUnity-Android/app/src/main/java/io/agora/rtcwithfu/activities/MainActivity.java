@@ -12,8 +12,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import io.agora.rtcwithfu.utils.Constants;
+import com.faceunity.FUConfig;
+import com.faceunity.nama.utils.FuDeviceUtils;
+
 import io.agora.rtcwithfu.R;
+import io.agora.rtcwithfu.utils.Constants;
 
 public class MainActivity extends Activity {
     private static final int REQUEST_CODE_ALL_PERMISSIONS = 999;
@@ -25,6 +28,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_navigation);
         mChannelName = findViewById(R.id.edt_channel);
         checkPermissions();
+        FUConfig.DEVICE_LEVEL = FuDeviceUtils.judgeDeviceLevel(this);
     }
 
     private void checkPermissions() {
@@ -68,6 +72,7 @@ public class MainActivity extends Activity {
     }
 
     public void onStartBroadcastClick(View view) {
+        if (!isFastClick()) {return;}
         String name = mChannelName.getText().toString();
         if (name.isEmpty()) {
             Toast.makeText(this, R.string.empty_room_name_toast, Toast.LENGTH_SHORT).show();
@@ -76,5 +81,19 @@ public class MainActivity extends Activity {
             intent.putExtra(Constants.ACTION_KEY_ROOM_NAME, name);
             startActivity(intent);
         }
+    }
+
+    // 两次点击按钮之间的点击间隔不能少于1000毫秒
+    private static final int MIN_CLICK_DELAY_TIME = 1000;
+    private static long lastClickTime;
+
+    public static boolean isFastClick() {
+        boolean flag = false;
+        long curClickTime = System.currentTimeMillis();
+        if ((curClickTime - lastClickTime) >= MIN_CLICK_DELAY_TIME) {
+            flag = true;
+        }
+        lastClickTime = curClickTime;
+        return flag;
     }
 }

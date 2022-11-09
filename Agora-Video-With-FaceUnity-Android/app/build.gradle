@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         applicationId "io.agora.rtcwithfu"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 11
         versionName "5.4"
@@ -26,6 +26,24 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    applicationVariants.all { variant ->
+        variant.mergeAssetsProvider.configure {
+            doLast {
+                delete(fileTree(dir: outputDir,
+                        includes: ['model/ai_bgseg_green.bundle',
+                                   'model/ai_face_processor_lite.bundle',
+                                   'model/ai_hairseg.bundle',
+                                   'model/ai_hand_processor.bundle',
+                                   'model/ai_human_processor_mb_fast.bundle',
+                                   'graphics/controller_cpp.bundle',
+                                   'graphics/fuzzytoonfilter.bundle',
+                                   'graphics/tongue.bundle',
+                                   'graphics/fxaa.bundle']))
+            }
+        }
+    }
+
 }
 
 dependencies {
@@ -38,4 +56,5 @@ dependencies {
     implementation 'io.agora.rtc:full-sdk:3.0.1'
     implementation 'com.wuyr:pathlayoutmanager:1.0.3'
     implementation 'org.adw.library:discrete-seekbar:1.0.1'
+    implementation 'com.github.AgoraIO-Community:MediaIO-Camera:1.1.6.1'
 }

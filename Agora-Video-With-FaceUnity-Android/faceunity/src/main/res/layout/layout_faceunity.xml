@@ -1,138 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="bottom">
+    android:orientation="vertical">
 
-    <com.faceunity.nama.ui.CheckGroup
-        android:id="@+id/cg_nav_bar"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+
+
+        <com.faceunity.nama.control.BodyBeautyControlView
+            android:id="@+id/control_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="gone" />
+
+        <com.faceunity.nama.control.FaceBeautyControlView
+            android:id="@+id/control_beauty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom" />
+
+        <com.faceunity.nama.control.MakeupControlView
+            android:id="@+id/control_makeup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="gone" />
+
+        <com.faceunity.nama.control.PropControlView
+            android:id="@+id/control_prop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x1"
+            android:background="@color/primary_list"
+            android:src="@color/divider_line_color" />
+    </LinearLayout>
+
+    <com.faceunity.nama.checkbox.CheckGroup
+        android:id="@+id/group_function"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x98"
         android:layout_gravity="bottom"
-        android:background="#BD050F14"
+        android:background="@color/primary_list"
         android:orientation="horizontal">
 
-        <com.faceunity.nama.ui.CheckBoxCompat
-            android:id="@+id/cb_face_beauty"
+        <com.faceunity.nama.checkbox.CheckBoxCompat
+            android:id="@+id/radio_beauty"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/Transparent"
+            android:background="@color/transparent"
             android:button="@null"
-            android:checked="true"
             android:gravity="center"
-            android:text="@string/face_beauty"
-            android:textColor="@color/beauty_control_bottom_radio_color"
+            android:text="@string/home_function_name_beauty"
+            android:textColor="@color/bottom_radio_color"
             android:textSize="@dimen/text_size_26" />
 
-        <com.faceunity.nama.ui.CheckBoxCompat
-            android:id="@+id/cb_sticker"
+        <com.faceunity.nama.checkbox.CheckBoxCompat
+            android:id="@+id/radio_sticker"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/Transparent"
+            android:background="@color/transparent"
             android:button="@null"
             android:gravity="center"
-            android:text="@string/sticker"
-            android:textColor="@color/beauty_control_bottom_radio_color"
+            android:text="@string/home_function_name_sticker"
+            android:textColor="@color/bottom_radio_color"
             android:textSize="@dimen/text_size_26" />
 
-        <com.faceunity.nama.ui.CheckBoxCompat
-            android:id="@+id/cb_makeup"
+        <com.faceunity.nama.checkbox.CheckBoxCompat
+            android:id="@+id/radio_makeup"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/Transparent"
+            android:background="@color/transparent"
             android:button="@null"
             android:gravity="center"
-            android:text="@string/makeup"
-            android:textColor="@color/beauty_control_bottom_radio_color"
+            android:text="@string/home_function_name_makeup"
+            android:textColor="@color/bottom_radio_color"
             android:textSize="@dimen/text_size_26" />
 
-        <com.faceunity.nama.ui.CheckBoxCompat
-            android:id="@+id/cb_body_slim"
+        <com.faceunity.nama.checkbox.CheckBoxCompat
+            android:id="@+id/radio_body"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/Transparent"
+            android:background="@color/transparent"
             android:button="@null"
             android:gravity="center"
-            android:text="@string/body_slim"
-            android:textColor="@color/beauty_control_bottom_radio_color"
+            android:text="@string/home_function_name_beauty_body"
+            android:textColor="@color/bottom_radio_color"
             android:textSize="@dimen/text_size_26" />
 
-    </com.faceunity.nama.ui.CheckGroup>
+    </com.faceunity.nama.checkbox.CheckGroup>
 
-    <com.faceunity.nama.ui.BeautyControlView
-        android:id="@+id/beauty_control_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="@dimen/x98" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_sticker_effect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/x98"
-        android:background="#99050f14"
-        android:padding="@dimen/x14"
-        android:visibility="gone" />
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/cl_makeup"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/x268"
-        android:layout_gravity="bottom"
-        android:visibility="gone"
-        android:layout_marginBottom="@dimen/x98"
-        android:background="#BD050F14">
-
-        <com.faceunity.nama.ui.seekbar.DiscreteSeekBar
-            android:id="@+id/makeup_seek_bar"
-            android:layout_width="@dimen/x528"
-            android:visibility="invisible"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/x196"
-            app:dsb_indicatorColor="@color/main_color"
-            app:dsb_indicatorElevation="0dp"
-            app:dsb_indicatorPopupEnabled="true"
-            app:dsb_max="100"
-            app:dsb_min="0"
-            app:dsb_progressColor="@color/main_color"
-            app:dsb_rippleColor="@color/main_color"
-            app:dsb_scrubberHeight="@dimen/x4"
-            app:dsb_thumbSize="@dimen/x32"
-            app:dsb_trackBaseHeight="@dimen/x16"
-            app:dsb_trackColor="@color/colorWhite"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_makeup"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/x180"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-
-    <com.faceunity.nama.ui.BeautifyBodyControlView
-        android:id="@+id/body_slim_control_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="@dimen/x98"
-        android:visibility="gone" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/x1"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="@dimen/x98"
-        android:background="#33E5E5E5" />
-
-</FrameLayout>
+</LinearLayout>

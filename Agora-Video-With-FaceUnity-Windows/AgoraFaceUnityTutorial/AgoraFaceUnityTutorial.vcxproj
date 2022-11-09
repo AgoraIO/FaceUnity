@@ -23,7 +23,7 @@
     <ProjectGuid>{4317B212-04CF-4E67-92AB-A4A084DDC5CD}</ProjectGuid>
     <Keyword>MFCProj</Keyword>
     <RootNamespace>AgoraFaceUnityTutorial</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

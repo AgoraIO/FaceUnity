@@ -152,8 +152,8 @@ std::string getExePath()
     szFile[executableDirLen] = 0;
     exePath = cs2utf8(szFile);
     
-    szFile[executableDirLen - 1] = 0;
-    lastSlashPos = _tcsrchr(szFile, '\\');
+    /*szFile[executableDirLen - 1] = 0;
+    lastSlashPos = _tcsrchr(szFile, '\\');*/
     executableDirLen = lastSlashPos - szFile + 1;
     szFile[executableDirLen] = 0;
     g_fuDataDir = cs2utf8(szFile);

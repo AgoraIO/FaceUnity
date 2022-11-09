@@ -6,9 +6,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 730
-        versionName "7.3.0"
-        // 7.3.0_phy_505b959b_bf80f59
+        versionCode 810
+        versionName "8.1.0"
     }
     buildTypes {
         release {
@@ -16,12 +15,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0,'seconds'
+        resolutionStrategy.cacheDynamicVersionsFor 0,'seconds'
+    }
     implementation 'com.android.support:appcompat-v7:28.0.0'
+    api 'com.faceunity:core:8.1.0'
+    implementation 'com.faceunity:model:8.1.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:2.0.1'
-    implementation 'com.faceunity:nama:7.3.0'
 }
