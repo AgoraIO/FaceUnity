@@ -14,6 +14,12 @@
 
 static FUManager *shareManager = NULL;
 
+@interface FUManager ()
+
+@property (nonatomic, assign) FUDevicePerformanceLevel devicePerformanceLevel;
+
+@end
+
 @implementation FUManager
 
 + (FUManager *)shareManager
@@ -44,13 +50,16 @@ static FUManager *shareManager = NULL;
         
         [FURenderKit setLogLevel:FU_LOG_LEVEL_INFO];
         
+        self.devicePerformanceLevel = [FURenderKit devicePerformanceLevel];
+        
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             // 加载人脸 AI 模型
             NSString *faceAIPath = [[NSBundle mainBundle] pathForResource:@"ai_face_processor" ofType:@"bundle"];
             [FUAIKit loadAIModeWithAIType:FUAITYPE_FACEPROCESSOR dataPath:faceAIPath];
             
-            // 加载身体 AI 模型
-            NSString *bodyAIPath = [[NSBundle mainBundle] pathForResource:@"ai_human_processor" ofType:@"bundle"];
+            // 加载身体 AI 模型，注意：高性能机型加载ai_human_processor_gpu.bundle
+            NSString *humanBundleName = self.devicePerformanceLevel == FUDevicePerformanceLevelHigh ? @"ai_human_processor_gpu" : @"ai_human_processor";
+            NSString *bodyAIPath = [[NSBundle mainBundle] pathForResource:humanBundleName ofType:@"bundle"];
             [FUAIKit loadAIModeWithAIType:FUAITYPE_HUMAN_PROCESSOR dataPath:bodyAIPath];
             
             CFAbsoluteTime endTime = (CFAbsoluteTimeGetCurrent() - startTime);
@@ -65,7 +74,10 @@ static FUManager *shareManager = NULL;
             NSLog(@"---%lf",endTime);
             
             // 设置人脸算法质量
-            [FUAIKit shareKit].faceProcessorFaceLandmarkQuality = [FURenderKit devicePerformanceLevel] == FUDevicePerformanceLevelHigh ? FUFaceProcessorFaceLandmarkQualityHigh : FUFaceProcessorFaceLandmarkQualityMedium;
+            [FUAIKit shareKit].faceProcessorFaceLandmarkQuality = self.devicePerformanceLevel == FUDevicePerformanceLevelHigh ? FUFaceProcessorFaceLandmarkQualityHigh : FUFaceProcessorFaceLandmarkQualityMedium;
+            
+            // 设置小脸检测是否打开
+            [FUAIKit shareKit].faceProcessorDetectSmallFace = self.devicePerformanceLevel == FUDevicePerformanceLevelHigh;
         });
 
         [[FUTestRecorder shareRecorder] setupRecord];
@@ -93,7 +105,7 @@ static FUManager *shareManager = NULL;
     if (![FURenderKit shareRenderKit].beauty || ![FURenderKit shareRenderKit].beauty.enable) {
         return;
     }
-    if ([FURenderKit devicePerformanceLevel] == FUDevicePerformanceLevelHigh) {
+    if (self.devicePerformanceLevel == FUDevicePerformanceLevelHigh) {
         // 根据人脸置信度设置不同磨皮效果
         CGFloat score = [FUAIKit fuFaceProcessorGetConfidenceScore:0];
         if (score > 0.95) {

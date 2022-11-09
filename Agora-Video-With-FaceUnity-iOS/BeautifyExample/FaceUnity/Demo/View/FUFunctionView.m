@@ -6,7 +6,7 @@
 //
 
 #import "FUFunctionView.h"
-#import "FUSlider.h"
+#import "FUSegmentBar.h"
 
 #import "FUViewModel.h"
 

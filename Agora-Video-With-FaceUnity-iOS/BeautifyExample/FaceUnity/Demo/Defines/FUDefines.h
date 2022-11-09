@@ -60,6 +60,8 @@ typedef NS_ENUM(NSUInteger, FUBeautyShapeItem) {
     FUBeautyShapeItemLongNose,              // 长鼻
     FUBeautyShapeItemPhiltrum,              // 缩人中
     FUBeautyShapeItemSmile,                 // 微笑嘴角
+    FUBeautyShapeItemBrowHeight,            // 眉毛上下
+    FUBeautyShapeItemBrowSpace,             // 眉间距
     FUBeautyShapeItemMax
 };
 

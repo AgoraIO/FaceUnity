@@ -37,6 +37,8 @@
 @property (nonatomic, assign) AgoraVideoMirrorMode remoteVideoMirrored;
 @property (nonatomic, strong) AGMEAGLVideoView *glVideoView;
 
+@property (nonatomic, strong) FUDemoManager *demoManager;
+
 @end
 
 @implementation ViewController
@@ -52,7 +54,8 @@
     if (@available(iOS 11.0, *)) {
         safeAreaBottom = [UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom;
     }
-    [FUDemoManager setupFaceUnityDemoInController:self originY:CGRectGetHeight(self.view.frame) - FUBottomBarHeight - safeAreaBottom];
+    
+    self.demoManager = [[FUDemoManager alloc] initWithTargetController:self originY:CGRectGetHeight(self.view.frame) - FUBottomBarHeight - safeAreaBottom];
 
     // 初始化 rte engine
     self.rtcEngineKit = [AgoraRtcEngineKit sharedEngineWithAppId:[KeyCenter AppId] delegate:self];

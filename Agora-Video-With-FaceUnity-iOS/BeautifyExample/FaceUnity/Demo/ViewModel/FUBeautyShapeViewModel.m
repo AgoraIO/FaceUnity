@@ -120,6 +120,12 @@
         case FUBeautyShapeItemSmile:
             self.beauty.intensitySmile = subModel.currentValue;
             break;
+        case FUBeautyShapeItemBrowHeight:
+            self.beauty.intensityBrowHeight = subModel.currentValue;
+            break;
+        case FUBeautyShapeItemBrowSpace:
+            self.beauty.intensityBrowSpace = subModel.currentValue;
+            break;
         default:
             break;
     }
