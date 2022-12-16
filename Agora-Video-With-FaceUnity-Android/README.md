@@ -19,7 +19,7 @@ Locate the project file **app/src/main/res/values/strings.xml** and replace <#YO
 ```xml
 <string name="agora_app_id"><#YOUR APP ID#></string>
 ```
-2. Contact sales@agora.io and get a licence file `authpack.java`, then copy this file to project folder `faceunity/src/main/java/com/faceunity/nama/widget/authpack.java`. Note this licence determines which FaceUnity functions/effects you are allowed to use. 
+2. Contact sales@agora.io and get a licence file `authpack.java`, then copy this file to project folder `faceunity/src/main/java/com/faceunity/nama/authpack.java`. Note this licence determines which FaceUnity functions/effects you are allowed to use. 
 
 ### Configure Agora SDK
 
