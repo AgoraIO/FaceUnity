@@ -1,5 +1,7 @@
 package io.agora.rtcwithfu.activities;
 
+import static io.agora.rtc2.video.VideoCanvas.RENDER_MODE_HIDDEN;
+
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -31,8 +33,6 @@ import io.agora.rtcwithfu.R;
 import io.agora.rtcwithfu.RtcEngineEventHandler;
 import io.agora.rtcwithfu.utils.Constants;
 
-import static io.agora.rtc2.video.VideoCanvas.RENDER_MODE_HIDDEN;
-
 /**
  * This activity demonstrates how to make FU and Agora RTC SDK work together
  * <p>
@@ -41,10 +41,6 @@ import static io.agora.rtc2.video.VideoCanvas.RENDER_MODE_HIDDEN;
 @SuppressWarnings("deprecation")
 public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHandler, SensorEventListener {
     private final static String TAG = FUChatActivity.class.getSimpleName();
-
-    private static final int CAPTURE_WIDTH = 1280;
-    private static final int CAPTURE_HEIGHT = 720;
-    private static final int CAPTURE_FRAME_RATE = 24;
 
     private FURenderer mFURenderer = FURenderer.getInstance();
     private FaceUnityDataFactory mFaceUnityDataFactory;
@@ -103,8 +99,8 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
 
     private void joinChannel() {
         rtcEngine().setVideoEncoderConfiguration(new VideoEncoderConfiguration(
-                VideoEncoderConfiguration.VD_640x360,
-                VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_10,
+                VideoEncoderConfiguration.VD_1280x720,
+                VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_24,
                 VideoEncoderConfiguration.STANDARD_BITRATE,
                 VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT));
         rtcEngine().setClientRole(io.agora.rtc2.Constants.CLIENT_ROLE_BROADCASTER);
@@ -117,7 +113,6 @@ public class FUChatActivity extends RtcBasedActivity implements RtcEngineEventHa
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_switch_camera:
-                preprocessor.skipFrame();
                 rtcEngine().switchCamera();
                 break;
         }

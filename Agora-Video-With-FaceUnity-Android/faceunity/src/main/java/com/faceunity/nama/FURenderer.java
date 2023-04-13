@@ -2,8 +2,6 @@ package com.faceunity.nama;
 
 import android.content.Context;
 import android.hardware.Camera;
-import android.opengl.EGL14;
-import android.util.Log;
 
 import com.faceunity.core.callback.OperateCallback;
 import com.faceunity.core.entity.FURenderInputData;
@@ -20,9 +18,7 @@ import com.faceunity.core.utils.CameraUtils;
 import com.faceunity.core.utils.FULogger;
 import com.faceunity.nama.listener.FURendererListener;
 
-
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -127,11 +123,11 @@ public class FURenderer extends IFURenderer {
      * @return
      */
     @Override
-    public int onDrawFrameDualInput(byte[] img, int texId, int width, int height) {
+    public int onDrawFrameDualInput(int texId, int width, int height) {
         prepareDrawFrame();
         FURenderInputData inputData = new FURenderInputData(width, height);
         /*注释掉Buffer配置，启用单纹理模式，防止Buffer跟纹理存在不对齐造成，美妆偏移*/
-//        inputData.setImageBuffer(new FURenderInputData.FUImageBuffer(inputBufferType, img));//设置为单Buffer输入
+        // inputData.setImageBuffer(new FURenderInputData.FUImageBuffer(inputBufferType, img));//设置为单Buffer输入
         inputData.setTexture(new FURenderInputData.FUTexture(inputTextureType, texId));
         FURenderInputData.FURenderConfig config = inputData.getRenderConfig();
         config.setExternalInputType(externalInputType);
@@ -151,6 +147,28 @@ public class FURenderer extends IFURenderer {
 
     }
 
+    @Override
+    public int onDrawFrameInput(byte[] img, int width, int height) {
+        prepareDrawFrame();
+        FURenderInputData inputData = new FURenderInputData(width, height);
+        /*注释掉Buffer配置，启用单纹理模式，防止Buffer跟纹理存在不对齐造成，美妆偏移*/
+        inputData.setImageBuffer(new FURenderInputData.FUImageBuffer(inputBufferType, img));//设置为单Buffer输入
+        FURenderInputData.FURenderConfig config = inputData.getRenderConfig();
+        config.setExternalInputType(externalInputType);
+        config.setInputOrientation(inputOrientation);
+        config.setDeviceOrientation(deviceOrientation);
+        config.setInputBufferMatrix(inputBufferMatrix);
+        config.setInputTextureMatrix(inputTextureMatrix);
+        config.setOutputMatrix(outputMatrix);
+        config.setCameraFacing(cameraFacing);
+        mCallStartTime = System.nanoTime();
+        FURenderOutputData outputData = mFURenderKit.renderWithInput(inputData);
+        mSumCallTime += System.nanoTime() - mCallStartTime;
+        if (outputData.getTexture() != null && outputData.getTexture().getTexId() > 0) {
+            return outputData.getTexture().getTexId();
+        }
+        return -1;
+    }
 
     /**
      * 释放资源
