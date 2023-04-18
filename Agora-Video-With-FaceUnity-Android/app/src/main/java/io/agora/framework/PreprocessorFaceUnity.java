@@ -165,6 +165,7 @@ public class PreprocessorFaceUnity implements IVideoFrameObserver {
                     mImageBuffer, mImageWidth, mImageHeight);
             mImageBuffer.position(0);
             mImageBuffer.get(mImageNV21);
+            i420Buffer.release();
 
             outTexId = textureBufferHelper.invoke(() -> mFURenderer.onDrawFrameInput(
                     mImageNV21, i420Buffer.getWidth(), i420Buffer.getHeight()
