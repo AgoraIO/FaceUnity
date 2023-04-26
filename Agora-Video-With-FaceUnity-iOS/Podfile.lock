@@ -1,30 +1,34 @@
 PODS:
-  - AgoraRtcEngine_iOS (4.0.0-rc.1):
-    - AgoraRtcEngine_iOS/AINS (= 4.0.0-rc.1)
-    - AgoraRtcEngine_iOS/AudioBeauty (= 4.0.0-rc.1)
-    - AgoraRtcEngine_iOS/ClearVision (= 4.0.0-rc.1)
-    - AgoraRtcEngine_iOS/ContentInspect (= 4.0.0-rc.1)
-    - AgoraRtcEngine_iOS/PVC (= 4.0.0-rc.1)
-    - AgoraRtcEngine_iOS/ReplayKit (= 4.0.0-rc.1)
-    - AgoraRtcEngine_iOS/RtcBasic (= 4.0.0-rc.1)
-    - AgoraRtcEngine_iOS/SpatialAudio (= 4.0.0-rc.1)
-    - AgoraRtcEngine_iOS/SuperResolution (= 4.0.0-rc.1)
-    - AgoraRtcEngine_iOS/VirtualBackground (= 4.0.0-rc.1)
-  - AgoraRtcEngine_iOS/AINS (4.0.0-rc.1)
-  - AgoraRtcEngine_iOS/AudioBeauty (4.0.0-rc.1)
-  - AgoraRtcEngine_iOS/ClearVision (4.0.0-rc.1)
-  - AgoraRtcEngine_iOS/ContentInspect (4.0.0-rc.1)
-  - AgoraRtcEngine_iOS/PVC (4.0.0-rc.1)
-  - AgoraRtcEngine_iOS/ReplayKit (4.0.0-rc.1)
-  - AgoraRtcEngine_iOS/RtcBasic (4.0.0-rc.1)
-  - AgoraRtcEngine_iOS/SpatialAudio (4.0.0-rc.1)
-  - AgoraRtcEngine_iOS/SuperResolution (4.0.0-rc.1)
-  - AgoraRtcEngine_iOS/VirtualBackground (4.0.0-rc.1)
+  - AgoraRtcEngine_iOS (4.1.1):
+    - AgoraRtcEngine_iOS/AIAEC (= 4.1.1)
+    - AgoraRtcEngine_iOS/AINS (= 4.1.1)
+    - AgoraRtcEngine_iOS/AudioBeauty (= 4.1.1)
+    - AgoraRtcEngine_iOS/ClearVision (= 4.1.1)
+    - AgoraRtcEngine_iOS/ContentInspect (= 4.1.1)
+    - AgoraRtcEngine_iOS/DRM (= 4.1.1)
+    - AgoraRtcEngine_iOS/FaceDetection (= 4.1.1)
+    - AgoraRtcEngine_iOS/ReplayKit (= 4.1.1)
+    - AgoraRtcEngine_iOS/RtcBasic (= 4.1.1)
+    - AgoraRtcEngine_iOS/SpatialAudio (= 4.1.1)
+    - AgoraRtcEngine_iOS/VirtualBackground (= 4.1.1)
+    - AgoraRtcEngine_iOS/VQA (= 4.1.1)
+  - AgoraRtcEngine_iOS/AIAEC (4.1.1)
+  - AgoraRtcEngine_iOS/AINS (4.1.1)
+  - AgoraRtcEngine_iOS/AudioBeauty (4.1.1)
+  - AgoraRtcEngine_iOS/ClearVision (4.1.1)
+  - AgoraRtcEngine_iOS/ContentInspect (4.1.1)
+  - AgoraRtcEngine_iOS/DRM (4.1.1)
+  - AgoraRtcEngine_iOS/FaceDetection (4.1.1)
+  - AgoraRtcEngine_iOS/ReplayKit (4.1.1)
+  - AgoraRtcEngine_iOS/RtcBasic (4.1.1)
+  - AgoraRtcEngine_iOS/SpatialAudio (4.1.1)
+  - AgoraRtcEngine_iOS/VirtualBackground (4.1.1)
+  - AgoraRtcEngine_iOS/VQA (4.1.1)
   - Masonry (1.1.0)
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
-  - AgoraRtcEngine_iOS (= 4.0.0-rc.1)
+  - AgoraRtcEngine_iOS (= 4.1.1)
   - Masonry
   - SVProgressHUD
 
@@ -36,10 +40,10 @@ SPEC REPOS:
     - SVProgressHUD
 
 SPEC CHECKSUMS:
-  AgoraRtcEngine_iOS: 1b78af79120066c230cf9281d8587813ce6a8323
+  AgoraRtcEngine_iOS: df216a18a01c30fba926565d889c9542319252ac
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: cd725445aa7f54619e999d45596f827f3664e8e9
+PODFILE CHECKSUM: 10df1f93c388bc35d39465037304183135ce35bc
 
 COCOAPODS: 1.11.2

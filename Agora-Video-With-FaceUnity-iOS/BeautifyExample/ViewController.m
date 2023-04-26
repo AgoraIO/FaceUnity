@@ -16,7 +16,7 @@
 
 #import <Masonry/Masonry.h>
 
-@interface ViewController () <AgoraRtcEngineDelegate, AgoraVideoFrameDelegate>
+@interface ViewController () <AgoraRtcEngineDelegate, AgoraVideoFrameDelegate, AgoraRtcMediaPlayerDelegate>
 
 //@property (nonatomic, strong) CapturerManager *capturerManager;
 @property (nonatomic, strong) FUManager *videoFilter;
@@ -31,8 +31,6 @@
 @property (nonatomic, strong) IBOutlet UIView *missingAuthpackLabel;
 @property (weak, nonatomic) IBOutlet UIButton *muteAudioBtn;
 @property (nonatomic, strong) AgoraRtcVideoCanvas *videoCanvas;
-@property (nonatomic, assign) AgoraVideoMirrorMode localVideoMirrored;
-@property (nonatomic, assign) AgoraVideoMirrorMode remoteVideoMirrored;
 
 @end
 
@@ -41,7 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.remoteView.hidden = YES;
+//    self.remoteView.hidden = YES;
     
     // FaceUnity UI
     CGFloat safeAreaBottom = 0;
@@ -83,9 +81,9 @@
     // set custom capturer as video source
     
     AgoraRtcChannelMediaOptions *option = [[AgoraRtcChannelMediaOptions alloc] init];
-    option.clientRoleType = [AgoraRtcIntOptional of: AgoraClientRoleBroadcaster];
-    option.publishMicrophoneTrack = [AgoraRtcBoolOptional of:YES];
-    option.publishCameraTrack = [AgoraRtcBoolOptional of:YES];
+    option.clientRoleType = AgoraClientRoleBroadcaster;
+    option.publishMicrophoneTrack = YES;
+    option.publishCameraTrack = YES;
     
     [self.rtcEngineKit joinChannelByToken:nil channelId:self.channelName uid:10 mediaOptions:option joinSuccess:^(NSString * _Nonnull channel, NSUInteger uid, NSInteger elapsed) { }];
 
@@ -118,13 +116,8 @@
 
 - (IBAction)switchCamera:(UIButton *)button
 {
+    [button setSelected:!button.isSelected];
     [self.rtcEngineKit switchCamera];
-}
-
-- (IBAction)toggleRemoteMirror:(UIButton *)button
-{
-    self.remoteVideoMirrored = self.remoteVideoMirrored == AgoraVideoMirrorModeEnabled ? AgoraVideoMirrorModeDisabled : AgoraVideoMirrorModeEnabled;
-    [self.rtcEngineKit setLocalRenderMode:(AgoraVideoRenderModeHidden) mirror:self.remoteVideoMirrored];
 }
 
 - (IBAction)muteAudioBtn:(UIButton *)sender {
@@ -148,18 +141,28 @@
 }
 
 - (AgoraVideoFormat)getVideoPixelFormatPreference{
-    return AgoraVideoFormatBGRA;
+    return AgoraVideoFormatCVPixelNV12;
 }
 - (AgoraVideoFrameProcessMode)getVideoFrameProcessMode{
     return AgoraVideoFrameProcessModeReadWrite;
 }
 
 - (BOOL)getMirrorApplied{
-    return YES;
+    return !self.switchBtn.isSelected;
 }
 
 - (BOOL)getRotationApplied {
     return NO;
+}
+
+- (void)rtcEngine:(AgoraRtcEngineKit *)engine didJoinedOfUid:(NSUInteger)uid elapsed:(NSInteger)elapsed {
+    AgoraRtcVideoCanvas *videoCanvas = [AgoraRtcVideoCanvas new];
+    videoCanvas.uid = uid;
+    // the view to be binded
+    videoCanvas.view = self.remoteView;
+    videoCanvas.renderMode = AgoraVideoRenderModeHidden;
+    videoCanvas.mirrorMode = AgoraVideoMirrorModeDisabled;
+    [self.rtcEngineKit setupRemoteVideo:videoCanvas];
 }
 
 @end

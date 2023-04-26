@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
- platform :ios, '9.0'
+ platform :ios, '10.0'
 
 source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
 target 'BeautifyExample' do
@@ -13,9 +13,16 @@ target 'BeautifyExample' do
     # Pods for testing
   end
 
-  pod 'AgoraRtcEngine_iOS', '4.0.0-rc.1'
+  pod 'AgoraRtcEngine_iOS', '4.1.1'
    #pod 'Nama','~> 7.3.0'
    pod 'Masonry'
    pod 'SVProgressHUD'
 
+end
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+    end
+  end
 end
