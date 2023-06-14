@@ -89,7 +89,7 @@ public class PreprocessorFaceUnity implements IVideoFrameObserver {
         final VideoFrame.Buffer buffer = videoFrame.getBuffer();
 
         if (textureBufferHelper == null) {
-            textureBufferHelper = TextureBufferHelper.create(this.getClass().getSimpleName(), EglBaseProvider.getCurrentEglContext());
+            textureBufferHelper = TextureBufferHelper.create(this.getClass().getSimpleName(), EglBaseProvider.instance().getRootEglBase().getEglBaseContext());
         } else if (resetGLEnv) {
             textureBufferHelper.dispose();
             resetGLEnv = false;
