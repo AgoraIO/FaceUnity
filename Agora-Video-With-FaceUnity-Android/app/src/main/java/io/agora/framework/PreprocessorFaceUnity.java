@@ -1,7 +1,5 @@
 package io.agora.framework;
 
-import android.util.Size;
-
 import com.faceunity.FUConfig;
 import com.faceunity.core.enumeration.FUTransformMatrixEnum;
 import com.faceunity.core.faceunity.FUAIKit;
@@ -120,58 +118,38 @@ public class PreprocessorFaceUnity implements IVideoFrameObserver {
 
         int outTexId;
         android.graphics.Matrix outMatrix;
-        if (buffer instanceof VideoFrame.TextureBuffer) {
-
-            if (isFront) {
-                mFURenderer.setInputBufferMatrix(FUTransformMatrixEnum.CCROT0);
-                mFURenderer.setInputTextureMatrix(FUTransformMatrixEnum.CCROT0);
-                mFURenderer.setOutputMatrix(FUTransformMatrixEnum.CCROT0_FLIPVERTICAL);
-            } else {
-                mFURenderer.setInputBufferMatrix(FUTransformMatrixEnum.CCROT0_FLIPVERTICAL);
-                mFURenderer.setInputTextureMatrix(FUTransformMatrixEnum.CCROT0_FLIPVERTICAL);
-                mFURenderer.setOutputMatrix(FUTransformMatrixEnum.CCROT0);
-            }
-
-            VideoFrame.TextureBuffer texBuffer = (VideoFrame.TextureBuffer) buffer;
-            Size originSize = VideoCaptureUtils.getCaptureOriginSize(texBuffer);
-            outTexId = textureBufferHelper.invoke(() -> mFURenderer.onDrawFrameDualInput(
-                    texBuffer.getTextureId(), originSize.getWidth(), originSize.getHeight()
-            ));
-            outMatrix = texBuffer.getTransformMatrix();
+        if (isFront) {
+            mFURenderer.setInputBufferMatrix(FUTransformMatrixEnum.CCROT0);
+            mFURenderer.setInputTextureMatrix(FUTransformMatrixEnum.CCROT0);
+            mFURenderer.setOutputMatrix(FUTransformMatrixEnum.CCROT0);
         } else {
-            if (isFront) {
-                mFURenderer.setInputBufferMatrix(FUTransformMatrixEnum.CCROT0);
-                mFURenderer.setInputTextureMatrix(FUTransformMatrixEnum.CCROT0);
-                mFURenderer.setOutputMatrix(FUTransformMatrixEnum.CCROT0);
-            } else {
-                mFURenderer.setInputBufferMatrix(FUTransformMatrixEnum.CCROT0_FLIPVERTICAL);
-                mFURenderer.setInputTextureMatrix(FUTransformMatrixEnum.CCROT0_FLIPVERTICAL);
-                mFURenderer.setOutputMatrix(FUTransformMatrixEnum.CCROT0_FLIPVERTICAL);
-            }
-
-            VideoFrame.I420Buffer i420Buffer = buffer.toI420();
-            int nv21Size = mImageHeight * mImageWidth * 3 / 2;
-            if (mImageBuffer == null || mImageBuffer.capacity() != nv21Size) {
-                if (mImageBuffer != null) {
-                    mImageBuffer.clear();
-                }
-                mImageBuffer = ByteBuffer.allocateDirect(nv21Size);
-                mImageNV21 = new byte[nv21Size];
-            }
-
-            YuvHelper.I420ToNV12(i420Buffer.getDataY(), i420Buffer.getStrideY(),
-                    i420Buffer.getDataV(), i420Buffer.getStrideV(),
-                    i420Buffer.getDataU(), i420Buffer.getStrideU(),
-                    mImageBuffer, mImageWidth, mImageHeight);
-            mImageBuffer.position(0);
-            mImageBuffer.get(mImageNV21);
-            i420Buffer.release();
-
-            outTexId = textureBufferHelper.invoke(() -> mFURenderer.onDrawFrameInput(
-                    mImageNV21, i420Buffer.getWidth(), i420Buffer.getHeight()
-            ));
-            outMatrix = IDENTITY_MATRIX;
+            mFURenderer.setInputBufferMatrix(FUTransformMatrixEnum.CCROT0_FLIPVERTICAL);
+            mFURenderer.setInputTextureMatrix(FUTransformMatrixEnum.CCROT0_FLIPVERTICAL);
+            mFURenderer.setOutputMatrix(FUTransformMatrixEnum.CCROT0_FLIPVERTICAL);
         }
+
+        VideoFrame.I420Buffer i420Buffer = buffer.toI420();
+        int nv21Size = mImageHeight * mImageWidth * 3 / 2;
+        if (mImageBuffer == null || mImageBuffer.capacity() != nv21Size) {
+            if (mImageBuffer != null) {
+                mImageBuffer.clear();
+            }
+            mImageBuffer = ByteBuffer.allocateDirect(nv21Size);
+            mImageNV21 = new byte[nv21Size];
+        }
+
+        YuvHelper.I420ToNV12(i420Buffer.getDataY(), i420Buffer.getStrideY(),
+                i420Buffer.getDataV(), i420Buffer.getStrideV(),
+                i420Buffer.getDataU(), i420Buffer.getStrideU(),
+                mImageBuffer, mImageWidth, mImageHeight);
+        mImageBuffer.position(0);
+        mImageBuffer.get(mImageNV21);
+        i420Buffer.release();
+
+        outTexId = textureBufferHelper.invoke(() -> mFURenderer.onDrawFrameInput(
+                mImageNV21, i420Buffer.getWidth(), i420Buffer.getHeight()
+        ));
+        outMatrix = IDENTITY_MATRIX;
 
         if(skipFrame){
             return false;
