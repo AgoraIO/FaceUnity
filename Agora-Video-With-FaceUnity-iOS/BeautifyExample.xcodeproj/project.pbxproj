@@ -94,7 +94,6 @@
 		E3583F20271198D2008E52A7 /* FUBeautyFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3583EF2271198D2008E52A7 /* FUBeautyFunctionView.m */; };
 		E35B22CA253571FF00F50AC2 /* FUTestRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E35B22C9253571FF00F50AC2 /* FUTestRecorder.m */; };
 		E3C850922717037F007E2CA0 /* FUSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E3C850902717037F007E2CA0 /* FUSlider.m */; };
-		EF9F4BBC82E8B0644E0F1CD2 /* Pods_BeautifyExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA4FF26FEF71B547AC46AE1 /* Pods_BeautifyExampleTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,7 +148,6 @@
 		09C6668024D7BC8B001D7AE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09D97238251DE97400EF9E46 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		09D9725425206D9D00EF9E46 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
-		13B61FCDC551C4F0C0E850DB /* Pods-BeautifyExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeautifyExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-BeautifyExampleTests/Pods-BeautifyExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2D8ABD2D2511B63200D28745 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		2D8ABD2E2511B63200D28745 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		2DC7D60A2537238B00DA0A4B /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -178,11 +176,9 @@
 		2DFDCC832779ACF8005FD7A7 /* fuzzytoonfilter.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = fuzzytoonfilter.bundle; sourceTree = "<group>"; };
 		2DFDCC842779ACF8005FD7A7 /* face_beautification.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = face_beautification.bundle; sourceTree = "<group>"; };
 		2DFDCC852779ACFA005FD7A7 /* FURenderKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FURenderKit.framework; sourceTree = "<group>"; };
-		36236FA0D16FC95D3991BC76 /* Pods-BeautifyExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeautifyExampleTests.release.xcconfig"; path = "Target Support Files/Pods-BeautifyExampleTests/Pods-BeautifyExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		3D32F315DAB48F1AE0AFB5C4 /* Pods_BeautifyExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeautifyExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55AE3D698E3E43CFA1B47A16 /* Pods-BeautifyExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeautifyExample.debug.xcconfig"; path = "Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample.debug.xcconfig"; sourceTree = "<group>"; };
 		AC523AADA896ACCF33329856 /* Pods-BeautifyExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeautifyExample.release.xcconfig"; path = "Target Support Files/Pods-BeautifyExample/Pods-BeautifyExample.release.xcconfig"; sourceTree = "<group>"; };
-		DDA4FF26FEF71B547AC46AE1 /* Pods_BeautifyExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeautifyExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3583EA8271198AF008E52A7 /* FUDemoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUDemoManager.m; sourceTree = "<group>"; };
 		E3583EA9271198AF008E52A7 /* FUDemoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUDemoManager.h; sourceTree = "<group>"; };
 		E3583EAC271198CF008E52A7 /* FUModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUModel.h; sourceTree = "<group>"; };
@@ -279,7 +275,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF9F4BBC82E8B0644E0F1CD2 /* Pods_BeautifyExampleTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,8 +395,6 @@
 		42A85BEAC6A36FA392D1839E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				13B61FCDC551C4F0C0E850DB /* Pods-BeautifyExampleTests.debug.xcconfig */,
-				36236FA0D16FC95D3991BC76 /* Pods-BeautifyExampleTests.release.xcconfig */,
 				55AE3D698E3E43CFA1B47A16 /* Pods-BeautifyExample.debug.xcconfig */,
 				AC523AADA896ACCF33329856 /* Pods-BeautifyExample.release.xcconfig */,
 			);
@@ -425,7 +418,6 @@
 				09D9725425206D9D00EF9E46 /* CoreML.framework */,
 				09D97238251DE97400EF9E46 /* VideoToolbox.framework */,
 				3D32F315DAB48F1AE0AFB5C4 /* Pods_BeautifyExample.framework */,
-				DDA4FF26FEF71B547AC46AE1 /* Pods_BeautifyExampleTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -601,7 +593,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 09C6668624D7BC8B001D7AE2 /* Build configuration list for PBXNativeTarget "BeautifyExampleTests" */;
 			buildPhases = (
-				74349EBC31DE4BC52CC4BB83 /* [CP] Check Pods Manifest.lock */,
 				09C6667624D7BC8B001D7AE2 /* Sources */,
 				09C6667724D7BC8B001D7AE2 /* Frameworks */,
 				09C6667824D7BC8B001D7AE2 /* Resources */,
@@ -714,28 +705,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		74349EBC31DE4BC52CC4BB83 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BeautifyExampleTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A1EBB42BE36B3239F94E3017 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -913,7 +882,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -965,7 +934,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -980,7 +949,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35A6KD62ZJ;
+				DEVELOPMENT_TEAM = YS397FG5PA;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -990,6 +959,7 @@
 					"$(PROJECT_DIR)/BeautifyExample/FaceUnity",
 				);
 				INFOPLIST_FILE = BeautifyExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1018,6 +988,7 @@
 					"$(PROJECT_DIR)/BeautifyExample/FaceUnity",
 				);
 				INFOPLIST_FILE = BeautifyExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1031,12 +1002,11 @@
 		};
 		09C6668724D7BC8B001D7AE2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 13B61FCDC551C4F0C0E850DB /* Pods-BeautifyExampleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = BeautifyExampleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1051,12 +1021,11 @@
 		};
 		09C6668824D7BC8B001D7AE2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 36236FA0D16FC95D3991BC76 /* Pods-BeautifyExampleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = BeautifyExampleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
