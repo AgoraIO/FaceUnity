@@ -18,7 +18,7 @@
 #import <Masonry/Masonry.h>
 #import <AGMRenderer/AGMRenderer.h>
 
-@interface ViewController () <AgoraRtcEngineDelegate, AgoraVideoSourceProtocol>
+@interface ViewController () <AgoraRtcEngineDelegate>
 
 @property (nonatomic, strong) CapturerManager *capturerManager;
 @property (nonatomic, strong) FUManager *videoFilter;
@@ -40,7 +40,6 @@
 @end
 
 @implementation ViewController
-@synthesize consumer;
 
 - (void)viewDidLoad {
     [super viewDidLoad];

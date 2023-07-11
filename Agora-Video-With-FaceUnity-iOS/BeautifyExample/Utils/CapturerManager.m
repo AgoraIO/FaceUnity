@@ -103,11 +103,12 @@
     
 }
 
-
 - (AgoraVideoCaptureType)captureType {
     return AgoraVideoCaptureTypeCamera;
 }
 
-
+- (AgoraVideoContentHint)contentHint {
+    return AgoraVideoContentHintNone;
+}
 
 @end
